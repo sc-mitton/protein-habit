@@ -82,6 +82,18 @@ const lightTheme = createTheme({
       lineHeight: 26,
       color: "primaryText",
     },
+    subtitle: {
+      fontFamily: "Inter-SemiBold",
+      fontSize: 16,
+      lineHeight: 24,
+      color: "secondaryText",
+    },
+    caption: {
+      fontFamily: "Inter-Regular",
+      fontSize: 12,
+      lineHeight: 16,
+      color: "secondaryText",
+    },
     subheader: {
       fontFamily: "Inter-SemiBold",
       fontSize: 16,

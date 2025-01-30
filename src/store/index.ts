@@ -1,13 +1,19 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistStore, persistReducer, createMigrate } from "redux-persist";
+import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
+
 import userReducer from "./slices/userSlice";
 import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
+const migrations = {} as any;
+
 const persistConfig = {
   key: "root",
+  version: 0,
   storage: AsyncStorage,
+  migrate: createMigrate(migrations),
   whitelist: ["user", "protein", "ui"],
 };
 
@@ -27,6 +33,9 @@ export const store = configureStore({
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
     }),
+  devTools: false,
+  enhancers: (getDefaultEnhancers) =>
+    getDefaultEnhancers.concat(devToolsEnhancer()),
 });
 
 export const persistor = persistStore(store);

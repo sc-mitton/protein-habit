@@ -12,6 +12,7 @@ import {
 import { useAppSelector } from "@store/hooks";
 import { RootScreenProps } from "@types";
 import { selectFont } from "@store/slices/uiSlice";
+import Calendar from "./Calendar";
 
 const HomeScreen = (props: RootScreenProps<"Home">) => {
   const theme = useTheme();
@@ -104,6 +105,7 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
           </Box>
         </Box>
       </Box>
+      <Calendar />
     </Box>
   );
 };

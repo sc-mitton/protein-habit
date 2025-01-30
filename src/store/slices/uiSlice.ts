@@ -24,3 +24,5 @@ export const { setFont } = uiSlice.actions;
 export default uiSlice.reducer;
 
 export const selectFont = (state: RootState) => state.ui.font;
+export const selectInceptionDate = (state: RootState) =>
+  state.user.inceptionDate;
