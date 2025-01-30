@@ -4,12 +4,11 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@theme/*": [
-        "src/theme/*"
-      ]
+      "@components": ["src/components"],
+      "@store/*": ["src/store/*"],
+      "@theme": ["src/theme/index.ts"],
+      "@types": ["src/types"],
+      "@constants/*": ["src/constants/*"]
     }
   }
 }
