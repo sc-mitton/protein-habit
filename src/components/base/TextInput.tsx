@@ -17,10 +17,9 @@ export const TextInput = forwardRef<RNTextInput, BaseTextInputProps>(
 
     return (
       <InputBox
-        borderWidth={1}
-        borderColor={
-          error ? "error" : isFocused ? "primaryText" : "borderColor"
-        }
+        borderWidth={1.5}
+        backgroundColor="secondaryBackground"
+        borderColor={error ? "error" : isFocused ? "selected" : "borderColor"}
         borderRadius={"m"}
         padding="m"
       >

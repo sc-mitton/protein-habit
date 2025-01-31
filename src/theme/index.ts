@@ -1,40 +1,51 @@
 import { createTheme } from "@shopify/restyle";
+import { StatusBar } from "react-native";
 
 const palette = {
-  gray50: "hsl(30, 4%, 98%)",
-  gray100: "hsl(30, 4%, 96%)",
-  gray200: "hsl(30, 4%, 90%)",
-  gray300: "hsl(30, 4%, 83%)",
-  gray400: "hsl(30, 4%, 74%)",
-  gray500: "hsl(30, 4%, 62%)",
-  gray600: "hsl(30, 4%, 46%)",
-  gray700: "hsl(30, 4%, 38%)",
-  gray800: "hsl(30, 4%, 26%)",
-  gray850: "hsl(30, 4%, 18%)",
-  gray900: "hsl(30, 4%, 13%)",
-  gray1000: "hsl(30, 4%, 5%)",
+  gray50: "hsla(30, 4%, 98%, 1)",
+  gray100: "hsla(30, 4%, 96%, 1)",
+  gray200: "hsla(30, 4%, 90%, 1)",
+  gray300: "hsla(30, 4%, 83%, 1)",
+  gray400: "hsla(30, 4%, 74%, 1)",
+  gray500: "hsla(30, 4%, 62%, 1)",
+  gray600: "hsla(30, 4%, 46%, 1)",
+  gray700: "hsla(30, 4%, 38%, 1)",
+  gray800: "hsla(30, 4%, 26%, 1)",
+  gray850: "hsla(30, 4%, 18%, 1)",
+  gray900: "hsla(30, 4%, 13%, 1)",
 };
 
 // Light theme
 const lightTheme = createTheme({
   colors: {
     mainBackground: palette.gray100,
+    secondaryBackground: palette.gray100
+      .replace(
+        /(\d+)%,\s\d\)/,
+        (match) => `${Math.max(0, parseInt(match) + 4)}%, 1)`,
+      )
+      .toString(),
     cardBackground: palette.gray100,
     secondaryCardBackground: palette.gray200,
     primaryText: palette.gray900,
     secondaryText: palette.gray600,
-    tertiaryText: palette.gray400,
+    tertiaryText: palette.gray300,
+    quaternaryText: palette.gray300,
     borderColor: palette.gray200,
     transparent: "transparent",
-    error: "hsl(0, 84%, 60%)",
-    selected: "hsl(210, 100%, 50%)",
+    error: "hsla(0, 84%, 60%, 1)",
+    selected: "hsla(210, 100%, 50%, 1)",
+    selectedSecondary: "hsla(210, 100%, 50%, .5)",
     unselected: "transparent",
     seperator: palette.gray200,
     overlay: "rgba(0, 0, 0, 0.5)",
+    radioCardSelected: palette.gray700,
+    radioCardUnselected: palette.gray800,
   },
   spacing: {
     ns: -4,
     nxs: -2,
+    none: 0,
     xs: 4,
     s: 8,
     m: 16,
@@ -42,6 +53,9 @@ const lightTheme = createTheme({
     xl: 32,
     xxl: 40,
     xxxl: 48,
+  },
+  boxVariants: {
+    defaults: {},
   },
   borderRadii: {
     none: 0,
@@ -62,12 +76,26 @@ const lightTheme = createTheme({
       padding: "m",
       borderRadius: "m",
     },
+    borderedPrimary: {
+      backgroundColor: "transparent",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "Inter-SemiBold",
+      color: "primaryText",
+      padding: "m",
+      borderRadius: "m",
+      borderWidth: 1,
+      borderColor: "seperator",
+    },
     secondary: {
       backgroundColor: "cardBackground",
       padding: "m",
       borderRadius: "m",
       borderWidth: 1,
+      color: "primaryText",
       borderColor: "borderColor",
+      alignItems: "center",
+      justifyContent: "center",
     },
     defaults: {
       backgroundColor: "cardBackground",
@@ -118,6 +146,9 @@ const lightTheme = createTheme({
       lineHeight: 24,
       color: "primaryText",
     },
+    light: {
+      fontFamily: "Inter-Light",
+    },
     bold: {
       fontFamily: "Inter-Bold",
     },
@@ -145,14 +176,23 @@ export const darkTheme: Theme = {
   colors: {
     ...lightTheme.colors,
     mainBackground: palette.gray900,
-    cardBackground: palette.gray800,
+    secondaryBackground: palette.gray900
+      .replace(
+        /(\d+)%,\s\d\)/,
+        (match) => `${Math.max(0, parseInt(match) - 2)}%, 1)`,
+      )
+      .toString(),
+    cardBackground: palette.gray850,
     secondaryCardBackground: palette.gray700,
     primaryText: palette.gray50,
     secondaryText: palette.gray400,
     tertiaryText: palette.gray600,
-    borderColor: palette.gray700,
+    quaternaryText: palette.gray800,
+    borderColor: palette.gray850,
     seperator: palette.gray850,
     overlay: "rgba(0, 0, 0, 0.9)",
+    radioCardSelected: palette.gray200,
+    radioCardUnselected: palette.gray100,
   },
 };
 

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme, SafeAreaView } from "react-native";
+import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "@shopify/restyle";
 import { Provider } from "react-redux";
@@ -9,6 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCallback } from "react";
 
 import lightTheme, { darkTheme } from "@theme";
@@ -21,8 +22,10 @@ SplashScreen.preventAutoHideAsync();
 function MainApp() {
   const colorScheme = useColorScheme();
   const theme = colorScheme === "dark" ? darkTheme : lightTheme;
+  const insets = useSafeAreaInsets();
 
   const [fontsLoaded] = useFonts({
+    "Inter-Light": require("./assets/fonts/Inter_18pt-Light.ttf"),
     "Inter-Regular": require("./assets/fonts/Inter_18pt-Regular.ttf"),
     "Inter-Medium": require("./assets/fonts/Inter_18pt-Medium.ttf"),
     "Inter-SemiBold": require("./assets/fonts/Inter_18pt-SemiBold.ttf"),
@@ -44,22 +47,19 @@ function MainApp() {
   return (
     <ThemeProvider theme={theme}>
       <Box
+        style={{ paddingTop: insets.top }}
         flex={1}
         onLayout={onLayoutRootView}
         backgroundColor="mainBackground"
       >
-        <SafeAreaView
-          style={{ flex: 1, backgroundColor: theme.colors.mainBackground }}
-        >
-          <NavigationContainer>
-            <RootStack />
-          </NavigationContainer>
-          <StatusBar
-            backgroundColor="transparent"
-            translucent
-            style={colorScheme === "dark" ? "light" : "dark"}
-          />
-        </SafeAreaView>
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+        <StatusBar
+          backgroundColor="transparent"
+          translucent
+          style={colorScheme === "dark" ? "light" : "dark"}
+        />
       </Box>
     </ThemeProvider>
   );

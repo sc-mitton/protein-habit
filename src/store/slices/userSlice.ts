@@ -3,13 +3,21 @@ import { RootState } from "..";
 
 interface UserState {
   name: string;
-  bodyWeight: number;
+  weight: {
+    value: number;
+    unit: "kg" | "lbs";
+  };
+  age?: number;
+  gender?: "male" | "female";
   inceptionDate: string;
 }
 
 export const initialState: UserState = {
   name: "",
-  bodyWeight: 0,
+  weight: {
+    value: 0,
+    unit: "lbs",
+  },
   inceptionDate: new Date().toISOString(),
 };
 
@@ -20,16 +28,20 @@ const userSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
-    setBodyWeight: (state, action: PayloadAction<number>) => {
-      state.bodyWeight = action.payload;
+    setWeight: (state, action: PayloadAction<number>) => {
+      state.weight.value = action.payload;
+    },
+    setWeightUnit: (state, action: PayloadAction<"kg" | "lbs">) => {
+      state.weight.unit = action.payload;
     },
   },
 });
 
-export const { setName, setBodyWeight } = userSlice.actions;
+export const { setName, setWeight, setWeightUnit } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectUserInception = (state: RootState) => {
-  console.log("state.user.inceptionDate: ", state.user.inceptionDate);
   return state.user.inceptionDate;
 };
+
+export const selectUserInfo = (state: RootState) => state.user;

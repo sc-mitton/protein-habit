@@ -7,9 +7,9 @@ const styles = StyleSheet.create({
     fontFamily: "Inter-Bold",
   },
   smallSlotNumbersStyle: {
-    fontSize: 16,
+    fontSize: 18,
+    lineHeight: 18,
     fontFamily: "Inter-Bold",
-    marginBottom: 2,
   },
   inter: {
     fontFamily: "Inter-Bold",
@@ -22,6 +22,23 @@ const styles = StyleSheet.create({
   },
   sfStencil: {
     fontFamily: "SFPro-SemiboldStencil",
+  },
+  buttonsContainer: {
+    position: "absolute",
+    right: 48,
+    top: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttons: {
+    position: "absolute",
+  },
+  bufferNumber: {
+    position: "absolute",
+    right: 32,
+    top: -16,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

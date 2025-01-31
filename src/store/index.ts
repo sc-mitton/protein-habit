@@ -7,11 +7,24 @@ import userReducer from "./slices/userSlice";
 import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
-const migrations = {} as any;
+const migrations = {
+  1: (state: RootState) => {
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        weight: {
+          value: 0,
+          unit: "lbs",
+        },
+      },
+    };
+  },
+} as any;
 
 const persistConfig = {
   key: "root",
-  version: 0,
+  version: 1,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   whitelist: ["user", "protein", "ui"],

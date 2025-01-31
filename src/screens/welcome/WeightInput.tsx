@@ -1,39 +1,35 @@
 import { useState } from "react";
-
 import { Box, Text, TextInput, Button } from "@components";
 import { useAppDispatch } from "@store/hooks";
-import { setName } from "@store/slices/userSlice";
+import { setWeight } from "@store/slices/userSlice";
 import type { RootScreenProps } from "@types";
 
-const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
-  const [inputName, setInputName] = useState("");
+const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
+  const [weight, setWeightValue] = useState("");
   const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
-    if (inputName.trim()) {
-      dispatch(setName(inputName.trim()));
-      navigation.navigate("WeightInput");
+    if (weight) {
+      dispatch(setWeight(Number(weight)));
+      navigation.replace("Home");
     }
-  };
-
-  const handleComplete = () => {
-    navigation.navigate("Home");
   };
 
   return (
     <Box flex={1} backgroundColor="mainBackground" padding="l">
       <Box flex={1} justifyContent="center">
         <Text variant="header" marginBottom="l">
-          Welcome to Protein Tracker
+          What's your weight?
         </Text>
         <Text variant="body" color="secondaryText" marginBottom="xl">
-          Let's personalize your experience. What's your name?
+          This helps us set your daily protein target
         </Text>
         <TextInput
-          value={inputName}
-          onChangeText={setInputName}
+          value={weight}
+          onChangeText={setWeightValue}
           onSubmitEditing={handleSubmit}
-          placeholder="Enter your name"
+          placeholder="Enter your weight in lbs"
+          keyboardType="numeric"
           autoFocus
           returnKeyType="done"
         />
@@ -42,7 +38,7 @@ const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
             variant="primary"
             label="Continue"
             onPress={handleSubmit}
-            disabled={!inputName.trim()}
+            disabled={!weight}
           />
         </Box>
       </Box>
@@ -50,4 +46,4 @@ const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
   );
 };
 
-export default WelcomeScreen;
+export default WeightInput;

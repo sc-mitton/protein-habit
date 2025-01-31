@@ -1,32 +1,18 @@
-import { useState, useEffect } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { StyleSheet, Pressable, useColorScheme } from "react-native";
+import { StyleSheet, Pressable, Dimensions } from "react-native";
 import { Box, Text } from "@components";
 import { useTheme } from "@shopify/restyle";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { BlurView } from "expo-blur";
 
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { setFont } from "@store/slices/uiSlice";
+import { selectFont, setFont } from "@store/slices/uiSlice";
 import { fontOptions } from "@constants/fonts";
 import { RootScreenProps } from "@types";
 
 const Appearance = (props: RootScreenProps<"Appearance">) => {
-  const [firstRender, setFirstRender] = useState(true);
   const theme = useTheme();
-  const selectedFont = useAppSelector((state) => state.ui.font);
+  const selectedFont = useAppSelector(selectFont);
   const dispatch = useAppDispatch();
-  const mode = useColorScheme();
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (firstRender) {
-      timeout = setTimeout(() => {
-        setFirstRender(false);
-      }, 3000);
-    }
-    return () => clearTimeout(timeout);
-  }, [firstRender]);
 
   return (
     <BottomSheet
@@ -40,11 +26,9 @@ const Appearance = (props: RootScreenProps<"Appearance">) => {
       }}
       backdropComponent={() => (
         <Animated.View
-          entering={FadeIn.delay(firstRender ? 300 : 0).duration(
-            firstRender ? 300 : 0,
-          )}
           exiting={FadeOut}
-          style={StyleSheet.absoluteFillObject}
+          entering={FadeIn}
+          style={styles.overlay}
         >
           <Box
             style={StyleSheet.absoluteFillObject}
@@ -107,3 +91,13 @@ const Appearance = (props: RootScreenProps<"Appearance">) => {
 };
 
 export default Appearance;
+
+const styles = StyleSheet.create({
+  overlay: {
+    position: "absolute",
+    top: -Dimensions.get("window").width,
+    left: 0,
+    right: 0,
+    bottom: -Dimensions.get("window").width,
+  },
+});

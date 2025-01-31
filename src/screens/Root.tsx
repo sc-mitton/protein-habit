@@ -5,6 +5,10 @@ import HomeScreen from "./home/HomeScreen";
 import Menu from "./Menu";
 import { RootStackParamList } from "@types";
 import Appearance from "./appearance/Appearance";
+import WeightInput from "./welcome/WeightInput";
+import PersonalInfo from "./personal-info/PersonalInfo";
+import ProteinEntry from "./protein-entry/ProteinEntry";
+import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -17,6 +21,11 @@ const RootStack = () => {
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="WeightInput"
+          component={WeightInput}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -36,6 +45,30 @@ const RootStack = () => {
           }}
           name="Appearance"
           component={Appearance}
+        />
+        <Stack.Screen
+          options={{
+            presentation: "transparentModal",
+            headerShown: false,
+          }}
+          name="EditDailyGoal"
+          component={EditDailyGoal}
+        />
+        <Stack.Screen
+          options={{
+            presentation: "modal",
+            headerShown: false,
+          }}
+          name="PersonalInfo"
+          component={PersonalInfo}
+        />
+        <Stack.Screen
+          name="ProteinEntry"
+          component={ProteinEntry}
+          options={{
+            presentation: "modal",
+            headerShown: false,
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>

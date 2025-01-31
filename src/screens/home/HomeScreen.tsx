@@ -1,28 +1,81 @@
+import { useEffect, useState, useRef } from "react";
 import SlotNumbers from "react-native-slot-numbers";
+import { Edit, Plus } from "geist-native-icons";
+import { Animated } from "react-native";
+import { View } from "react-native";
 import { useTheme } from "@shopify/restyle";
-import { PieChart, Target } from "geist-native-icons";
 import dayjs from "dayjs";
 
 import styles from "./styles/home-screen";
-import { Box, Text, Icon } from "@components";
+import { Box, Text, Button, Icon } from "@components";
 import {
-  selectDailyTarget,
   selectTotalProteinForDay,
+  addProteinEntry,
 } from "@store/slices/proteinSlice";
-import { useAppSelector } from "@store/hooks";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { RootScreenProps } from "@types";
 import { selectFont } from "@store/slices/uiSlice";
 import Calendar from "./Calendar";
+import Stats from "./Stats";
+
+const BUFFER_ADD_TIME = 3000;
 
 const HomeScreen = (props: RootScreenProps<"Home">) => {
   const theme = useTheme();
 
+  const dispatch = useAppDispatch();
   const font = useAppSelector(selectFont);
   const { name } = useAppSelector((state) => state.user);
-  const dailyTarget = useAppSelector(selectDailyTarget);
   const totalProteinForDay = useAppSelector((state) =>
-    selectTotalProteinForDay(state, dayjs().toISOString()),
+    selectTotalProteinForDay(state, dayjs().format("MM-DD-YYYY")),
   );
+  const [bufferAddVal, setBufferAddVal] = useState(0);
+  const [bufferAddTimer, setBufferAddTimer] = useState<NodeJS.Timeout | null>(
+    null,
+  );
+  const opacity = useRef(new Animated.Value(0)).current;
+
+  // Every time the bufferAddVal changes before the timer expires, it resets the timer
+  // If the timer expires, it adds the bufferAddVal to the totalProteinForDay
+
+  useEffect(() => {
+    if (bufferAddVal > 0) {
+      if (bufferAddTimer) {
+        clearTimeout(bufferAddTimer);
+      }
+      setBufferAddTimer(
+        setTimeout(() => {
+          dispatch(addProteinEntry(bufferAddVal));
+        }, BUFFER_ADD_TIME),
+      );
+    }
+  }, [bufferAddVal]);
+
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    const t = setTimeout(() => {
+      setBufferAddVal(0);
+    }, 1000);
+    return () => clearTimeout(t);
+  }, [totalProteinForDay]);
+
+  useEffect(() => {
+    if (bufferAddVal > 0) {
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [bufferAddVal]);
+
+  useEffect(() => {
+    console.log("totalProteinForDay: ", totalProteinForDay);
+  }, [totalProteinForDay]);
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -35,76 +88,75 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
         marginTop="l"
         marginBottom="s"
         flexDirection="row"
-        alignItems={"baseline"}
-        gap="s"
+        alignItems="center"
+        justifyContent="space-between"
+        flex={1}
       >
-        <SlotNumbers
-          spring
-          value={totalProteinForDay}
-          fontStyle={[
-            styles.bigSlotNumbersStyle,
-            { color: theme.colors.primaryText },
-            styles[font],
-          ]}
-        />
-        <Text
-          variant="bold"
-          marginTop="xs"
-          marginLeft="ns"
-          fontSize={20}
-          style={styles[font]}
-        >
-          grams
-        </Text>
-      </Box>
-      <Box
-        paddingHorizontal="l"
-        paddingVertical={"s"}
-        flexDirection="row"
-        gap="l"
-      >
-        <Box justifyContent="flex-end" paddingBottom="s" gap="xs">
-          <Box
-            flexDirection={"row"}
-            gap="xs"
-            paddingBottom="s"
-            alignItems={"center"}
-            borderColor="seperator"
-            borderBottomWidth={1.5}
+        <Box flexDirection="row" alignItems={"baseline"} gap="s">
+          <Animated.View style={[styles.bufferNumber, { opacity }]}>
+            <View>
+              <SlotNumbers
+                spring
+                animateIntermediateValues
+                prefix={"+"}
+                value={bufferAddVal}
+                fontStyle={[
+                  styles.smallSlotNumbersStyle,
+                  { color: theme.colors.primaryText },
+                ]}
+              />
+            </View>
+          </Animated.View>
+          <SlotNumbers
+            spring
+            animateIntermediateValues
+            value={totalProteinForDay}
+            fontStyle={[
+              styles.bigSlotNumbersStyle,
+              { color: theme.colors.primaryText },
+              styles[font],
+            ]}
+          />
+          <Text
+            variant="bold"
+            marginTop="xs"
+            marginLeft="ns"
+            fontSize={20}
+            style={styles[font]}
           >
-            <Icon icon={Target} />
-            <Text color="secondaryText">Daily Target</Text>
-          </Box>
-          <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold">{dailyTarget}</Text>
-            <Text variant="bold">g</Text>
-          </Box>
+            grams
+          </Text>
         </Box>
-        <Box justifyContent="flex-end" paddingBottom="s" gap="xs">
-          <Box
-            flexDirection={"row"}
-            gap="xs"
-            paddingBottom="s"
-            alignItems={"center"}
+        <Box flexDirection="row" gap="m" paddingRight="m">
+          <Button
+            borderRadius="full"
+            backgroundColor="transparent"
             borderColor="seperator"
-            borderBottomWidth={1.5}
-          >
-            <Icon icon={PieChart} />
-            <Text color="secondaryText">Left</Text>
-          </Box>
-          <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <SlotNumbers
-              spring
-              value={totalProteinForDay}
-              fontStyle={[
-                styles.smallSlotNumbersStyle,
-                { color: theme.colors.primaryText },
-              ]}
-            />
-            <Text variant="bold">g</Text>
-          </Box>
+            borderWidth={1}
+            padding="m"
+            onPress={() => {
+              props.navigation.navigate("ProteinEntry");
+            }}
+            icon={
+              <Icon icon={Edit} size={20} color="primaryText" strokeWidth={2} />
+            }
+          />
+          <Button
+            borderRadius="full"
+            backgroundColor="transparent"
+            borderColor="seperator"
+            borderWidth={1}
+            padding="m"
+            onPress={() => {
+              setBufferAddVal(bufferAddVal + 1);
+            }}
+            icon={
+              <Icon icon={Plus} size={20} color="primaryText" strokeWidth={2} />
+            }
+          />
         </Box>
       </Box>
+      <Stats />
       <Calendar />
     </Box>
   );
