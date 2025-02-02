@@ -6,8 +6,10 @@ export type RootStackParamList = {
   Home: undefined;
   Appearance: undefined;
   PersonalInfo: undefined;
-  ProteinEntry: undefined;
+  Entry: undefined;
   EditDailyGoal: undefined;
+  MyFoods: undefined;
+  AddFood: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

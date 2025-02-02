@@ -24,7 +24,6 @@ function Menu() {
             ios={{
               name: "person.circle",
               pointSize: 16,
-              weight: "semibold",
               scale: "medium",
             }}
           />
@@ -38,7 +37,6 @@ function Menu() {
             ios={{
               name: "paintbrush",
               pointSize: 16,
-              weight: "semibold",
               scale: "medium",
             }}
           />
@@ -53,7 +51,6 @@ function Menu() {
               ios={{
                 name: "target",
                 pointSize: 16,
-                weight: "semibold",
                 scale: "medium",
               }}
             />

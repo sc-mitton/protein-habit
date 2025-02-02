@@ -3,7 +3,7 @@ import {
   View,
   StyleProp,
   ViewStyle,
-  PressableProps,
+  TouchableOpacityProps,
 } from "react-native";
 import {
   useRestyle,
@@ -48,7 +48,7 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
 ]);
 
 export type ButtonProps = RestyleProps &
-  Omit<PressableProps, "children"> & {
+  Omit<TouchableOpacityProps, "children"> & {
     onPress?: () => void;
     label?: string;
     children?:
@@ -83,7 +83,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      activeOpacity={0.6}
+      activeOpacity={rest.activeOpacity || 0.6}
       style={style}
       onLayout={onLayout}
       disabled={props.disabled ? true : false}

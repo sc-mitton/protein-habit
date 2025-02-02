@@ -2,21 +2,21 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer, createMigrate } from "redux-persist";
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
+import { initialState as proteinInitialState } from "./slices/proteinSlice";
 
+import foodsReducer from "./slices/foodsSlice";
 import userReducer from "./slices/userSlice";
 import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
 const migrations = {
-  1: (state: RootState) => {
+  15: (state: RootState) => {
     return {
       ...state,
-      user: {
-        ...state.user,
-        weight: {
-          value: 0,
-          unit: "lbs",
-        },
+      protein: {
+        ...state.protein,
+        dailyTargets: proteinInitialState.dailyTargets,
+        entries: proteinInitialState.entries,
       },
     };
   },
@@ -24,16 +24,17 @@ const migrations = {
 
 const persistConfig = {
   key: "root",
-  version: 1,
+  version: 15,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
-  whitelist: ["user", "protein", "ui"],
+  blacklist: [],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
   protein: proteinReducer,
   ui: uiReducer,
+  foods: foodsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

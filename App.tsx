@@ -10,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { EventProvider } from "react-native-outside-press";
 import { useCallback } from "react";
 
 import lightTheme, { darkTheme } from "@theme";
@@ -67,16 +68,18 @@ function MainApp() {
 
 export default function App() {
   return (
-    <BottomSheetModalProvider>
-      <SafeAreaProvider>
-        <GestureHandlerRootView>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <MainApp />
-            </PersistGate>
-          </Provider>
-        </GestureHandlerRootView>
-      </SafeAreaProvider>
-    </BottomSheetModalProvider>
+    <EventProvider>
+      <BottomSheetModalProvider>
+        <SafeAreaProvider>
+          <GestureHandlerRootView>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
+                <MainApp />
+              </PersistGate>
+            </Provider>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </BottomSheetModalProvider>
+    </EventProvider>
   );
 }

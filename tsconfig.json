@@ -8,7 +8,9 @@
       "@store/*": ["src/store/*"],
       "@theme": ["src/theme/index.ts"],
       "@types": ["src/types"],
-      "@constants/*": ["src/constants/*"]
+      "@constants/*": ["src/constants/*"],
+      "@styles/*": ["src/styles/*"],
+      "@lotties/*": ["src/lotties/*"]
     }
   }
 }

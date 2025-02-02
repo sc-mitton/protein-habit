@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 import { ViewProps, View } from "react-native";
+import { useTheme } from "@shopify/restyle";
+
 import {
   useRestyle,
   createVariant,
@@ -18,6 +20,8 @@ import {
   BackgroundColorProps,
   composeRestyleFunctions,
 } from "@shopify/restyle";
+import { useAppSelector } from "@store/hooks";
+import { selectAccent } from "@store/slices/uiSlice";
 
 import { Theme } from "@theme";
 
@@ -41,14 +45,22 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   opacity,
 ]);
 
-export type BoxProps = RestyleProps & ViewProps;
+export type BoxProps = RestyleProps & ViewProps & { accent?: boolean };
 
-export const Box = forwardRef<View, BoxProps>(({ children, ...rest }, ref) => {
-  const props = useRestyle(restyleFunctions, rest);
+export const Box = forwardRef<View, BoxProps>(
+  ({ children, accent = false, ...rest }, ref) => {
+    const accentColor = useAppSelector(selectAccent);
+    const updatedProps = {
+      ...rest,
+      backgroundColor:
+        accent && accentColor ? accentColor : rest.backgroundColor,
+    } as any;
+    const props = useRestyle(restyleFunctions, updatedProps);
 
-  return (
-    <View ref={ref} {...props}>
-      {children}
-    </View>
-  );
-});
+    return (
+      <View ref={ref} {...props}>
+        {children}
+      </View>
+    );
+  },
+);

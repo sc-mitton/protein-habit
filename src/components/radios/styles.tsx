@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   selectedRadioCircleOuter: {
-    borderWidth: 1.5,
+    borderWidth: 2,
     borderRadius: 100,
   },
   radioCircleOuter: {

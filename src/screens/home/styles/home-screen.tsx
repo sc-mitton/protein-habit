@@ -11,18 +11,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontFamily: "Inter-Bold",
   },
-  inter: {
-    fontFamily: "Inter-Bold",
-  },
-  nyHeavy: {
-    fontFamily: "NewYork-Heavy",
-  },
-  sfRails: {
-    fontFamily: "SFPro-SemiboldRails",
-  },
-  sfStencil: {
-    fontFamily: "SFPro-SemiboldStencil",
-  },
   buttonsContainer: {
     position: "absolute",
     right: 48,
@@ -35,8 +23,8 @@ const styles = StyleSheet.create({
   },
   bufferNumber: {
     position: "absolute",
-    right: 32,
-    top: -16,
+    right: -2,
+    top: -20,
     justifyContent: "center",
     alignItems: "center",
   },
