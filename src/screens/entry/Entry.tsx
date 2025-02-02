@@ -42,6 +42,9 @@ const KeypadButton = ({
         flex={1}
         justifyContent="center"
         alignItems="center"
+        width="100%"
+        height="100%"
+        paddingTop="s"
       >
         <Text textAlign="center" fontSize={32} lineHeight={32}>
           {value === "del" ? (
@@ -64,7 +67,7 @@ const KeyPad = memo(
     disabled: boolean;
   }) => {
     return (
-      <Box width="100%" gap="s" padding="l" justifyContent="center" flex={1.25}>
+      <Box width="100%" gap="s" padding="l" justifyContent="center" flex={2}>
         {[
           [1, 2, 3],
           [4, 5, 6],
@@ -164,12 +167,11 @@ const Entry = (props: RootScreenProps<"Entry">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <Box
-        padding="l"
+        paddingTop="xl"
         borderRadius="m"
         width="100%"
-        marginBottom="xl"
         alignItems="center"
-        justifyContent="space-evenly"
+        justifyContent="center"
         flex={1}
         backgroundColor="secondaryBackground"
         borderBottomColor="borderColor"
@@ -178,7 +180,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
         <Box gap="s" width="100%">
           <Animated.View layout={LinearTransition}>
             <Text variant="header" textAlign="center" color="secondaryText">
-              Add Protein
+              Add Protein&nbsp;&nbsp;
             </Text>
           </Animated.View>
           {/* {showSuccess ? ( */}
@@ -221,7 +223,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
           flexDirection="row"
           alignItems="center"
           gap="s"
-          marginTop="nl"
+          marginTop="ns"
           width="100%"
           justifyContent="center"
         >
@@ -235,7 +237,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
             onChangeText={setName}
           />
           {!nameFocused && (
-            <Box marginLeft="nm">
+            <Box marginLeft="nl">
               <Icon
                 icon={Edit3}
                 size={18}
@@ -276,6 +278,8 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
   },
   mask: {
     width: "100%",

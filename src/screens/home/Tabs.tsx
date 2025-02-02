@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, Platform } from "react-native";
 import { View } from "react-native";
 import Animated, {
   useSharedValue,
@@ -107,12 +107,14 @@ const Tabs = () => {
       </Box>
       <Box
         justifyContent="center"
+        borderTopWidth={Platform.OS === "android" ? 2 : 0}
+        borderTopColor="seperator"
         shadowColor="seperator"
         backgroundColor="mainBackground"
         shadowOffset={{ width: 0, height: -2 }}
         shadowOpacity={1}
         shadowRadius={1}
-        elevation={1}
+        elevation={12}
         flex={1}
       >
         <PagerView

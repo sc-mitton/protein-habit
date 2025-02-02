@@ -1,44 +1,138 @@
+import { useState } from "react";
 import { useColorScheme } from "react-native";
+import { View, Platform } from "react-native";
+import { Menu as PaperMenu } from "react-native-paper";
+import { useTheme } from "@shopify/restyle";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
-import * as ContextMenu from "zeego/context-menu";
+import * as ZMenu from "zeego/context-menu";
 import { Button, Icon, Text, Box } from "@components";
 import { removeFood, type Food } from "@store/slices/foodsSlice";
 import { Plus } from "geist-native-icons";
 import { useAppDispatch } from "@store/hooks";
 
-const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
+const Menu = ({
+  food,
+  children,
+}: {
+  food: Food;
+  children: React.ReactNode;
+}) => {
   const dispatch = useAppDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const theme = useTheme();
+
+  return (
+    <View>
+      {Platform.OS === "ios" ? (
+        <View>
+          <ZMenu.Root>
+            <ZMenu.Trigger>{children}</ZMenu.Trigger>
+            <ZMenu.Content>
+              <ZMenu.Item
+                onSelect={() => dispatch(removeFood)}
+                key={food.id}
+                destructive={true}
+              >
+                <ZMenu.ItemTitle>Delete</ZMenu.ItemTitle>
+                <ZMenu.ItemIcon
+                  ios={{
+                    name: "trash",
+                    pointSize: 16,
+                    weight: "semibold",
+                    scale: "medium",
+                  }}
+                />
+              </ZMenu.Item>
+            </ZMenu.Content>
+          </ZMenu.Root>
+        </View>
+      ) : (
+        <PaperMenu
+          anchor={
+            <Button onPress={() => setIsOpen(!isOpen)}>{children}</Button>
+          }
+          visible={isOpen}
+          onDismiss={() => setIsOpen(false)}
+          anchorPosition="top"
+          contentStyle={{
+            borderRadius: 12,
+            transform: [{ translateY: -48 }, { translateX: 4 }],
+            backgroundColor: theme.colors.cardBackground,
+          }}
+        >
+          <PaperMenu.Item
+            title="Delete"
+            leadingIcon={() => (
+              <FontAwesome6
+                name="trash-alt"
+                size={24}
+                color={theme.colors.error}
+              />
+            )}
+            onPress={() => {
+              dispatch(removeFood(food.id));
+            }}
+          />
+        </PaperMenu>
+      )}
+    </View>
+  );
+};
+
+const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
   const scheme = useColorScheme();
 
   return (
-    <ContextMenu.Root key={food.id}>
-      <ContextMenu.Trigger>
+    <Menu food={food}>
+      <Box
+        backgroundColor="transparent"
+        shadowColor="defaultShadow"
+        shadowOpacity={0.2}
+        shadowOffset={{ width: 0, height: 2 }}
+        shadowRadius={2}
+        elevation={5}
+      >
         <Box
-          backgroundColor="transparent"
-          shadowColor="tipShadow"
-          shadowOpacity={0.2}
+          key={food.id}
+          backgroundColor={
+            scheme === "dark" ? "primaryButton" : "mainBackground"
+          }
+          padding={Platform.OS === "ios" ? "s" : "sm"}
+          paddingRight="s"
+          borderRadius="l"
+          shadowColor="defaultShadow"
           shadowOffset={{ width: 0, height: 2 }}
-          shadowRadius={2}
+          shadowOpacity={0.2}
+          shadowRadius={8}
           elevation={5}
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between"
         >
+          <Box flexDirection="row" alignItems="center" gap="s" marginRight="m">
+            <Text fontSize={20} lineHeight={28}>
+              {food.emoji}
+            </Text>
+            <Box>
+              <Text
+                variant="body"
+                fontSize={Platform.OS === "ios" ? 14 : 15}
+                lineHeight={16}
+              >
+                {food.name}
+              </Text>
+              <Text
+                variant="body"
+                color="secondaryText"
+                fontSize={Platform.OS === "ios" ? 13 : 14}
+              >
+                {food.protein}g
+              </Text>
+            </Box>
+          </Box>
           <Button
-            key={food.id}
             onPress={onPress}
-            backgroundColor={
-              scheme === "dark" ? "primaryButton" : "mainBackground"
-            }
-            padding="s"
-            paddingRight="s"
-            borderRadius="l"
-            shadowColor="tipShadow"
-            shadowOffset={{ width: 0, height: 2 }}
-            shadowOpacity={0.2}
-            shadowRadius={8}
-            elevation={5}
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between"
-            labelPlacement="left"
             icon={
               <Icon
                 icon={Plus}
@@ -47,44 +141,10 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
                 color="tertiaryText"
               />
             }
-          >
-            <Box
-              flexDirection="row"
-              alignItems="center"
-              gap="s"
-              marginRight="m"
-            >
-              <Text>{food.emoji}</Text>
-              <Box>
-                <Text variant="body" fontSize={14} lineHeight={16}>
-                  {food.name}
-                </Text>
-                <Text variant="body" color="secondaryText" fontSize={13}>
-                  {food.protein}g
-                </Text>
-              </Box>
-            </Box>
-          </Button>
-        </Box>
-      </ContextMenu.Trigger>
-      <ContextMenu.Content>
-        <ContextMenu.Item
-          onSelect={() => dispatch(removeFood)}
-          key={food.id}
-          destructive={true}
-        >
-          <ContextMenu.ItemTitle>Delete</ContextMenu.ItemTitle>
-          <ContextMenu.ItemIcon
-            ios={{
-              name: "trash",
-              pointSize: 16,
-              weight: "semibold",
-              scale: "medium",
-            }}
           />
-        </ContextMenu.Item>
-      </ContextMenu.Content>
-    </ContextMenu.Root>
+        </Box>
+      </Box>
+    </Menu>
   );
 };
 

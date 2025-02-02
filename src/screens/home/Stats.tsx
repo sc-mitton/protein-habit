@@ -8,7 +8,7 @@ import {
   selectTotalProteinForDay,
   selectWeeklyAvg,
   selectStreak,
-} from "@store/slices/proteinSlice";
+} from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
 
 const Stats = () => {
@@ -31,7 +31,7 @@ const Stats = () => {
         <Box gap="s" flex={1}>
           <Box
             flexDirection={"row"}
-            gap="xs"
+            gap="s"
             paddingBottom="s"
             alignItems={"center"}
             borderColor="seperator"
@@ -50,7 +50,7 @@ const Stats = () => {
         <Box gap="s" flex={1}>
           <Box
             flexDirection={"row"}
-            gap="xs"
+            gap="s"
             paddingBottom="s"
             alignItems={"center"}
             borderColor="seperator"
@@ -73,7 +73,7 @@ const Stats = () => {
         <Box paddingBottom="s" gap="s" flex={1}>
           <Box
             flexDirection={"row"}
-            gap="xs"
+            gap="s"
             paddingBottom="s"
             alignItems={"center"}
             borderColor="seperator"
@@ -97,7 +97,7 @@ const Stats = () => {
         <Box paddingBottom="s" gap="s" flex={1}>
           <Box
             flexDirection={"row"}
-            gap="xs"
+            gap="s"
             paddingBottom="s"
             alignItems={"center"}
             borderColor="seperator"
@@ -109,17 +109,12 @@ const Stats = () => {
               accent={true}
               color="secondaryText"
             />
-            <Text
-              color="secondaryText"
-              fontSize={14}
-              marginLeft="xs"
-              accent={true}
-            >
+            <Text color="secondaryText" fontSize={14} accent={true}>
               Streak
             </Text>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold">{streak}</Text>
+            <Text variant="bold">{streak} days</Text>
           </Box>
         </Box>
       </Box>

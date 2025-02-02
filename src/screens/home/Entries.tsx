@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { selectTodaysEntries } from "@store/slices/proteinSlice";
+import { selectTodaysEntries } from "@store/slices/proteinSelectors";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { Trash2, ZeroConfig } from "geist-native-icons";
 import dayjs from "dayjs";
@@ -38,7 +38,9 @@ const Entries = () => {
                 borderTopColor={entryIndex === 0 ? "transparent" : "seperator"}
                 borderTopWidth={1.5}
               >
-                <Text>{entry.grams}g</Text>
+                <Box minWidth={24}>
+                  <Text>{entry.grams}g</Text>
+                </Box>
                 <Box
                   flex={1}
                   flexDirection="row"

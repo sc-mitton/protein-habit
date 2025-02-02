@@ -2,8 +2,8 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { StyleSheet, Pressable, Dimensions } from "react-native";
 import { Box, Text } from "@components";
 import { useTheme } from "@shopify/restyle";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
+import { BackDrop } from "@components";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import {
   selectFont,
@@ -31,22 +31,7 @@ const Appearance = (props: RootScreenProps<"Appearance">) => {
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}
-      backdropComponent={() => (
-        <Animated.View
-          exiting={FadeOut}
-          entering={FadeIn}
-          style={styles.overlay}
-        >
-          <Box
-            style={StyleSheet.absoluteFillObject}
-            opacity={0.5}
-            backgroundColor="overlay"
-            shadowOffset={{ width: 0, height: 4 }}
-            shadowRadius={12}
-            shadowOpacity={0.5}
-          />
-        </Animated.View>
-      )}
+      backdropComponent={() => <BackDrop blurIntensity={0} />}
     >
       <BottomSheetView>
         <Box

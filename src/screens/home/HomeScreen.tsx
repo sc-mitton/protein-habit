@@ -4,13 +4,12 @@ import ReAnimated, { LinearTransition } from "react-native-reanimated";
 import { useColorScheme } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
-import { View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import styles from "./styles/home-screen";
 import fontStyles from "@styles/fonts";
 import { Box, Text, Button, Icon } from "@components";
-import { selectTotalProteinForDay } from "@store/slices/proteinSlice";
+import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
 import { RootScreenProps } from "@types";
 import { dayFormat } from "@constants/formats";
@@ -23,20 +22,15 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
 
   const colorScheme = useColorScheme();
   const font = useAppSelector(selectFont);
-  const { name } = useAppSelector((state) => state.user);
   const totalProteinForDay = useAppSelector((state) =>
     selectTotalProteinForDay(state, dayjs().format(dayFormat)),
   );
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
-      <Box paddingHorizontal="m">
-        <Text variant="header">Welcome, {name}</Text>
-        <Text variant="subheader">{dayjs().format("MMM D, YYYY")}</Text>
-      </Box>
       <Box
         padding="m"
-        marginTop="l"
+        marginTop="s"
         flexDirection="row"
         alignItems="center"
         gap="xl"

@@ -1,20 +1,32 @@
-import { Dimensions, StyleSheet, useColorScheme } from "react-native";
+import { Dimensions, StyleSheet, useColorScheme, Platform } from "react-native";
 import { Box } from "./base";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
 
 export const BackDrop = ({ blurIntensity = 20 }) => {
   const scheme = useColorScheme();
-  return (
+  return Platform.OS === "ios" ? (
     <Animated.View exiting={FadeOut} entering={FadeIn} style={styles.overlay}>
       <BlurView
         style={[StyleSheet.absoluteFillObject, { zIndex: 0 }]}
         intensity={blurIntensity}
+        experimentalBlurMethod={"dimezisBlurView"}
         tint={scheme === "dark" ? "dark" : "light"}
       />
       <Box
         style={[StyleSheet.absoluteFillObject, { zIndex: 1 }]}
         opacity={0.5}
+        backgroundColor="overlay"
+        shadowOffset={{ width: 0, height: 4 }}
+        shadowRadius={12}
+        shadowOpacity={0.5}
+      />
+    </Animated.View>
+  ) : (
+    <Animated.View exiting={FadeOut} entering={FadeIn} style={styles.overlay}>
+      <Box
+        style={StyleSheet.absoluteFillObject}
+        opacity={0.9}
         backgroundColor="overlay"
         shadowOffset={{ width: 0, height: 4 }}
         shadowRadius={12}

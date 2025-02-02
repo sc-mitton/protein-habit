@@ -1,6 +1,6 @@
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Emoji } from '../types';
-import { charFromEmojiObject } from '../helpers';
+import { Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import { Emoji } from "../types";
+import { charFromEmojiObject } from "../helpers";
 
 interface IEmojiCellProps {
   emoji: Emoji;
@@ -10,7 +10,7 @@ interface IEmojiCellProps {
 export default function EmojiCell({ emoji, onPress }: IEmojiCellProps) {
   return (
     <TouchableOpacity
-      style={{ ...styles.wrapper, width: 32, height: 38 }}
+      style={{ ...styles.wrapper }}
       onPress={() => onPress(charFromEmojiObject(emoji))}
     >
       <Text style={{ fontSize: 32 }}>{charFromEmojiObject(emoji)}</Text>
@@ -22,7 +22,9 @@ const styles = StyleSheet.create({
   wrapper: {
     borderRadius: 10,
     margin: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: Platform.OS === "ios" ? 34 : 44,
+    height: Platform.OS === "ios" ? 34 : 44,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

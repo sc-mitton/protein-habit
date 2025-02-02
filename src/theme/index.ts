@@ -15,6 +15,7 @@ const palette = {
   gray850: "hsla(30, 4%, 18%, 1)",
   gray900: "hsla(30, 4%, 13%, 1)",
   gray1000: "hsla(30, 4%, 5%, 1)",
+  gray1100: "hsla(30, 4%, 0%, 1)",
 };
 
 // Light theme
@@ -47,8 +48,9 @@ const lightTheme = createTheme({
     overlay: "rgba(0, 0, 0, 0.5)",
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
-    tipShadow: palette.gray500,
+    defaultShadow: palette.gray500,
     primaryButton: palette.gray250,
+    modalAndroidStatusBackground: "#858585",
     white: "white",
 
     // Accent colors
@@ -234,8 +236,9 @@ export const darkTheme: Theme = {
     overlay: "rgba(0, 0, 0, 0.9)",
     radioCardSelected: palette.gray200,
     radioCardUnselected: palette.gray100,
-    tipShadow: palette.gray1000,
+    defaultShadow: palette.gray1000,
     primaryButton: palette.gray850,
+    modalAndroidStatusBackground: palette.gray1100,
   },
 };
 

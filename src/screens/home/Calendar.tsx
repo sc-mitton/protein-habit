@@ -5,13 +5,14 @@ import {
   StyleSheet,
   Dimensions,
   TouchableHighlight,
+  Platform,
 } from "react-native";
 import Animated, {
   SlideInDown,
   FadeOut,
   Easing,
 } from "react-native-reanimated";
-import SlotNumbers from "react-native-slot-numbers";
+import SlotNumbers from "./src";
 import { useTheme } from "@shopify/restyle";
 import { Check, X } from "geist-native-icons";
 import OutsidePressHandler from "react-native-outside-press";
@@ -22,7 +23,7 @@ import { useAppSelector } from "@store/hooks";
 import {
   selectAggregates,
   selectDailyTargetResults,
-} from "@store/slices/proteinSlice";
+} from "@store/slices/proteinSelectors";
 import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
 
@@ -117,20 +118,16 @@ const Calendar = () => {
       backgroundColor="secondaryBackground"
       flex={4}
     >
-      <Box
-        style={styles.innerBox}
-        paddingVertical="l"
-        shadowColor="primaryText"
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowOpacity={0.05}
-        shadowRadius={3.84}
-        elevation={5}
-        backgroundColor="secondaryBackground"
-      >
-        <OutsidePressHandler
-          onOutsidePress={() => {
-            setFocusedCell(undefined);
-          }}
+      <OutsidePressHandler onOutsidePress={() => setFocusedCell(undefined)}>
+        <Box
+          style={styles.innerBox}
+          paddingVertical="l"
+          shadowColor="primaryText"
+          shadowOffset={{ width: 0, height: 2 }}
+          shadowOpacity={0.05}
+          shadowRadius={3.84}
+          elevation={5}
+          backgroundColor="secondaryBackground"
         >
           <View style={styles.calendarContainer}>
             <FlatList
@@ -152,6 +149,7 @@ const Calendar = () => {
               ref={calendarRef}
               showsHorizontalScrollIndicator={false}
               onScrollToIndexFailed={() => {}}
+              scrollEventThrottle={16}
               snapToOffsets={calendarData.map((_, index) => {
                 return index * CALENDAR_WIDTH;
               })}
@@ -267,7 +265,7 @@ const Calendar = () => {
                                         <Box
                                           backgroundColor="cardBackground"
                                           borderRadius="m"
-                                          shadowColor="tipShadow"
+                                          shadowColor="defaultShadow"
                                           shadowOffset={{ width: 0, height: 2 }}
                                           shadowOpacity={1}
                                           shadowRadius={12}
@@ -379,8 +377,8 @@ const Calendar = () => {
               </View>
             </View>
           </View>
-        </OutsidePressHandler>
-      </Box>
+        </Box>
+      </OutsidePressHandler>
     </Box>
   );
 };
@@ -391,11 +389,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   calendarContainer: {
-    position: "absolute",
     alignItems: "flex-start",
-    top: -8,
-    left: 0,
-    right: 0,
   },
   slotNumbers: {
     fontSize: 14,
@@ -448,7 +442,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
-    padding: 3,
+    padding: Platform.OS === "ios" ? 3 : 4,
   },
   aboveTipContainer: {
     position: "absolute",

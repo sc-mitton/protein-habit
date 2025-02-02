@@ -1,17 +1,20 @@
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ThemeProvider } from "@shopify/restyle";
+import { ThemeProvider, useTheme } from "@shopify/restyle";
 import { Provider } from "react-redux";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PersistGate } from "redux-persist/integration/react";
 import { NavigationContainer } from "@react-navigation/native";
+import { PaperProvider, MD3LightTheme } from "react-native-paper";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { EventProvider } from "react-native-outside-press";
 import { useCallback } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import * as NavigationBar from "expo-navigation-bar";
 
 import lightTheme, { darkTheme } from "@theme";
 import { Box } from "@components";
@@ -22,7 +25,6 @@ SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
   const colorScheme = useColorScheme();
-  const theme = colorScheme === "dark" ? darkTheme : lightTheme;
   const insets = useSafeAreaInsets();
 
   const [fontsLoaded] = useFonts({
@@ -41,45 +43,62 @@ function MainApp() {
     }
   }, [fontsLoaded]);
 
+  // Set the navigation bar color and button style based on the theme
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+    setTimeout(() => {
+      NavigationBar.setPositionAsync("absolute");
+      NavigationBar.setBackgroundColorAsync("#ffffff01");
+      NavigationBar.setButtonStyleAsync(
+        colorScheme === "dark" ? "light" : "dark",
+      );
+    }, 1000);
+  }, [colorScheme]);
+
   if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        style={{ paddingTop: insets.top }}
-        flex={1}
-        onLayout={onLayoutRootView}
-        backgroundColor="mainBackground"
-      >
-        <NavigationContainer>
-          <RootStack />
-        </NavigationContainer>
-        <StatusBar
-          backgroundColor="transparent"
-          translucent
-          style={colorScheme === "dark" ? "light" : "dark"}
-        />
-      </Box>
-    </ThemeProvider>
+    <Box
+      style={{ paddingTop: insets.top }}
+      flex={1}
+      onLayout={onLayoutRootView}
+      backgroundColor="mainBackground"
+    >
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        style={colorScheme === "dark" ? "light" : "dark"}
+      />
+    </Box>
   );
 }
 
 export default function App() {
+  const colorScheme = useColorScheme();
+  const restyledTheme = colorScheme === "dark" ? darkTheme : lightTheme;
+
   return (
-    <EventProvider>
-      <BottomSheetModalProvider>
-        <SafeAreaProvider>
-          <GestureHandlerRootView>
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <MainApp />
-              </PersistGate>
-            </Provider>
-          </GestureHandlerRootView>
-        </SafeAreaProvider>
-      </BottomSheetModalProvider>
-    </EventProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={restyledTheme}>
+        <PaperProvider>
+          <EventProvider>
+            <BottomSheetModalProvider>
+              <SafeAreaProvider>
+                <GestureHandlerRootView>
+                  <PersistGate loading={null} persistor={persistor}>
+                    <MainApp />
+                  </PersistGate>
+                </GestureHandlerRootView>
+              </SafeAreaProvider>
+            </BottomSheetModalProvider>
+          </EventProvider>
+        </PaperProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }

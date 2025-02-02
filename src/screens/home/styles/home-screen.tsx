@@ -1,9 +1,10 @@
+import { Platform } from "react-native";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   bigSlotNumbersStyle: {
-    fontSize: 64,
-    lineHeight: 64,
+    fontSize: Platform.OS === "ios" ? 64 : 68,
+    lineHeight: Platform.OS === "ios" ? 64 : 68,
     fontFamily: "Inter-Bold",
   },
   smallSlotNumbersStyle: {

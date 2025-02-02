@@ -3,8 +3,16 @@ import { useForm, Controller, useWatch, useController } from "react-hook-form";
 import { AlertCircle, Emoji } from "geist-native-icons";
 import { X } from "geist-native-icons";
 import { z } from "zod";
-
-import { Box, Text, TextInput, Button, Icon, EmojiPicker } from "@components";
+import { Platform } from "react-native";
+import {
+  Box,
+  Text,
+  TextInput,
+  Button,
+  Icon,
+  EmojiPicker,
+  BackButton,
+} from "@components";
 import { RootScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { addFood } from "@store/slices/foodsSlice";
@@ -74,7 +82,11 @@ const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
             paddingBottom="m"
             marginBottom="xl"
           >
-            <Text variant="header">Add Food</Text>
+            {Platform.OS === "android" ? (
+              <BackButton />
+            ) : (
+              <Text variant="header">Add Food</Text>
+            )}
           </Box>
           <Box gap="m">
             <Box>

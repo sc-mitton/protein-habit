@@ -13,6 +13,7 @@ import {
   FlatList,
   SectionList,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { Search } from "geist-native-icons";
 import Animated, { SlideInDown, SlideOutDown } from "react-native-reanimated";
@@ -20,7 +21,7 @@ import { groupBy } from "lodash-es";
 
 import styles from "./styles/modal";
 import { charFromEmojiObject, emojis } from "../helpers";
-import { Box, Text, TextInput } from "../../base";
+import { Box, TextInput } from "../../base";
 import { Icon } from "../../Icon";
 import type { NativeEmojiPickerProps, Context } from "./types";
 import type { Emoji } from "../types";
@@ -81,7 +82,7 @@ export function useEmojiPickerContext() {
 }
 
 function EmojiPickerContent(props: NativeEmojiPickerProps) {
-  const { numColumns = 8 } = props;
+  const { numColumns = Platform.OS === "ios" ? 8 : 7 } = props;
 
   const ref = useRef<SectionList>(null);
   const { setVisible } = useEmojiPickerContext();

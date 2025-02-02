@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Plus, Minus } from "geist-native-icons";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, Platform } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -234,9 +234,8 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                   marginHorizontal="l"
                   variant="primary"
                   onPress={handleSave}
-                  icon={<Icon icon={Plus} size={16} strokeWidth={2} />}
                   labelPlacement="left"
-                  label={`${selectedFoods.reduce(
+                  label={`Add ${selectedFoods.reduce(
                     (acc, food, index) =>
                       acc + food.protein * selectedAmounts[index],
                     0,
@@ -262,6 +261,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 12,
+    gap: Platform.OS === "ios" ? 12 : 0,
   },
 });

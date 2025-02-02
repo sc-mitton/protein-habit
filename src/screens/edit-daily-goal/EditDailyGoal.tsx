@@ -1,26 +1,29 @@
 import { useEffect, useState, useRef } from "react";
-import { TouchableOpacity, Text as RNText } from "react-native";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Box, Button, Text } from "@components";
-import { useTheme } from "@shopify/restyle";
+import SlotNumbers from "react-native-slot-numbers";
+import { Text as RNText, Platform } from "react-native";
 import {
-  ChevronsUp,
-  ChevronsDown,
-  ChevronUp,
   ChevronDown,
+  ChevronUp,
+  ChevronsDown,
+  ChevronsUp,
 } from "geist-native-icons";
+import { useTheme } from "@shopify/restyle";
 
 import fontStyles from "@styles/fonts";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { selectFont } from "@store/slices/uiSlice";
-import { Icon, BackDrop } from "@components";
+import { Box, Button, Text, Icon } from "@components";
+import { selectDailyProteinTarget } from "@store/slices/proteinSelectors";
 import {
-  selectDailyProteinTarget,
   setDailyTarget,
   resetDailyTarget2Default,
 } from "@store/slices/proteinSlice";
 import { RootScreenProps } from "@types";
-import SlotNumbers from "react-native-slot-numbers";
+
+import { BackDrop } from "@components";
+import { StyleSheet, Dimensions } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 const Value = () => {
   const theme = useTheme();
@@ -118,7 +121,7 @@ const Value = () => {
   );
 };
 
-const Appearance = (props: RootScreenProps<"EditDailyGoal">) => {
+const EditDailyGoal = (props: RootScreenProps<"EditDailyGoal">) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
 
@@ -135,7 +138,12 @@ const Appearance = (props: RootScreenProps<"EditDailyGoal">) => {
       backdropComponent={() => <BackDrop />}
     >
       <BottomSheetView>
-        <Box alignItems="center" gap="m" marginTop="l">
+        <Box
+          alignItems="center"
+          gap="m"
+          marginTop="l"
+          backgroundColor="mainBackground"
+        >
           <Text variant="header" color="secondaryText">
             Edit Daily Goal
           </Text>
@@ -161,4 +169,23 @@ const Appearance = (props: RootScreenProps<"EditDailyGoal">) => {
   );
 };
 
-export default Appearance;
+export default EditDailyGoal;
+
+const styles = StyleSheet.create({
+  overlay: {
+    position: "absolute",
+    top: -Dimensions.get("window").width,
+    left: 0,
+    right: 0,
+    bottom: -Dimensions.get("window").width,
+  },
+  border: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderWidth: 2,
+    opacity: 1,
+  },
+});

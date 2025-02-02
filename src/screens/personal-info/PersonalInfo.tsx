@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller, useWatch } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { Platform } from "react-native";
 import { X } from "geist-native-icons";
 import { z } from "zod";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
@@ -18,6 +19,7 @@ import { setName, setWeight, setWeightUnit } from "@store/slices/userSlice";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { setDailyTarget } from "@store/slices/proteinSlice";
 import type { RootScreenProps } from "@types";
+import { Fragment } from "react";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -65,15 +67,21 @@ const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground" padding="l">
       <Box flex={1}>
-        <Button
-          onPress={() => navigation.goBack()}
-          variant="circleButton"
-          style={{ position: "absolute", top: -12, right: -12 }}
-          icon={<Icon icon={X} size={20} color="primaryText" strokeWidth={2} />}
-        />
-        <Text variant="header" marginBottom="xl">
-          Personal Info
-        </Text>
+        {Platform.OS === "ios" && (
+          <Fragment>
+            <Button
+              onPress={() => navigation.goBack()}
+              variant="circleButton"
+              style={{ position: "absolute", top: -12, right: -12 }}
+              icon={
+                <Icon icon={X} size={20} color="primaryText" strokeWidth={2} />
+              }
+            />
+            <Text variant="header" marginBottom="xl">
+              Personal Info
+            </Text>
+          </Fragment>
+        )}
         <Box marginBottom="m">
           <Text variant="label">Name</Text>
           <Controller
