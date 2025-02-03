@@ -12,8 +12,8 @@ interface ProteinEntry {
   food?: Food["id"];
 }
 
-interface ProteinState {
-  entries: Array<[string, ProteinEntry[]]>;
+export interface ProteinState {
+  entries: Array<[date: string, entries: ProteinEntry[]]>;
   dailyTargets: [string, number | null][];
 }
 

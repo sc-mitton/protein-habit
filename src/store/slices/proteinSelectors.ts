@@ -13,6 +13,7 @@ const selectTotalProteinForDay = (state: RootState, day: string) => {
   if (!dayEntry) return 0;
   return dayEntry[1].reduce((total, entry) => total + entry.grams, 0);
 };
+
 const selectDailyProteinTarget = (state: RootState) => {
   if (state.protein.dailyTargets[0][1]) {
     return state.protein.dailyTargets[0][1];
@@ -24,7 +25,8 @@ const selectDailyProteinTarget = (state: RootState) => {
   }
 };
 
-const selectAggregates = createSelector(
+// Returns the average protein intake per day for a given month
+const selectMonthlyDailyAverage = createSelector(
   [
     (state: RootState) => state.protein.entries,
     (_: RootState, month: string) => month,
@@ -53,11 +55,11 @@ const selectAggregates = createSelector(
 const selectWeeklyAvg = createSelector(
   (state: RootState) => state.protein.entries,
   (entries) => {
-    const cutOff = dayjs().startOf("week").toISOString();
+    const cutOff = dayjs().startOf("week");
 
     return entries
       .slice(0, 7)
-      .filter(([day]) => dayjs(day).isAfter(cutOff))
+      .filter(([day]) => dayjs(day).isAfter(cutOff.subtract(1, "day"), "day"))
       .reduce((sum, dailyEntries) => {
         return sum + dailyEntries[1].reduce((sum, e) => sum + e.grams, 0);
       }, 0);
@@ -78,11 +80,11 @@ const selectDailyTargetResults = createSelector(
     // The resulting array should go from present to the start
     // [curent day, current day - 1, ..., start]
 
-    const daysSinceLastEntry = dayjs(start).diff(dayjs(entries[0][0]), "day");
+    const daysSinceLastEntry = dayjs().diff(dayjs(entries[0][0]), "day") - 1;
     const target =
       targets[0][1] ?? getRecommendedTarget(weight.value, weight.unit);
     // Fill in start
-    for (let i = 0; i < daysSinceLastEntry; i++) {
+    for (let i = 1; i < daysSinceLastEntry + 1; i++) {
       results.push([
         dayjs().subtract(i, "day").format(dayFormat),
         0,
@@ -122,17 +124,17 @@ const selectDailyTargetResults = createSelector(
     }
 
     // Fill in end
-    const totalResultsLength = dayjs().diff(dayjs(start), "day");
-    const gap = totalResultsLength - results.length;
-
+    let lastDay = dayjs(results[results.length - 1]?.[0]) || dayjs();
+    const gap = lastDay.diff(dayjs(start), "day");
     for (let i = 1; i <= gap; i++) {
-      const day = dayjs(results[results.length - 1]?.[0]).subtract(i, "day");
+      const day = dayjs(lastDay).subtract(1, "day");
       const target =
         targets.find(([d]) => {
           return dayjs(d).subtract(1, "day").isBefore(day);
         })?.[1] ?? getRecommendedTarget(weight.value, weight.unit);
 
       results.push([day.format(dayFormat), 0, false, target]);
+      lastDay = day;
     }
 
     return results;
@@ -171,7 +173,7 @@ const selectStreak = createSelector(
 );
 
 export {
-  selectAggregates,
+  selectMonthlyDailyAverage,
   selectDailyProteinTarget,
   selectTotalProteinForDay,
   selectWeeklyAvg,

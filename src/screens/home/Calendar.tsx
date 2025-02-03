@@ -12,7 +12,7 @@ import Animated, {
   FadeOut,
   Easing,
 } from "react-native-reanimated";
-import SlotNumbers from "./src";
+import SlotNumbers from "react-native-slot-numbers";
 import { useTheme } from "@shopify/restyle";
 import { Check, X } from "geist-native-icons";
 import OutsidePressHandler from "react-native-outside-press";
@@ -21,7 +21,7 @@ import { Text, Box, Icon } from "@components";
 import dayjs, { Dayjs } from "dayjs";
 import { useAppSelector } from "@store/hooks";
 import {
-  selectAggregates,
+  selectMonthlyDailyAverage,
   selectDailyTargetResults,
 } from "@store/slices/proteinSelectors";
 import { selectUserInception } from "@store/slices/userSlice";
@@ -90,8 +90,8 @@ const Calendar = () => {
   );
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
   const [focusedCell, setFocusedCell] = useState<Dayjs>();
-  const proteinAggregates = useAppSelector((state) =>
-    selectAggregates(state, calendarData[currentIndex][0]),
+  const proteinMonthlyDailyAverage = useAppSelector((state) =>
+    selectMonthlyDailyAverage(state, calendarData[currentIndex][0]),
   );
   const theme = useTheme();
   useEffect(() => {
@@ -356,7 +356,7 @@ const Calendar = () => {
                   Averaged
                 </Text>
                 <SlotNumbers
-                  value={proteinAggregates.avgProteinPerDay}
+                  value={proteinMonthlyDailyAverage.avgProteinPerDay}
                   fontStyle={[
                     styles.slotNumbers,
                     { color: theme.colors.tertiaryText },

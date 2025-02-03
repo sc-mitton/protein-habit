@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "protein-counter",
+    "name": "Protein Counter",
     "slug": "protein-counter",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,6 +10,10 @@
     "androidStatusBar": {
       "translucent": true
     },
+    "notification": {
+      "icon": "./assets/notification-icon.png",
+      "color": "#4149b0"
+    },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -17,7 +21,20 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.scmitton.proteincounter"
+      "bundleIdentifier": "com.scmitton.proteincounter",
+      "icon": {
+        "light": "./assets/icon.png",
+        "dark": "./assets/icon-dark.png",
+        "tinted": "./assets/icon-tinted.png"
+      },
+      "splash": {
+        "image": "./assets/splash-ios-light.png",
+        "resizeMode": "contain",
+        "dark": {
+          "image": "./assets/splash-ios-dark.png",
+          "backgroundColor": "#111113"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +45,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e58a673f-cdea-41b6-af73-2c82f416dbcf"
+      }
+    },
+    "owner": "scmitton"
   }
 }

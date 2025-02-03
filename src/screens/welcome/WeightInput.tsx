@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { Image, useColorScheme } from "react-native";
+import { Invert } from "react-native-color-matrix-image-filters";
+
+import logo from "../../../assets/icon-tinted.png";
 import { Box, Text, TextInput, Button } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import { setWeight } from "@store/slices/userSlice";
@@ -7,6 +11,7 @@ import type { RootScreenProps } from "@types";
 const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
   const [weight, setWeightValue] = useState("");
   const dispatch = useAppDispatch();
+  const scheme = useColorScheme();
 
   const handleSubmit = () => {
     if (weight) {
@@ -18,6 +23,21 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground" padding="l">
       <Box flex={1} justifyContent="center">
+        {scheme === "dark" ? (
+          <Invert>
+            <Image
+              source={logo}
+              style={{ width: 100, height: 100 }}
+              resizeMode="contain"
+            />
+          </Invert>
+        ) : (
+          <Image
+            source={logo}
+            style={{ width: 100, height: 100 }}
+            resizeMode="contain"
+          />
+        )}
         <Text variant="header" marginBottom="l">
           What's your weight?
         </Text>
