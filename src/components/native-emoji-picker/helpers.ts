@@ -4,45 +4,6 @@ import type { Category, Emoji } from "./types";
 
 export const emojis: Emoji[] = e;
 
-export const Categories: Category[] = [
-  {
-    symbol: "😀",
-    key: "Smileys & Emotion",
-  },
-  {
-    symbol: "🧑",
-    key: "People & Body",
-  },
-  {
-    symbol: "🦄",
-    key: "Animals & Nature",
-  },
-  {
-    symbol: "🍔",
-    key: "Food & Drink",
-  },
-  {
-    symbol: "⚾️",
-    key: "Activities",
-  },
-  {
-    symbol: "✈️",
-    key: "Travel & Places",
-  },
-  {
-    symbol: "💡",
-    key: "Objects",
-  },
-  {
-    symbol: "🔣",
-    key: "Symbols",
-  },
-  {
-    symbol: "🇸🇦",
-    key: "Flags",
-  },
-];
-
 export function charFromUtf16(utf16: string) {
   return String.fromCodePoint(
     ...(utf16.split("-").map((u) => "0x" + u) as any),

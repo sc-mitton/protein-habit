@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
 export interface Food {
@@ -7,6 +7,7 @@ export interface Food {
   emoji?: string;
   protein: number;
   servingSize?: number;
+  isActive?: boolean;
 }
 
 const initialState = {
@@ -20,14 +21,22 @@ const foodsSlice = createSlice({
     addFood: (state, action: PayloadAction<Food>) => {
       state.foods.push(action.payload);
     },
+    deactiveFood: (state, action: PayloadAction<string>) => {
+      state.foods = state.foods.map((food) =>
+        food.id === action.payload ? { ...food, isActive: false } : food,
+      );
+    },
     removeFood: (state, action: PayloadAction<string>) => {
       state.foods = state.foods.filter((food) => food.id !== action.payload);
     },
   },
 });
 
-export const { addFood, removeFood } = foodsSlice.actions;
+export const { addFood, removeFood, deactiveFood } = foodsSlice.actions;
 
-export const selectFoods = (state: RootState) => state.foods.foods;
+export const selectFoods = createSelector(
+  (state: RootState) => state.foods.foods,
+  (foods) => foods.filter((f) => f.isActive),
+);
 
 export default foodsSlice.reducer;

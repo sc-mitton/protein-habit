@@ -43,8 +43,12 @@ const Stats = () => {
             </Text>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold">{dailyTarget}</Text>
-            <Text variant="bold">g</Text>
+            <Text variant="bold" fontSize={18}>
+              {dailyTarget}
+            </Text>
+            <Text variant="bold" fontSize={18}>
+              g
+            </Text>
           </Box>
         </Box>
         <Box gap="s" flex={1}>
@@ -62,10 +66,12 @@ const Stats = () => {
             </Text>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold">
+            <Text variant="bold" fontSize={18}>
               {Math.max(dailyTarget - totalProteinForDay, 0)}
             </Text>
-            <Text variant="bold">g</Text>
+            <Text variant="bold" fontSize={18}>
+              g
+            </Text>
           </Box>
         </Box>
       </Box>
@@ -90,8 +96,12 @@ const Stats = () => {
             </Text>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold">{weeklyAvg}</Text>
-            <Text variant="bold">g</Text>
+            <Text variant="bold" fontSize={18}>
+              {weeklyAvg}
+            </Text>
+            <Text variant="bold" fontSize={18}>
+              g
+            </Text>
           </Box>
         </Box>
         <Box paddingBottom="s" gap="s" flex={1}>
@@ -114,7 +124,9 @@ const Stats = () => {
             </Text>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold">{streak} days</Text>
+            <Text variant="bold" fontSize={18}>
+              {streak} days
+            </Text>
           </Box>
         </Box>
       </Box>

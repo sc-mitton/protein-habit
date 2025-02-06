@@ -59,6 +59,7 @@ const lightTheme = createTheme({
     blue: "hsl(228, 76.30%, 65.30%)",
     purple: "hsl(276, 63.90%, 64.10%)",
     pink: "hsl(330, 60.70%, 64.10%)",
+    red: "hsl(358, 50.00%, 50.00%)",
   },
   spacing: {
     nl: -24,

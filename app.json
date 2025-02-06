@@ -34,6 +34,9 @@
           "image": "./assets/splash-ios-dark.png",
           "backgroundColor": "#111113"
         }
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -51,6 +54,9 @@
       "eas": {
         "projectId": "94dcd005-6bdd-4106-9b50-44d9068dff79"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/94dcd005-6bdd-4106-9b50-44d9068dff79"
     }
   }
 }

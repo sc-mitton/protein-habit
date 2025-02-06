@@ -35,7 +35,7 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
         alignItems="center"
         gap="xl"
         justifyContent="flex-start"
-        flex={1.25}
+        flex={1.5}
       >
         <Box flexDirection="row" alignItems={"baseline"} gap="s">
           <SlotNumbers

@@ -116,7 +116,7 @@ const Calendar = () => {
       shadowRadius={24}
       elevation={8}
       backgroundColor="secondaryBackground"
-      flex={4}
+      flex={4.5}
     >
       <OutsidePressHandler onOutsidePress={() => setFocusedCell(undefined)}>
         <Box

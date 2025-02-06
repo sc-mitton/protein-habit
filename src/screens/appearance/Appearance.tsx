@@ -90,7 +90,7 @@ const Appearance = (props: RootScreenProps<"Appearance">) => {
           <Box
             flexDirection="row"
             flexWrap="wrap"
-            gap="xl"
+            gap="m"
             marginTop="l"
             marginBottom="l"
             justifyContent="center"

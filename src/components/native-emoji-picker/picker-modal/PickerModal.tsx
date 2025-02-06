@@ -138,6 +138,7 @@ function EmojiPickerContent(props: NativeEmojiPickerProps) {
       {searchValue ? (
         <FlatList
           data={emojis
+            .filter((item) => item.category === "Food & Drink")
             .filter((item) =>
               item.name
                 .split(" ")

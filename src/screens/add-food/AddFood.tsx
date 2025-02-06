@@ -15,7 +15,7 @@ import {
 } from "@components";
 import { RootScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
-import { addFood } from "@store/slices/foodsSlice";
+import { addFood, deactiveFood } from "@store/slices/foodsSlice";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -29,7 +29,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
+const AddFood = ({ navigation, route }: RootScreenProps<"AddFood">) => {
   const dispatch = useAppDispatch();
   const {
     control,
@@ -38,9 +38,15 @@ const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onSubmit",
+    defaultValues: {
+      ...(route.params?.food || {}),
+    },
   });
 
   const onSubmit = (data: FormData) => {
+    if (route.params?.food) {
+      dispatch(deactiveFood(route.params.food.id));
+    }
     dispatch(
       addFood({
         id: Math.random().toString(36).slice(2),
@@ -56,8 +62,6 @@ const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
     field: { onChange: onEmojiChange },
   } = useController({ control, name: "emoji" });
   const emoji = useWatch({ control, name: "emoji" });
-
-  console.log(errors);
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
@@ -85,7 +89,9 @@ const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
             {Platform.OS === "android" ? (
               <BackButton />
             ) : (
-              <Text variant="header">Add Food</Text>
+              <Text variant="header">
+                {route.params?.food ? "Edit Food" : "Add Food"}
+              </Text>
             )}
           </Box>
           <Box gap="m">
@@ -104,7 +110,9 @@ const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
                         paddingHorizontal="xs"
                       >
                         {emoji ? (
-                          <Text padding="xs">{emoji}</Text>
+                          <Text padding="xs" margin="xs">
+                            {emoji}
+                          </Text>
                         ) : (
                           <Icon icon={Smile} color="secondaryText" size={22} />
                         )}

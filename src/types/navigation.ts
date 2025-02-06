@@ -1,5 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
-
+import { Food } from "@store/slices/foodsSlice";
 export type RootStackParamList = {
   Welcome: undefined;
   WeightInput: undefined;
@@ -9,7 +9,7 @@ export type RootStackParamList = {
   Entry: undefined;
   EditDailyGoal: undefined;
   MyFoods: undefined;
-  AddFood: undefined;
+  AddFood: undefined | { food: Food };
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

@@ -87,6 +87,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                   <Animated.View layout={LinearTransition} key={food.id}>
                     <FoodItem
                       key={food.id}
+                      navigation={props.navigation}
                       food={food}
                       onPress={() => {
                         setSelectedFoods([...selectedFoods, food]);

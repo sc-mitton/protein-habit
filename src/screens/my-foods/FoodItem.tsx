@@ -10,13 +10,15 @@ import { Button, Icon, Text, Box } from "@components";
 import { removeFood, type Food } from "@store/slices/foodsSlice";
 import { Plus } from "geist-native-icons";
 import { useAppDispatch } from "@store/hooks";
-
+import { RootScreenProps } from "@types";
 const Menu = ({
   food,
   children,
+  navigation,
 }: {
   food: Food;
   children: React.ReactNode;
+  navigation: RootScreenProps<"MyFoods">["navigation"];
 }) => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -30,8 +32,23 @@ const Menu = ({
             <ZMenu.Trigger>{children}</ZMenu.Trigger>
             <ZMenu.Content>
               <ZMenu.Item
+                onSelect={() => navigation.navigate("AddFood", { food })}
+                key={food.id + "2"}
+              >
+                <ZMenu.ItemTitle>Edit</ZMenu.ItemTitle>
+                <ZMenu.ItemIcon
+                  ios={{
+                    name: "pencil",
+                    pointSize: 16,
+                    weight: "semibold",
+                    scale: "medium",
+                  }}
+                />
+              </ZMenu.Item>
+              <ZMenu.Separator />
+              <ZMenu.Item
                 onSelect={() => dispatch(removeFood)}
-                key={food.id}
+                key={food.id + "1"}
                 destructive={true}
               >
                 <ZMenu.ItemTitle>Delete</ZMenu.ItemTitle>
@@ -62,6 +79,11 @@ const Menu = ({
           }}
         >
           <PaperMenu.Item
+            title="Edit"
+            leadingIcon={() => <FontAwesome6 name="pencil" size={24} />}
+            onPress={() => navigation.navigate("AddFood", { food })}
+          />
+          <PaperMenu.Item
             title="Delete"
             leadingIcon={() => (
               <FontAwesome6
@@ -80,11 +102,17 @@ const Menu = ({
   );
 };
 
-const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
+const FoodItem = ({
+  food,
+  onPress,
+  navigation,
+}: { food: Food; onPress: () => void } & {
+  navigation: RootScreenProps<"MyFoods">["navigation"];
+}) => {
   const scheme = useColorScheme();
 
   return (
-    <Menu food={food}>
+    <Menu food={food} navigation={navigation}>
       <Box
         backgroundColor="transparent"
         shadowColor="defaultShadow"
