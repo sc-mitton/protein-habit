@@ -7,7 +7,7 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 import * as ZMenu from "zeego/context-menu";
 import { Button, Icon, Text, Box } from "@components";
-import { removeFood, type Food } from "@store/slices/foodsSlice";
+import { deactiveFood, type Food } from "@store/slices/foodsSlice";
 import { Plus } from "geist-native-icons";
 import { useAppDispatch } from "@store/hooks";
 import { RootScreenProps } from "@types";
@@ -47,7 +47,7 @@ const Menu = ({
               </ZMenu.Item>
               <ZMenu.Separator />
               <ZMenu.Item
-                onSelect={() => dispatch(removeFood)}
+                onSelect={() => dispatch(deactiveFood(food.id))}
                 key={food.id + "1"}
                 destructive={true}
               >
@@ -93,7 +93,7 @@ const Menu = ({
               />
             )}
             onPress={() => {
-              dispatch(removeFood(food.id));
+              dispatch(deactiveFood(food.id));
             }}
           />
         </PaperMenu>

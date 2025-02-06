@@ -36,7 +36,7 @@ export const { addFood, removeFood, deactiveFood } = foodsSlice.actions;
 
 export const selectFoods = createSelector(
   (state: RootState) => state.foods.foods,
-  (foods) => foods.filter((f) => f.isActive),
+  (foods) => foods.filter((f) => f.isActive || f.isActive === undefined),
 );
 
 export default foodsSlice.reducer;

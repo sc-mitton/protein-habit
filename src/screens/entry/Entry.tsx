@@ -159,7 +159,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
     animation.current?.play();
     setShowSuccess(true);
     setTimeout(() => {
-      dispatch(addEntry({ name: name, grams: Number(value) }));
+      dispatch(addEntry({ name: name?.trim(), grams: Number(value) }));
       props.navigation.goBack();
     }, 1700);
   };

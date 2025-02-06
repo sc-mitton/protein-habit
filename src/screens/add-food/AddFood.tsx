@@ -18,13 +18,16 @@ import { useAppDispatch } from "@store/hooks";
 import { addFood, deactiveFood } from "@store/slices/foodsSlice";
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required").trim(),
   emoji: z.string().optional(),
   protein: z
     .string()
     .min(1, "Enter the amount of protein")
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val > 0, "Must be a positive number"),
+    .refine(
+      (val) => !isNaN(Number(val)) && Number(val) > 0,
+      "Must be a positive number",
+    )
+    .transform((val) => Number(val)),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -40,6 +43,7 @@ const AddFood = ({ navigation, route }: RootScreenProps<"AddFood">) => {
     mode: "onSubmit",
     defaultValues: {
       ...(route.params?.food || {}),
+      protein: route.params?.food?.protein?.toString() as any,
     },
   });
 
@@ -52,7 +56,7 @@ const AddFood = ({ navigation, route }: RootScreenProps<"AddFood">) => {
         id: Math.random().toString(36).slice(2),
         name: data.name,
         emoji: data.emoji,
-        protein: Number(data.protein),
+        protein: data.protein,
       }),
     );
     navigation.goBack();
@@ -158,7 +162,7 @@ const AddFood = ({ navigation, route }: RootScreenProps<"AddFood">) => {
                   render={({ field: { onChange, value } }) => (
                     <TextInput
                       value={value?.toString()}
-                      onChangeText={onChange}
+                      onChangeText={(e) => onChange(e.toString())}
                       placeholder="31"
                       keyboardType="numeric"
                       error={!!errors.protein}
@@ -184,7 +188,7 @@ const AddFood = ({ navigation, route }: RootScreenProps<"AddFood">) => {
           <Box marginTop="xl">
             <Button
               variant="primary"
-              label="Add Food"
+              label={route.params?.food ? "Save Changes" : "Add Food"}
               onPress={handleSubmit(onSubmit)}
               labelPlacement="left"
             />
