@@ -1,6 +1,11 @@
 import { useState, memo, useRef, useEffect } from "react";
 import { Delete, Edit3 } from "geist-native-icons";
-import { StyleSheet, TouchableHighlight, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  TextInput as RNTextInput,
+} from "react-native";
 import Animated, {
   FadeInUp,
   FadeOutDown,
@@ -141,6 +146,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
   const [nameFocused, setNameFocused] = useState(false);
   const theme = useTheme();
   const dispatch = useAppDispatch();
+  const nameInputRef = useRef<RNTextInput>(null);
 
   const handleKeyPress = (key: number | string) => {
     if (typeof key === "string") {
@@ -242,6 +248,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
         >
           <TextInput
             borderLess
+            ref={nameInputRef}
             placeholderTextColor={theme.colors.placeholderText}
             placeholder="Bagel & Cream Cheese "
             value={name}
@@ -250,13 +257,16 @@ const Entry = (props: RootScreenProps<"Entry">) => {
             onChangeText={setName}
           />
           {!nameFocused && (
-            <Box marginLeft="nl">
+            <Button
+              marginLeft="nl"
+              onPress={() => nameInputRef.current?.focus()}
+            >
               <Icon
                 icon={Edit3}
                 size={18}
                 color={name ? "primaryText" : "placeholderText"}
               />
-            </Box>
+            </Button>
           )}
         </Box>
       </Box>

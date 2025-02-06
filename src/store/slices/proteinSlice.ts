@@ -65,16 +65,14 @@ const proteinSlice = createSlice({
       }
     },
     updateEntry: (state, action: PayloadAction<ProteinEntry>) => {
-      const entryIndex = state.entries.findIndex(([, entries]) =>
+      const dayIndex = state.entries.findIndex(([, entries]) =>
         entries.some((entry) => entry.id === action.payload.id),
       );
-      if (entryIndex !== -1) {
-        state.entries[entryIndex][1].map((entry) => {
-          if (entry.id === action.payload.id) {
-            return action.payload;
-          }
-          return entry;
-        });
+      if (dayIndex !== -1) {
+        const entryIndex = state.entries[dayIndex][1].findIndex(
+          (e) => e.id === action.payload.id,
+        );
+        state.entries[dayIndex][1][entryIndex] = action.payload;
       }
     },
     setDailyTarget: (

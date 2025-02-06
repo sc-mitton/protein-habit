@@ -4,19 +4,31 @@ import { Plus, Minus } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import Animated, { LinearTransition } from "react-native-reanimated";
 
-import { Food } from "@store/slices/foodsSlice";
+import { Food, selectFoods } from "@store/slices/foodsSlice";
 import { Box, Button, Icon, Text } from "@components";
 import { BackDrop } from "@components";
 import { RootScreenProps } from "@types";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import FoodList from "./FoodList";
 
 const Appearance = (props: RootScreenProps<"MyFoods">) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
-  const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
-  const [selectedAmounts, setSelectedAmounts] = useState<number[]>([1]);
+  const foods = useAppSelector(selectFoods);
+
+  const [selectedFoods, setSelectedFoods] = useState<Food[]>(
+    [
+      props.route.params?.entry
+        ? foods.find((food) => food.id === props.route.params?.entry?.food)
+        : undefined,
+    ].filter(Boolean) as Food[],
+  );
+  const [selectedAmounts, setSelectedAmounts] = useState<number[]>([
+    selectedFoods.length === 0
+      ? props.route.params?.entry?.grams! / selectedFoods.length
+      : 1,
+  ]);
 
   const handleSave = () => {
     if (props.route.params?.entry) {
@@ -60,7 +72,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
             flexDirection="row"
           >
             <Text variant="header">
-              {props.route.params?.entry ? "Edit" : "My Foods"}
+              {props.route.params?.entry ? "Update" : "My Foods"}
             </Text>
             <Button
               borderRadius="m"
@@ -213,11 +225,15 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                   variant="primary"
                   onPress={handleSave}
                   labelPlacement="left"
-                  label={`${props.route.params?.entry ? "Total: " : "Add"} ${selectedFoods.reduce(
-                    (acc, food, index) =>
-                      acc + food.protein * selectedAmounts[index],
-                    0,
-                  )} grams`}
+                  label={
+                    props.route.params?.entry
+                      ? "Save"
+                      : `Add ${selectedFoods.reduce(
+                          (acc, food, index) =>
+                            acc + food.protein * selectedAmounts[index],
+                          0,
+                        )}`
+                  }
                   marginTop="xxl"
                   marginBottom="l"
                 />

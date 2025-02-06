@@ -1,7 +1,6 @@
 import SlotNumbers from "react-native-slot-numbers";
 import { Plus } from "geist-native-icons";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
-import { useColorScheme } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -20,7 +19,6 @@ import Tabs from "./Tabs";
 const HomeScreen = (props: RootScreenProps<"Home">) => {
   const theme = useTheme();
 
-  const colorScheme = useColorScheme();
   const font = useAppSelector(selectFont);
   const totalProteinForDay = useAppSelector((state) =>
     selectTotalProteinForDay(state, dayjs().format(dayFormat)),
@@ -74,7 +72,7 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
                   icon={Plus}
                   size={20}
                   color="primaryText"
-                  strokeWidth={colorScheme === "dark" ? 1.5 : 2}
+                  strokeWidth={2}
                 />
               }
             />
