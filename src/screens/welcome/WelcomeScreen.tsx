@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Invert } from "react-native-color-matrix-image-filters";
-import { Image, useColorScheme } from "react-native";
+import { Image, useColorScheme, KeyboardAvoidingView } from "react-native";
 
 import logo from "../../../assets/icon-tinted.png";
 import { Box, Text, TextInput, Button } from "@components";
@@ -23,45 +23,47 @@ const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground" padding="l">
       <Box flex={1} justifyContent="center">
-        <Box alignItems="center" paddingBottom="xl">
-          {scheme === "dark" ? (
-            <Invert>
+        <KeyboardAvoidingView behavior="padding">
+          <Box alignItems="center" paddingBottom="xl">
+            {scheme === "dark" ? (
+              <Invert>
+                <Image
+                  source={logo}
+                  style={{ width: 100, height: 100 }}
+                  resizeMode="contain"
+                />
+              </Invert>
+            ) : (
               <Image
                 source={logo}
                 style={{ width: 100, height: 100 }}
                 resizeMode="contain"
               />
-            </Invert>
-          ) : (
-            <Image
-              source={logo}
-              style={{ width: 100, height: 100 }}
-              resizeMode="contain"
-            />
-          )}
-        </Box>
-        <Text variant="header" marginBottom="l">
-          Welcome to Protein
-        </Text>
-        <Text variant="body" color="secondaryText" marginBottom="xl">
-          Let's personalize your experience. What's your name?
-        </Text>
-        <TextInput
-          value={inputName}
-          onChangeText={setInputName}
-          onSubmitEditing={handleSubmit}
-          placeholder="Enter your name"
-          autoFocus
-          returnKeyType="done"
-        />
-        <Box marginTop="l">
-          <Button
-            variant="primary"
-            label="Continue"
-            onPress={handleSubmit}
-            disabled={!inputName.trim()}
+            )}
+          </Box>
+          <Text variant="header" marginBottom="s">
+            Welcome to Protein
+          </Text>
+          <Text variant="body" color="secondaryText" marginBottom="xl">
+            Let's personalize your experience. What's your name?
+          </Text>
+          <TextInput
+            value={inputName}
+            onChangeText={setInputName}
+            onSubmitEditing={handleSubmit}
+            placeholder="Enter your name"
+            autoFocus
+            returnKeyType="done"
           />
-        </Box>
+          <Box marginTop="l">
+            <Button
+              variant="primary"
+              label="Continue"
+              onPress={handleSubmit}
+              disabled={!inputName.trim()}
+            />
+          </Box>
+        </KeyboardAvoidingView>
       </Box>
     </Box>
   );

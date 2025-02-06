@@ -73,7 +73,7 @@ const Entries = () => {
                       }),
                     );
                   }}
-                  icon={<Icon icon={Trash2} size={20} />}
+                  icon={<Icon icon={Trash2} size={20} strokeWidth={2} />}
                 />
               </Box>
             </Animated.View>

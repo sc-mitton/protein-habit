@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Protein Counter",
-    "slug": "protein-counter",
+    "name": "Protein Count",
+    "slug": "protein-count",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,8 +20,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.scmitton.proteincounter",
+      "supportsTablet": false,
+      "bundleIdentifier": "com.scmitton.proteincount",
       "icon": {
         "light": "./assets/icon.png",
         "dark": "./assets/icon-dark.png",
@@ -41,16 +41,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.scmitton.proteincounter"
+      "package": "com.scmitton.proteincount"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "owner": "scmitton",
     "extra": {
       "eas": {
-        "projectId": "e58a673f-cdea-41b6-af73-2c82f416dbcf"
+        "projectId": "94dcd005-6bdd-4106-9b50-44d9068dff79"
       }
-    },
-    "owner": "scmitton"
+    }
   }
 }

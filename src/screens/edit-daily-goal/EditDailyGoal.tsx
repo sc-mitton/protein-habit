@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import SlotNumbers from "react-native-slot-numbers";
-import { Text as RNText, Platform } from "react-native";
+import { Text as RNText, Platform, View } from "react-native";
 import {
   ChevronDown,
   ChevronUp,
@@ -25,99 +25,100 @@ import { BackDrop } from "@components";
 import { StyleSheet, Dimensions } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
-const Value = () => {
+const Value = ({ onSave }: { onSave: () => void }) => {
   const theme = useTheme();
   const dailyProteinTarget = useAppSelector(selectDailyProteinTarget);
   const selectedFont = useAppSelector(selectFont);
   const dispatch = useAppDispatch();
   const [displayVal, setDisplayVal] = useState(dailyProteinTarget);
-  const bufferAddTimer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    if (displayVal !== dailyProteinTarget) {
-      if (bufferAddTimer.current) {
-        clearTimeout(bufferAddTimer.current);
-      }
-      bufferAddTimer.current = setTimeout(() => {
-        dispatch(setDailyTarget(displayVal));
-      }, 1000);
-    }
-  }, [displayVal]);
 
   useEffect(() => {
     setDisplayVal(dailyProteinTarget);
   }, [dailyProteinTarget]);
 
   return (
-    <Box
-      flexDirection="row"
-      alignItems="center"
-      gap="m"
-      marginBottom="s"
-      marginTop="l"
-    >
-      <Button
-        icon={<Icon strokeWidth={2} icon={ChevronsDown} size={18} />}
-        backgroundColor="transparent"
-        borderColor="seperator"
-        borderWidth={1}
-        borderRadius="full"
-        padding="xs"
-        onPress={() => {
-          setDisplayVal((prev) => prev - 10);
-        }}
-      />
-      <Button
-        icon={<Icon strokeWidth={2} icon={ChevronDown} size={24} />}
-        backgroundColor="transparent"
-        borderColor="seperator"
-        borderWidth={1}
-        borderRadius="full"
-        padding="s"
-        onPress={() => setDisplayVal((prev) => prev - 1)}
-      />
-      <Box flexDirection="row" alignItems="baseline">
-        <SlotNumbers
-          value={displayVal}
-          animateIntermediateValues
-          animationDuration={300}
-          easing={"in-out"}
-          fontStyle={[
-            fontStyles[selectedFont],
-            { fontSize: 64 },
-            { color: theme.colors.primaryText },
-          ]}
+    <View>
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        gap="m"
+        marginBottom="s"
+        marginTop="l"
+      >
+        <Button
+          icon={<Icon strokeWidth={2} icon={ChevronsDown} size={18} />}
+          backgroundColor="transparent"
+          borderColor="seperator"
+          borderWidth={1}
+          borderRadius="full"
+          padding="xs"
+          onPress={() => {
+            setDisplayVal((prev) => prev - 10);
+          }}
         />
-        <Box marginLeft="xs">
-          <RNText
-            style={[
-              { fontSize: 22, color: theme.colors.primaryText },
+        <Button
+          icon={<Icon strokeWidth={2} icon={ChevronDown} size={24} />}
+          backgroundColor="transparent"
+          borderColor="seperator"
+          borderWidth={1}
+          borderRadius="full"
+          padding="s"
+          onPress={() => setDisplayVal((prev) => prev - 1)}
+        />
+        <Box flexDirection="row" alignItems="baseline">
+          <SlotNumbers
+            value={displayVal}
+            animateIntermediateValues
+            animationDuration={300}
+            easing={"in-out"}
+            fontStyle={[
               fontStyles[selectedFont],
+              { fontSize: 64 },
+              { color: theme.colors.primaryText },
             ]}
-          >
-            g
-          </RNText>
+          />
+          <Box marginLeft="xs">
+            <RNText
+              style={[
+                { fontSize: 22, color: theme.colors.primaryText },
+                fontStyles[selectedFont],
+              ]}
+            >
+              g
+            </RNText>
+          </Box>
         </Box>
+        <Button
+          icon={<Icon strokeWidth={2} icon={ChevronUp} size={24} />}
+          backgroundColor="transparent"
+          borderColor="seperator"
+          borderWidth={1}
+          borderRadius="full"
+          padding="s"
+          onPress={() => setDisplayVal((prev) => prev + 1)}
+        />
+        <Button
+          icon={<Icon strokeWidth={2} icon={ChevronsUp} size={18} />}
+          backgroundColor="transparent"
+          borderColor="seperator"
+          borderWidth={1}
+          borderRadius="full"
+          padding="xs"
+          onPress={() => setDisplayVal((prev) => prev + 10)}
+        />
       </Box>
-      <Button
-        icon={<Icon strokeWidth={2} icon={ChevronUp} size={24} />}
-        backgroundColor="transparent"
-        borderColor="seperator"
-        borderWidth={1}
-        borderRadius="full"
-        padding="s"
-        onPress={() => setDisplayVal((prev) => prev + 1)}
-      />
-      <Button
-        icon={<Icon strokeWidth={2} icon={ChevronsUp} size={18} />}
-        backgroundColor="transparent"
-        borderColor="seperator"
-        borderWidth={1}
-        borderRadius="full"
-        padding="xs"
-        onPress={() => setDisplayVal((prev) => prev + 10)}
-      />
-    </Box>
+      {displayVal !== dailyProteinTarget && (
+        <Button
+          marginTop="l"
+          label="Save"
+          variant="primary"
+          onPress={() => {
+            dispatch(setDailyTarget(displayVal));
+            onSave();
+          }}
+        />
+      )}
+    </View>
   );
 };
 
@@ -147,7 +148,7 @@ const EditDailyGoal = (props: RootScreenProps<"EditDailyGoal">) => {
           <Text variant="header" color="secondaryText">
             Edit Daily Goal
           </Text>
-          <Value />
+          <Value onSave={() => props.navigation.goBack()} />
           <Box padding="l">
             <Text variant="body" color="tertiaryText" fontSize={14}>
               Based on current research, 0.7 grams of protein per pound of body

@@ -1,9 +1,14 @@
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { Platform } from "react-native";
 import { X } from "geist-native-icons";
 import { z } from "zod";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 
 import {
   Box,
@@ -23,18 +28,14 @@ import { Fragment } from "react";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
-  weight: z
-    .string()
-    .min(1, "Weight is required")
-    .transform((val) => Number(val))
-    .refine((val) => !isNaN(val) && val > 0, "Must be a positive number"),
+  weight: z.string().min(1, "Weight is required"),
   unit: z.enum(["kg", "lbs"]),
   updateProteinGoal: z.boolean().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
+const Form = (props: RootScreenProps<"PersonalInfo">) => {
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
@@ -46,7 +47,7 @@ const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
     resolver: zodResolver(schema),
     defaultValues: {
       name: user.name,
-      weight: user.weight.value,
+      weight: user.weight.value.toString(),
       unit: user.weight.unit,
       updateProteinGoal: false,
     },
@@ -58,10 +59,7 @@ const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
     dispatch(setWeightUnit(data.unit));
 
     if (data.updateProteinGoal) {
-      dispatch(setDailyTarget(null)); // Reset to auto-calculated target
     }
-
-    navigation.goBack();
   };
 
   return (
@@ -70,7 +68,7 @@ const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
         {Platform.OS === "ios" && (
           <Fragment>
             <Button
-              onPress={() => navigation.goBack()}
+              onPress={() => props.navigation.goBack()}
               variant="circleButton"
               style={{ position: "absolute", top: -12, right: -12 }}
               icon={
@@ -108,15 +106,17 @@ const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
             <Controller
               control={control}
               name="weight"
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  value={value.toString()}
-                  onChangeText={onChange}
-                  placeholder="Your weight"
-                  keyboardType="numeric"
-                  error={!!errors.weight}
-                />
-              )}
+              render={({ field: { onChange, value } }) => {
+                return (
+                  <TextInput
+                    value={value.toString()}
+                    onChangeText={(v) => onChange(v.toString())}
+                    placeholder="Your weight"
+                    keyboardType="numeric"
+                    error={!!errors.weight}
+                  />
+                );
+              }}
             />
             {errors.weight && (
               <Text variant="caption" color="error" marginTop="xs">
@@ -163,16 +163,45 @@ const PersonalInfo = ({ navigation }: RootScreenProps<"PersonalInfo">) => {
             </Box>
           </Animated.View>
         )}
-        <Box marginTop="xl">
-          <Button
-            variant="primary"
-            label="Save Changes"
-            onPress={handleSubmit(onSubmit)}
-          />
-        </Box>
+        <Animated.View layout={LinearTransition}>
+          <Box marginTop="xl">
+            <Button
+              variant="primary"
+              label="Save Changes"
+              onPress={handleSubmit(onSubmit)}
+            />
+          </Box>
+        </Animated.View>
       </Box>
     </Box>
   );
 };
 
-export default PersonalInfo;
+export default function (props: RootScreenProps<"PersonalInfo">) {
+  const [key, setKey] = useState(Math.random().toString(36).slice(0, 9));
+  const [firstPass, setFirstPass] = useState(true);
+  const user = useAppSelector(selectUserInfo);
+
+  // There was a white flash when saving and this whole key setup
+  // was the only hack that would make it go away.
+  useEffect(() => {
+    if (firstPass) {
+      setFirstPass(false);
+    } else {
+      setKey(Math.random().toString(36).slice(0, 9));
+    }
+  }, [user]);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (!firstPass) {
+      timeout = setTimeout(() => {
+        props.navigation.goBack();
+      }, 300);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [key]);
+
+  return <Form key={key} {...props} />;
+}

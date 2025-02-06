@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, useWatch, useController } from "react-hook-form";
-import { AlertCircle, Emoji } from "geist-native-icons";
+import { AlertCircle, Smile } from "geist-native-icons";
 import { X } from "geist-native-icons";
 import { z } from "zod";
 import { Platform } from "react-native";
@@ -106,7 +106,7 @@ const AddFood = ({ navigation }: RootScreenProps<"AddFood">) => {
                         {emoji ? (
                           <Text padding="xs">{emoji}</Text>
                         ) : (
-                          <Icon icon={Emoji} color="secondaryText" size={22} />
+                          <Icon icon={Smile} color="secondaryText" size={22} />
                         )}
                       </Box>
                     </Box>

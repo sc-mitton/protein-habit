@@ -59,7 +59,7 @@ const RootStack = () => {
             },
             headerLeft: () => {
               return (
-                <Box paddingHorizontal="xs">
+                <Box paddingHorizontal="xs" paddingVertical="s">
                   <Text variant="header">Welcome, {name}</Text>
                   <Text variant="subheader">
                     {dayjs().format("MMM D, YYYY")}
@@ -68,7 +68,10 @@ const RootStack = () => {
               );
             },
             headerRight: () => (
-              <Box marginRight={Platform.OS === "android" ? "nm" : undefined}>
+              <Box
+                marginRight={Platform.OS === "android" ? "nm" : undefined}
+                marginVertical="m"
+              >
                 <Menu />
               </Box>
             ),
