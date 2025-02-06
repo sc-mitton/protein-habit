@@ -1,34 +1,41 @@
 import { useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Plus, Minus } from "geist-native-icons";
-import { StyleSheet, ScrollView, Platform } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-import { Food, selectFoods } from "@store/slices/foodsSlice";
+import { Food } from "@store/slices/foodsSlice";
 import { Box, Button, Icon, Text } from "@components";
 import { BackDrop } from "@components";
 import { RootScreenProps } from "@types";
-import { useAppSelector, useAppDispatch } from "@store/hooks";
-import { addEntry } from "@store/slices/proteinSlice";
-import FoodItem from "./FoodItem";
+import { useAppDispatch } from "@store/hooks";
+import { addEntry, updateEntry } from "@store/slices/proteinSlice";
+import FoodList from "./FoodList";
 
 const Appearance = (props: RootScreenProps<"MyFoods">) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
-  const foods = useAppSelector(selectFoods);
   const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
   const [selectedAmounts, setSelectedAmounts] = useState<number[]>([1]);
 
   const handleSave = () => {
-    for (let i = 0; i < selectedFoods.length; i++) {
+    if (props.route.params?.entry) {
       dispatch(
-        addEntry({
-          grams: selectedFoods[i].protein * selectedAmounts[i],
-          food: selectedFoods[i].id,
+        updateEntry({
+          ...props.route.params.entry,
+          food: selectedFoods[0].id,
+          grams: selectedFoods[0].protein * selectedAmounts[0],
         }),
       );
+    } else {
+      for (let i = 0; i < selectedFoods.length; i++) {
+        dispatch(
+          addEntry({
+            grams: selectedFoods[i].protein * selectedAmounts[i],
+            food: selectedFoods[i].id,
+          }),
+        );
+      }
     }
     props.navigation.goBack();
   };
@@ -52,7 +59,9 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
             alignItems="center"
             flexDirection="row"
           >
-            <Text variant="header">My Foods</Text>
+            <Text variant="header">
+              {props.route.params?.entry ? "Edit" : "My Foods"}
+            </Text>
             <Button
               borderRadius="m"
               backgroundColor="transparent"
@@ -78,51 +87,16 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
             />
           </Box>
         </Box>
+
         <Box minHeight={200} marginBottom="xl">
-          {foods.length > 0 ? (
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-              {foods
-                .filter((f) => !selectedFoods.some((sf) => sf.id === f.id))
-                .map((food) => (
-                  <Animated.View layout={LinearTransition} key={food.id}>
-                    <FoodItem
-                      key={food.id}
-                      navigation={props.navigation}
-                      food={food}
-                      onPress={() => {
-                        setSelectedFoods([...selectedFoods, food]);
-                        setSelectedAmounts([...selectedAmounts, 1]);
-                      }}
-                    />
-                  </Animated.View>
-                ))}
-            </ScrollView>
-          ) : (
-            <Box
-              flex={1}
-              justifyContent="flex-start"
-              alignItems="center"
-              gap="l"
-            >
-              <Box
-                borderWidth={1}
-                borderColor="borderColor"
-                borderRadius="full"
-                padding="sm"
-              >
-                <MaterialCommunityIcons
-                  name="food-steak"
-                  size={40}
-                  color={theme.colors.primaryText}
-                />
-              </Box>
-              <Box width={"50%"}>
-                <Text variant="body" color="tertiaryText" textAlign="center">
-                  Add your most common foods to quickly add their protein in the
-                  future
-                </Text>
-              </Box>
-            </Box>
+          {!props.route.params?.entry && (
+            <FoodList
+              selectedFoods={selectedFoods}
+              onPress={(food) => {
+                setSelectedFoods([...selectedFoods, food]);
+                setSelectedAmounts([...selectedAmounts, 1]);
+              }}
+            />
           )}
           {selectedFoods.length > 0 && (
             <Box marginTop="m">
@@ -159,7 +133,10 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                               newAmounts[index] = prev[index] - 1;
                               return newAmounts;
                             });
-                          } else {
+                          }
+                          // If editin the entry, don't allow to go to 0.
+                          // User should just remove the entry instead.
+                          else if (!props.route.params?.entry) {
                             setSelectedFoods((prev) =>
                               prev.filter((_, i) => i !== index),
                             );
@@ -236,7 +213,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                   variant="primary"
                   onPress={handleSave}
                   labelPlacement="left"
-                  label={`Add ${selectedFoods.reduce(
+                  label={`${props.route.params?.entry ? "Total: " : "Add"} ${selectedFoods.reduce(
                     (acc, food, index) =>
                       acc + food.protein * selectedAmounts[index],
                     0,
@@ -254,14 +231,3 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
 };
 
 export default Appearance;
-
-const styles = StyleSheet.create({
-  scrollContent: {
-    paddingTop: 12,
-    paddingVertical: 12,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: Platform.OS === "ios" ? 12 : 0,
-  },
-});

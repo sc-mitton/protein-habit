@@ -52,17 +52,29 @@ const selectMonthlyDailyAverage = createSelector(
   },
 );
 
-const selectWeeklyAvg = createSelector(
+const selectDailyAvg = createSelector(
   (state: RootState) => state.protein.entries,
-  (entries) => {
-    const cutOff = dayjs().startOf("week");
+  (_: RootState, start: string) => start,
+  (entries, start) => {
+    const startDayjs = dayjs(start);
+    const numDays = dayjs().diff(startDayjs, "day");
 
-    return entries
-      .slice(0, 7)
-      .filter(([day]) => dayjs(day).isAfter(cutOff.subtract(1, "day"), "day"))
-      .reduce((sum, dailyEntries) => {
-        return sum + dailyEntries[1].reduce((sum, e) => sum + e.grams, 0);
-      }, 0);
+    if (numDays === 0) {
+      return 0;
+    }
+
+    const result =
+      entries
+        .slice(0, numDays)
+        .filter(([day]) =>
+          dayjs(day).isAfter(startDayjs.subtract(1, "day"), "day"),
+        )
+        .reduce((sum, dailyEntries) => {
+          return sum + dailyEntries[1].reduce((sum, e) => sum + e.grams, 0);
+        }, 0) / numDays;
+
+    // round reult to 1 decimal place
+    return Math.round(result * 10) / 10;
   },
 );
 
@@ -176,7 +188,7 @@ export {
   selectMonthlyDailyAverage,
   selectDailyProteinTarget,
   selectTotalProteinForDay,
-  selectWeeklyAvg,
+  selectDailyAvg,
   selectStreak,
   selectDailyTargetResults,
   selectTodaysEntries,

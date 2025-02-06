@@ -6,14 +6,17 @@ import { Box, Text, Icon } from "@components";
 import {
   selectDailyProteinTarget,
   selectTotalProteinForDay,
-  selectWeeklyAvg,
+  selectDailyAvg,
   selectStreak,
 } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
+import { dayFormat } from "@constants/formats";
 
 const Stats = () => {
   const dailyTarget = useAppSelector(selectDailyProteinTarget);
-  const weeklyAvg = useAppSelector(selectWeeklyAvg);
+  const weeklyAvg = useAppSelector((state) =>
+    selectDailyAvg(state, dayjs().startOf("week").format(dayFormat)),
+  );
   const totalProteinForDay = useAppSelector((state) =>
     selectTotalProteinForDay(state, dayjs().format("YYYY-MM-DD")),
   );

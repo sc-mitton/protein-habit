@@ -4,7 +4,7 @@ import { dayFormat, timeFormat } from "@constants/formats";
 import {
   selectTotalProteinForDay,
   selectMonthlyDailyAverage,
-  selectWeeklyAvg,
+  selectDailyAvg,
   selectStreak,
   selectDailyTargetResults,
   selectTodaysEntries,
@@ -101,7 +101,9 @@ it("should select the weekly average", () => {
 
   for (let i = 0; i < 7; i++) {
     jest.setSystemTime(dayjs(rootDate).subtract(i, "day").toDate());
-    expect(selectWeeklyAvg(state as any)).toBe(100);
+    const start = dayjs().startOf("week").format(dayFormat);
+    const expected = i === 0 ? 0 : 100;
+    expect(selectDailyAvg(state as any, start)).toBe(expected);
   }
 
   jest.useRealTimers();

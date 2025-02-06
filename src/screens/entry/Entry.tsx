@@ -14,7 +14,7 @@ import fontStyles from "@styles/fonts";
 import { Box, Text, Button, Icon, TextInput } from "@components";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { selectAccent, selectFont } from "@store/slices/uiSlice";
-import { addEntry } from "@store/slices/proteinSlice";
+import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import type { RootScreenProps } from "@types";
 import success from "@lotties/success.json";
 
@@ -130,12 +130,14 @@ const Value = ({ value }: { value: number }) => {
 };
 
 const Entry = (props: RootScreenProps<"Entry">) => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(props.route.params?.entry?.grams || 0);
   const font = useAppSelector(selectFont);
   const accent = useAppSelector(selectAccent);
   const [showSuccess, setShowSuccess] = useState(false);
   const animation = useRef<LottieView>(null);
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState<string>(
+    props.route.params?.entry?.name || "",
+  );
   const [nameFocused, setNameFocused] = useState(false);
   const theme = useTheme();
   const dispatch = useAppDispatch();
@@ -158,8 +160,19 @@ const Entry = (props: RootScreenProps<"Entry">) => {
     animation.current?.reset();
     animation.current?.play();
     setShowSuccess(true);
+
     setTimeout(() => {
-      dispatch(addEntry({ name: name?.trim(), grams: Number(value) }));
+      if (props.route.params?.entry) {
+        dispatch(
+          updateEntry({
+            ...props.route.params.entry,
+            grams: Number(value),
+            name: name?.trim(),
+          }),
+        );
+      } else {
+        dispatch(addEntry({ name: name?.trim(), grams: Number(value) }));
+      }
       props.navigation.goBack();
     }, 1700);
   };
@@ -259,7 +272,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
         onPress={handleSubmit}
       >
         <Text color="primaryText" accent>
-          Save
+          {`${props.route.params?.entry ? "Update" : "Save"}`}
         </Text>
       </Button>
     </Box>

@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Food } from "./foodsSlice";
 import { dayFormat, timeFormat } from "@constants/formats";
 
-interface ProteinEntry {
+export interface ProteinEntry {
   id: string;
   grams: number;
   time: string;
@@ -64,6 +64,19 @@ const proteinSlice = createSlice({
         );
       }
     },
+    updateEntry: (state, action: PayloadAction<ProteinEntry>) => {
+      const entryIndex = state.entries.findIndex(([, entries]) =>
+        entries.some((entry) => entry.id === action.payload.id),
+      );
+      if (entryIndex !== -1) {
+        state.entries[entryIndex][1].map((entry) => {
+          if (entry.id === action.payload.id) {
+            return action.payload;
+          }
+          return entry;
+        });
+      }
+    },
     setDailyTarget: (
       state,
       action: PayloadAction<ProteinState["dailyTargets"][0][1]>,
@@ -90,6 +103,7 @@ export const {
   removeEntry,
   setDailyTarget,
   resetDailyTarget2Default,
+  updateEntry,
 } = proteinSlice.actions;
 
 export default proteinSlice.reducer;

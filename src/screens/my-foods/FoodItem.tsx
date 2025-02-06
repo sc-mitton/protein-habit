@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useColorScheme } from "react-native";
-import { View, Platform } from "react-native";
+import { View, Platform, useColorScheme } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
@@ -11,6 +11,7 @@ import { deactiveFood, type Food } from "@store/slices/foodsSlice";
 import { Plus } from "geist-native-icons";
 import { useAppDispatch } from "@store/hooks";
 import { RootScreenProps } from "@types";
+
 const Menu = ({
   food,
   children,
@@ -102,14 +103,9 @@ const Menu = ({
   );
 };
 
-const FoodItem = ({
-  food,
-  onPress,
-  navigation,
-}: { food: Food; onPress: () => void } & {
-  navigation: RootScreenProps<"MyFoods">["navigation"];
-}) => {
+const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
   const scheme = useColorScheme();
+  const { navigation } = useNavigation<RootScreenProps<"MyFoods">>();
 
   return (
     <Menu food={food} navigation={navigation}>
