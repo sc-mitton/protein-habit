@@ -7,11 +7,7 @@ import {
   TouchableHighlight,
   Platform,
 } from "react-native";
-import Animated, {
-  SlideInDown,
-  FadeOut,
-  Easing,
-} from "react-native-reanimated";
+import Animated, { FadeOut, FadeIn } from "react-native-reanimated";
 import SlotNumbers from "react-native-slot-numbers";
 import { useTheme } from "@shopify/restyle";
 import { Check, X } from "geist-native-icons";
@@ -118,149 +114,115 @@ const Calendar = () => {
       backgroundColor="secondaryBackground"
       flex={4.5}
     >
-      <OutsidePressHandler onOutsidePress={() => setFocusedCell(undefined)}>
-        <Box
-          style={styles.innerBox}
-          paddingVertical="l"
-          shadowColor="primaryText"
-          shadowOffset={{ width: 0, height: 2 }}
-          shadowOpacity={0.05}
-          shadowRadius={3.84}
-          elevation={5}
-          backgroundColor="secondaryBackground"
-        >
-          <View style={styles.calendarContainer}>
-            <FlatList
-              data={calendarData}
-              keyExtractor={(item) => item[0]}
-              horizontal
-              pagingEnabled
-              onViewableItemsChanged={({ viewableItems }) => {
-                if (viewableItems.length === 3) {
-                  setCurrentIndex(viewableItems[1].index ?? 0);
-                } else {
-                  if (viewableItems[0].index === 0) {
-                    setCurrentIndex(viewableItems[0].index ?? 0);
-                  } else {
-                    setCurrentIndex(calendarData.length - 1);
-                  }
-                }
-              }}
-              ref={calendarRef}
-              showsHorizontalScrollIndicator={false}
-              onScrollToIndexFailed={() => {}}
-              scrollEventThrottle={16}
-              snapToOffsets={calendarData.map((_, index) => {
-                return index * CALENDAR_WIDTH;
-              })}
-              decelerationRate={0.01}
-              renderItem={({ item, index }) => (
-                <View
-                  key={`scroll-container-${index}`}
-                  style={[
-                    styles.scrollContainer,
-                    index == 0 && styles.firstScrollContainer,
-                    index === calendarData.length - 1 &&
-                      styles.lastScrollContainer,
-                  ]}
-                >
-                  <Text variant="bold" style={styles.monthHeader}>
-                    {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
-                  </Text>
-                  <View style={styles.monthContainer} key={item[0]}>
-                    {item[1].map((days: number[], columnIndex: number) => {
-                      return (
-                        <View
-                          style={styles.column}
-                          key={`column-${columnIndex}`}
-                        >
-                          <View style={styles.cell}>
-                            <Text
-                              color="secondaryText"
-                              variant="bold"
-                              fontSize={14}
-                            >
-                              {dayjs().day(columnIndex).format("dd")[0]}
-                            </Text>
-                          </View>
-                          {days.map((day, rowIndex) => {
-                            const isBookend =
-                              Math.abs(rowIndex - Math.floor(day / 7)) > 1;
+      <Box
+        style={styles.innerBox}
+        paddingVertical="l"
+        shadowColor="primaryText"
+        shadowOffset={{ width: 0, height: 2 }}
+        shadowOpacity={0.05}
+        shadowRadius={3.84}
+        elevation={5}
+        backgroundColor="secondaryBackground"
+      >
+        <View style={styles.calendarContainer}>
+          <FlatList
+            data={calendarData}
+            keyExtractor={(item) => item[0]}
+            horizontal
+            pagingEnabled
+            onScroll={({ nativeEvent }) => {
+              setCurrentIndex(
+                Math.abs(
+                  Math.round(nativeEvent.contentOffset.x / CALENDAR_WIDTH),
+                ),
+              );
+            }}
+            ref={calendarRef}
+            showsHorizontalScrollIndicator={false}
+            onScrollToIndexFailed={() => {}}
+            scrollEventThrottle={16}
+            snapToOffsets={calendarData.map((_, index) => {
+              return index * CALENDAR_WIDTH;
+            })}
+            decelerationRate={0.01}
+            renderItem={({ item, index }) => (
+              <View
+                key={`scroll-container-${index}`}
+                style={[
+                  styles.scrollContainer,
+                  index == 0 && styles.firstScrollContainer,
+                  index === calendarData.length - 1 &&
+                    styles.lastScrollContainer,
+                ]}
+              >
+                <Text variant="bold" style={styles.monthHeader}>
+                  {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
+                </Text>
+                <View style={styles.monthContainer} key={item[0]}>
+                  {item[1].map((days: number[], columnIndex: number) => {
+                    return (
+                      <View style={styles.column} key={`column-${columnIndex}`}>
+                        <View style={styles.cell}>
+                          <Text
+                            color="secondaryText"
+                            variant="bold"
+                            fontSize={14}
+                          >
+                            {dayjs().day(columnIndex).format("dd")[0]}
+                          </Text>
+                        </View>
+                        {days.map((day, rowIndex) => {
+                          const isBookend =
+                            Math.abs(rowIndex - Math.floor(day / 7)) > 1;
 
-                            const targetMet = isBookend
-                              ? undefined
-                              : dailyTargetResults[
-                                  dayjs().diff(
-                                    dayjs(item[0]).date(day),
-                                    "day",
-                                  ) - 1
-                                ]?.[2];
+                          const targetMet = isBookend
+                            ? undefined
+                            : dailyTargetResults[
+                                dayjs().diff(dayjs(item[0]).date(day), "day") -
+                                  1
+                              ]?.[2];
 
-                            return (
-                              <TouchableHighlight
-                                style={[
-                                  styles.cellContainer,
-                                  {
-                                    zIndex:
-                                      focusedCell &&
-                                      focusedCell.isSame(
-                                        dayjs(item[0]).date(day),
-                                        "day",
-                                      )
-                                        ? 100
-                                        : 7 - rowIndex,
-                                  },
-                                ]}
-                                activeOpacity={
-                                  targetMet === undefined ? 1 : 0.97
+                          return (
+                            <TouchableHighlight
+                              style={[
+                                styles.cellContainer,
+                                {
+                                  zIndex:
+                                    focusedCell &&
+                                    focusedCell.isSame(
+                                      dayjs(item[0]).date(day),
+                                      "day",
+                                    )
+                                      ? 100
+                                      : 7 - rowIndex,
+                                },
+                              ]}
+                              activeOpacity={targetMet === undefined ? 1 : 0.97}
+                              underlayColor={theme.colors.primaryText}
+                              onPressOut={() => {
+                                if (targetMet !== undefined) {
+                                  setFocusedCell(dayjs(item[0]).date(day));
+                                } else {
+                                  setFocusedCell(undefined);
                                 }
-                                underlayColor={theme.colors.primaryText}
-                                onPressOut={() => {
-                                  if (targetMet !== undefined) {
-                                    setFocusedCell(dayjs(item[0]).date(day));
-                                  } else {
-                                    setFocusedCell(undefined);
-                                  }
-                                }}
-                                key={`cell-${columnIndex}-${rowIndex}`}
-                              >
-                                <Box
-                                  borderRadius="m"
-                                  style={styles.cell}
-                                  backgroundColor="secondaryBackground"
-                                >
-                                  <Text
-                                    color={
-                                      isBookend
-                                        ? "quaternaryText"
-                                        : "primaryText"
-                                    }
-                                    variant="body"
-                                    fontSize={12}
-                                  >
-                                    {day}
-                                  </Text>
-                                  {focusedCell?.isSame(
-                                    dayjs(item[0]).date(day),
-                                    "day",
-                                  ) &&
-                                    !isBookend && (
-                                      <Animated.View
-                                        style={styles.aboveTipContainer}
-                                        entering={SlideInDown.withInitialValues(
-                                          {
-                                            originY: 1,
-                                            opacity: 0,
-                                          },
-                                        ).easing(
-                                          Easing.bezier(
-                                            0.25,
-                                            0.1,
-                                            0.25,
-                                            1.0,
-                                          ).factory(),
-                                        )}
-                                        exiting={FadeOut.duration(200)}
+                              }}
+                              key={`cell-${columnIndex}-${rowIndex}`}
+                            >
+                              <>
+                                {focusedCell?.isSame(
+                                  dayjs(item[0]).date(day),
+                                  "day",
+                                ) &&
+                                  !isBookend && (
+                                    <Animated.View
+                                      entering={FadeIn.duration(300)}
+                                      style={styles.aboveTipContainer}
+                                    >
+                                      <OutsidePressHandler
+                                        style={styles.aboveTip}
+                                        onOutsidePress={() =>
+                                          setFocusedCell(undefined)
+                                        }
                                       >
                                         <Box
                                           backgroundColor="cardBackground"
@@ -312,8 +274,25 @@ const Calendar = () => {
                                             />
                                           </View>
                                         </Box>
-                                      </Animated.View>
-                                    )}
+                                      </OutsidePressHandler>
+                                    </Animated.View>
+                                  )}
+                                <Box
+                                  borderRadius="m"
+                                  style={styles.cell}
+                                  backgroundColor="secondaryBackground"
+                                >
+                                  <Text
+                                    color={
+                                      isBookend
+                                        ? "quaternaryText"
+                                        : "primaryText"
+                                    }
+                                    variant="body"
+                                    fontSize={12}
+                                  >
+                                    {day}
+                                  </Text>
                                   <View style={styles.belowIconContainer}>
                                     <View style={styles.belowIcon}>
                                       {targetMet && (
@@ -335,50 +314,45 @@ const Calendar = () => {
                                     </View>
                                   </View>
                                 </Box>
-                              </TouchableHighlight>
-                            );
-                          })}
-                        </View>
-                      );
-                    })}
-                  </View>
+                              </>
+                            </TouchableHighlight>
+                          );
+                        })}
+                      </View>
+                    );
+                  })}
                 </View>
-              )}
-            />
-            <View style={styles.proteinStatsContainer}>
-              <View style={styles.proteinStats}>
-                <Text
-                  fontSize={14}
-                  color="tertiaryText"
-                  marginRight="xs"
-                  variant="medium"
-                >
-                  Averaged
-                </Text>
-                <SlotNumbers
-                  value={proteinMonthlyDailyAverage.avgProteinPerDay}
-                  fontStyle={[
-                    styles.slotNumbers,
-                    { color: theme.colors.tertiaryText },
-                  ]}
-                  spring
-                />
-                <Text fontSize={14} color="tertiaryText" variant="medium">
-                  g
-                </Text>
-                <Text
-                  fontSize={14}
-                  color="tertiaryText"
-                  variant="medium"
-                  marginLeft="xs"
-                >
-                  / day
-                </Text>
               </View>
+            )}
+          />
+          <View style={styles.proteinStatsContainer}>
+            <View style={styles.proteinStats}>
+              <Text
+                fontSize={14}
+                color="tertiaryText"
+                marginRight="xs"
+                variant="medium"
+              >
+                Averaged
+              </Text>
+              <Text fontSize={14} color="tertiaryText" variant="medium">
+                {proteinMonthlyDailyAverage.avgProteinPerDay}
+              </Text>
+              <Text fontSize={14} color="tertiaryText" variant="medium">
+                g
+              </Text>
+              <Text
+                fontSize={14}
+                color="tertiaryText"
+                variant="medium"
+                marginLeft="xs"
+              >
+                / day
+              </Text>
             </View>
           </View>
-        </Box>
-      </OutsidePressHandler>
+        </View>
+      </Box>
     </Box>
   );
 };
@@ -456,6 +430,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 100,
   },
   arrowForTipContainer: {
     position: "absolute",

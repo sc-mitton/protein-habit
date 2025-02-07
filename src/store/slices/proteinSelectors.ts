@@ -1,5 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
+import Big from "big.js";
 
 import { RootState } from "..";
 import { dayFormat } from "@constants/formats";
@@ -29,13 +30,16 @@ const selectDailyProteinTarget = (state: RootState) => {
 const selectMonthlyDailyAverage = createSelector(
   [
     (state: RootState) => state.protein.entries,
+    (state: RootState) => state.user,
     (_: RootState, month: string) => month,
   ],
-  (entries, month) => {
+  (entries, user, month) => {
     const date = dayjs(month, "YYYY-MM");
 
     const monthEntries = entries.filter(([day]) => {
-      return dayjs(day).isSame(date, "month");
+      return (
+        dayjs(day).isSame(date, "month") && dayjs(day).isBefore(dayjs(), "day")
+      );
     });
 
     const totalProtein = monthEntries.reduce(
@@ -45,8 +49,33 @@ const selectMonthlyDailyAverage = createSelector(
     );
 
     const daysWithEntries = monthEntries.length;
+
+    // How many days are we averaging over?
+    // It could be
+    // 1 number of days with entries in the month
+    // 2 days since the users inception
+    // 3 number of days in the month
+    // 4 today minus the start of the month
+    // When should it be each of these?
+    // - Always choose min of 3 & 4
+    // - Of above result choose min of that and 2
+    // - Choose max of that and 1
+
+    const denominator = Math.max(
+      daysWithEntries,
+      Math.min(
+        dayjs().diff(dayjs(user.inceptionDate), "day"),
+        Math.min(
+          dayjs().diff(date.startOf("month"), "day"),
+          date.daysInMonth(),
+        ),
+      ),
+    );
+
     const avgProteinPerDay =
-      daysWithEntries > 0 ? totalProtein / daysWithEntries : 0;
+      daysWithEntries > 0
+        ? Big(totalProtein).div(denominator).round(1).toNumber()
+        : 0;
 
     return { avgProteinPerDay, totalProtein };
   },
@@ -54,9 +83,14 @@ const selectMonthlyDailyAverage = createSelector(
 
 const selectDailyAvg = createSelector(
   (state: RootState) => state.protein.entries,
+  (state: RootState) => state.user,
   (_: RootState, start: string) => start,
-  (entries, start) => {
-    const startDayjs = dayjs(start);
+  (entries, user, start) => {
+    const startDayjs =
+      user?.inceptionDate && dayjs(start).isBefore(user.inceptionDate)
+        ? dayjs(user.inceptionDate)
+        : dayjs(start);
+
     const numDays = dayjs().diff(startDayjs, "day");
 
     if (numDays === 0) {
@@ -65,9 +99,10 @@ const selectDailyAvg = createSelector(
 
     const result =
       entries
-        .slice(0, numDays)
-        .filter(([day]) =>
-          dayjs(day).isAfter(startDayjs.subtract(1, "day"), "day"),
+        .filter(
+          ([day]) =>
+            dayjs(day).isAfter(startDayjs.subtract(1, "day"), "day") &&
+            dayjs(day).isBefore(dayjs(), "day"),
         )
         .reduce((sum, dailyEntries) => {
           return sum + dailyEntries[1].reduce((sum, e) => sum + e.grams, 0);
@@ -95,6 +130,7 @@ const selectDailyTargetResults = createSelector(
     const daysSinceLastEntry = dayjs().diff(dayjs(entries[0][0]), "day") - 1;
     const target =
       targets[0][1] ?? getRecommendedTarget(weight.value, weight.unit);
+
     // Fill in start
     for (let i = 1; i < daysSinceLastEntry + 1; i++) {
       results.push([
@@ -116,8 +152,8 @@ const selectDailyTargetResults = createSelector(
 
       // Fill in gap if any
       const gap =
-        dayjs(entries[i][0]).diff(
-          dayjs(results[results.length - 1]?.[0]),
+        dayjs(results[results.length - 1]?.[0]).diff(
+          dayjs(entries[i][0]),
           "day",
         ) - 1;
 
