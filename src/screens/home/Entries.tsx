@@ -14,7 +14,7 @@ import Options from "./Options";
 const styles = StyleSheet.create({
   scrollContent: {
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
   },
 });
 
@@ -28,20 +28,20 @@ const Entries = () => {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {todaysEntries.map((entry, entryIndex) => (
             <Animated.View layout={LinearTransition} key={entry.id}>
+              {entryIndex !== 0 && (
+                <Box
+                  height={1.5}
+                  backgroundColor="seperator"
+                  marginHorizontal="s"
+                />
+              )}
               <Options entry={entry}>
                 <Box
                   flexDirection="row"
-                  padding="s"
-                  paddingVertical="m"
+                  padding="m"
                   justifyContent="space-between"
                   alignItems="center"
                   gap="m"
-                  borderBottomColor={
-                    entryIndex === todaysEntries.length - 1
-                      ? "transparent"
-                      : "seperator"
-                  }
-                  borderBottomWidth={1.5}
                   backgroundColor="mainBackground"
                 >
                   <Box minWidth={36}>

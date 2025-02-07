@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import dayjs from "dayjs";
 import { StyleSheet, Animated, PanResponder } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -11,6 +11,7 @@ import { Button } from "@components";
 import { removeEntry } from "@store/slices/proteinSlice";
 import { dayFormat } from "@constants/formats";
 import type { ProteinEntry } from "@store/slices/proteinSlice";
+import { useTabsContext } from "./TabsContext";
 
 const ACTIONS_WIDTH = 110;
 const THRESHOLD = ACTIONS_WIDTH / 2;
@@ -43,28 +44,39 @@ const Options = ({ children, entry }: OptionsProps) => {
   const navigation = useNavigation<any>();
   const theme = useTheme();
   const isOpen = useRef(false);
+  const { setIsScrollEnabled: setParentScrollEnabled } = useTabsContext();
 
   const pan = useRef(new Animated.Value(0)).current;
+
+  const updateParentScrollEnabled = useCallback(
+    (enabled: boolean) => {
+      console.log("parent scroll enabled", enabled);
+      setParentScrollEnabled(enabled);
+    },
+    [setParentScrollEnabled],
+  );
 
   const closeSwipe = () => {
     Animated.spring(pan, {
       toValue: 0,
       useNativeDriver: true,
-    }).start();
+    }).start(() => {
+      updateParentScrollEnabled(true);
+    });
     isOpen.current = false;
   };
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gs) => {
-        // Only capture horizontal movements
-        console.log(
-          "capturing: ",
+        console.log("", gs);
+        const shouldSet = [
           Math.abs(gs.dx) > Math.abs(gs.dy),
-          gs.dx,
-          gs.dy,
-        );
-        return Math.abs(gs.dx) > Math.abs(gs.dy);
+          isOpen.current ? true : gs.dx < 0,
+        ];
+        console.log("shouldSet", shouldSet);
+        updateParentScrollEnabled(!shouldSet.every(Boolean));
+        return shouldSet.every(Boolean);
       },
       onPanResponderMove: (_, gs) => {
         // Only allow negative (leftward) translations
@@ -83,6 +95,7 @@ const Options = ({ children, entry }: OptionsProps) => {
             useNativeDriver: true,
           }).start(() => {
             isOpen.current = true;
+            updateParentScrollEnabled(true);
           });
         } else if (isOpen.current && gs.dx > 0) {
           closeSwipe();
@@ -93,7 +106,7 @@ const Options = ({ children, entry }: OptionsProps) => {
             toValue: 0,
             useNativeDriver: true,
           }).start(() => {
-            isOpen.current = false;
+            updateParentScrollEnabled(true);
           });
         }
       },
