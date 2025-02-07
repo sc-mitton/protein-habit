@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "@shopify/restyle";
@@ -20,11 +20,10 @@ import { removeEntry } from "@store/slices/proteinSlice";
 import { dayFormat } from "@constants/formats";
 import type { ProteinEntry } from "@store/slices/proteinSlice";
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const ACTIONS_WIDTH = 110;
-const THRESHOLD = SCREEN_WIDTH * 0.3;
+const THRESHOLD = ACTIONS_WIDTH / 2;
 
-interface EntrySwipeProps {
+interface OptionsProps {
   children: React.ReactNode;
   entry: ProteinEntry;
 }
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const EntrySwipe = ({ children, entry }: EntrySwipeProps) => {
+const Options = ({ children, entry }: OptionsProps) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const theme = useTheme();
@@ -61,6 +60,7 @@ const EntrySwipe = ({ children, entry }: EntrySwipeProps) => {
 
   const gesture = Gesture.Pan()
     .failOffsetX(isOpenState ? [-Infinity, Infinity] : 0)
+    .failOffsetY(0)
     .onUpdate((event) => {
       const x = Math.min(0, Math.max(-ACTIONS_WIDTH, event.translationX));
       translateX.value = isOpen.value ? withSpring(0) : x;
@@ -106,7 +106,7 @@ const EntrySwipe = ({ children, entry }: EntrySwipeProps) => {
 
   return (
     <Box overflow="hidden">
-      <GestureDetector gesture={gesture}>
+      <GestureDetector gesture={gesture} touchAction={"pan-x"}>
         <Animated.View style={rStyle}>
           <Box style={styles.actions}>
             <Box style={[styles.actionsContainer]} flexDirection="row">
@@ -151,4 +151,4 @@ const EntrySwipe = ({ children, entry }: EntrySwipeProps) => {
   );
 };
 
-export default EntrySwipe;
+export default Options;

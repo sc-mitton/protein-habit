@@ -9,7 +9,7 @@ import { StyleSheet } from "react-native";
 import { useAppSelector } from "@store/hooks";
 import { Box, Text, Icon } from "@components";
 import { selectFoods } from "@store/slices/foodsSlice";
-import EntrySwipe from "./EntrySwipe";
+import Options from "./Options";
 
 const styles = StyleSheet.create({
   scrollContent: {
@@ -28,7 +28,7 @@ const Entries = () => {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {todaysEntries.map((entry, entryIndex) => (
             <Animated.View layout={LinearTransition} key={entry.id}>
-              <EntrySwipe entry={entry}>
+              <Options entry={entry}>
                 <Box
                   flexDirection="row"
                   padding="s"
@@ -74,7 +74,7 @@ const Entries = () => {
                       .format("h:mm A")}
                   </Text>
                 </Box>
-              </EntrySwipe>
+              </Options>
             </Animated.View>
           ))}
         </ScrollView>
