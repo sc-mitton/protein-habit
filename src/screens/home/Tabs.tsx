@@ -1,16 +1,16 @@
 import { useState, useRef, useEffect } from "react";
-import { Dimensions, StyleSheet, Platform } from "react-native";
+import { Dimensions, StyleSheet, Platform, ScrollView } from "react-native";
 import { View } from "react-native";
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
+  withSpring,
 } from "react-native-reanimated";
 
 import { Box, Button } from "@components";
 import Entries from "./Entries";
 import Stats from "./Stats";
-import PagerView from "react-native-pager-view";
 
 const TAB_INDICATOR_OFFSET = 18;
 
@@ -19,9 +19,10 @@ const Tabs = () => {
   const indicatorX = useSharedValue(TAB_INDICATOR_OFFSET);
   const [selectedTab, setSelectedTab] = useState(0);
   const tabHeaderWidths = useRef(new Array(2).fill(0));
-  const pagerState = useRef<"idle" | "settling" | "dragging">();
-  const pagerRef = useRef<PagerView>(null);
+  const scrollRef = useRef<ScrollView>(null);
   const lockIndicatorAnimation = useRef(false);
+
+  const onScrollAnimation = useRef(true);
 
   const indicatorAnimation = useAnimatedStyle(() => {
     return {
@@ -76,7 +77,7 @@ const Tabs = () => {
           <Button
             label={"Stats"}
             onPress={() => {
-              pagerRef.current?.setPage(0);
+              scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
               lockIndicatorAnimation.current = true;
             }}
           />
@@ -90,7 +91,11 @@ const Tabs = () => {
           <Button
             label="Entries"
             onPress={() => {
-              pagerRef.current?.setPage(1);
+              scrollRef.current?.scrollTo({
+                x: Dimensions.get("window").width,
+                y: 0,
+                animated: true,
+              });
               lockIndicatorAnimation.current = true;
             }}
           />
@@ -117,37 +122,56 @@ const Tabs = () => {
         elevation={12}
         flex={1}
       >
-        <PagerView
-          ref={pagerRef}
-          onPageSelected={(e) => {
-            setSelectedTab(e.nativeEvent.position);
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          ref={scrollRef}
+          onScrollBeginDrag={() => {
+            onScrollAnimation.current = true;
           }}
-          onPageScrollStateChanged={(e) => {
-            pagerState.current = e.nativeEvent.pageScrollState;
-            if (pagerState.current === "idle") {
-              lockIndicatorAnimation.current = false;
+          onScrollEndDrag={() => {
+            onScrollAnimation.current = false;
+            if (selectedTab === 1) {
+              indicatorX.value = withSpring(
+                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1],
+              );
+              indicatorWidth.value = withSpring(tabHeaderWidths.current[1]);
+            } else {
+              indicatorX.value = withSpring(TAB_INDICATOR_OFFSET);
+              indicatorWidth.value = withSpring(tabHeaderWidths.current[0]);
             }
           }}
-          onPageScroll={(e) => {
-            if (
-              pagerState.current === "settling" ||
-              lockIndicatorAnimation.current
-            ) {
-              return;
-            }
+          onScroll={(e) => {
             const delta =
-              Math.min(
-                Math.abs(1 - e.nativeEvent.offset),
-                Math.abs(0 - e.nativeEvent.offset),
-              ) * 50;
-            indicatorWidth.value = tabHeaderWidths.current[selectedTab] + delta;
+              selectedTab === 0
+                ? e.nativeEvent.contentOffset.x
+                : e.nativeEvent.contentOffset.x -
+                  Dimensions.get("window").width;
+
+            if (
+              e.nativeEvent.contentOffset.x >
+              Dimensions.get("window").width / 2
+            ) {
+              setSelectedTab(1);
+            } else {
+              setSelectedTab(0);
+            }
+
+            // End early if this lock is set (set on scroll end);
+            if (!onScrollAnimation.current) return;
+
             if (selectedTab === 1) {
               indicatorX.value =
-                tabHeaderWidths.current[1] - delta + TAB_INDICATOR_OFFSET;
+                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1] + delta / 10;
+              indicatorWidth.value = tabHeaderWidths.current[1] - delta / 10;
+            } else {
+              indicatorWidth.value = tabHeaderWidths.current[0] + delta / 10;
             }
           }}
+          snapToInterval={Dimensions.get("window").width}
+          snapToAlignment="start"
+          decelerationRate={0.01}
           style={StyleSheet.absoluteFill}
-          initialPage={0}
         >
           <View key="1" style={styles.page}>
             <Stats />
@@ -155,7 +179,7 @@ const Tabs = () => {
           <View key="2" style={styles.page}>
             <Entries />
           </View>
-        </PagerView>
+        </ScrollView>
       </Box>
     </Box>
   );

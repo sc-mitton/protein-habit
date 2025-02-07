@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { Platform } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { X } from "geist-native-icons";
 import { z } from "zod";
 import Animated, {
@@ -22,7 +23,6 @@ import {
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setName, setWeight, setWeightUnit } from "@store/slices/userSlice";
 import { selectUserInfo } from "@store/slices/userSlice";
-import { setDailyTarget } from "@store/slices/proteinSlice";
 import type { RootScreenProps } from "@types";
 import { Fragment } from "react";
 
@@ -64,6 +64,7 @@ const Form = (props: RootScreenProps<"PersonalInfo">) => {
 
   return (
     <Box flex={1} backgroundColor="mainBackground" padding="l">
+      <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box flex={1}>
         {Platform.OS === "ios" && (
           <Fragment>

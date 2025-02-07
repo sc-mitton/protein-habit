@@ -6,6 +6,7 @@ import {
   View,
   TextInput as RNTextInput,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Animated, {
   FadeInUp,
   FadeOutDown,
@@ -185,6 +186,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
+      <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box
         paddingTop="xl"
         borderRadius="m"

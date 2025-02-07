@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Plus, Minus } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
@@ -17,18 +17,21 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
   const theme = useTheme();
   const foods = useAppSelector(selectFoods);
 
-  const [selectedFoods, setSelectedFoods] = useState<Food[]>(
-    [
-      props.route.params?.entry
-        ? foods.find((food) => food.id === props.route.params?.entry?.food)
-        : undefined,
-    ].filter(Boolean) as Food[],
-  );
-  const [selectedAmounts, setSelectedAmounts] = useState<number[]>([
-    selectedFoods.length === 0
-      ? props.route.params?.entry?.grams! / selectedFoods.length
-      : 1,
-  ]);
+  const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
+  const [selectedAmounts, setSelectedAmounts] = useState<number[]>([1]);
+
+  useEffect(() => {
+    if (props.route.params?.entry) {
+      setSelectedFoods(
+        foods.filter((food) => food.id === props.route.params?.entry?.food),
+      );
+      setSelectedAmounts([
+        props.route.params?.entry?.grams! /
+          foods.find((food) => food.id === props.route.params?.entry?.food)!
+            .protein,
+      ]);
+    }
+  }, [props.route.params?.entry]);
 
   const handleSave = () => {
     if (props.route.params?.entry) {
@@ -99,7 +102,6 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
             />
           </Box>
         </Box>
-
         <Box minHeight={200} marginBottom="xl">
           {!props.route.params?.entry && (
             <FoodList

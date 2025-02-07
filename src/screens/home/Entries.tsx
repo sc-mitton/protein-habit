@@ -2,8 +2,9 @@ import { Fragment } from "react";
 import { selectTodaysEntries } from "@store/slices/proteinSelectors";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { ZeroConfig } from "geist-native-icons";
+import { ScrollView } from "react-native-gesture-handler";
 import dayjs from "dayjs";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { useAppSelector } from "@store/hooks";
 import { Box, Text, Icon } from "@components";
