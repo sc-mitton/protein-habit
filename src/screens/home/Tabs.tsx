@@ -11,6 +11,7 @@ import Animated, {
 import { Box, Button } from "@components";
 import Entries from "./Entries";
 import Stats from "./Stats";
+import TabsContext from "./TabsContext";
 
 const TAB_INDICATOR_OFFSET = 18;
 
@@ -79,6 +80,8 @@ const Tabs = () => {
             onPress={() => {
               scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
               lockIndicatorAnimation.current = true;
+              indicatorX.value = withTiming(TAB_INDICATOR_OFFSET);
+              indicatorWidth.value = withTiming(tabHeaderWidths.current[0]);
             }}
           />
         </Animated.View>
@@ -97,6 +100,10 @@ const Tabs = () => {
                 animated: true,
               });
               lockIndicatorAnimation.current = true;
+              indicatorX.value = withTiming(
+                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1],
+              );
+              indicatorWidth.value = withTiming(tabHeaderWidths.current[1]);
             }}
           />
         </Animated.View>

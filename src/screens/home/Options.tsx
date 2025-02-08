@@ -1,9 +1,17 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import { StyleSheet, Animated, PanResponder } from "react-native";
+import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "@shopify/restyle";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  withSpring,
+  runOnJS,
+} from "react-native-reanimated";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 import { useAppDispatch } from "@store/hooks";
 import { Box } from "@components";
@@ -11,11 +19,9 @@ import { Button } from "@components";
 import { removeEntry } from "@store/slices/proteinSlice";
 import { dayFormat } from "@constants/formats";
 import type { ProteinEntry } from "@store/slices/proteinSlice";
-import { useTabsContext } from "./TabsContext";
 
 const ACTIONS_WIDTH = 110;
 const THRESHOLD = ACTIONS_WIDTH / 2;
-const ESCAPE_VELOCITY = 1.5;
 
 interface OptionsProps {
   children: React.ReactNode;
@@ -43,78 +49,44 @@ const Options = ({ children, entry }: OptionsProps) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const theme = useTheme();
-  const isOpen = useRef(false);
-  const { setIsScrollEnabled: setParentScrollEnabled } = useTabsContext();
 
-  const pan = useRef(new Animated.Value(0)).current;
-
-  const updateParentScrollEnabled = useCallback(
-    (enabled: boolean) => {
-      console.log("parent scroll enabled", enabled);
-      setParentScrollEnabled(enabled);
-    },
-    [setParentScrollEnabled],
-  );
+  const translateX = useSharedValue(0);
+  const [isOpenState, setIsOpenState] = useState(false);
+  const isOpen = useSharedValue(false);
 
   const closeSwipe = () => {
-    Animated.spring(pan, {
-      toValue: 0,
-      useNativeDriver: true,
-    }).start(() => {
-      updateParentScrollEnabled(true);
-    });
-    isOpen.current = false;
+    translateX.value = withTiming(0);
   };
 
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gs) => {
-        console.log("", gs);
-        const shouldSet = [
-          Math.abs(gs.dx) > Math.abs(gs.dy),
-          isOpen.current ? true : gs.dx < 0,
-        ];
-        console.log("shouldSet", shouldSet);
-        updateParentScrollEnabled(!shouldSet.every(Boolean));
-        return shouldSet.every(Boolean);
-      },
-      onPanResponderMove: (_, gs) => {
-        // Only allow negative (leftward) translations
-        if (gs.dx <= 0 && !isOpen.current) {
-          const x = Math.max(-ACTIONS_WIDTH, gs.dx);
-          pan.setValue(x);
-        } else if (gs.dx > 0 && isOpen.current) {
-          pan.setValue(-ACTIONS_WIDTH + gs.dx);
-        }
-      },
-      onPanResponderRelease: (_, gs) => {
-        const shouldOpen = gs.vx < -ESCAPE_VELOCITY || gs.dx < -THRESHOLD;
-        if (shouldOpen && !isOpen.current) {
-          Animated.spring(pan, {
-            toValue: -ACTIONS_WIDTH,
-            useNativeDriver: true,
-          }).start(() => {
-            isOpen.current = true;
-            updateParentScrollEnabled(true);
-          });
-        } else if (isOpen.current && gs.dx > 0) {
-          closeSwipe();
-        }
-        // Snap back to close, thresholds/escape not reached
-        else if (!isOpen.current) {
-          Animated.spring(pan, {
-            toValue: 0,
-            useNativeDriver: true,
-          }).start(() => {
-            updateParentScrollEnabled(true);
-          });
-        }
-      },
-    }),
-  ).current;
+  const gesture = Gesture.Pan()
+    .failOffsetX(isOpenState ? [-Infinity, Infinity] : 0)
+    .activeOffsetX([-5, 5])
+    .onUpdate((event) => {
+      const x = Math.min(0, Math.max(-ACTIONS_WIDTH, event.translationX));
+      translateX.value = isOpen.value ? withSpring(0) : x;
+    })
+    .onEnd((event) => {
+      const shouldOpen =
+        event.velocityX < -500 ||
+        (translateX.value < -THRESHOLD && event.velocityX > -500);
+
+      if (shouldOpen) {
+        translateX.value = withSpring(-ACTIONS_WIDTH);
+        runOnJS(setIsOpenState)(true);
+        isOpen.value = true;
+      } else {
+        runOnJS(closeSwipe)();
+        runOnJS(setIsOpenState)(false);
+        isOpen.value = false;
+      }
+    });
+
+  const rStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }],
+  }));
 
   const handleDelete = () => {
-    closeSwipe();
+    runOnJS(closeSwipe)();
     dispatch(
       removeEntry({
         day: dayjs().format(dayFormat),
@@ -134,50 +106,47 @@ const Options = ({ children, entry }: OptionsProps) => {
 
   return (
     <Box overflow="hidden">
-      <Animated.View
-        style={{
-          transform: [{ translateX: pan }],
-        }}
-        {...panResponder.panHandlers}
-      >
-        <Box style={styles.actions}>
-          <Box style={[styles.actionsContainer]} flexDirection="row">
-            <Button
-              style={styles.button}
-              backgroundColor="primaryButton"
-              padding="s"
-              borderRadius="m"
-              justifyContent="center"
-              alignItems="center"
-              onPress={handleDelete}
-              icon={
-                <Ionicons
-                  name="trash-outline"
-                  size={24}
-                  color={theme.colors.error}
-                />
-              }
-            />
-            <Button
-              style={styles.button}
-              backgroundColor="primaryButton"
-              padding="s"
-              borderRadius="m"
-              justifyContent="center"
-              alignItems="center"
-              onPress={handleEdit}
-              icon={
-                <Ionicons
-                  name="pencil"
-                  size={24}
-                  color={theme.colors.primaryText}
-                />
-              }
-            />
+      <GestureDetector gesture={gesture} touchAction={"pan-x"}>
+        <Animated.View style={rStyle}>
+          <Box style={styles.actions}>
+            <Box style={[styles.actionsContainer]} flexDirection="row">
+              <Button
+                style={styles.button}
+                backgroundColor="primaryButton"
+                padding="s"
+                borderRadius="m"
+                justifyContent="center"
+                alignItems="center"
+                onPress={handleDelete}
+                icon={
+                  <Ionicons
+                    name="trash-outline"
+                    size={24}
+                    color={theme.colors.error}
+                  />
+                }
+              />
+              <Button
+                style={styles.button}
+                backgroundColor="primaryButton"
+                padding="s"
+                borderRadius="m"
+                justifyContent="center"
+                alignItems="center"
+                onPress={handleEdit}
+                icon={
+                  <Ionicons
+                    name="pencil"
+                    size={24}
+                    color={theme.colors.primaryText}
+                  />
+                }
+              />
+            </Box>
+            {children}
           </Box>
-          {children}
-        </Box>
-      </Animated.View>
+        </Animated.View>
+      </GestureDetector>
     </Box>
   );
 };

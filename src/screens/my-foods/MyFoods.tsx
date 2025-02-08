@@ -234,7 +234,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                           (acc, food, index) =>
                             acc + food.protein * selectedAmounts[index],
                           0,
-                        )}`
+                        )} g`
                   }
                   marginTop="xxl"
                   marginBottom="l"

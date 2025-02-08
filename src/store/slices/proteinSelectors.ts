@@ -37,6 +37,11 @@ const selectMonthlyDailyAverage = createSelector(
     const date = dayjs(month, "YYYY-MM");
 
     const monthEntries = entries.filter(([day]) => {
+      console.log(
+        dayjs(day).format(dayFormat),
+        dayjs(day).isSame(date, "month"),
+        dayjs(day).isBefore(dayjs(), "day"),
+      );
       return (
         dayjs(day).isSame(date, "month") && dayjs(day).isBefore(dayjs(), "day")
       );
@@ -66,12 +71,13 @@ const selectMonthlyDailyAverage = createSelector(
       Math.min(
         dayjs().diff(dayjs(user.inceptionDate), "day"),
         Math.min(
-          dayjs().diff(date.startOf("month"), "day"),
+          date.startOf("month").diff(dayjs(), "day"),
           date.daysInMonth(),
         ),
       ),
     );
 
+    console.log("denominator: ", denominator);
     const avgProteinPerDay =
       daysWithEntries > 0
         ? Big(totalProtein).div(denominator).round(1).toNumber()
@@ -203,12 +209,12 @@ const selectStreak = createSelector(
     let streak = 0;
     const defaultTarget = getRecommendedTarget(weight.value, weight.unit);
 
-    for (let i = 0; i < entries.length; i++) {
-      const dailyEntries = entries[i][1];
-      const totalProtein = dailyEntries.reduce((sum, e) => sum + e.grams, 0);
+    for (let i = 1; i < entries.length; i++) {
+      const totalProtein = entries[i][1].reduce((sum, e) => sum + e.grams, 0);
       const target =
-        targets.find(([day]) => dayjs(day).isBefore(entries[i][0]))?.[1] ??
-        defaultTarget;
+        targets.find(([day]) =>
+          dayjs(day).isBefore(dayjs(entries[i][0])),
+        )?.[1] ?? defaultTarget;
       if (totalProtein >= target) {
         streak++;
       } else {

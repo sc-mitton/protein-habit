@@ -50,7 +50,7 @@ it("should select the monthly daily average", () => {
         length: dayjs().add(1, "month").daysInMonth(),
       }).map((_, index) => [
         dayjs()
-          .add(1, "month")
+          .subtract(1, "month")
           .startOf("month")
           .add(index, "day")
           .format(dayFormat),
@@ -64,6 +64,7 @@ it("should select the monthly daily average", () => {
     user: {
       ...userInitialState,
       name: "John Doe",
+      inceptionDate: dayjs().subtract(100, "day").format(dayFormat),
       weight: {
         value: 100,
         unit: "lbs",
@@ -74,7 +75,7 @@ it("should select the monthly daily average", () => {
   expect(
     selectMonthlyDailyAverage(
       state as any,
-      dayjs().startOf("month").add(1, "month").format(dayFormat),
+      dayjs().startOf("month").subtract(1, "month").format(dayFormat),
     ).avgProteinPerDay,
   ).toBe(100);
 });
@@ -110,7 +111,7 @@ it("should select the weekly average", () => {
 });
 
 it("should select the number of days the users goal was met", () => {
-  const expected = 5;
+  const expected = 4;
   // prettier-ignore
   const state = {
     protein: {
