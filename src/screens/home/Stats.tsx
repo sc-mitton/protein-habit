@@ -1,6 +1,7 @@
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 import { PieChart, Target, BarChart2, Zap } from "geist-native-icons";
 import dayjs from "dayjs";
+import { useNavigation } from "@react-navigation/native";
 
 import { Box, Text, Icon } from "@components";
 import {
@@ -9,11 +10,18 @@ import {
   selectDailyAvg,
   selectStreak,
 } from "@store/slices/proteinSelectors";
-import { useAppSelector } from "@store/hooks";
+import {
+  selectHasShownSuccessModal,
+  setHasShownSuccessModal,
+} from "@store/slices/uiSlice";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { dayFormat } from "@constants/formats";
 
 const Stats = () => {
+  const navigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
   const dailyTarget = useAppSelector(selectDailyProteinTarget);
+  const hasShownSuccessModal = useAppSelector(selectHasShownSuccessModal);
   const weeklyAvg = useAppSelector((state) =>
     selectDailyAvg(state, dayjs().startOf("week").format(dayFormat)),
   );
@@ -21,6 +29,17 @@ const Stats = () => {
     selectTotalProteinForDay(state, dayjs().format("YYYY-MM-DD")),
   );
   const streak = useAppSelector(selectStreak);
+
+  const remainingProtein = Math.max(dailyTarget - totalProteinForDay, 0);
+
+  useEffect(() => {
+    if (remainingProtein === 0 && !hasShownSuccessModal) {
+      dispatch(setHasShownSuccessModal(true));
+      navigation.navigate("SuccessModal");
+    } else if (remainingProtein > 0) {
+      dispatch(setHasShownSuccessModal(false));
+    }
+  }, [remainingProtein, navigation, dispatch, hasShownSuccessModal]);
 
   return (
     <Box justifyContent="center" flex={1} gap="l">
@@ -70,7 +89,7 @@ const Stats = () => {
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
             <Text variant="bold" fontSize={18}>
-              {Math.max(dailyTarget - totalProteinForDay, 0)}
+              {remainingProtein}
             </Text>
             <Text variant="bold" fontSize={18}>
               g
@@ -136,4 +155,5 @@ const Stats = () => {
     </Box>
   );
 };
+
 export default memo(Stats);

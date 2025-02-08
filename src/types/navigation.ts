@@ -12,6 +12,7 @@ export type RootStackParamList = {
   EditDailyGoal: undefined;
   MyFoods: undefined | { entry: ProteinEntry };
   AddFood: undefined | { food: Food };
+  SuccessModal: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

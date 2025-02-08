@@ -6,10 +6,12 @@ import { RootState } from "../index";
 interface UIState {
   font: FontOption;
   accent?: AccentOption;
+  hasShownSuccessModal: boolean;
 }
 
 const initialState: UIState = {
   font: "inter",
+  hasShownSuccessModal: false,
 };
 
 const uiSlice = createSlice({
@@ -22,13 +24,18 @@ const uiSlice = createSlice({
     setAccent: (state, action: PayloadAction<AccentOption | undefined>) => {
       state.accent = action.payload;
     },
+    setHasShownSuccessModal: (state, action: PayloadAction<boolean>) => {
+      state.hasShownSuccessModal = action.payload;
+    },
   },
 });
 
-export const { setFont, setAccent } = uiSlice.actions;
+export const { setFont, setAccent, setHasShownSuccessModal } = uiSlice.actions;
 export default uiSlice.reducer;
 
 export const selectFont = (state: RootState) => state.ui.font;
 export const selectAccent = (state: RootState) => state.ui.accent;
 export const selectInceptionDate = (state: RootState) =>
   state.user.inceptionDate;
+export const selectHasShownSuccessModal = (state: RootState) =>
+  state.ui.hasShownSuccessModal;

@@ -72,7 +72,6 @@ const selectMonthlyDailyAverage = createSelector(
       ),
     );
 
-    console.log("denominator: ", denominator);
     const avgProteinPerDay =
       daysWithEntries > 0
         ? Big(totalProtein).div(denominator).round(1).toNumber()

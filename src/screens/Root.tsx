@@ -16,6 +16,7 @@ import Entry from "./entry/Entry";
 import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
+import SuccessModal from "./success/SuccessModal";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -86,6 +87,11 @@ const RootStack = () => {
         <Stack.Screen name="Appearance" component={Appearance} />
         <Stack.Screen name="EditDailyGoal" component={EditDailyGoal} />
         <Stack.Screen name="MyFoods" component={MyFoods} />
+        <Stack.Screen
+          name="SuccessModal"
+          component={SuccessModal}
+          options={{ animation: "fade" }}
+        />
       </Stack.Group>
 
       {/* Other Modals */}
