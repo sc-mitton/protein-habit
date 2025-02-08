@@ -37,11 +37,6 @@ const selectMonthlyDailyAverage = createSelector(
     const date = dayjs(month, "YYYY-MM");
 
     const monthEntries = entries.filter(([day]) => {
-      console.log(
-        dayjs(day).format(dayFormat),
-        dayjs(day).isSame(date, "month"),
-        dayjs(day).isBefore(dayjs(), "day"),
-      );
       return (
         dayjs(day).isSame(date, "month") && dayjs(day).isBefore(dayjs(), "day")
       );
@@ -209,7 +204,7 @@ const selectStreak = createSelector(
     let streak = 0;
     const defaultTarget = getRecommendedTarget(weight.value, weight.unit);
 
-    for (let i = 1; i < entries.length; i++) {
+    for (let i = 0; i < entries.length; i++) {
       const totalProtein = entries[i][1].reduce((sum, e) => sum + e.grams, 0);
       const target =
         targets.find(([day]) =>
@@ -217,7 +212,7 @@ const selectStreak = createSelector(
         )?.[1] ?? defaultTarget;
       if (totalProtein >= target) {
         streak++;
-      } else {
+      } else if (i !== 0) {
         break;
       }
     }
