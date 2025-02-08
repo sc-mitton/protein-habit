@@ -65,7 +65,7 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
               borderWidth={1}
               padding="sm"
               onPress={() => {
-                props.navigation.navigate("SuccessModal");
+                props.navigation.navigate("Entry");
               }}
               icon={
                 <Icon

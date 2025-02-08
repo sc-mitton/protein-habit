@@ -86,13 +86,11 @@ const selectDailyAvg = createSelector(
   (state: RootState) => state.user,
   (_: RootState, start: string) => start,
   (entries, user, start) => {
-    const startDayjs =
-      user?.inceptionDate && dayjs(start).isBefore(user.inceptionDate)
-        ? dayjs(user.inceptionDate)
-        : dayjs(start);
+    const startDayjs = dayjs(start).isBefore(user.inceptionDate)
+      ? dayjs(user.inceptionDate)
+      : dayjs(start);
 
-    const numDays = dayjs().diff(startDayjs, "day");
-
+    const numDays = dayjs().diff(dayjs(startDayjs), "day");
     if (numDays === 0) {
       return 0;
     }

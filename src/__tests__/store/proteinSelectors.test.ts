@@ -80,7 +80,7 @@ it("should select the monthly daily average", () => {
   ).toBe(100);
 });
 
-it("should select the weekly average", () => {
+describe("select the weekly average", () => {
   const rootDate = "2025-01-05";
   jest.useFakeTimers();
 
@@ -98,20 +98,57 @@ it("should select the weekly average", () => {
         })),
       ]),
     } as ProteinState,
+    user: {
+      ...userInitialState,
+      name: "John Doe",
+      inceptionDate: dayjs().subtract(100, "day").format(dayFormat),
+    },
   };
 
-  for (let i = 0; i < 7; i++) {
-    jest.setSystemTime(dayjs(rootDate).subtract(i, "day").toDate());
-    const start = dayjs().startOf("week").format(dayFormat);
-    const expected = i === 0 ? 0 : 100;
-    expect(selectDailyAvg(state as any, start)).toBe(expected);
-  }
+  it("should select the weekly average when user inception is before the start", () => {
+    for (let i = 0; i < 7; i++) {
+      jest.setSystemTime(dayjs(rootDate).subtract(i, "day").toDate());
+      const start = dayjs().startOf("week").format(dayFormat);
+      const expected = i === 0 ? 0 : 100;
+      expect(selectDailyAvg(state as any, start)).toBe(expected);
+    }
 
-  jest.useRealTimers();
+    jest.useRealTimers();
+  });
+
+  it("should select the weekly average when user inception is after the start", () => {
+    const expected = 69;
+    state.user.inceptionDate = dayjs(rootDate)
+      .subtract(1, "day")
+      .format(dayFormat);
+
+    state.protein.entries[1] = [
+      dayjs(rootDate).subtract(1, "day").format(dayFormat),
+      [
+        {
+          grams: expected,
+          id: "1",
+          time: dayjs(rootDate).subtract(1, "day").format(timeFormat),
+        },
+      ],
+    ];
+
+    jest.setSystemTime(dayjs(rootDate).toDate());
+
+    expect(
+      selectDailyAvg.resultFunc(
+        state.protein.entries,
+        state.user,
+        dayjs(rootDate).subtract(1, "day").format(dayFormat),
+      ),
+    ).toBe(expected);
+
+    jest.useRealTimers();
+  });
 });
 
-it("should select the number of days the users goal was met", () => {
-  const expected = 4;
+describe("selectStreak", () => {
+  const expected = 5;
   // prettier-ignore
   const state = {
     protein: {
@@ -130,17 +167,32 @@ it("should select the number of days the users goal was met", () => {
         [dayjs().subtract(2, "day").format(dayFormat), 135],
       ]
     } as ProteinState,
-    user: {
-      ...userInitialState,
-      name: "John Doe",
-      weight: {
-        value: 200,
-        unit: "lbs",
-      },
+    weight: {
+      value: 200,
+      unit: "lbs" as const,
     },
   };
 
-  expect(selectStreak(state as any)).toEqual(expected);
+  it("should select the number of days the users goal was met", () => {
+    expect(
+      selectStreak.resultFunc(
+        state.protein.entries,
+        state.protein.dailyTargets,
+        state.weight,
+      ),
+    ).toEqual(expected);
+  });
+
+  it("should decrease streak when today has no entries", () => {
+    state.protein.entries[0][1] = [];
+    expect(
+      selectStreak.resultFunc(
+        state.protein.entries,
+        state.protein.dailyTargets,
+        state.weight,
+      ),
+    ).toEqual(expected - 1);
+  });
 });
 
 it("should select the todays entries", () => {
