@@ -21,6 +21,7 @@
     },
     "ios": {
       "supportsTablet": false,
+      "buildNumber": "22",
       "bundleIdentifier": "com.scmitton.proteincount",
       "icon": {
         "light": "./assets/icon.png",
@@ -51,12 +52,15 @@
     },
     "owner": "scmitton",
     "updates": {
-      "url": "https://u.expo.dev/94dcd005-6bdd-4106-9b50-44d9068dff79"
+      "url": "https://u.expo.dev/aa9446c5-886d-49fb-8ba6-3c96ea6981c4"
     },
     "extra": {
       "eas": {
         "projectId": "aa9446c5-886d-49fb-8ba6-3c96ea6981c4"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
