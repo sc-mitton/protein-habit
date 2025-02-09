@@ -90,7 +90,7 @@ const selectDailyAvg = createSelector(
       ? dayjs(user.inceptionDate)
       : dayjs(start);
 
-    const numDays = dayjs().diff(dayjs(startDayjs), "day");
+    const numDays = dayjs().diff(dayjs(startDayjs.startOf("day")), "day");
     if (numDays === 0) {
       return 0;
     }
@@ -106,7 +106,7 @@ const selectDailyAvg = createSelector(
           return sum + dailyEntries[1].reduce((sum, e) => sum + e.grams, 0);
         }, 0) / numDays;
 
-    // round reult to 1 decimal place
+    // round result to 1 decimal place
     return Math.round(result * 10) / 10;
   },
 );
@@ -139,7 +139,24 @@ const selectDailyTargetResults = createSelector(
       ]);
     }
 
-    // Don't return result for current day
+    // If today's target have been met, add the current day to the results
+    // (there should be no result yet since if today's results were met then
+    // we already now there wasn't any gap that needed to be filled in at the beginning).
+    const todaysTotalProtein = dayjs(entries[0][0]).isSame(dayjs(), "day")
+      ? entries[0][1].reduce((sum, e) => sum + e.grams, 0)
+      : 0;
+    const currentTarget =
+      targets[0][1] ?? getRecommendedTarget(weight.value, weight.unit);
+
+    if (todaysTotalProtein >= currentTarget) {
+      results.push([
+        dayjs().format(dayFormat),
+        todaysTotalProtein,
+        true,
+        target,
+      ]);
+    }
+
     let i = dayjs(entries[0][0]).isSame(dayjs(), "day") ? 1 : 0;
 
     for (i; i < entries.length; i++) {

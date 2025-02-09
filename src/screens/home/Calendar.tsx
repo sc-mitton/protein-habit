@@ -7,11 +7,8 @@ import {
   TouchableHighlight,
   Platform,
 } from "react-native";
-import Animated, { FadeOut, FadeIn } from "react-native-reanimated";
-import SlotNumbers from "react-native-slot-numbers";
 import { useTheme } from "@shopify/restyle";
 import { Check, X } from "geist-native-icons";
-import OutsidePressHandler from "react-native-outside-press";
 
 import { Text, Box, Icon } from "@components";
 import dayjs, { Dayjs } from "dayjs";
@@ -22,60 +19,13 @@ import {
 } from "@store/slices/proteinSelectors";
 import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
-
+import { generateCalendarData } from "./helpers";
+import CalendarTip from "./CalendarTip";
+import { BelowCalendarStats } from "./BelowCalendarStats";
 const CALENDAR_WIDTH = Dimensions.get("window").width * 0.7;
 // the window width minus the calendar width
 const CALENDAR_NEGATIVE_SPACE = Dimensions.get("window").width - CALENDAR_WIDTH;
 const CALENDAR_PADDING = 12;
-
-// Function to generate calendar data
-const generateCalendarData = (userInception: string) => {
-  const numMonths = Math.max(2, dayjs().diff(dayjs(userInception), "month"));
-  const data = [] as Array<[string, number[][]]>;
-
-  for (let i = 0; i < numMonths; i++) {
-    const month = dayjs().subtract(i, "month");
-
-    const daysInMonth = month.daysInMonth();
-    const sparePreviousDays = month.startOf("month").day();
-    const spareNextDays = 7 - month.endOf("month").day() - 1;
-    const previousDaysInMonth = month.subtract(1, "month").daysInMonth();
-
-    // prettier-ignore
-    const days = Array.from({ length: daysInMonth })
-      .map((_, i) => i + 1)
-      .reduce((acc, day, i) => {
-        // Add bookstart
-        if (i === 0) {
-          for (let j = 0; j < sparePreviousDays; j++) {
-            const day = previousDaysInMonth - sparePreviousDays + j + 1;
-            acc[j % 7].push(day);
-          }
-        }
-        // Add day
-        const columnIndex = (i + sparePreviousDays) % 7;
-        acc[columnIndex].push(day);
-
-        // Add bookend
-        if (day === daysInMonth) {
-          for (let k = 1; k <= spareNextDays; k++) {
-            const columnIndex =(i + sparePreviousDays + k) % 7;
-            acc[columnIndex].push(k);
-          }
-        }
-        if (acc[acc.length - 1].length === 5 && day === daysInMonth) {
-            for (let k = 0; k < 7; k++) {
-                acc[k].push(k + spareNextDays + 1);
-            }
-        }
-        return acc;
-      }, [...Array.from({ length: 7 }).map(() => [] as number[])]);
-
-    data.push([month.startOf("month").format(dayFormat), days]);
-  }
-
-  return data.reverse();
-};
 
 const Calendar = () => {
   const userInception = useAppSelector(selectUserInception);
@@ -175,11 +125,20 @@ const Calendar = () => {
                           const isBookend =
                             Math.abs(rowIndex - Math.floor(day / 7)) > 1;
 
+                          // The dailyTargetResults array starts on today if todays
+                          // total protein target has been met.
+                          const shift = dayjs(dailyTargetResults[0][0]).isSame(
+                            dayjs(),
+                            "day",
+                          )
+                            ? 0
+                            : 1;
+
                           const targetMet = isBookend
                             ? undefined
                             : dailyTargetResults[
                                 dayjs().diff(dayjs(item[0]).date(day), "day") -
-                                  1
+                                  shift
                               ]?.[2];
 
                           return (
@@ -214,68 +173,19 @@ const Calendar = () => {
                                   "day",
                                 ) &&
                                   !isBookend && (
-                                    <Animated.View
-                                      entering={FadeIn.duration(300)}
-                                      style={styles.aboveTipContainer}
-                                    >
-                                      <OutsidePressHandler
-                                        style={styles.aboveTip}
-                                        onOutsidePress={() =>
-                                          setFocusedCell(undefined)
-                                        }
-                                      >
-                                        <Box
-                                          backgroundColor="cardBackground"
-                                          borderRadius="m"
-                                          shadowColor="defaultShadow"
-                                          shadowOffset={{ width: 0, height: 2 }}
-                                          shadowOpacity={1}
-                                          shadowRadius={12}
-                                          style={styles.aboveTip}
-                                        >
-                                          <Box
-                                            marginHorizontal="s"
-                                            marginVertical="xs"
-                                            flexDirection="row"
-                                            flexWrap="nowrap"
-                                          >
-                                            <Text variant="body" fontSize={14}>
-                                              Total:&nbsp;
-                                              {
-                                                dailyTargetResults[
-                                                  dayjs().diff(
-                                                    dayjs(item[0]).date(day),
-                                                    "day",
-                                                  ) - 1
-                                                ]?.[1]
-                                              }
-                                              g&nbsp;&nbsp;
-                                            </Text>
-                                            <Text variant="body" fontSize={14}>
-                                              Target:&nbsp;
-                                              {
-                                                dailyTargetResults[
-                                                  dayjs().diff(
-                                                    dayjs(item[0]).date(day),
-                                                    "day",
-                                                  ) - 1
-                                                ]?.[3]
-                                              }
-                                              g
-                                            </Text>
-                                          </Box>
-                                          <View
-                                            style={styles.arrowForTipContainer}
-                                          >
-                                            <Box
-                                              style={styles.arrowForTip}
-                                              backgroundColor="cardBackground"
-                                              borderRadius="s"
-                                            />
-                                          </View>
-                                        </Box>
-                                      </OutsidePressHandler>
-                                    </Animated.View>
+                                    <CalendarTip
+                                      targetResult={
+                                        dailyTargetResults[
+                                          dayjs().diff(
+                                            dayjs(item[0]).date(day),
+                                            "day",
+                                          ) - 1
+                                        ]
+                                      }
+                                      onOutsidePress={() =>
+                                        setFocusedCell(undefined)
+                                      }
+                                    />
                                   )}
                                 <Box
                                   borderRadius="m"
@@ -325,32 +235,9 @@ const Calendar = () => {
               </View>
             )}
           />
-          <View style={styles.proteinStatsContainer}>
-            <View style={styles.proteinStats}>
-              <Text
-                fontSize={14}
-                color="tertiaryText"
-                marginRight="xs"
-                variant="medium"
-              >
-                Averaged
-              </Text>
-              <Text fontSize={14} color="tertiaryText" variant="medium">
-                {proteinMonthlyDailyAverage.avgProteinPerDay}
-              </Text>
-              <Text fontSize={14} color="tertiaryText" variant="medium">
-                g
-              </Text>
-              <Text
-                fontSize={14}
-                color="tertiaryText"
-                variant="medium"
-                marginLeft="xs"
-              >
-                / day
-              </Text>
-            </View>
-          </View>
+          <BelowCalendarStats
+            proteinMonthlyDailyAverage={proteinMonthlyDailyAverage}
+          />
         </View>
       </Box>
     </Box>
@@ -368,18 +255,6 @@ const styles = StyleSheet.create({
   slotNumbers: {
     fontSize: 14,
     fontFamily: "Inter-Medium",
-  },
-  proteinStats: {
-    position: "absolute",
-    flexDirection: "row",
-    alignItems: "baseline",
-  },
-  proteinStatsContainer: {
-    position: "absolute",
-    bottom: -16,
-    left: "50%",
-    justifyContent: "center",
-    alignItems: "center",
   },
   scrollContainer: {
     marginTop: 8,
@@ -417,34 +292,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 4,
     padding: Platform.OS === "ios" ? 3 : 4,
-  },
-  aboveTipContainer: {
-    position: "absolute",
-    top: -24,
-    zIndex: 100,
-    left: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  aboveTip: {
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 100,
-  },
-  arrowForTipContainer: {
-    position: "absolute",
-    bottom: 2,
-    left: "50%",
-    zIndex: -1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  arrowForTip: {
-    position: "absolute",
-    width: 15,
-    height: 15,
-    transform: [{ rotate: "45deg" }],
   },
   belowIconContainer: {
     position: "absolute",
