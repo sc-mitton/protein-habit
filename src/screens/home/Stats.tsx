@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect } from "react";
 import { PieChart, Target, BarChart2, Zap } from "geist-native-icons";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";

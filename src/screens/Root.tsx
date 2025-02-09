@@ -16,6 +16,7 @@ import Entry from "./entry/Entry";
 import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
+import StatsInfo from "./stats-info/StatsInfo";
 import SuccessModal from "./success/SuccessModal";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -95,6 +96,14 @@ const RootStack = () => {
       </Stack.Group>
 
       {/* Other Modals */}
+      <Stack.Screen
+        name="StatsInfo"
+        component={StatsInfo}
+        options={{
+          presentation: "transparentModal",
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Entry"
         component={Entry}

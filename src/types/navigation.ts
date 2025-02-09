@@ -13,6 +13,7 @@ export type RootStackParamList = {
   MyFoods: undefined | { entry: ProteinEntry };
   AddFood: undefined | { food: Food };
   SuccessModal: undefined;
+  StatsInfo: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

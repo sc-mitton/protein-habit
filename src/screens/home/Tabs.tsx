@@ -1,21 +1,30 @@
 import { useState, useRef, useEffect } from "react";
-import { Dimensions, StyleSheet, Platform, ScrollView } from "react-native";
-import { View } from "react-native";
+import { Info } from "geist-native-icons";
+import {
+  Dimensions,
+  StyleSheet,
+  Platform,
+  ScrollView,
+  View,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
   withSpring,
+  FadeIn,
+  FadeOut,
 } from "react-native-reanimated";
 
-import { Box, Button } from "@components";
+import { Box, Button, Icon } from "@components";
 import Entries from "./Entries";
 import Stats from "./Stats";
-import TabsContext from "./TabsContext";
 
 const TAB_INDICATOR_OFFSET = 18;
 
 const Tabs = () => {
+  const navigation = useNavigation<any>();
   const indicatorWidth = useSharedValue(0);
   const indicatorX = useSharedValue(TAB_INDICATOR_OFFSET);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -69,7 +78,7 @@ const Tabs = () => {
         paddingBottom="s"
       >
         <Animated.View
-          style={tab1HeaderAnimation}
+          style={[tab1HeaderAnimation]}
           onLayout={(e) => {
             tabHeaderWidths.current[0] = e.nativeEvent.layout.width;
             indicatorWidth.value = e.nativeEvent.layout.width;
@@ -77,6 +86,8 @@ const Tabs = () => {
         >
           <Button
             label={"Stats"}
+            margin="none"
+            paddingRight="none"
             onPress={() => {
               scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
               lockIndicatorAnimation.current = true;
@@ -116,6 +127,25 @@ const Tabs = () => {
             borderTopRightRadius="s"
           />
         </Animated.View>
+        {selectedTab === 0 && (
+          <Box
+            flex={1}
+            justifyContent="flex-end"
+            alignItems="flex-end"
+            opacity={0.3}
+            style={{ zIndex: 1000 }}
+          >
+            <Animated.View entering={FadeIn} exiting={FadeOut}>
+              <Button
+                icon={<Icon icon={Info} size={18} />}
+                textColor="tertiaryText"
+                onPress={() => {
+                  navigation.navigate("StatsInfo");
+                }}
+              />
+            </Animated.View>
+          </Box>
+        )}
       </Box>
       <Box
         justifyContent="center"
@@ -198,5 +228,9 @@ const styles = StyleSheet.create({
   page: {
     width: Dimensions.get("window").width,
     height: "100%",
+  },
+  statsTabContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
