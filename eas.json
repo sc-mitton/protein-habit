@@ -1,12 +1,15 @@
 {
   "cli": {
-    "version": ">=10.2.4"
+    "version": ">=10.2.4",
+    "appVersionSource": "local"
   },
   "build": {
     "production": {
       "android": {
         "buildType": "app-bundle"
-      }
+      },
+      "channel": "production",
+      "autoIncrement": true
     },
     "development:simulator": {
       "developmentClient": true,
@@ -15,14 +18,16 @@
       }
     },
     "development": {
-      "developmentClient": true
+      "developmentClient": true,
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
       "autoIncrement": true,
       "android": {
         "buildType": "apk"
-      }
+      },
+      "channel": "preview"
     }
   },
   "submit": {

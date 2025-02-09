@@ -21,7 +21,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "buildNumber": "22",
+      "buildNumber": "23",
       "bundleIdentifier": "com.scmitton.proteincount",
       "icon": {
         "light": "./assets/icon.png",
