@@ -54,6 +54,17 @@ const Calendar = () => {
     ),
   );
 
+  // Map the daily target results so the key is the date (index 0 of each sub-array)
+  const mappedDailyTargetResults = useMemo(() => {
+    return dailyTargetResults.reduce(
+      (acc, curr) => {
+        acc[curr[0]] = curr;
+        return acc;
+      },
+      {} as Record<string, [string, number, boolean, number]>,
+    );
+  }, [dailyTargetResults]);
+
   return (
     <Box
       shadowColor="mainBackground"
@@ -125,20 +136,12 @@ const Calendar = () => {
                           const isBookend =
                             Math.abs(rowIndex - Math.floor(day / 7)) > 1;
 
-                          // The dailyTargetResults array starts on today if todays
-                          // total protein target has been met.
-                          const shift = dayjs(dailyTargetResults[0][0]).isSame(
-                            dayjs(),
-                            "day",
-                          )
-                            ? 0
-                            : 1;
-
                           const targetMet = isBookend
                             ? undefined
-                            : dailyTargetResults[
-                                dayjs().diff(dayjs(item[0]).date(day), "day") -
-                                  shift
+                            : mappedDailyTargetResults[
+                                dayjs(item[0], "MMM DD, YYYY")
+                                  .date(day)
+                                  .format(dayFormat)
                               ]?.[2];
 
                           return (
@@ -175,11 +178,10 @@ const Calendar = () => {
                                   !isBookend && (
                                     <CalendarTip
                                       targetResult={
-                                        dailyTargetResults[
-                                          dayjs().diff(
-                                            dayjs(item[0]).date(day),
-                                            "day",
-                                          ) - 1
+                                        mappedDailyTargetResults[
+                                          dayjs(item[0], "MMM DD, YYYY")
+                                            .date(day)
+                                            .format(dayFormat)
                                         ]
                                       }
                                       onOutsidePress={() =>

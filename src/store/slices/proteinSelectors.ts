@@ -157,7 +157,7 @@ const selectDailyTargetResults = createSelector(
       ]);
     }
 
-    let i = dayjs(entries[0][0]).isSame(dayjs(), "day") ? 1 : 0;
+    let i = dayjs(entries[0][0]).isSame(dayjs().startOf("day"), "day") ? 1 : 0;
 
     for (i; i < entries.length; i++) {
       const target =

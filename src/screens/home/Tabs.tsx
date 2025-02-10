@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Info } from "geist-native-icons";
+import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
   StyleSheet,
@@ -7,7 +8,7 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Icon } from "@components";
 import Animated, {
   useSharedValue,
   withTiming,
@@ -17,7 +18,7 @@ import Animated, {
   FadeOut,
 } from "react-native-reanimated";
 
-import { Box, Button, Icon } from "@components";
+import { Box, Button } from "@components";
 import Entries from "./Entries";
 import Stats from "./Stats";
 
@@ -78,7 +79,7 @@ const Tabs = () => {
         paddingBottom="s"
       >
         <Animated.View
-          style={[tab1HeaderAnimation]}
+          style={tab1HeaderAnimation}
           onLayout={(e) => {
             tabHeaderWidths.current[0] = e.nativeEvent.layout.width;
             indicatorWidth.value = e.nativeEvent.layout.width;
@@ -86,8 +87,6 @@ const Tabs = () => {
         >
           <Button
             label={"Stats"}
-            margin="none"
-            paddingRight="none"
             onPress={() => {
               scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
               lockIndicatorAnimation.current = true;
@@ -228,9 +227,5 @@ const styles = StyleSheet.create({
   page: {
     width: Dimensions.get("window").width,
     height: "100%",
-  },
-  statsTabContainer: {
-    flexDirection: "row",
-    alignItems: "center",
   },
 });
