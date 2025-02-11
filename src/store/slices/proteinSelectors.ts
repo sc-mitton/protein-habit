@@ -125,41 +125,7 @@ const selectDailyTargetResults = createSelector(
     // The resulting array should go from present to the start
     // [curent day, current day - 1, ..., start]
 
-    const daysSinceLastEntry = dayjs().diff(dayjs(entries[0][0]), "day") - 1;
-    const target =
-      targets[0][1] ?? getRecommendedTarget(weight.value, weight.unit);
-
-    // Fill in start
-    for (let i = 1; i < daysSinceLastEntry + 1; i++) {
-      results.push([
-        dayjs().subtract(i, "day").format(dayFormat),
-        0,
-        false,
-        target,
-      ]);
-    }
-
-    // If today's target have been met, add the current day to the results
-    // (there should be no result yet since if today's results were met then
-    // we already now there wasn't any gap that needed to be filled in at the beginning).
-    const todaysTotalProtein = dayjs(entries[0][0]).isSame(dayjs(), "day")
-      ? entries[0][1].reduce((sum, e) => sum + e.grams, 0)
-      : 0;
-    const currentTarget =
-      targets[0][1] ?? getRecommendedTarget(weight.value, weight.unit);
-
-    if (todaysTotalProtein >= currentTarget) {
-      results.push([
-        dayjs().format(dayFormat),
-        todaysTotalProtein,
-        true,
-        target,
-      ]);
-    }
-
-    let i = dayjs(entries[0][0]).isSame(dayjs().startOf("day"), "day") ? 1 : 0;
-
-    for (i; i < entries.length; i++) {
+    for (let i = 0; i < entries.length; i++) {
       const target =
         targets.find(([day]) => {
           return dayjs(day).subtract(1, "day").isBefore(entries[i][0]);
@@ -184,20 +150,6 @@ const selectDailyTargetResults = createSelector(
         totalProtein >= target,
         target,
       ]);
-    }
-
-    // Fill in end
-    let lastDay = dayjs(results[results.length - 1]?.[0]) || dayjs();
-    const gap = lastDay.diff(dayjs(start), "day");
-    for (let i = 1; i <= gap; i++) {
-      const day = dayjs(lastDay).subtract(1, "day");
-      const target =
-        targets.find(([d]) => {
-          return dayjs(d).subtract(1, "day").isBefore(day);
-        })?.[1] ?? getRecommendedTarget(weight.value, weight.unit);
-
-      results.push([day.format(dayFormat), 0, false, target]);
-      lastDay = day;
     }
 
     return results;
@@ -228,7 +180,19 @@ const selectStreak = createSelector(
     let streak = 0;
     const defaultTarget = getRecommendedTarget(weight.value, weight.unit);
 
+    let lastDay = dayjs(entries[0][0]);
+
+    // Can't have a streak if the last day is before today
+    if (dayjs().diff(dayjs(lastDay), "day") > 1) {
+      return 0;
+    }
+
     for (let i = 0; i < entries.length; i++) {
+      // Can't have a streak if the last day is before today
+      if (dayjs(lastDay).diff(dayjs(entries[i][0]), "day") > 1) {
+        break;
+      }
+
       const totalProtein = entries[i][1].reduce((sum, e) => sum + e.grams, 0);
       const target =
         targets.find(([day]) =>
@@ -239,6 +203,8 @@ const selectStreak = createSelector(
       } else if (i !== 0) {
         break;
       }
+
+      lastDay = dayjs(entries[i][0]);
     }
 
     return streak;

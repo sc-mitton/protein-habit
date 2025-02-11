@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { ViewProps, View } from "react-native";
-import { useTheme } from "@shopify/restyle";
+import { position, useTheme } from "@shopify/restyle";
 
 import {
   useRestyle,
@@ -16,6 +16,7 @@ import {
   BorderProps,
   LayoutProps,
   VariantProps,
+  PositionProps,
   OpacityProps,
   BackgroundColorProps,
   composeRestyleFunctions,
@@ -30,6 +31,7 @@ type RestyleProps = SpacingProps<Theme> &
   BackgroundColorProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
+  PositionProps<Theme> &
   LayoutProps<Theme> &
   OpacityProps<Theme>;
 
@@ -40,6 +42,7 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   backgroundColor,
   spacing,
   layout,
+  position as any,
   shadow,
   border,
   opacity,

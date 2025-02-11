@@ -18,10 +18,12 @@ import Options from "./Options";
 import { dayTimeFormat } from "@constants/formats";
 import { useAppDispatch } from "@store/hooks";
 import { selectUIDay, setUIDay } from "@store/slices/uiSlice";
+
 const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 12,
-    paddingHorizontal: 10,
+    paddingHorizontal: 9,
+    zIndex: 100,
   },
 });
 
@@ -29,7 +31,7 @@ const Days = () => {
   const dispatch = useAppDispatch();
   const uiDay = useAppSelector(selectUIDay);
   const pillX = useSharedValue(0);
-  const daysHorizontalMargin = 12;
+  const daysHorizontalMargin = 8;
   const pillWidth =
     (Dimensions.get("window").width - daysHorizontalMargin * 2) / 7;
 

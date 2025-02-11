@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   Platform,
 } from "react-native";
-import { useTheme } from "@shopify/restyle";
+import { backgroundColor, useTheme } from "@shopify/restyle";
 import { Check, X, BarChart2 } from "geist-native-icons";
 
 import { Text, Box, Icon } from "@components";
@@ -74,7 +74,11 @@ const Calendar = () => {
       <Box
         style={styles.innerBox}
         paddingVertical="l"
-        shadowVariant="secondaryScreenSection"
+        shadowColor="borderColor"
+        shadowOffset={{ width: 0, height: -1 }}
+        shadowOpacity={0.7}
+        shadowRadius={1}
+        elevation={12}
         backgroundColor="mainBackground"
       >
         <View style={styles.calendarContainer}>
@@ -82,6 +86,7 @@ const Calendar = () => {
             data={calendarData}
             style={styles.flatList}
             keyExtractor={(item) => item[0]}
+            hitSlop={{ top: -64 }}
             horizontal
             pagingEnabled
             onScroll={({ nativeEvent }) => {
@@ -119,7 +124,7 @@ const Calendar = () => {
                     {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
                   </Text>
                   <Tip
-                    label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay} g / day`}
+                    label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
                   >
                     <Box
                       marginBottom="xs"
@@ -149,13 +154,17 @@ const Calendar = () => {
                           const isBookend =
                             Math.abs(rowIndex - Math.floor(day / 7)) > 1;
 
-                          const targetMet = isBookend
-                            ? undefined
-                            : mappedDailyTargetResults[
-                                dayjs(item[0], "MMM DD, YYYY")
-                                  .date(day)
-                                  .format(dayFormat)
-                              ]?.[2];
+                          const dayInJS = dayjs(item[0], "MMM DD, YYYY").date(
+                            day,
+                          );
+
+                          const targetMet =
+                            dayInJS.isAfter(dayjs(userInception), "day") &&
+                            dayInJS.isBefore(dayjs().add(1, "day"), "day")
+                              ? mappedDailyTargetResults[
+                                  dayInJS.format(dayFormat)
+                                ]?.[2] || false
+                              : null;
 
                           return (
                             <TouchableHighlight
@@ -172,13 +181,14 @@ const Calendar = () => {
                                       : 7 - rowIndex,
                                 },
                               ]}
+                              disabled={isBookend}
                               activeOpacity={targetMet === undefined ? 1 : 0.97}
                               underlayColor={theme.colors.primaryText}
                               onPressOut={() => {
-                                if (targetMet !== undefined) {
-                                  setFocusedCell(dayjs(item[0]).date(day));
-                                } else {
+                                if (focusedCell) {
                                   setFocusedCell(undefined);
+                                } else {
+                                  setFocusedCell(dayjs(item[0]).date(day));
                                 }
                               }}
                               key={`cell-${columnIndex}-${rowIndex}`}
@@ -192,9 +202,7 @@ const Calendar = () => {
                                     <CalendarTip
                                       targetResult={
                                         mappedDailyTargetResults[
-                                          dayjs(item[0], "MMM DD, YYYY")
-                                            .date(day)
-                                            .format(dayFormat)
+                                          dayInJS.format(dayFormat)
                                         ]
                                       }
                                       onOutsidePress={() =>
@@ -218,22 +226,24 @@ const Calendar = () => {
                                   </Text>
                                   <View style={styles.belowIconContainer}>
                                     <View style={styles.belowIcon}>
-                                      {targetMet && (
+                                      {targetMet && !isBookend && (
                                         <Icon
                                           icon={Check}
                                           size={10}
-                                          color={"secondaryText"}
-                                          strokeWidth={5}
+                                          color={"primaryText"}
+                                          strokeWidth={4}
                                         />
                                       )}
-                                      {targetMet === false && (
-                                        <Icon
-                                          icon={X}
-                                          size={12}
-                                          color={"error"}
-                                          strokeWidth={3}
-                                        />
-                                      )}
+                                      {targetMet === false &&
+                                        !isBookend &&
+                                        !dayInJS.isSame(dayjs(), "day") && (
+                                          <Icon
+                                            icon={X}
+                                            size={12}
+                                            color={"error"}
+                                            strokeWidth={3}
+                                          />
+                                        )}
                                     </View>
                                   </View>
                                 </Box>

@@ -91,23 +91,6 @@ const lightTheme = createTheme({
     xxl: 24,
     full: 9999,
   },
-  shadowVariants: {
-    screenSection: {
-      shadowColor: "seperator",
-      shadowOffset: { width: 0, height: -1 },
-      shadowOpacity: 0.7,
-      shadowRadius: 1,
-      elevation: 12,
-    },
-    secondaryScreenSection: {
-      shadowColor: "borderColor",
-      shadowOffset: { width: 0, height: -1 },
-      shadowOpacity: 0.7,
-      shadowRadius: 1,
-      elevation: 12,
-    },
-    defaults: {},
-  },
   buttonVariants: {
     primary: {
       backgroundColor: "primaryButton",

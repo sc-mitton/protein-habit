@@ -135,12 +135,7 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Icon
-              icon={Zap}
-              strokeWidth={2}
-              accent={true}
-              color="secondaryText"
-            />
+            <Icon icon={Zap} accent={true} color="secondaryText" />
             <Text color="secondaryText" fontSize={14} accent={true}>
               Streak
             </Text>

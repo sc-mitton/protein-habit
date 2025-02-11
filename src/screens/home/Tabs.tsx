@@ -151,7 +151,11 @@ const Tabs = () => {
         borderTopWidth={Platform.OS === "android" ? 2 : 0}
         borderTopColor="seperator"
         backgroundColor="secondaryBackground"
-        shadowVariant="screenSection"
+        shadowColor="seperator"
+        shadowOffset={{ width: 0, height: -1 }}
+        shadowOpacity={0.7}
+        shadowRadius={1}
+        elevation={12}
         flex={1}
       >
         <ScrollView

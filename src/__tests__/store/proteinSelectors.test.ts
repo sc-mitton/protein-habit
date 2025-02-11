@@ -193,6 +193,33 @@ describe("selectStreak", () => {
       ),
     ).toEqual(expected - 1);
   });
+
+  it("should have no streak when no entries for the past day before streak", () => {
+    jest.useFakeTimers();
+    jest.setSystemTime(
+      dayjs(state.protein.entries[0][0]).add(2, "day").toDate(),
+    );
+    expect(
+      selectStreak.resultFunc(
+        state.protein.entries,
+        state.protein.dailyTargets,
+        state.weight,
+      ),
+    ).toEqual(0);
+
+    jest.useRealTimers();
+  });
+
+  it("should have a smaller streak than expected if there's a gap with no entries", () => {
+    state.protein.entries.splice(2, 1);
+    expect(
+      selectStreak.resultFunc(
+        state.protein.entries,
+        state.protein.dailyTargets,
+        state.weight,
+      ),
+    ).toEqual(1);
+  });
 });
 
 it("should select the todays entries", () => {
@@ -213,75 +240,4 @@ it("should select the todays entries", () => {
     { grams: 50 },
     { grams: 50 },
   ]);
-});
-
-it("should select the daily target results", () => {
-  const user = {
-    ...userInitialState,
-    name: "John Doe",
-    weight: {
-      value: 200,
-      unit: "lbs",
-    } as const,
-  };
-  const calculateTarget = getRecommendedTarget(
-    user.weight.value,
-    user.weight.unit,
-  );
-
-  // prettier-ignore
-  const tests = [
-    {
-      entries:[
-        [
-          dayjs().subtract(3, "day").format(dayFormat),
-          [{ grams: 50 }, { grams: 50 }, { grams: 50 }],
-        ],
-        [
-          dayjs().subtract(4, "day").format(dayFormat),
-          [{ grams: 50 }, { grams: 50 }, { grams: 50 }],
-        ],
-      ],
-      targets:[
-        [dayjs().subtract(2, "day").format(dayFormat), 150],
-        [dayjs().subtract(3, "day").format(dayFormat), 135],
-      ],
-      selected: [
-        [dayjs().subtract(1, "day").format(dayFormat), 0, false, 150],
-        [dayjs().subtract(2, "day").format(dayFormat), 0, false, 150],
-        [dayjs().subtract(3, "day").format(dayFormat), 150, true, 135],
-        [dayjs().subtract(4, "day").format(dayFormat), 150, true, calculateTarget],
-        [dayjs().subtract(5, "day").format(dayFormat), 0, false, calculateTarget],
-      ],
-      start: dayjs().subtract(5, "day").format(dayFormat),
-    },
-    {
-      entries:[[dayjs().format(dayFormat), []]],
-      targets: [[dayjs().format(dayFormat), null]],
-      selected: [],
-      start: dayjs().format(dayFormat),
-    },
-    {
-      entries:[[dayjs().format(dayFormat), []]],
-      targets: [[dayjs().subtract(10, 'day').format(dayFormat), null]],
-      selected: Array.from({length: 10}).map((_, i) =>
-        [dayjs().subtract(i + 1, 'day').format(dayFormat), 0, false, calculateTarget]),
-      start: dayjs().subtract(10, "day").format(dayFormat),
-    }
-  ]
-
-  for (const test of tests) {
-    const state = {
-      protein: {
-        ...initialState,
-        entries: test.entries,
-        dailyTargets: test.targets,
-      },
-      user,
-    };
-
-    expect(selectDailyTargetResults(state as any, test.start)).toEqual(
-      test.selected,
-    );
-  }
 });
