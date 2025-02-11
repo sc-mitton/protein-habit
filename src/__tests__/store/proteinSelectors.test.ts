@@ -7,7 +7,7 @@ import {
   selectDailyAvg,
   selectStreak,
   selectDailyTargetResults,
-  selectTodaysEntries,
+  selectDaysEntries,
 } from "@store/slices/proteinSelectors";
 import { initialState, getRecommendedTarget } from "@store/slices/proteinSlice";
 import type { ProteinState } from "@store/slices/proteinSlice";
@@ -208,7 +208,7 @@ it("should select the todays entries", () => {
     },
   };
 
-  expect(selectTodaysEntries(state as any)).toEqual([
+  expect(selectDaysEntries(state as any, dayjs().format(dayFormat))).toEqual([
     { grams: 50 },
     { grams: 50 },
     { grams: 50 },

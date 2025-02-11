@@ -15,7 +15,8 @@
       "developmentClient": true,
       "ios": {
         "simulator": true
-      }
+      },
+      "channel": "development-simulator"
     },
     "development": {
       "developmentClient": true,

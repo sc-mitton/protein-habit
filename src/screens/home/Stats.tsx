@@ -47,7 +47,7 @@ const Stats = () => {
         paddingHorizontal="l"
         paddingTop={"s"}
         flexDirection="row"
-        gap="xxl"
+        gap="xxxl"
         marginBottom="l"
       >
         <Box gap="s" flex={1}>
@@ -97,7 +97,7 @@ const Stats = () => {
           </Box>
         </Box>
       </Box>
-      <Box paddingHorizontal="l" flexDirection="row" gap="xxl">
+      <Box paddingHorizontal="l" flexDirection="row" gap="xxxl">
         <Box paddingBottom="s" gap="s" flex={1}>
           <Box
             flexDirection={"row"}

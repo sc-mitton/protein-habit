@@ -8,7 +8,7 @@ import {
   Platform,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
-import { Check, X } from "geist-native-icons";
+import { Check, X, BarChart2 } from "geist-native-icons";
 
 import { Text, Box, Icon } from "@components";
 import dayjs, { Dayjs } from "dayjs";
@@ -20,8 +20,7 @@ import {
 import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
-import CalendarTip from "./CalendarTip";
-import { BelowCalendarStats } from "./BelowCalendarStats";
+import CalendarTip, { Tip } from "./Tips";
 const CALENDAR_WIDTH = Dimensions.get("window").width * 0.7;
 // the window width minus the calendar width
 const CALENDAR_NEGATIVE_SPACE = Dimensions.get("window").width - CALENDAR_WIDTH;
@@ -67,27 +66,21 @@ const Calendar = () => {
 
   return (
     <Box
-      shadowColor="mainBackground"
-      shadowOffset={{ width: 0, height: 24 }}
-      shadowOpacity={1}
-      shadowRadius={24}
       elevation={8}
-      backgroundColor="secondaryBackground"
-      flex={4.5}
+      height={300}
+      justifyContent="center"
+      backgroundColor="mainBackground"
     >
       <Box
         style={styles.innerBox}
         paddingVertical="l"
-        shadowColor="primaryText"
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowOpacity={0.05}
-        shadowRadius={3.84}
-        elevation={5}
-        backgroundColor="secondaryBackground"
+        shadowVariant="secondaryScreenSection"
+        backgroundColor="mainBackground"
       >
         <View style={styles.calendarContainer}>
           <FlatList
             data={calendarData}
+            style={styles.flatList}
             keyExtractor={(item) => item[0]}
             horizontal
             pagingEnabled
@@ -116,19 +109,39 @@ const Calendar = () => {
                     styles.lastScrollContainer,
                 ]}
               >
-                <Text variant="bold" style={styles.monthHeader}>
-                  {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
-                </Text>
+                <Box
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  marginRight="sm"
+                >
+                  <Text variant="bold" style={styles.monthHeader}>
+                    {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
+                  </Text>
+                  <Tip
+                    label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay} g / day`}
+                  >
+                    <Box
+                      marginBottom="xs"
+                      padding="xs"
+                      backgroundColor="primaryButton"
+                      borderRadius="s"
+                    >
+                      <Icon
+                        icon={BarChart2}
+                        size={16}
+                        color="secondaryText"
+                        strokeWidth={2}
+                      />
+                    </Box>
+                  </Tip>
+                </Box>
                 <View style={styles.monthContainer} key={item[0]}>
                   {item[1].map((days: number[], columnIndex: number) => {
                     return (
                       <View style={styles.column} key={`column-${columnIndex}`}>
                         <View style={styles.cell}>
-                          <Text
-                            color="secondaryText"
-                            variant="bold"
-                            fontSize={14}
-                          >
+                          <Text variant="bold" fontSize={14}>
                             {dayjs().day(columnIndex).format("dd")[0]}
                           </Text>
                         </View>
@@ -192,15 +205,13 @@ const Calendar = () => {
                                 <Box
                                   borderRadius="m"
                                   style={styles.cell}
-                                  backgroundColor="secondaryBackground"
+                                  backgroundColor="mainBackground"
                                 >
                                   <Text
                                     color={
-                                      isBookend
-                                        ? "quaternaryText"
-                                        : "primaryText"
+                                      isBookend ? "tertiaryText" : "primaryText"
                                     }
-                                    variant="body"
+                                    lineHeight={24}
                                     fontSize={12}
                                   >
                                     {day}
@@ -237,9 +248,6 @@ const Calendar = () => {
               </View>
             )}
           />
-          <BelowCalendarStats
-            proteinMonthlyDailyAverage={proteinMonthlyDailyAverage}
-          />
         </View>
       </Box>
     </Box>
@@ -248,11 +256,15 @@ const Calendar = () => {
 
 const styles = StyleSheet.create({
   innerBox: {
-    height: "100%",
+    flex: 1,
     paddingBottom: 50,
   },
   calendarContainer: {
     alignItems: "flex-start",
+  },
+  flatList: {
+    paddingVertical: 64,
+    marginVertical: -78,
   },
   slotNumbers: {
     fontSize: 14,

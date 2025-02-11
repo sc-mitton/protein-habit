@@ -204,11 +204,21 @@ const selectDailyTargetResults = createSelector(
   },
 );
 
-const selectTodaysEntries = (state: RootState) => {
-  return dayjs(state.protein.entries[0][0]).isSame(dayjs(), "day")
-    ? state.protein.entries[0][1]
-    : [];
-};
+// const selectTodaysEntries = (state: RootState) => {
+//   return dayjs(state.protein.entries[0][0]).isSame(dayjs(), "day")
+//     ? state.protein.entries[0][1]
+//     : [];
+// };
+
+const selectDaysEntries = createSelector(
+  (state: RootState) => state.protein.entries,
+  (_: RootState, day: string) => day,
+  (entries, day) => {
+    return entries.find(([entryDay]) => {
+      return dayjs(entryDay).isSame(dayjs(day), "day");
+    })?.[1];
+  },
+);
 
 const selectStreak = createSelector(
   (state: RootState) => state.protein.entries,
@@ -242,5 +252,5 @@ export {
   selectDailyAvg,
   selectStreak,
   selectDailyTargetResults,
-  selectTodaysEntries,
+  selectDaysEntries,
 };

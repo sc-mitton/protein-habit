@@ -70,7 +70,7 @@ const Tabs = () => {
   }, [selectedTab]);
 
   return (
-    <Box flex={4}>
+    <Box flexGrow={1}>
       <Box
         flexDirection="row"
         justifyContent="flex-start"
@@ -150,12 +150,8 @@ const Tabs = () => {
         justifyContent="center"
         borderTopWidth={Platform.OS === "android" ? 2 : 0}
         borderTopColor="seperator"
-        shadowColor="seperator"
-        backgroundColor="mainBackground"
-        shadowOffset={{ width: 0, height: -2 }}
-        shadowOpacity={1}
-        shadowRadius={1}
-        elevation={12}
+        backgroundColor="secondaryBackground"
+        shadowVariant="screenSection"
         flex={1}
       >
         <ScrollView
@@ -198,16 +194,15 @@ const Tabs = () => {
 
             if (selectedTab === 1) {
               indicatorX.value =
-                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1] + delta / 10;
-              indicatorWidth.value = tabHeaderWidths.current[1] - delta / 10;
+                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1] + delta / 5;
+              indicatorWidth.value = tabHeaderWidths.current[1] - delta / 5;
             } else {
-              indicatorWidth.value = tabHeaderWidths.current[0] + delta / 10;
+              indicatorWidth.value = tabHeaderWidths.current[0] + delta / 5;
             }
           }}
           snapToInterval={Dimensions.get("window").width}
           snapToAlignment="start"
           decelerationRate={0.01}
-          style={StyleSheet.absoluteFill}
         >
           <View key="1" style={styles.page}>
             <Stats />

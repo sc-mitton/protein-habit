@@ -10,12 +10,14 @@ import { BackDrop } from "@components";
 import { RootScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
+import { selectUIDay } from "@store/slices/uiSlice";
 import FoodList from "./FoodList";
 
 const Appearance = (props: RootScreenProps<"MyFoods">) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const foods = useAppSelector(selectFoods);
+  const uiDay = useAppSelector(selectUIDay);
 
   const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
   const [selectedAmounts, setSelectedAmounts] = useState<number[]>([1]);
@@ -48,6 +50,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
           addEntry({
             grams: selectedFoods[i].protein * selectedAmounts[i],
             food: selectedFoods[i].id,
+            day: uiDay,
           }),
         );
       }
@@ -139,7 +142,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                     >
                       <Button
                         padding="xs"
-                        icon={<Icon icon={Minus} size={16} strokeWidth={2} />}
+                        icon={<Icon icon={Minus} size={16} strokeWidth={2.5} />}
                         onPress={() => {
                           if (selectedAmounts[index] > 1) {
                             setSelectedAmounts((prev) => {
@@ -165,7 +168,7 @@ const Appearance = (props: RootScreenProps<"MyFoods">) => {
                       </Text>
                       <Button
                         padding="xs"
-                        icon={<Icon icon={Plus} size={16} strokeWidth={2} />}
+                        icon={<Icon icon={Plus} size={16} strokeWidth={2.5} />}
                         onPress={() => {
                           setSelectedAmounts((prev) => {
                             const newAmounts = [...prev];

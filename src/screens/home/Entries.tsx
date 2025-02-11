@@ -1,37 +1,119 @@
-import { Fragment } from "react";
-import { selectTodaysEntries } from "@store/slices/proteinSelectors";
-import Animated, { LinearTransition } from "react-native-reanimated";
+import { Fragment, useEffect } from "react";
+import Animated, {
+  LinearTransition,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { ZeroConfig } from "geist-native-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import dayjs from "dayjs";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 import { useAppSelector } from "@store/hooks";
-import { Box, Text, Icon } from "@components";
+import { Box, Text, Icon, Button } from "@components";
+import { selectDaysEntries } from "@store/slices/proteinSelectors";
 import { selectFoods } from "@store/slices/foodsSlice";
 import Options from "./Options";
-
+import { dayTimeFormat } from "@constants/formats";
+import { useAppDispatch } from "@store/hooks";
+import { selectUIDay, setUIDay } from "@store/slices/uiSlice";
 const styles = StyleSheet.create({
   scrollContent: {
-    paddingVertical: 12,
+    paddingBottom: 12,
     paddingHorizontal: 10,
   },
 });
 
+const Days = () => {
+  const dispatch = useAppDispatch();
+  const uiDay = useAppSelector(selectUIDay);
+  const pillX = useSharedValue(0);
+  const daysHorizontalMargin = 12;
+  const pillWidth =
+    (Dimensions.get("window").width - daysHorizontalMargin * 2) / 7;
+
+  const pillStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: pillX.value }],
+    position: "absolute",
+    top: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    width: pillWidth,
+  }));
+
+  useEffect(() => {
+    const index = dayjs(uiDay).diff(dayjs().startOf("week"), "day");
+    pillX.value = withTiming((index + 0.5) * pillWidth);
+  }, [uiDay]);
+
+  return (
+    <Box
+      flexDirection="row"
+      justifyContent="space-evenly"
+      alignItems="center"
+      marginVertical="s"
+      style={{
+        marginHorizontal: daysHorizontalMargin,
+      }}
+    >
+      <Animated.View style={pillStyle}>
+        <Box
+          width={pillWidth}
+          style={{ transform: [{ translateX: -pillWidth / 2 }] }}
+          height={32}
+          backgroundColor="mainBackground"
+          position="absolute"
+          borderRadius="m"
+        />
+      </Animated.View>
+      {Array.from({ length: 7 }).map((_, index) => (
+        <Button
+          key={index}
+          width={pillWidth}
+          paddingVertical="sm"
+          paddingHorizontal="none"
+          alignItems="center"
+          justifyContent="center"
+          disabled={dayjs().isBefore(dayjs().startOf("week").add(index, "day"))}
+          textColor={
+            dayjs().isBefore(dayjs().startOf("week").add(index, "day"))
+              ? "tertiaryText"
+              : "primaryText"
+          }
+          backgroundColor="transparent"
+          onPress={() => {
+            dispatch(
+              setUIDay(
+                dayjs().startOf("week").add(index, "day").format(dayTimeFormat),
+              ),
+            );
+          }}
+          label={dayjs().startOf("week").add(index, "day").format("dd")}
+        />
+      ))}
+    </Box>
+  );
+};
+
 const Entries = () => {
-  const todaysEntries = useAppSelector(selectTodaysEntries);
+  const uiDay = useAppSelector(selectUIDay);
+  const daysEntries = useAppSelector((state) =>
+    selectDaysEntries(state, dayjs(uiDay).format(dayTimeFormat)),
+  );
   const foods = useAppSelector(selectFoods);
 
   return (
     <Fragment>
-      {todaysEntries?.length > 0 ? (
+      <Days />
+      {daysEntries && daysEntries?.length > 0 ? (
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          {todaysEntries.map((entry, entryIndex) => (
+          {daysEntries.map((entry, entryIndex) => (
             <Animated.View layout={LinearTransition} key={entry.id}>
               {entryIndex !== 0 && (
                 <Box
                   height={1.5}
-                  backgroundColor="seperator"
+                  backgroundColor="mainBackground"
                   marginHorizontal="s"
                 />
               )}
@@ -42,7 +124,7 @@ const Entries = () => {
                   justifyContent="space-between"
                   alignItems="center"
                   gap="m"
-                  backgroundColor="mainBackground"
+                  backgroundColor="secondaryBackground"
                 >
                   <Box minWidth={36}>
                     <Text>{entry.grams}g</Text>
@@ -85,7 +167,7 @@ const Entries = () => {
           style={StyleSheet.absoluteFill}
           gap="m"
         >
-          <Text color="tertiaryText">No entries yet for today</Text>
+          <Text color="tertiaryText">No entries</Text>
           <Icon
             color="tertiaryText"
             icon={ZeroConfig}

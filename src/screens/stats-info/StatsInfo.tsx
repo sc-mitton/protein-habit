@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 12,
+    transform: [{ translateY: 32 }],
   },
 });
 

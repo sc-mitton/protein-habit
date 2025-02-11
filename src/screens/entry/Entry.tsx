@@ -14,12 +14,14 @@ import Animated, {
   FadeOut,
 } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
+import dayjs from "dayjs";
 import LottieView from "lottie-react-native";
 
 import fontStyles from "@styles/fonts";
+import { dayFormat } from "@constants/formats";
 import { Box, Text, Button, Icon, TextInput } from "@components";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { selectAccent, selectFont } from "@store/slices/uiSlice";
+import { selectAccent, selectFont, selectUIDay } from "@store/slices/uiSlice";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import type { RootScreenProps } from "@types";
 import success from "@lotties/success.json";
@@ -107,7 +109,12 @@ const Value = ({ value }: { value: number }) => {
   const font = useAppSelector(selectFont);
 
   return (
-    <Box flexDirection="row" alignItems="baseline" justifyContent="center">
+    <Box
+      flexDirection="row"
+      alignItems="baseline"
+      justifyContent="center"
+      style={styles.entryContainer}
+    >
       {value
         .toString()
         .split("")
@@ -136,6 +143,7 @@ const Value = ({ value }: { value: number }) => {
 };
 
 const Entry = (props: RootScreenProps<"Entry">) => {
+  const uiDay = useAppSelector(selectUIDay);
   const [value, setValue] = useState(props.route.params?.entry?.grams || 0);
   const font = useAppSelector(selectFont);
   const accent = useAppSelector(selectAccent);
@@ -178,7 +186,9 @@ const Entry = (props: RootScreenProps<"Entry">) => {
           }),
         );
       } else {
-        dispatch(addEntry({ name: name?.trim(), grams: Number(value) }));
+        dispatch(
+          addEntry({ name: name?.trim(), grams: Number(value), day: uiDay }),
+        );
       }
       props.navigation.goBack();
     }, 1700);
@@ -188,22 +198,22 @@ const Entry = (props: RootScreenProps<"Entry">) => {
     <Box flex={1} backgroundColor="mainBackground">
       <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box
-        paddingTop="xl"
+        paddingTop="m"
         borderRadius="m"
         width="100%"
-        alignItems="center"
-        justifyContent="center"
-        flex={1}
         backgroundColor="secondaryBackground"
         borderBottomColor="borderColor"
         borderBottomWidth={1}
       >
-        <Box gap="s" width="100%">
-          <Animated.View layout={LinearTransition}>
-            <Text variant="header" textAlign="center" color="secondaryText">
-              Add Protein&nbsp;&nbsp;
-            </Text>
-          </Animated.View>
+        <Box gap="xs" width="100%" alignItems="flex-start" marginBottom="m">
+          <Text variant="header" color="primaryText" marginLeft="l">
+            Add Protein&nbsp;&nbsp;
+          </Text>
+          <Text color="secondaryText" marginLeft="l">
+            {dayjs(uiDay).format("dddd, MMM DD, YYYY")}
+          </Text>
+        </Box>
+        <Box gap="s" width="100%" marginTop="m">
           {/* {showSuccess ? ( */}
           <Box>
             <View style={styles.successLottie}>
@@ -245,6 +255,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
           alignItems="center"
           gap="s"
           marginTop="ns"
+          marginBottom="m"
           width="100%"
           justifyContent="center"
         >
@@ -294,6 +305,9 @@ const Entry = (props: RootScreenProps<"Entry">) => {
 export default Entry;
 
 const styles = StyleSheet.create({
+  entryContainer: {
+    transform: [{ translateY: 8 }],
+  },
   entry: {
     fontSize: 84,
     lineHeight: 84,

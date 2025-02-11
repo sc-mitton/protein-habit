@@ -26,17 +26,18 @@ export const getRecommendedTarget = (weight: number, unit: "lbs" | "kg") => {
   return unit === "lbs" ? Math.round(weight * 0.7) : Math.round(weight * 0.32);
 };
 
+type ProteinEntryPayload = (
+  | (Required<Pick<ProteinEntry, "grams">> & Pick<ProteinEntry, "name">)
+  | Required<Pick<ProteinEntry, "food" | "grams">>
+) & {
+  day: string;
+};
+
 const proteinSlice = createSlice({
   name: "protein",
   initialState,
   reducers: {
-    addEntry: (
-      state,
-      action: PayloadAction<
-        | (Required<Pick<ProteinEntry, "grams">> & Pick<ProteinEntry, "name">)
-        | Required<Pick<ProteinEntry, "food" | "grams">>
-      >,
-    ) => {
+    addEntry: (state, action: PayloadAction<ProteinEntryPayload>) => {
       if (dayjs(state.entries[0][0]).isBefore(dayjs().format(dayFormat))) {
         state.entries.unshift([dayjs().format(dayFormat), []]);
       }

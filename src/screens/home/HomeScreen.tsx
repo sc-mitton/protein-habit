@@ -12,28 +12,30 @@ import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
 import { RootScreenProps } from "@types";
 import { dayFormat } from "@constants/formats";
-import { selectFont } from "@store/slices/uiSlice";
+import { selectFont, selectUIDay } from "@store/slices/uiSlice";
 import Calendar from "./Calendar";
 import Tabs from "./Tabs";
 
 const HomeScreen = (props: RootScreenProps<"Home">) => {
   const theme = useTheme();
 
+  const uiDay = useAppSelector(selectUIDay);
   const font = useAppSelector(selectFont);
   const totalProteinForDay = useAppSelector((state) =>
-    selectTotalProteinForDay(state, dayjs().format(dayFormat)),
+    selectTotalProteinForDay(state, dayjs(uiDay).format(dayFormat)),
   );
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <Box
-        padding="m"
-        marginTop="s"
+        paddingTop="m"
+        paddingHorizontal="m"
+        marginTop="l"
+        marginBottom="m"
         flexDirection="row"
         alignItems="center"
         gap="xl"
         justifyContent="flex-start"
-        flex={1.5}
       >
         <Box flexDirection="row" alignItems={"baseline"} gap="s">
           <SlotNumbers
