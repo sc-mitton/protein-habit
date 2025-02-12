@@ -18,12 +18,11 @@ import dayjs from "dayjs";
 import LottieView from "lottie-react-native";
 
 import fontStyles from "@styles/fonts";
-import { dayFormat } from "@constants/formats";
 import { Box, Text, Button, Icon, TextInput } from "@components";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { selectAccent, selectFont, selectUIDay } from "@store/slices/uiSlice";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
-import type { RootScreenProps } from "@types";
+import type { HomeScreenProps } from "@types";
 import success from "@lotties/success.json";
 
 const KeypadButton = ({
@@ -142,7 +141,7 @@ const Value = ({ value }: { value: number }) => {
   );
 };
 
-const Entry = (props: RootScreenProps<"Entry">) => {
+const Entry = (props: HomeScreenProps<"Entry">) => {
   const uiDay = useAppSelector(selectUIDay);
   const [value, setValue] = useState(props.route.params?.entry?.grams || 0);
   const font = useAppSelector(selectFont);
@@ -195,7 +194,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="mainBackground">
+    <Box flex={1} backgroundColor="mainBackground" style={styles.mainContainer}>
       <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box
         paddingTop="m"
@@ -277,6 +276,7 @@ const Entry = (props: RootScreenProps<"Entry">) => {
               <Icon
                 icon={Edit3}
                 size={18}
+                borderColor={name ? "primaryText" : "placeholderText"}
                 color={name ? "primaryText" : "placeholderText"}
               />
             </Button>
@@ -291,7 +291,6 @@ const Entry = (props: RootScreenProps<"Entry">) => {
         margin="l"
         variant="borderedPrimary"
         textColor="selected"
-        marginBottom="xxxl"
         onPress={handleSubmit}
       >
         <Text color="primaryText" accent>
@@ -305,6 +304,9 @@ const Entry = (props: RootScreenProps<"Entry">) => {
 export default Entry;
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    paddingBottom: 94,
+  },
   entryContainer: {
     transform: [{ translateY: 8 }],
   },

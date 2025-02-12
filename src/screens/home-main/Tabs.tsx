@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { Info } from "geist-native-icons";
 import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
@@ -8,15 +7,11 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { Icon } from "@components";
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
   withSpring,
-  withDelay,
-  FadeIn,
-  FadeOut,
   cancelAnimation,
 } from "react-native-reanimated";
 
@@ -27,7 +22,6 @@ import Stats from "./Stats";
 const TAB_INDICATOR_OFFSET = 18;
 
 const Tabs = () => {
-  const navigation = useNavigation<any>();
   const indicatorWidth = useSharedValue(0);
   const indicatorX = useSharedValue(TAB_INDICATOR_OFFSET);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -128,25 +122,6 @@ const Tabs = () => {
             borderTopRightRadius="s"
           />
         </Animated.View>
-        {selectedTab === 0 && (
-          <Box
-            flex={1}
-            justifyContent="flex-end"
-            alignItems="flex-end"
-            opacity={0.3}
-            style={{ zIndex: 1000 }}
-          >
-            <Animated.View entering={FadeIn} exiting={FadeOut}>
-              <Button
-                icon={<Icon icon={Info} size={18} />}
-                textColor="tertiaryText"
-                onPress={() => {
-                  navigation.navigate("StatsInfo");
-                }}
-              />
-            </Animated.View>
-          </Box>
-        )}
       </Box>
       <Box
         justifyContent="center"
@@ -162,8 +137,10 @@ const Tabs = () => {
       >
         <ScrollView
           horizontal
+          style={styles.scrollView}
           showsHorizontalScrollIndicator={false}
           ref={scrollRef}
+          hitSlop={{ top: -64 }}
           onScrollBeginDrag={() => {
             onScrollAnimation.current = true;
           }}
@@ -227,6 +204,10 @@ const Tabs = () => {
 export default Tabs;
 
 const styles = StyleSheet.create({
+  scrollView: {
+    marginTop: -64,
+    paddingTop: 64,
+  },
   page: {
     width: Dimensions.get("window").width,
     height: "100%",

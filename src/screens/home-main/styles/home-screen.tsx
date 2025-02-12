@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   bigSlotNumbersStyle: {
-    fontSize: Platform.OS === "ios" ? 74 : 78,
-    lineHeight: Platform.OS === "ios" ? 74 : 78,
+    fontSize: Platform.OS === "ios" ? 82 : 86,
+    lineHeight: Platform.OS === "ios" ? 82 : 86,
     fontFamily: "Inter-Bold",
   },
   smallSlotNumbersStyle: {
@@ -20,7 +20,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttons: {
-    position: "absolute",
+    flexDirection: "row",
+    alignItems: "center",
+    height: "100%",
+    transform: [{ translateY: -6 }],
   },
   bufferNumber: {
     position: "absolute",

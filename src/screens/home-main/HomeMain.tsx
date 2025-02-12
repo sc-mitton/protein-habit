@@ -10,15 +10,15 @@ import fontStyles from "@styles/fonts";
 import { Box, Text, Button, Icon } from "@components";
 import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
-import { RootScreenProps } from "@types";
+import { HomeScreenProps } from "@types";
 import { dayFormat } from "@constants/formats";
 import { selectFont, selectUIDay } from "@store/slices/uiSlice";
 import Calendar from "./Calendar";
 import Tabs from "./Tabs";
 
-const HomeScreen = (props: RootScreenProps<"Home">) => {
+const HomeMain = (props: HomeScreenProps<"Main">) => {
   const theme = useTheme();
-
+  const { name } = useAppSelector((state) => state.user);
   const uiDay = useAppSelector(selectUIDay);
   const font = useAppSelector(selectFont);
   const totalProteinForDay = useAppSelector((state) =>
@@ -28,10 +28,10 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <Box
-        paddingTop="m"
         paddingHorizontal="m"
-        marginTop="l"
-        marginBottom="m"
+        paddingTop="m"
+        marginTop="xl"
+        marginBottom="l"
         flexDirection="row"
         alignItems="center"
         gap="xl"
@@ -58,14 +58,14 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
             g
           </Text>
         </Box>
-        <ReAnimated.View layout={LinearTransition}>
+        <ReAnimated.View layout={LinearTransition} style={styles.buttons}>
           <Box flexDirection="row" gap="sm" paddingRight="m">
             <Button
               borderRadius="full"
-              backgroundColor="transparent"
               borderColor="borderColor"
-              borderWidth={1}
-              padding="sm"
+              borderWidth={1.5}
+              backgroundColor="transparent"
+              padding="s"
               onPress={() => {
                 props.navigation.navigate("Entry");
               }}
@@ -74,16 +74,16 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
                   icon={Plus}
                   size={20}
                   color="primaryText"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                 />
               }
             />
             <Button
               borderRadius="full"
-              backgroundColor="transparent"
               borderColor="borderColor"
-              borderWidth={1}
-              padding="sm"
+              borderWidth={1.5}
+              backgroundColor="transparent"
+              padding="s"
               onPress={() => {
                 props.navigation.navigate("MyFoods");
               }}
@@ -104,4 +104,4 @@ const HomeScreen = (props: RootScreenProps<"Home">) => {
   );
 };
 
-export default HomeScreen;
+export default HomeMain;

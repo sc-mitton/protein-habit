@@ -6,9 +6,9 @@ import logo from "../../../assets/icon-tinted.png";
 import { Box, Text, TextInput, Button } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import { setName } from "@store/slices/userSlice";
-import type { RootScreenProps } from "@types";
+import type { HomeScreenProps } from "@types";
 
-const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
+const WelcomeScreen = ({ navigation }: HomeScreenProps<"Welcome">) => {
   const [inputName, setInputName] = useState("");
   const dispatch = useAppDispatch();
   const scheme = useColorScheme();

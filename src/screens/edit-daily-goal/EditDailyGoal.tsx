@@ -19,7 +19,7 @@ import {
   setDailyTarget,
   getRecommendedTarget,
 } from "@store/slices/proteinSlice";
-import { RootScreenProps } from "@types";
+import { HomeScreenProps } from "@types";
 
 import { BackDrop } from "@components";
 import { StyleSheet, Dimensions } from "react-native";
@@ -46,7 +46,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
         marginTop="l"
       >
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronsDown} size={18} />}
+          icon={<Icon strokeWidth={2.5} icon={ChevronsDown} size={18} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -57,7 +57,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
           }}
         />
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronDown} size={24} />}
+          icon={<Icon strokeWidth={2.5} icon={ChevronDown} size={24} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -89,7 +89,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
           </Box>
         </Box>
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronUp} size={24} />}
+          icon={<Icon strokeWidth={2.5} icon={ChevronUp} size={24} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -98,7 +98,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
           onPress={() => setDisplayVal((prev) => prev + 1)}
         />
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronsUp} size={18} />}
+          icon={<Icon strokeWidth={2.5} icon={ChevronsUp} size={18} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -122,7 +122,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
   );
 };
 
-const EditDailyGoal = (props: RootScreenProps<"EditDailyGoal">) => {
+const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
   const theme = useTheme();
   const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();

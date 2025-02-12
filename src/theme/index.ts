@@ -12,7 +12,7 @@ const palette = {
   gray600: "hsla(30, 4%, 46%, 1)",
   gray700: "hsla(30, 4%, 38%, 1)",
   gray800: "hsla(30, 4%, 26%, 1)",
-  gray850: "hsla(30, 4%, 18%, 1)",
+  gray850: "hsla(30, 4%, 17%, 1)",
   gray900: "hsla(30, 4%, 13%, 1)",
   gray1000: "hsla(30, 4%, 5%, 1)",
   gray1100: "hsla(30, 4%, 0%, 1)",
@@ -49,7 +49,7 @@ const lightTheme = createTheme({
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
     defaultShadow: palette.gray500,
-    primaryButton: palette.gray250,
+    primaryButton: palette.gray200,
     modalAndroidStatusBackground: "#858585",
     white: "white",
 

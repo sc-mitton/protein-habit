@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import OutsidePressHandler from "react-native-outside-press";
 
@@ -9,21 +9,27 @@ import { Text, Box, Button } from "@components";
 export const Tip = ({
   children,
   label,
+  maxWidth = 200,
 }: {
   children: React.ReactNode;
   label: string;
+  maxWidth?: number;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <OutsidePressHandler onOutsidePress={() => setIsOpen(false)}>
       <Box alignItems="center">
-        <Button onPress={() => setIsOpen(!isOpen)}>{children}</Button>
+        <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
+          {children}
+        </TouchableOpacity>
         {isOpen && (
-          <TipContainer top={-24}>
-            <Text variant="body" fontSize={14}>
-              {label}
-            </Text>
+          <TipContainer>
+            <Box maxWidth={maxWidth}>
+              <Text variant="body" fontSize={14}>
+                {label}
+              </Text>
+            </Box>
           </TipContainer>
         )}
       </Box>
@@ -31,16 +37,10 @@ export const Tip = ({
   );
 };
 
-const TipContainer = ({
-  children,
-  top = -36,
-}: {
-  children: React.ReactNode;
-  top?: number;
-}) => (
+export const TipContainer = ({ children }: { children: React.ReactNode }) => (
   <Animated.View
     entering={FadeIn.duration(300)}
-    style={[styles.aboveTipContainer, { top }]}
+    style={[styles.aboveTipContainer]}
   >
     <Box
       backgroundColor="cardBackground"
@@ -51,12 +51,7 @@ const TipContainer = ({
       shadowRadius={12}
       style={styles.aboveTip}
     >
-      <Box
-        marginHorizontal="s"
-        marginVertical="xs"
-        flexDirection="row"
-        flexWrap="nowrap"
-      >
+      <Box marginHorizontal="s" marginVertical="xs" flexDirection="row">
         {children}
       </Box>
       <View style={styles.arrowForTipContainer}>
@@ -70,42 +65,20 @@ const TipContainer = ({
   </Animated.View>
 );
 
-interface CalendarTipProps {
-  targetResult: [string, number, boolean, number];
-  onOutsidePress: () => void;
-}
-
-export const CalendarTip = (props: CalendarTipProps) => (
-  <OutsidePressHandler
-    style={styles.aboveTip}
-    onOutsidePress={props.onOutsidePress}
-  >
-    <TipContainer>
-      <Text variant="body" fontSize={14}>
-        Total:&nbsp;
-        {props.targetResult[1]}
-        g&nbsp;&nbsp;
-      </Text>
-      <Text variant="body" fontSize={14}>
-        Target:&nbsp;
-        {props.targetResult[3]}g
-      </Text>
-    </TipContainer>
-  </OutsidePressHandler>
-);
-
 const styles = StyleSheet.create({
   aboveTipContainer: {
     position: "absolute",
     zIndex: 100,
     left: "50%",
-    justifyContent: "center",
+    top: 0,
+    justifyContent: "flex-end",
     alignItems: "center",
   },
   aboveTip: {
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+    bottom: 12,
     zIndex: 100,
   },
   arrowForTipContainer: {
@@ -124,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CalendarTip;
+export default Tip;

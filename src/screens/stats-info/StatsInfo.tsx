@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import { PieChart, Target, BarChart2, Zap } from "geist-native-icons";
 
 import { Box, BackDrop, Button, Icon, Text } from "@components";
-import { RootScreenProps } from "@types";
+import { HomeScreenProps } from "@types";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const StatsInfo = ({ navigation }: RootScreenProps<"StatsInfo">) => {
+const StatsInfo = ({ navigation }: HomeScreenProps<"StatsInfo">) => {
   return (
     <View style={styles.container}>
       <BackDrop />

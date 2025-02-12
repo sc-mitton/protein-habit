@@ -10,7 +10,7 @@ import {
 import { useTheme } from "@shopify/restyle";
 import { Check, X, BarChart2 } from "geist-native-icons";
 
-import { Text, Box, Icon } from "@components";
+import { Text, Box, Icon, Tip } from "@components";
 import dayjs, { Dayjs } from "dayjs";
 import { useAppSelector } from "@store/hooks";
 import {
@@ -20,7 +20,7 @@ import {
 import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
-import CalendarTip, { Tip } from "./Tips";
+import CalendarTip from "./Tips";
 const CALENDAR_WIDTH = Dimensions.get("window").width * 0.7;
 // the window width minus the calendar width
 const CALENDAR_NEGATIVE_SPACE = Dimensions.get("window").width - CALENDAR_WIDTH;
@@ -73,7 +73,6 @@ const Calendar = () => {
     >
       <Box
         style={styles.innerBox}
-        paddingVertical="l"
         shadowColor="borderColor"
         shadowOffset={{ width: 0, height: -1 }}
         shadowOpacity={0.7}
@@ -118,28 +117,25 @@ const Calendar = () => {
                   flexDirection="row"
                   justifyContent="space-between"
                   alignItems="center"
-                  marginRight="sm"
                 >
                   <Text variant="bold" style={styles.monthHeader}>
                     {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
                   </Text>
-                  <Tip
-                    label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
+
+                  <Box
+                    marginBottom="s"
+                    backgroundColor="primaryButton"
+                    borderRadius="s"
+                    marginRight="ml"
                   >
-                    <Box
-                      marginBottom="xs"
-                      padding="xs"
-                      backgroundColor="primaryButton"
-                      borderRadius="s"
+                    <Tip
+                      label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
                     >
-                      <Icon
-                        icon={BarChart2}
-                        size={16}
-                        color="secondaryText"
-                        strokeWidth={2}
-                      />
-                    </Box>
-                  </Tip>
+                      <Box margin="xs">
+                        <Icon icon={BarChart2} size={16} strokeWidth={2} />
+                      </Box>
+                    </Tip>
+                  </Box>
                 </Box>
                 <View style={styles.monthContainer} key={item[0]}>
                   {item[1].map((days: number[], columnIndex: number) => {
@@ -267,7 +263,7 @@ const Calendar = () => {
 const styles = StyleSheet.create({
   innerBox: {
     flex: 1,
-    paddingBottom: 50,
+    paddingTop: 28,
   },
   calendarContainer: {
     alignItems: "flex-start",

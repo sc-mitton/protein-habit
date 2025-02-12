@@ -13,7 +13,7 @@ import {
   EmojiPicker,
   BackButton,
 } from "@components";
-import { RootScreenProps } from "@types";
+import { HomeScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { addFood, deactiveFood } from "@store/slices/foodsSlice";
 
@@ -32,7 +32,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AddFood = ({ navigation, route }: RootScreenProps<"AddFood">) => {
+const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
   const dispatch = useAppDispatch();
   const {
     control,

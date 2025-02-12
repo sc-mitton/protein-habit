@@ -1,12 +1,13 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import type { Food } from "@store/slices/foodsSlice";
-import type { ProteinEntry } from "@store/slices/proteinSlice";
+import { DrawerScreenProps } from "@react-navigation/drawer";
+import { ProteinEntry } from "@store/slices/proteinSlice";
+import { Food } from "@store/slices/foodsSlice";
 
-export type RootStackParamList = {
+export type HomeStackParamList = {
   Welcome: undefined;
   WeightInput: undefined;
-  Home: undefined;
   Appearance: undefined;
+  Main: undefined;
   PersonalInfo: undefined;
   Entry: undefined | { entry: ProteinEntry };
   EditDailyGoal: undefined;
@@ -16,5 +17,13 @@ export type RootStackParamList = {
   StatsInfo: undefined;
 };
 
+export type RootStackParamList = {
+  Home: HomeStackParamList;
+  Recipes: undefined;
+};
+
 export type RootScreenProps<T extends keyof RootStackParamList> =
-  StackScreenProps<RootStackParamList, T>;
+  DrawerScreenProps<RootStackParamList, T>;
+
+export type HomeScreenProps<T extends keyof HomeStackParamList> =
+  StackScreenProps<HomeStackParamList, T>;

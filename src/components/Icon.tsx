@@ -35,14 +35,17 @@ export const Icon = (props: Props) => {
   const {
     accent,
     color = "primaryText",
+    borderColor,
     icon: Icon,
     size,
     rotate,
     ...rest
   } = props;
   const updatedColor = accent ? accentColor || color : color;
+  const updatedBorderColor = accent && borderColor ? accentColor : borderColor;
   const restyleProps = useRestyle(restyleFunctions as any, {
     color: updatedColor,
+    borderColor: updatedBorderColor,
     ...rest,
   });
 

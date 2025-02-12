@@ -23,7 +23,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setName, setWeight, setWeightUnit } from "@store/slices/userSlice";
 import { selectUserInfo } from "@store/slices/userSlice";
-import type { RootScreenProps } from "@types";
+import type { HomeScreenProps } from "@types";
 import { Fragment } from "react";
 
 const schema = z.object({
@@ -35,7 +35,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const Form = (props: RootScreenProps<"PersonalInfo">) => {
+const Form = (props: HomeScreenProps<"PersonalInfo">) => {
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 

@@ -3,7 +3,7 @@ import { PieChart, Target, BarChart2, Zap } from "geist-native-icons";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
 
-import { Box, Text, Icon } from "@components";
+import { Box, Text, Icon, Tip } from "@components";
 import {
   selectDailyProteinTarget,
   selectTotalProteinForDay,
@@ -66,18 +66,18 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Icon icon={Target} accent={true} color="secondaryText" />
-            <Text fontSize={14} accent={true} color="secondaryText">
-              Daily Goal
-            </Text>
+            <Tip label="Your current daily protein goal." maxWidth={125}>
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <Icon icon={Target} accent={true} color="secondaryText" />
+                <Text fontSize={14} accent={true} color="secondaryText">
+                  Daily Goal
+                </Text>
+              </Box>
+            </Tip>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold" fontSize={18}>
-              {dailyTarget}
-            </Text>
-            <Text variant="bold" fontSize={18}>
-              g
-            </Text>
+            <Text fontSize={18}>{dailyTarget}</Text>
+            <Text fontSize={18}>g</Text>
           </Box>
         </Box>
         <Box gap="s" flex={1}>
@@ -89,18 +89,18 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Icon icon={PieChart} accent={true} color="secondaryText" />
-            <Text color="secondaryText" fontSize={14} accent={true}>
-              Remaining
-            </Text>
+            <Tip label="How much protein you have left to reach your goal for the day.">
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <Icon icon={PieChart} accent={true} color="secondaryText" />
+                <Text color="secondaryText" fontSize={14} accent={true}>
+                  Remaining
+                </Text>
+              </Box>
+            </Tip>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold" fontSize={18}>
-              {remainingProtein}
-            </Text>
-            <Text variant="bold" fontSize={18}>
-              g
-            </Text>
+            <Text fontSize={18}>{remainingProtein}</Text>
+            <Text fontSize={18}>g</Text>
           </Box>
         </Box>
       </Box>
@@ -114,23 +114,23 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Icon
-              icon={BarChart2}
-              strokeWidth={2}
-              accent={true}
-              color="secondaryText"
-            />
-            <Text color="secondaryText" fontSize={14} accent={true}>
-              Daily Average
-            </Text>
+            <Tip label="Average protein per day this week." maxWidth={150}>
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <Icon
+                  icon={BarChart2}
+                  strokeWidth={2}
+                  accent={true}
+                  color="secondaryText"
+                />
+                <Text color="secondaryText" fontSize={14} accent={true}>
+                  Daily Average
+                </Text>
+              </Box>
+            </Tip>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold" fontSize={18}>
-              {weeklyAvg}
-            </Text>
-            <Text variant="bold" fontSize={18}>
-              g
-            </Text>
+            <Text fontSize={18}>{weeklyAvg}</Text>
+            <Text fontSize={18}>g</Text>
           </Box>
         </Box>
         <Box paddingBottom="s" gap="s" flex={1}>
@@ -142,13 +142,17 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Icon icon={Zap} accent={true} color="secondaryText" />
-            <Text color="secondaryText" fontSize={14} accent={true}>
-              Streak
-            </Text>
+            <Tip label="The number of consecutive days you've reached your daily goal.">
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <Icon icon={Zap} accent={true} color="secondaryText" />
+                <Text color="secondaryText" fontSize={14} accent={true}>
+                  Streak
+                </Text>
+              </Box>
+            </Tip>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text variant="bold" fontSize={18}>
+            <Text fontSize={18}>
               {`${streak} day${streak === 1 ? "" : "s"}`}
             </Text>
           </Box>

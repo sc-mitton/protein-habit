@@ -13,9 +13,9 @@ import {
 } from "@store/slices/uiSlice";
 import { fontOptions } from "@constants/fonts";
 import { accentOptions } from "@constants/accents";
-import { RootScreenProps } from "@types";
+import { HomeScreenProps } from "@types";
 
-const Appearance = (props: RootScreenProps<"Appearance">) => {
+const Appearance = (props: HomeScreenProps<"Appearance">) => {
   const theme = useTheme();
   const selectedFont = useAppSelector(selectFont);
   const selectedAccent = useAppSelector(selectAccent);

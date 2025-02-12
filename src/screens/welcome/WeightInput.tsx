@@ -10,9 +10,9 @@ import {
   setDailyTarget,
 } from "@store/slices/proteinSlice";
 import { setWeight } from "@store/slices/userSlice";
-import type { RootScreenProps } from "@types";
+import type { HomeScreenProps } from "@types";
 
-const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
+const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
   const [weight, setWeightValue] = useState("");
   const [weightUnit, setWeightUnit] = useState<"lbs" | "kg">("lbs");
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
       dispatch(
         setDailyTarget(getRecommendedTarget(Number(weight), weightUnit)),
       );
-      navigation.replace("Home");
+      navigation.replace("Main");
     }
   };
 
@@ -64,16 +64,18 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
             autoFocus
             returnKeyType="done"
           />
-          <Radios
-            options={
-              [
-                { label: "lbs", value: "lbs" },
-                { label: "kg", value: "kg" },
-              ] as const
-            }
-            defaultValue={"lbs"}
-            onChange={setWeightUnit}
-          />
+          <Box width="100%" alignContent="center" marginTop="s" marginLeft="s">
+            <Radios
+              options={
+                [
+                  { label: "lbs", value: "lbs" },
+                  { label: "kg", value: "kg" },
+                ] as const
+              }
+              defaultValue={"lbs"}
+              onChange={setWeightUnit}
+            />
+          </Box>
           <Box marginTop="l">
             <Button
               variant="primary"

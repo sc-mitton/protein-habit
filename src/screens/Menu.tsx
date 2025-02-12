@@ -9,11 +9,11 @@ import { useTheme } from "@shopify/restyle";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { Icon, Box, Text } from "@components";
-import { RootStackParamList } from "@types";
+import { HomeStackParamList } from "@types";
 import { useNavigation } from "@react-navigation/native";
 
 function Menu() {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,7 +21,7 @@ function Menu() {
     <View>
       {Platform.OS === "ios" ? (
         <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
+          <DropdownMenu.Trigger style={{ marginTop: 6 }}>
             <Icon icon={MoreHorizontal} size={24} color={"primaryText"} />
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>

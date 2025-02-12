@@ -7,13 +7,13 @@ import Animated, { LinearTransition } from "react-native-reanimated";
 import { Food, selectFoods } from "@store/slices/foodsSlice";
 import { Box, Button, Icon, Text } from "@components";
 import { BackDrop } from "@components";
-import { RootScreenProps } from "@types";
+import { HomeScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import { selectUIDay } from "@store/slices/uiSlice";
 import FoodList from "./FoodList";
 
-const Appearance = (props: RootScreenProps<"MyFoods">) => {
+const Appearance = (props: HomeScreenProps<"MyFoods">) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const foods = useAppSelector(selectFoods);

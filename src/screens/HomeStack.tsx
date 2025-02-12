@@ -5,17 +5,17 @@ import { Menu2 } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { Box, Button, Icon, Text } from "@components";
+import { Box, Text, Icon, Button } from "@components";
 import { dayTimeFormat } from "@constants/formats";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import WelcomeScreen from "./welcome/WelcomeScreen";
-import HomeScreen from "./home/HomeScreen";
-import Menu from "./Menu";
-import { RootStackParamList } from "@types";
+import HomeMainScreen from "./home-main/HomeMain";
+import { HomeStackParamList } from "@types";
 import Appearance from "./appearance/Appearance";
 import WeightInput from "./welcome/WeightInput";
 import PersonalInfo from "./personal-info/PersonalInfo";
 import Entry from "./entry/Entry";
+import Menu from "./Menu";
 import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
@@ -23,8 +23,9 @@ import StatsInfo from "./stats-info/StatsInfo";
 import SuccessModal from "./success/SuccessModal";
 import { selectUIDay, setUIDay } from "@store/slices/uiSlice";
 import { useEffect } from "react";
+import { RootScreenProps } from "@types";
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const RootStack = () => {
   const dispatch = useAppDispatch();
@@ -76,7 +77,7 @@ const RootStack = () => {
   }, [currentDay]);
 
   return (
-    <Stack.Navigator initialRouteName={name ? "Home" : "Welcome"}>
+    <Stack.Navigator initialRouteName={name ? "Main" : "Welcome"}>
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
@@ -88,8 +89,8 @@ const RootStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Main"
+        component={HomeMainScreen}
         options={{
           title: "",
           headerShown: true,
@@ -97,36 +98,33 @@ const RootStack = () => {
           headerStyle: {
             backgroundColor: theme.colors.mainBackground,
           },
-          headerTitle: () => (
-            <Box
-              paddingHorizontal="xs"
-              paddingVertical="s"
-              alignItems="center"
-              gap="xs"
-            >
-              <Text variant="bold">Welcome, {name}</Text>
-              <Text color="secondaryText">
-                {dayjs(uiDay).format("MMM D, YYYY")}
-              </Text>
-            </Box>
-          ),
-          headerLeft: () => {
+          headerTitle: () => {
             return (
-              <Box justifyContent="center" height="100%">
-                <Button flexDirection="row" alignItems="center" gap="s">
-                  <Icon icon={Menu2} strokeWidth={2} size={20} />
-                </Button>
+              <Box
+                paddingTop="xs"
+                paddingHorizontal="xs"
+                gap="xs"
+                alignItems="center"
+              >
+                <Text variant="bold">Welcome, {name}</Text>
+                <Text color="tertiaryText">
+                  {dayjs(uiDay).format("MMM D, YYYY")}
+                </Text>
               </Box>
             );
           },
-          headerRight: () => (
-            <Box
-              marginRight={Platform.OS === "android" ? "nm" : undefined}
-              marginVertical="m"
-            >
-              <Menu />
-            </Box>
-          ),
+          headerLeft: () => {
+            return (
+              <Button
+                onPress={() => {
+                  // props.navigation.openDrawer()
+                }}
+              >
+                <Icon icon={Menu2} strokeWidth={2} size={24} />
+              </Button>
+            );
+          },
+          headerRight: () => <Menu />,
         }}
       />
 
