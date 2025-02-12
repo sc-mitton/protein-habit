@@ -34,7 +34,7 @@ const withDrawerBlurBackground = <P extends object>(
     });
 
     return (
-      <Fragment key={`drawer-blur-${Math.random().toString(36).slice(0, 9)}`}>
+      <Fragment>
         <AnimatedBlurView
           intensity={20}
           experimentalBlurMethod={"dimezisBlurView"}

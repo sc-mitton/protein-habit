@@ -27,7 +27,7 @@ import { RootScreenProps } from "@types";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
-const RootStack = () => {
+const RootStack = (props: RootScreenProps<"Home">) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
 
@@ -115,11 +115,7 @@ const RootStack = () => {
           },
           headerLeft: () => {
             return (
-              <Button
-                onPress={() => {
-                  // props.navigation.openDrawer()
-                }}
-              >
+              <Button onPress={() => props.navigation.openDrawer()}>
                 <Icon icon={Menu2} strokeWidth={2} size={24} />
               </Button>
             );

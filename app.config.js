@@ -38,7 +38,7 @@ export default {
     },
     ios: {
       supportsTablet: false,
-      buildNumber: "24",
+      buildNumber: "25",
       bundleIdentifier: bundleId,
       infoPlist: {
         CFBundleDisplayName: appName,
@@ -82,5 +82,9 @@ export default {
     runtimeVersion: {
       policy: "appVersion",
     },
+    plugins: [
+      ["./plugins/withAsyncStorageBackup.js"],
+      ["./plugins/withAndroidBackup.js"],
+    ],
   },
 };

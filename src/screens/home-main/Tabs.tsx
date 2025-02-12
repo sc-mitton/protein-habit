@@ -140,7 +140,7 @@ const Tabs = () => {
           style={styles.scrollView}
           showsHorizontalScrollIndicator={false}
           ref={scrollRef}
-          hitSlop={{ top: -64 }}
+          hitSlop={{ top: -68 }}
           onScrollBeginDrag={() => {
             onScrollAnimation.current = true;
           }}
@@ -205,8 +205,8 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   scrollView: {
-    marginTop: -64,
-    paddingTop: 64,
+    marginTop: -68,
+    paddingTop: 68,
   },
   page: {
     width: Dimensions.get("window").width,

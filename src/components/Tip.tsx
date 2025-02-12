@@ -44,7 +44,7 @@ export const TipContainer = ({ children }: { children: React.ReactNode }) => (
   >
     <Box
       backgroundColor="cardBackground"
-      borderRadius="m"
+      borderRadius="l"
       shadowColor="defaultShadow"
       shadowOffset={{ width: 0, height: 2 }}
       shadowOpacity={1}
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     bottom: 12,
     zIndex: 100,
+    padding: 4,
   },
   arrowForTipContainer: {
     position: "absolute",

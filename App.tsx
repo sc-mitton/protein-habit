@@ -18,7 +18,7 @@ import * as NavigationBar from "expo-navigation-bar";
 import lightTheme, { darkTheme } from "@theme";
 import { Box } from "@components";
 import { store, persistor } from "./src/store";
-import RootStack from "./src/screens/HomeStack";
+import RootStack from "./src/screens/RootDrawer";
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
