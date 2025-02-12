@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   bigSlotNumbersStyle: {
-    fontSize: Platform.OS === "ios" ? 78 : 82,
-    lineHeight: Platform.OS === "ios" ? 78 : 82,
+    fontSize: Platform.OS === "ios" ? 74 : 78,
+    lineHeight: Platform.OS === "ios" ? 74 : 78,
     fontFamily: "Inter-Bold",
   },
   smallSlotNumbersStyle: {

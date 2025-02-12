@@ -10,20 +10,18 @@ import { Button, Icon, Text, Box } from "@components";
 import { deactiveFood, type Food } from "@store/slices/foodsSlice";
 import { Plus } from "geist-native-icons";
 import { useAppDispatch } from "@store/hooks";
-import { RootScreenProps } from "@types";
 
 const Menu = ({
   food,
   children,
-  navigation,
 }: {
   food: Food;
   children: React.ReactNode;
-  navigation: RootScreenProps<"MyFoods">["navigation"];
 }) => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
+  const navigation = useNavigation<any>();
 
   return (
     <View>
@@ -105,10 +103,9 @@ const Menu = ({
 
 const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
   const scheme = useColorScheme();
-  const { navigation } = useNavigation<RootScreenProps<"MyFoods">>();
 
   return (
-    <Menu food={food} navigation={navigation}>
+    <Menu food={food}>
       <Box
         backgroundColor="transparent"
         shadowColor="defaultShadow"
@@ -123,7 +120,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
             scheme === "dark" ? "primaryButton" : "mainBackground"
           }
           padding={Platform.OS === "ios" ? "s" : "sm"}
-          paddingRight="s"
+          paddingRight="xxs"
           borderRadius="l"
           shadowColor="defaultShadow"
           shadowOffset={{ width: 0, height: 2 }}
@@ -134,7 +131,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box flexDirection="row" alignItems="center" gap="s" marginRight="m">
+          <Box flexDirection="row" alignItems="center" gap="xs" marginRight="s">
             <Text fontSize={20} lineHeight={28}>
               {food.emoji}
             </Text>

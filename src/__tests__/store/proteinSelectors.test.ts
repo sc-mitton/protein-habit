@@ -241,3 +241,74 @@ it("should select the todays entries", () => {
     { grams: 50 },
   ]);
 });
+
+it("should select the daily target results", () => {
+  const user = {
+    ...userInitialState,
+    name: "John Doe",
+    weight: {
+      value: 200,
+      unit: "lbs",
+    } as const,
+  };
+  const calculateTarget = getRecommendedTarget(
+    user.weight.value,
+    user.weight.unit,
+  );
+
+  const rootDate = "2025-01-05";
+  jest.useFakeTimers();
+  jest.setSystemTime(dayjs(rootDate).toDate());
+
+  // prettier-ignore
+  const tests = [
+    {
+      entries:[
+        [
+          dayjs().subtract(3, "day").format(dayFormat),
+          [{ grams: 50 }, { grams: 50 }, { grams: 50 }],
+        ],
+        [
+          dayjs().subtract(4, "day").format(dayFormat),
+          [{ grams: 50 }, { grams: 50 }, { grams: 50 }],
+        ],
+      ],
+      targets:[
+        [dayjs().subtract(2, "day").format(dayFormat), 150],
+        [dayjs().subtract(3, "day").format(dayFormat), 135],
+        [dayjs().subtract(5, "day").format(dayFormat), calculateTarget],
+      ],
+      selected: [
+        [dayjs().subtract(1, "day").format(dayFormat), 0, false, 150],
+        [dayjs().subtract(2, "day").format(dayFormat), 0, false, 150],
+        [dayjs().subtract(3, "day").format(dayFormat), 150, true, 135],
+        [dayjs().subtract(4, "day").format(dayFormat), 150, true, calculateTarget],
+        [dayjs().subtract(5, "day").format(dayFormat), 0, false, calculateTarget],
+      ],
+      start: dayjs().subtract(5, "day").format(dayFormat),
+    },
+    {
+      entries:[[dayjs().format(dayFormat), []]],
+      targets: [[dayjs().format(dayFormat), null]],
+      selected: [],
+      start: dayjs().format(dayFormat),
+    },
+  ]
+
+  for (const test of tests) {
+    const state = {
+      protein: {
+        ...initialState,
+        entries: test.entries,
+        dailyTargets: test.targets,
+      },
+      user,
+    };
+
+    expect(selectDailyTargetResults(state as any, test.start)).toEqual(
+      test.selected,
+    );
+  }
+
+  jest.useRealTimers();
+});

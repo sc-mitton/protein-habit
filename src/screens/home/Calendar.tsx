@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   Platform,
 } from "react-native";
-import { backgroundColor, useTheme } from "@shopify/restyle";
+import { useTheme } from "@shopify/restyle";
 import { Check, X, BarChart2 } from "geist-native-icons";
 
 import { Text, Box, Icon } from "@components";
@@ -181,7 +181,7 @@ const Calendar = () => {
                                       : 7 - rowIndex,
                                 },
                               ]}
-                              disabled={isBookend}
+                              disabled={isBookend || targetMet === null}
                               activeOpacity={targetMet === undefined ? 1 : 0.97}
                               underlayColor={theme.colors.primaryText}
                               onPressOut={() => {

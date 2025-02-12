@@ -33,12 +33,19 @@ const Stats = () => {
   const remainingProtein = Math.max(dailyTarget - totalProteinForDay, 0);
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
     if (remainingProtein === 0 && !hasShownSuccessModal) {
-      dispatch(setHasShownSuccessModal(true));
-      navigation.navigate("SuccessModal");
+      timeout = setTimeout(() => {
+        dispatch(setHasShownSuccessModal(true));
+        navigation.navigate("SuccessModal");
+      }, 1000);
     } else if (remainingProtein > 0) {
       dispatch(setHasShownSuccessModal(false));
     }
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [remainingProtein, navigation, dispatch, hasShownSuccessModal]);
 
   return (
@@ -142,7 +149,7 @@ const Stats = () => {
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
             <Text variant="bold" fontSize={18}>
-              {streak} days
+              {`${streak} day${streak === 1 ? "" : "s"}`}
             </Text>
           </Box>
         </Box>

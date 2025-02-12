@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import SlotNumbers from "react-native-slot-numbers";
-import { Text as RNText, Platform, View } from "react-native";
+import { Text as RNText, View } from "react-native";
 import {
   ChevronDown,
   ChevronUp,
@@ -17,13 +17,13 @@ import { Box, Button, Text, Icon } from "@components";
 import { selectDailyProteinTarget } from "@store/slices/proteinSelectors";
 import {
   setDailyTarget,
-  resetDailyTarget2Default,
+  getRecommendedTarget,
 } from "@store/slices/proteinSlice";
 import { RootScreenProps } from "@types";
 
 import { BackDrop } from "@components";
 import { StyleSheet, Dimensions } from "react-native";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { selectUserInfo } from "@store/slices/userSlice";
 
 const Value = ({ onSave }: { onSave: () => void }) => {
   const theme = useTheme();
@@ -124,6 +124,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
 
 const EditDailyGoal = (props: RootScreenProps<"EditDailyGoal">) => {
   const theme = useTheme();
+  const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
 
   return (
@@ -156,7 +157,14 @@ const EditDailyGoal = (props: RootScreenProps<"EditDailyGoal">) => {
             </Text>
             <Button
               onPress={() => {
-                dispatch(resetDailyTarget2Default());
+                dispatch(
+                  setDailyTarget(
+                    getRecommendedTarget(
+                      userInfo.weight.value,
+                      userInfo.weight.unit,
+                    ),
+                  ),
+                );
               }}
               variant="primary"
               backgroundColor="transparent"

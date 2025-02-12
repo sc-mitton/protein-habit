@@ -14,8 +14,10 @@ import Animated, {
   withTiming,
   useAnimatedStyle,
   withSpring,
+  withDelay,
   FadeIn,
   FadeOut,
+  cancelAnimation,
 } from "react-native-reanimated";
 
 import { Box, Button } from "@components";
@@ -167,6 +169,8 @@ const Tabs = () => {
           }}
           onScrollEndDrag={() => {
             onScrollAnimation.current = false;
+            cancelAnimation(indicatorX);
+            cancelAnimation(indicatorWidth);
             if (selectedTab === 1) {
               indicatorX.value = withSpring(
                 TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1],

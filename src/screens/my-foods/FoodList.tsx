@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingTop: 12,
     paddingVertical: 12,
+    paddingHorizontal: 6,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",

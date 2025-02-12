@@ -117,40 +117,67 @@ const selectDailyTargetResults = createSelector(
   (state: RootState) => state.protein.entries,
   (_: RootState, start: string) => start,
   (state: RootState) => state.protein.dailyTargets,
-  (state: RootState) => state.user.weight,
-  (entries, start, targets, weight) => {
-    // [day, totalProtein, targetMet, target]
-    const results = [] as [string, number, boolean, number][];
-
+  (entries, start, targets) => {
     // The resulting array should go from present to the start
     // [curent day, current day - 1, ..., start]
 
-    for (let i = 0; i < entries.length; i++) {
-      const target =
-        targets.find(([day]) => {
-          return dayjs(day).subtract(1, "day").isBefore(entries[i][0]);
-        })?.[1] ?? getRecommendedTarget(weight.value, weight.unit);
+    // [day, totalProtein, targetMet, target]
+    const results = [] as [string, number, boolean, number][];
 
-      // Fill in gap if any
-      const gap =
-        dayjs(results[results.length - 1]?.[0]).diff(
-          dayjs(entries[i][0]),
-          "day",
-        ) - 1;
+    const iterLength = dayjs().diff(dayjs(start), "day");
 
-      for (let j = 0; j < gap; j++) {
-        const day = dayjs(entries[i][0]).subtract(j, "day").format(dayFormat);
-        results.push([day, 0, false, target]);
+    const entryMap = {} as Record<string, number>;
+    for (let i = entries.length - 1; i >= 0; i--) {
+      entryMap[entries[i][0]] = i;
+    }
+
+    let targetIndex = targets.length - 1;
+
+    for (let i = 0; i < iterLength; i++) {
+      const day = dayjs(start).add(i, "day");
+
+      if (
+        targetIndex > 0 &&
+        day.isAfter(dayjs(targets[targetIndex - 1][0]).subtract(1, "day"))
+      ) {
+        targetIndex--;
       }
 
-      const totalProtein = entries[i][1].reduce((sum, e) => sum + e.grams, 0);
+      const entryIndex = entryMap[day.format(dayFormat)];
+      const totalProtein =
+        entryIndex === undefined
+          ? 0
+          : entries[entryIndex][1].reduce((sum, e) => sum + e.grams, 0);
+      const target = targets[targetIndex][1];
+
       results.push([
-        entries[i][0],
+        day.format(dayFormat),
         totalProtein,
         totalProtein >= target,
         target,
       ]);
     }
+
+    const todaysTotals = entries
+      .find(([entryDay]) => {
+        return dayjs(entryDay).isSame(dayjs(), "day");
+      })?.[1]
+      .reduce((sum, e) => sum + e.grams, 0);
+
+    const todaysTarget = targets.find(([day]) =>
+      dayjs(day).isBefore(dayjs(), "day"),
+    )?.[1];
+
+    if (todaysTotals && todaysTarget && todaysTotals >= todaysTarget) {
+      results.push([
+        dayjs().format(dayFormat),
+        todaysTotals,
+        true,
+        todaysTarget,
+      ]);
+    }
+
+    results.reverse();
 
     return results;
   },

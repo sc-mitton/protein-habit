@@ -2,21 +2,26 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer, createMigrate } from "redux-persist";
 import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
-import dayjs from "dayjs";
 
-import { dayTimeFormat } from "@constants/formats";
 import foodsReducer from "./slices/foodsSlice";
 import userReducer from "./slices/userSlice";
-import proteinReducer from "./slices/proteinSlice";
+import proteinReducer, { getRecommendedTarget } from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
 const migrations = {
-  17: (state: RootState) => {
+  19: (state: RootState) => {
     return {
       ...state,
-      ui: {
-        ...state.ui,
-        day: dayjs().format(dayTimeFormat),
+      protein: {
+        ...state.protein,
+        dailyTargets: state.protein.dailyTargets.map((target) => [
+          target[0],
+          target[1] ||
+            getRecommendedTarget(
+              state.user.weight.value,
+              state.user.weight.unit,
+            ),
+        ]),
       },
     };
   },
@@ -24,7 +29,7 @@ const migrations = {
 
 const persistConfig = {
   key: "root",
-  version: 17,
+  version: 19,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],

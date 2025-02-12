@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Platform, AppState } from "react-native";
+import { Menu2 } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { Box, Text } from "@components";
+import { Box, Button, Icon, Text } from "@components";
 import { dayTimeFormat } from "@constants/formats";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import WelcomeScreen from "./welcome/WelcomeScreen";
@@ -96,13 +97,25 @@ const RootStack = () => {
           headerStyle: {
             backgroundColor: theme.colors.mainBackground,
           },
+          headerTitle: () => (
+            <Box
+              paddingHorizontal="xs"
+              paddingVertical="s"
+              alignItems="center"
+              gap="xs"
+            >
+              <Text variant="bold">Welcome, {name}</Text>
+              <Text color="secondaryText">
+                {dayjs(uiDay).format("MMM D, YYYY")}
+              </Text>
+            </Box>
+          ),
           headerLeft: () => {
             return (
-              <Box paddingHorizontal="xs" paddingVertical="s">
-                <Text variant="header">Welcome, {name}</Text>
-                <Text variant="subheader">
-                  {dayjs(uiDay).format("MMM D, YYYY")}
-                </Text>
+              <Box justifyContent="center" height="100%">
+                <Button flexDirection="row" alignItems="center" gap="s">
+                  <Icon icon={Menu2} strokeWidth={2} size={20} />
+                </Button>
               </Box>
             );
           },

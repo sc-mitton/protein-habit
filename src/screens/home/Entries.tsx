@@ -137,6 +137,7 @@ const Entries = () => {
                     alignItems="center"
                     justifyContent="flex-start"
                     marginHorizontal="xs"
+                    gap="s"
                   >
                     {foods.find((food) => food.id === entry.food)?.emoji && (
                       <Text>

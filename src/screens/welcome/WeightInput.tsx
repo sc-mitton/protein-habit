@@ -3,19 +3,27 @@ import { Image, useColorScheme, KeyboardAvoidingView } from "react-native";
 import { Invert } from "react-native-color-matrix-image-filters";
 
 import logo from "../../../assets/icon-tinted.png";
-import { Box, Text, TextInput, Button } from "@components";
+import { Box, Text, TextInput, Button, Radios } from "@components";
 import { useAppDispatch } from "@store/hooks";
+import {
+  getRecommendedTarget,
+  setDailyTarget,
+} from "@store/slices/proteinSlice";
 import { setWeight } from "@store/slices/userSlice";
 import type { RootScreenProps } from "@types";
 
 const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
   const [weight, setWeightValue] = useState("");
+  const [weightUnit, setWeightUnit] = useState<"lbs" | "kg">("lbs");
   const dispatch = useAppDispatch();
   const scheme = useColorScheme();
 
   const handleSubmit = () => {
     if (weight) {
       dispatch(setWeight(Number(weight)));
+      dispatch(
+        setDailyTarget(getRecommendedTarget(Number(weight), weightUnit)),
+      );
       navigation.replace("Home");
     }
   };
@@ -55,6 +63,16 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
             keyboardType="numeric"
             autoFocus
             returnKeyType="done"
+          />
+          <Radios
+            options={
+              [
+                { label: "lbs", value: "lbs" },
+                { label: "kg", value: "kg" },
+              ] as const
+            }
+            defaultValue={"lbs"}
+            onChange={setWeightUnit}
           />
           <Box marginTop="l">
             <Button

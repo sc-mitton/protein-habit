@@ -12,14 +12,16 @@ export interface ProteinEntry {
   food?: Food["id"];
 }
 
+type DailyTarget = [string, number];
+
 export interface ProteinState {
   entries: Array<[date: string, entries: ProteinEntry[]]>;
-  dailyTargets: [string, number | null][];
+  dailyTargets: [string, number][];
 }
 
 export const initialState: ProteinState = {
   entries: [[dayjs().format(dayFormat), []]],
-  dailyTargets: [[dayjs().format(dayFormat), null]],
+  dailyTargets: [[dayjs().format(dayFormat), 0]],
 };
 
 export const getRecommendedTarget = (weight: number, unit: "lbs" | "kg") => {
@@ -76,10 +78,7 @@ const proteinSlice = createSlice({
         state.entries[dayIndex][1][entryIndex] = action.payload;
       }
     },
-    setDailyTarget: (
-      state,
-      action: PayloadAction<ProteinState["dailyTargets"][0][1]>,
-    ) => {
+    setDailyTarget: (state, action: PayloadAction<DailyTarget[1]>) => {
       // Make sure to not build up multiple target changes in one day
       if (dayjs(state.dailyTargets[0][0]).isSame(dayjs(), "day")) {
         state.dailyTargets.shift();
@@ -87,22 +86,10 @@ const proteinSlice = createSlice({
 
       state.dailyTargets.unshift([dayjs().format(dayFormat), action.payload]);
     },
-    resetDailyTarget2Default: (state) => {
-      // state.dailyTarget = 0;
-      if (dayjs(state.dailyTargets[0][0]).isSame(dayjs(), "day")) {
-        state.dailyTargets.shift();
-      }
-      state.dailyTargets.unshift([dayjs().format(dayFormat), null]);
-    },
   },
 });
 
-export const {
-  addEntry,
-  removeEntry,
-  setDailyTarget,
-  resetDailyTarget2Default,
-  updateEntry,
-} = proteinSlice.actions;
+export const { addEntry, removeEntry, setDailyTarget, updateEntry } =
+  proteinSlice.actions;
 
 export default proteinSlice.reducer;
