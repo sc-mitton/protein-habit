@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Plus, Minus } from "geist-native-icons";
+import { Plus, Minus, ChevronDown } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import Animated, { LinearTransition } from "react-native-reanimated";
+import DatePicker from "react-native-date-picker";
+import dayjs from "dayjs";
 
+import { dayFormat } from "@constants/formats";
 import { Food, selectFoods } from "@store/slices/foodsSlice";
 import { Box, Button, Icon, Text } from "@components";
 import { BackDrop } from "@components";
 import { HomeScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
-import { selectUIDay } from "@store/slices/uiSlice";
 import FoodList from "./FoodList";
 
 const Appearance = (props: HomeScreenProps<"MyFoods">) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const foods = useAppSelector(selectFoods);
-  const uiDay = useAppSelector(selectUIDay);
 
+  const [day, setDay] = useState(dayjs().format(dayFormat));
+  const [openDatePicker, setOpenDatePicker] = useState(false);
   const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
   const [selectedAmounts, setSelectedAmounts] = useState<number[]>([1]);
 
@@ -50,7 +53,7 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
           addEntry({
             grams: selectedFoods[i].protein * selectedAmounts[i],
             food: selectedFoods[i].id,
-            day: uiDay,
+            day: dayjs().format(dayFormat),
           }),
         );
       }
@@ -77,32 +80,73 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
             alignItems="center"
             flexDirection="row"
           >
-            <Text variant="header">
-              {props.route.params?.entry ? "Update" : "My Foods"}
-            </Text>
-            <Button
-              borderRadius="m"
-              backgroundColor="transparent"
-              borderColor="borderColor"
-              borderWidth={1}
-              padding="xs"
-              paddingHorizontal="sm"
-              fontSize={14}
-              labelPlacement="left"
-              onPress={() => {
-                props.navigation.navigate("AddFood");
-              }}
-              label="New"
-              textColor="primaryText"
-              icon={
-                <Icon
-                  icon={Plus}
-                  size={16}
-                  strokeWidth={2}
-                  color="primaryText"
+            <Box>
+              <Text variant="header">
+                {props.route.params?.entry
+                  ? "Update"
+                  : selectedFoods.length > 0
+                    ? "Add Protein"
+                    : "My Foods"}
+              </Text>
+              {selectedFoods.length > 0 && !props.route.params?.entry && (
+                <Button
+                  label={
+                    dayjs(day).isSame(dayjs(), "day")
+                      ? "Today"
+                      : dayjs(day).format("ddd, MMM DD, YYYY")
+                  }
+                  textColor="secondaryText"
+                  marginLeft="ns"
+                  labelPlacement="left"
+                  icon={
+                    <Icon
+                      icon={ChevronDown}
+                      size={16}
+                      strokeWidth={2.5}
+                      color="secondaryText"
+                    />
+                  }
+                  onPress={() => setOpenDatePicker(true)}
                 />
-              }
+              )}
+            </Box>
+            <DatePicker
+              modal
+              mode="date"
+              maximumDate={dayjs().toDate()}
+              open={openDatePicker}
+              date={dayjs(day).toDate()}
+              onConfirm={(date) => {
+                setDay(dayjs(date).format(dayFormat));
+                setOpenDatePicker(false);
+              }}
+              onCancel={() => setOpenDatePicker(false)}
             />
+            {selectedFoods.length === 0 && (
+              <Button
+                borderRadius="m"
+                backgroundColor="transparent"
+                borderColor="borderColor"
+                borderWidth={1}
+                padding="xs"
+                paddingHorizontal="sm"
+                fontSize={14}
+                labelPlacement="left"
+                onPress={() => {
+                  props.navigation.navigate("AddFood");
+                }}
+                label="New"
+                textColor="primaryText"
+                icon={
+                  <Icon
+                    icon={Plus}
+                    size={16}
+                    strokeWidth={2}
+                    color="primaryText"
+                  />
+                }
+              />
+            )}
           </Box>
         </Box>
         <Box minHeight={200} marginBottom="xl">

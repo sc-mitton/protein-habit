@@ -6,8 +6,7 @@ import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
 import { Box, Text, Icon, Button } from "@components";
-import { dayTimeFormat } from "@constants/formats";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useAppSelector } from "@store/hooks";
 import WelcomeScreen from "./welcome/WelcomeScreen";
 import HomeMainScreen from "./home-main/HomeMain";
 import { HomeStackParamList } from "@types";
@@ -21,19 +20,16 @@ import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
 import StatsInfo from "./stats-info/StatsInfo";
 import SuccessModal from "./success/SuccessModal";
-import { selectUIDay, setUIDay } from "@store/slices/uiSlice";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const RootStack = (props: RootScreenProps<"Home">) => {
-  const dispatch = useAppDispatch();
   const theme = useTheme();
 
   const { name } = useAppSelector((state) => state.user);
-  const uiDay = useAppSelector(selectUIDay);
-  const [currentDay, setCurrentDay] = useState(new Date().getDate());
+  const [currentDay, setCurrentDay] = useState(dayjs());
 
   const androidHeaderOptions = {
     headerTintColor: theme.colors.primaryText,
@@ -54,18 +50,10 @@ const RootStack = (props: RootScreenProps<"Home">) => {
       "change",
       (nextAppState) => {
         if (nextAppState === "active") {
-          const newDay = new Date().getDate();
-          if (newDay !== currentDay) {
+          const newDay = dayjs();
+          if (newDay.isAfter(currentDay, "day")) {
             // Day has changed, fire event
             setCurrentDay(newDay);
-
-            // Only update the ui day also if it's within 1 day
-            // If the user is in the app on the day change, and
-            // they're selecting different dates, then we don't
-            // want to interupt that
-            if (dayjs().diff(dayjs(uiDay), "day") <= 1) {
-              dispatch(setUIDay(dayjs().format(dayTimeFormat)));
-            }
           }
         }
       },
@@ -108,19 +96,28 @@ const RootStack = (props: RootScreenProps<"Home">) => {
               >
                 <Text variant="bold">Welcome, {name}</Text>
                 <Text color="tertiaryText">
-                  {dayjs(uiDay).format("MMM D, YYYY")}
+                  {currentDay.format("MMM D, YYYY")}
                 </Text>
               </Box>
             );
           },
           headerLeft: () => {
             return (
-              <Button onPress={() => props.navigation.openDrawer()}>
-                <Icon icon={Menu2} strokeWidth={2} size={24} />
+              <Button
+                onPress={() => props.navigation.openDrawer()}
+                marginTop="nm"
+              >
+                <Icon icon={Menu2} strokeWidth={2} size={26} />
               </Button>
             );
           },
-          headerRight: () => <Menu />,
+          headerRight: () => (
+            <Box marginTop="nm">
+              <Box marginTop="nxs">
+                <Menu />
+              </Box>
+            </Box>
+          ),
         }}
       />
 

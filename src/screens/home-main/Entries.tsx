@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Animated, {
   LinearTransition,
   useAnimatedStyle,
@@ -16,8 +16,6 @@ import { selectDaysEntries } from "@store/slices/proteinSelectors";
 import { selectFoods } from "@store/slices/foodsSlice";
 import Options from "./Options";
 import { dayTimeFormat } from "@constants/formats";
-import { useAppDispatch } from "@store/hooks";
-import { selectUIDay, setUIDay } from "@store/slices/uiSlice";
 
 const styles = StyleSheet.create({
   scrollContent: {
@@ -27,9 +25,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Days = () => {
-  const dispatch = useAppDispatch();
-  const uiDay = useAppSelector(selectUIDay);
+const Days = ({
+  day,
+  setDay,
+}: {
+  day: string;
+  setDay: (day: string) => void;
+}) => {
   const pillX = useSharedValue(0);
   const daysHorizontalMargin = 8;
   const pillWidth =
@@ -45,9 +47,9 @@ const Days = () => {
   }));
 
   useEffect(() => {
-    const index = dayjs(uiDay).diff(dayjs().startOf("week"), "day");
+    const index = dayjs(day).diff(dayjs().startOf("week"), "day");
     pillX.value = withTiming((index + 0.5) * pillWidth);
-  }, [uiDay]);
+  }, [day]);
 
   return (
     <Box
@@ -85,10 +87,8 @@ const Days = () => {
           }
           backgroundColor="transparent"
           onPress={() => {
-            dispatch(
-              setUIDay(
-                dayjs().startOf("week").add(index, "day").format(dayTimeFormat),
-              ),
+            setDay(
+              dayjs().startOf("week").add(index, "day").format(dayTimeFormat),
             );
           }}
           label={dayjs().startOf("week").add(index, "day").format("dd")}
@@ -99,15 +99,16 @@ const Days = () => {
 };
 
 const Entries = () => {
-  const uiDay = useAppSelector(selectUIDay);
+  const [day, setDay] = useState(dayjs().format(dayTimeFormat));
+
   const daysEntries = useAppSelector((state) =>
-    selectDaysEntries(state, dayjs(uiDay).format(dayTimeFormat)),
+    selectDaysEntries(state, dayjs(day).format(dayTimeFormat)),
   );
   const foods = useAppSelector(selectFoods);
 
   return (
     <Fragment>
-      <Days />
+      <Days day={day} setDay={setDay} />
       {daysEntries && daysEntries?.length > 0 ? (
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {daysEntries.map((entry, entryIndex) => (

@@ -32,22 +32,10 @@ const uiSlice = createSlice({
     setHasShownSuccessModal: (state, action: PayloadAction<boolean>) => {
       state.hasShownSuccessModal = action.payload;
     },
-    setUIDay: (state, action: PayloadAction<string>) => {
-      state.day = action.payload;
-    },
-    resetUIDay: (state) => {
-      state.day = dayjs().format(dayFormat);
-    },
   },
 });
 
-export const {
-  setFont,
-  setAccent,
-  setHasShownSuccessModal,
-  setUIDay,
-  resetUIDay,
-} = uiSlice.actions;
+export const { setFont, setAccent, setHasShownSuccessModal } = uiSlice.actions;
 export default uiSlice.reducer;
 
 export const selectFont = (state: RootState) => state.ui.font;
@@ -56,4 +44,3 @@ export const selectInceptionDate = (state: RootState) =>
   state.user.inceptionDate;
 export const selectHasShownSuccessModal = (state: RootState) =>
   state.ui.hasShownSuccessModal;
-export const selectUIDay = (state: RootState) => state.ui.day;

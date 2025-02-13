@@ -3,7 +3,13 @@ import { useColorScheme, Dimensions, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { useTheme } from "@shopify/restyle";
-import Animated, { LinearTransition } from "react-native-reanimated";
+import Animated, {
+  LinearTransition,
+  useSharedValue,
+  useAnimatedStyle,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
 
 import { Box, Text, Button, BackDrop } from "@components";
 import { useAppSelector } from "@store/hooks";
@@ -12,6 +18,7 @@ import { Theme } from "@theme";
 
 const SuccessModal = () => {
   const navigation = useNavigation();
+  const confettiOpacity = useSharedValue(0);
   const theme = useTheme<Theme>();
   const confetti = useRef<ConfettiCannon>(null);
   const accent = useAppSelector(selectAccent);
@@ -33,9 +40,19 @@ const SuccessModal = () => {
   useEffect(() => {
     const t = setTimeout(() => {
       confetti.current?.start();
+      confettiOpacity.value = withSequence(
+        withTiming(1, { duration: 500 }),
+        withTiming(0, { duration: 3000 }),
+      );
     }, 500);
     return () => clearTimeout(t);
   }, []);
+
+  const confettiOpacityStyle = useAnimatedStyle(() => {
+    return {
+      opacity: confettiOpacity.value,
+    };
+  });
 
   return (
     <Box flex={1} justifyContent="center" alignItems="center" padding="l">
@@ -59,7 +76,7 @@ const SuccessModal = () => {
           </Text>
         </Button>
       </Animated.View>
-      <View style={StyleSheet.absoluteFill}>
+      <Animated.View style={[StyleSheet.absoluteFill, confettiOpacityStyle]}>
         <ConfettiCannon
           count={200}
           origin={{ x: Dimensions.get("window").width / 2, y: 0 }}
@@ -68,7 +85,7 @@ const SuccessModal = () => {
           colors={colors}
           ref={confetti}
         />
-      </View>
+      </Animated.View>
     </Box>
   );
 };

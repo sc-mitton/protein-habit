@@ -12,24 +12,21 @@ import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
 import { HomeScreenProps } from "@types";
 import { dayFormat } from "@constants/formats";
-import { selectFont, selectUIDay } from "@store/slices/uiSlice";
+import { selectFont } from "@store/slices/uiSlice";
 import Calendar from "./Calendar";
 import Tabs from "./Tabs";
 
 const HomeMain = (props: HomeScreenProps<"Main">) => {
   const theme = useTheme();
-  const { name } = useAppSelector((state) => state.user);
-  const uiDay = useAppSelector(selectUIDay);
   const font = useAppSelector(selectFont);
   const totalProteinForDay = useAppSelector((state) =>
-    selectTotalProteinForDay(state, dayjs(uiDay).format(dayFormat)),
+    selectTotalProteinForDay(state, dayjs().format(dayFormat)),
   );
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
       <Box
         paddingHorizontal="m"
-        paddingTop="m"
         marginTop="xl"
         marginBottom="l"
         flexDirection="row"
@@ -67,7 +64,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
               backgroundColor="transparent"
               padding="s"
               onPress={() => {
-                props.navigation.navigate("Entry");
+                props.navigation.navigate("SuccessModal");
               }}
               icon={
                 <Icon

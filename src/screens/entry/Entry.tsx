@@ -1,5 +1,5 @@
 import { useState, memo, useRef, useEffect } from "react";
-import { Delete, Edit3 } from "geist-native-icons";
+import { ChevronDown, Delete, Edit3 } from "geist-native-icons";
 import {
   StyleSheet,
   TouchableHighlight,
@@ -16,14 +16,16 @@ import Animated, {
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 import LottieView from "lottie-react-native";
+import DatePicker from "react-native-date-picker";
 
 import fontStyles from "@styles/fonts";
 import { Box, Text, Button, Icon, TextInput } from "@components";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { selectAccent, selectFont, selectUIDay } from "@store/slices/uiSlice";
+import { selectAccent, selectFont } from "@store/slices/uiSlice";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import type { HomeScreenProps } from "@types";
 import success from "@lotties/success.json";
+import { dayFormat } from "@constants/formats";
 
 const KeypadButton = ({
   value,
@@ -142,16 +144,17 @@ const Value = ({ value }: { value: number }) => {
 };
 
 const Entry = (props: HomeScreenProps<"Entry">) => {
-  const uiDay = useAppSelector(selectUIDay);
   const [value, setValue] = useState(props.route.params?.entry?.grams || 0);
   const font = useAppSelector(selectFont);
   const accent = useAppSelector(selectAccent);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [day, setDay] = useState(dayjs().format(dayFormat));
   const animation = useRef<LottieView>(null);
   const [name, setName] = useState<string>(
     props.route.params?.entry?.name || "",
   );
   const [nameFocused, setNameFocused] = useState(false);
+  const [openDatePicker, setOpenDatePicker] = useState(false);
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const nameInputRef = useRef<RNTextInput>(null);
@@ -186,7 +189,11 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
         );
       } else {
         dispatch(
-          addEntry({ name: name?.trim(), grams: Number(value), day: uiDay }),
+          addEntry({
+            name: name?.trim(),
+            grams: Number(value),
+            day,
+          }),
         );
       }
       props.navigation.goBack();
@@ -204,15 +211,46 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
         borderBottomColor="borderColor"
         borderBottomWidth={1}
       >
-        <Box gap="xs" width="100%" alignItems="flex-start" marginBottom="m">
+        <Box width="100%" alignItems="flex-start" marginBottom="m">
           <Text variant="header" color="primaryText" marginLeft="l">
             Add Protein&nbsp;&nbsp;
           </Text>
-          <Text color="secondaryText" marginLeft="l">
-            {dayjs(uiDay).format("dddd, MMM DD, YYYY")}
-          </Text>
+          <Button
+            label={
+              dayjs(day).isSame(dayjs(), "day")
+                ? "Today"
+                : dayjs(day).format("ddd, MMM DD, YYYY")
+            }
+            textColor="secondaryText"
+            marginLeft="m"
+            labelPlacement="left"
+            alignItems="center"
+            icon={
+              <Box marginTop={"xs"}>
+                <Icon
+                  icon={ChevronDown}
+                  size={16}
+                  strokeWidth={2.5}
+                  color="secondaryText"
+                />
+              </Box>
+            }
+            onPress={() => setOpenDatePicker(true)}
+          />
+          <DatePicker
+            modal
+            mode="date"
+            maximumDate={dayjs().toDate()}
+            open={openDatePicker}
+            date={dayjs(day).toDate()}
+            onConfirm={(date) => {
+              setDay(dayjs(date).format(dayFormat));
+              setOpenDatePicker(false);
+            }}
+            onCancel={() => setOpenDatePicker(false)}
+          />
         </Box>
-        <Box gap="s" width="100%" marginTop="m">
+        <Box gap="s" width="100%">
           {/* {showSuccess ? ( */}
           <Box>
             <View style={styles.successLottie}>
@@ -252,7 +290,6 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
         <Box
           flexDirection="row"
           alignItems="center"
-          gap="s"
           marginTop="ns"
           marginBottom="m"
           width="100%"
@@ -276,7 +313,6 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
               <Icon
                 icon={Edit3}
                 size={18}
-                borderColor={name ? "primaryText" : "placeholderText"}
                 color={name ? "primaryText" : "placeholderText"}
               />
             </Button>
@@ -289,7 +325,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
       />
       <Button
         margin="l"
-        variant="borderedPrimary"
+        variant="primary"
         textColor="selected"
         onPress={handleSubmit}
       >

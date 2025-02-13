@@ -62,6 +62,7 @@ const RootDrawer = () => {
         },
         drawerActiveBackgroundColor: "transparent",
         drawerStyle: {
+          paddingTop: 32,
           backgroundColor: theme.colors.secondaryBackground,
           borderRightWidth: 1.5,
           borderRightColor:

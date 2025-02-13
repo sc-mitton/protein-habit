@@ -73,9 +73,9 @@ const Calendar = () => {
     >
       <Box
         style={styles.innerBox}
-        shadowColor="borderColor"
+        shadowColor="calendarSectionShadow"
         shadowOffset={{ width: 0, height: -1 }}
-        shadowOpacity={0.7}
+        shadowOpacity={0.5}
         shadowRadius={1}
         elevation={12}
         backgroundColor="mainBackground"
@@ -155,8 +155,10 @@ const Calendar = () => {
                           );
 
                           const targetMet =
-                            dayInJS.isAfter(dayjs(userInception), "day") &&
-                            dayInJS.isBefore(dayjs().add(1, "day"), "day")
+                            dayInJS.isAfter(
+                              dayjs(userInception).subtract(1, "day"),
+                              "day",
+                            ) && dayInJS.isBefore(dayjs().add(1, "day"), "day")
                               ? mappedDailyTargetResults[
                                   dayInJS.format(dayFormat)
                                 ]?.[2] || false

@@ -46,6 +46,7 @@ const lightTheme = createTheme({
     unselected: "transparent",
     seperator: palette.gray200,
     overlay: "rgba(0, 0, 0, 0.5)",
+    calendarSectionShadow: palette.gray300,
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
     defaultShadow: palette.gray500,
@@ -240,6 +241,7 @@ export const darkTheme: Theme = {
     defaultShadow: palette.gray1000,
     primaryButton: palette.gray850,
     modalAndroidStatusBackground: palette.gray1100,
+    calendarSectionShadow: palette.gray800,
   },
 };
 
