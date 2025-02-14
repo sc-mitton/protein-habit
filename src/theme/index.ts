@@ -28,6 +28,7 @@ const lightTheme = createTheme({
         (match) => `${Math.max(0, parseInt(match) + 5)}%, 1)`,
       )
       .toString(),
+    foodItemBackground: palette.gray50,
     cardBackground: palette.gray100,
     secondaryCardBackground: palette.gray200,
     primaryText: palette.gray900,
@@ -46,10 +47,10 @@ const lightTheme = createTheme({
     unselected: "transparent",
     seperator: palette.gray200,
     overlay: "rgba(0, 0, 0, 0.5)",
-    calendarSectionShadow: palette.gray300,
+    calendarSectionShadow: palette.gray400,
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
-    defaultShadow: palette.gray500,
+    defaultShadow: palette.gray400,
     primaryButton: palette.gray200,
     modalAndroidStatusBackground: "#858585",
     white: "white",
@@ -193,7 +194,7 @@ const lightTheme = createTheme({
       fontFamily: "Inter-Medium",
     },
     bold: {
-      fontFamily: "Inter-Bold",
+      fontFamily: "Inter-SemiBold",
     },
     nyHeavy: {
       fontFamily: "NewYork-Heavy",
@@ -240,6 +241,7 @@ export const darkTheme: Theme = {
     radioCardUnselected: palette.gray100,
     defaultShadow: palette.gray1000,
     primaryButton: palette.gray850,
+    foodItemBackground: palette.gray850,
     modalAndroidStatusBackground: palette.gray1100,
     calendarSectionShadow: palette.gray800,
   },

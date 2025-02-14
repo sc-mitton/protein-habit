@@ -12,11 +12,15 @@ import Animated, {
   FadeOutDown,
   LinearTransition,
   FadeOut,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
 } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 import LottieView from "lottie-react-native";
 import DatePicker from "react-native-date-picker";
+import * as Haptics from "expo-haptics";
 
 import fontStyles from "@styles/fonts";
 import { Box, Text, Button, Icon, TextInput } from "@components";
@@ -37,33 +41,59 @@ const KeypadButton = ({
   disabled: boolean;
 }) => {
   const theme = useTheme();
+  const scale = useSharedValue(1);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: scale.value }],
+    };
+  });
 
   return (
-    <TouchableHighlight
-      onPress={() => onPress(value)}
-      activeOpacity={0.97}
-      style={styles.keyTouch}
-      disabled={disabled}
-      underlayColor={theme.colors.primaryText}
+    <Animated.View
+      style={[
+        { flex: 1, width: "100%" },
+        animatedStyle,
+        styles.keyTouchContainer,
+      ]}
     >
-      <Box
-        backgroundColor="mainBackground"
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-        height="100%"
-        paddingTop="s"
+      <TouchableHighlight
+        style={styles.keyTouch}
+        onPress={() => onPress(value)}
+        onPressIn={() => {
+          scale.value = withSpring(0.85, { mass: 0.5, damping: 8 });
+        }}
+        onPressOut={() => {
+          scale.value = withSpring(1, { mass: 0.5, damping: 8 });
+        }}
+        activeOpacity={0.97}
+        disabled={disabled}
+        underlayColor={theme.colors.primaryText}
       >
-        <Text textAlign="center" fontSize={32} lineHeight={32}>
-          {value === "del" ? (
-            <Icon icon={Delete} size={24} color="primaryText" strokeWidth={2} />
-          ) : (
-            value
-          )}
-        </Text>
-      </Box>
-    </TouchableHighlight>
+        <Box
+          backgroundColor="mainBackground"
+          flex={1}
+          justifyContent="center"
+          alignItems="center"
+          width="100%"
+          height="100%"
+          paddingTop="s"
+        >
+          <Text textAlign="center" fontSize={32} lineHeight={32}>
+            {value === "del" ? (
+              <Icon
+                icon={Delete}
+                size={24}
+                color="primaryText"
+                strokeWidth={2}
+              />
+            ) : (
+              value
+            )}
+          </Text>
+        </Box>
+      </TouchableHighlight>
+    </Animated.View>
   );
 };
 
@@ -76,7 +106,7 @@ const KeyPad = memo(
     disabled: boolean;
   }) => {
     return (
-      <Box width="100%" gap="s" padding="l" justifyContent="center" flex={2}>
+      <Box width="100%" gap="s" padding="l" justifyContent="center">
         {[
           [1, 2, 3],
           [4, 5, 6],
@@ -160,6 +190,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
   const nameInputRef = useRef<RNTextInput>(null);
 
   const handleKeyPress = (key: number | string) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     if (typeof key === "string") {
       setValue((prev) => Math.floor(prev / 10));
       return;
@@ -201,7 +232,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="mainBackground" style={styles.mainContainer}>
+    <Box flex={1} backgroundColor="mainBackground">
       <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box
         paddingTop="m"
@@ -223,6 +254,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
             }
             textColor="secondaryText"
             marginLeft="m"
+            marginTop="nxs"
             labelPlacement="left"
             alignItems="center"
             icon={
@@ -319,20 +351,24 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
           )}
         </Box>
       </Box>
-      <KeyPad
-        handleKeyPress={handleKeyPress}
-        disabled={value.toString().length >= 3}
-      />
-      <Button
-        margin="l"
-        variant="primary"
-        textColor="selected"
-        onPress={handleSubmit}
-      >
-        <Text color="primaryText" accent>
-          {`${props.route.params?.entry ? "Update" : "Save"}`}
-        </Text>
-      </Button>
+      <Box flex={1} justifyContent="space-evenly">
+        <KeyPad
+          handleKeyPress={handleKeyPress}
+          disabled={value.toString().length >= 3}
+        />
+        <Box>
+          <Button
+            margin="l"
+            variant="primary"
+            textColor="selected"
+            onPress={handleSubmit}
+          >
+            <Text color="primaryText" accent>
+              {`${props.route.params?.entry ? "Update" : "Save"}`}
+            </Text>
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };
@@ -340,9 +376,6 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
 export default Entry;
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    paddingBottom: 94,
-  },
   entryContainer: {
     transform: [{ translateY: 8 }],
   },
@@ -350,10 +383,14 @@ const styles = StyleSheet.create({
     fontSize: 84,
     lineHeight: 84,
   },
-  keyTouch: {
+  keyTouchContainer: {
     flex: 1,
     width: 64,
     height: 64,
+  },
+  keyTouch: {
+    width: "100%",
+    height: "100%",
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",

@@ -116,9 +116,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
       >
         <Box
           key={food.id}
-          backgroundColor={
-            scheme === "dark" ? "primaryButton" : "mainBackground"
-          }
+          backgroundColor="foodItemBackground"
           padding={Platform.OS === "ios" ? "s" : "sm"}
           paddingRight="xxs"
           borderRadius="l"

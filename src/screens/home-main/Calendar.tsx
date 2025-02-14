@@ -118,7 +118,7 @@ const Calendar = () => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Text variant="bold" style={styles.monthHeader}>
+                  <Text fontSize={15} style={styles.monthHeader}>
                     {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
                   </Text>
 
@@ -142,7 +142,7 @@ const Calendar = () => {
                     return (
                       <View style={styles.column} key={`column-${columnIndex}`}>
                         <View style={styles.cell}>
-                          <Text variant="bold" fontSize={14}>
+                          <Text color="tertiaryText" fontSize={14}>
                             {dayjs().day(columnIndex).format("dd")[0]}
                           </Text>
                         </View>
@@ -313,7 +313,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
-    padding: Platform.OS === "ios" ? 3 : 4,
+    paddingHorizontal: Platform.OS === "ios" ? 3 : 4,
+    paddingVertical: Platform.OS === "ios" ? 4 : 5,
   },
   belowIconContainer: {
     position: "absolute",

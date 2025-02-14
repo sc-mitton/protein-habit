@@ -3,11 +3,10 @@ import { Plus } from "geist-native-icons";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 import styles from "./styles/home-screen";
 import fontStyles from "@styles/fonts";
-import { Box, Text, Button, Icon } from "@components";
+import { Box, Text, Button, Icon, DrumStickIcon } from "@components";
 import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
 import { HomeScreenProps } from "@types";
@@ -64,14 +63,14 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
               backgroundColor="transparent"
               padding="s"
               onPress={() => {
-                props.navigation.navigate("SuccessModal");
+                props.navigation.navigate("Entry");
               }}
               icon={
                 <Icon
                   icon={Plus}
                   size={20}
                   color="primaryText"
-                  strokeWidth={2.5}
+                  strokeWidth={2}
                 />
               }
             />
@@ -84,13 +83,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
               onPress={() => {
                 props.navigation.navigate("MyFoods");
               }}
-              icon={
-                <MaterialCommunityIcons
-                  name="food-drumstick-outline"
-                  size={22}
-                  color={theme.colors.primaryText}
-                />
-              }
+              icon={<Icon icon={DrumStickIcon} color="primaryText" />}
             />
           </Box>
         </ReAnimated.View>

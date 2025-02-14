@@ -66,7 +66,11 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Tip label="Your current daily protein goal." maxWidth={125}>
+            <Tip
+              label="Your current daily protein goal."
+              maxWidth={125}
+              offset={12}
+            >
               <Box flexDirection="row" gap="s" alignItems="center">
                 <Icon icon={Target} accent={true} color="secondaryText" />
                 <Text fontSize={14} accent={true} color="secondaryText">
@@ -114,7 +118,11 @@ const Stats = () => {
             borderColor="seperator"
             borderBottomWidth={1.5}
           >
-            <Tip label="Average protein per day this week." maxWidth={150}>
+            <Tip
+              label="Average protein per day this week."
+              maxWidth={150}
+              offset={8}
+            >
               <Box flexDirection="row" gap="s" alignItems="center">
                 <Icon
                   icon={BarChart2}

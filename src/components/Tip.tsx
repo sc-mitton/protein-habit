@@ -10,10 +10,12 @@ export const Tip = ({
   children,
   label,
   maxWidth = 200,
+  offset = 0,
 }: {
   children: React.ReactNode;
   label: string;
   maxWidth?: number;
+  offset?: number;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +26,7 @@ export const Tip = ({
           {children}
         </TouchableOpacity>
         {isOpen && (
-          <TipContainer>
+          <TipContainer offset={offset}>
             <Box maxWidth={maxWidth}>
               <Text variant="body" fontSize={14}>
                 {label}
@@ -37,7 +39,13 @@ export const Tip = ({
   );
 };
 
-export const TipContainer = ({ children }: { children: React.ReactNode }) => (
+export const TipContainer = ({
+  children,
+  offset = 0,
+}: {
+  children: React.ReactNode;
+  offset?: number;
+}) => (
   <Animated.View
     entering={FadeIn.duration(300)}
     style={[styles.aboveTipContainer]}
@@ -49,7 +57,7 @@ export const TipContainer = ({ children }: { children: React.ReactNode }) => (
       shadowOffset={{ width: 0, height: 2 }}
       shadowOpacity={1}
       shadowRadius={12}
-      style={styles.aboveTip}
+      style={[styles.aboveTip, { transform: [{ translateX: offset }] }]}
     >
       <Box marginHorizontal="s" marginVertical="xs" flexDirection="row">
         {children}

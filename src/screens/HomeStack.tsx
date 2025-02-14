@@ -94,7 +94,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
                 gap="xs"
                 alignItems="center"
               >
-                <Text variant="bold">Welcome, {name}</Text>
+                <Text>Welcome, {name}</Text>
                 <Text color="tertiaryText">
                   {currentDay.format("MMM D, YYYY")}
                 </Text>
@@ -104,15 +104,15 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           headerLeft: () => {
             return (
               <Button
+                marginTop="xs"
                 onPress={() => props.navigation.openDrawer()}
-                marginTop="nm"
               >
-                <Icon icon={Menu2} strokeWidth={2} size={26} />
+                <Icon icon={Menu2} strokeWidth={2} size={22} />
               </Button>
             );
           },
           headerRight: () => (
-            <Box marginTop="nm">
+            <Box paddingTop="xs">
               <Box marginTop="nxs">
                 <Menu />
               </Box>

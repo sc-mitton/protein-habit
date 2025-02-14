@@ -38,7 +38,7 @@ export default {
     },
     ios: {
       supportsTablet: false,
-      buildNumber: "25",
+      buildNumber: "26",
       bundleIdentifier: bundleId,
       infoPlist: {
         CFBundleDisplayName: appName,

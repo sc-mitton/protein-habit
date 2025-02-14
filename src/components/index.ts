@@ -8,3 +8,4 @@ export * from "./SwipeDelete";
 export * from "./Checkbox";
 export * from "./BackButton";
 export * from "./Tip";
+export * from "./DrumStick";
