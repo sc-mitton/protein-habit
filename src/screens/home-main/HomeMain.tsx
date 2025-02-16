@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import SlotNumbers from "react-native-slot-numbers";
 import { Plus } from "geist-native-icons";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
@@ -12,15 +13,31 @@ import { useAppSelector } from "@store/hooks";
 import { HomeScreenProps } from "@types";
 import { dayFormat } from "@constants/formats";
 import { selectFont } from "@store/slices/uiSlice";
+import {
+  selectUserPurchaseStatus,
+  selectUserInception,
+} from "@store/slices/userSlice";
+import { baseSku } from "@constants/iaps";
 import Calendar from "./Calendar";
 import Tabs from "./Tabs";
 
 const HomeMain = (props: HomeScreenProps<"Main">) => {
   const theme = useTheme();
+  const purchaseStatus = useAppSelector(selectUserPurchaseStatus);
+  const inceptionDate = useAppSelector(selectUserInception);
   const font = useAppSelector(selectFont);
   const totalProteinForDay = useAppSelector((state) =>
     selectTotalProteinForDay(state, dayjs().format(dayFormat)),
   );
+
+  useEffect(() => {
+    if (
+      purchaseStatus === null &&
+      dayjs(inceptionDate).diff(dayjs(), "day") > 0
+    ) {
+      props.navigation.navigate("Purchase", { sku: baseSku });
+    }
+  }, [purchaseStatus]);
 
   return (
     <Box flex={1} backgroundColor="mainBackground">

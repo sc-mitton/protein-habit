@@ -223,7 +223,7 @@ export const darkTheme: Theme = {
     secondaryBackground: palette.gray900
       .replace(
         /(\d+)%,\s\d\)/,
-        (match) => `${Math.max(0, parseInt(match) - 2)}%, 1)`,
+        (match) => `${Math.max(0, parseInt(match) - 3)}%, 1)`,
       )
       .toString(),
     cardBackground: palette.gray850,

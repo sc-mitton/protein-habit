@@ -83,6 +83,7 @@ export default {
       policy: "appVersion",
     },
     plugins: [
+      ["expo-iap"],
       ["./plugins/withAsyncStorageBackup.js"],
       ["./plugins/withAndroidBackup.js"],
     ],

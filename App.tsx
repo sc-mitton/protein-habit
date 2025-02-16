@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -11,7 +11,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { EventProvider } from "react-native-outside-press";
-import { useCallback } from "react";
+import dayjs from "dayjs";
+
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
 
@@ -19,12 +20,12 @@ import lightTheme, { darkTheme } from "@theme";
 import { Box } from "@components";
 import { store, persistor } from "./src/store";
 import RootStack from "./src/screens/RootDrawer";
+
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
   const colorScheme = useColorScheme();
-
   const [fontsLoaded] = useFonts({
     "Inter-Light": require("./assets/fonts/Inter_18pt-Light.ttf"),
     "Inter-Regular": require("./assets/fonts/Inter_18pt-Regular.ttf"),
@@ -71,7 +72,7 @@ function MainApp() {
   );
 }
 
-export default function App() {
+function App() {
   const colorScheme = useColorScheme();
   const restyledTheme = colorScheme === "dark" ? darkTheme : lightTheme;
 
@@ -95,3 +96,5 @@ export default function App() {
     </Provider>
   );
 }
+
+export default App;

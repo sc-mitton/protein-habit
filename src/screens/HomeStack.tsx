@@ -20,6 +20,7 @@ import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
 import StatsInfo from "./stats-info/StatsInfo";
 import SuccessModal from "./success/SuccessModal";
+import Purchase from "./Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
 
@@ -137,6 +138,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           component={SuccessModal}
           options={{ animation: "fade" }}
         />
+        <Stack.Screen name="Purchase" component={Purchase} />
       </Stack.Group>
 
       {/* Other Modals */}

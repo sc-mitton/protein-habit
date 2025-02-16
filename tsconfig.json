@@ -11,7 +11,8 @@
       "@constants/*": ["src/constants/*"],
       "@styles/*": ["src/styles/*"],
       "@lotties/*": ["src/lotties/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }

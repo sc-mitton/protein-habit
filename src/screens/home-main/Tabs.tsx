@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
   StyleSheet,
@@ -13,6 +12,7 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
   cancelAnimation,
+  runOnJS,
 } from "react-native-reanimated";
 
 import { Box, Button } from "@components";
@@ -24,10 +24,12 @@ const TAB_INDICATOR_OFFSET = 18;
 const Tabs = () => {
   const indicatorWidth = useSharedValue(0);
   const indicatorX = useSharedValue(TAB_INDICATOR_OFFSET);
+  const tab0Opacity = useSharedValue(1);
+  const tab1Opacity = useSharedValue(0.5);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [isTouchScroll, setIsTouchScroll] = useState(false);
   const tabHeaderWidths = useRef(new Array(2).fill(0));
   const scrollRef = useRef<ScrollView>(null);
-  const lockIndicatorAnimation = useRef(false);
 
   const onScrollAnimation = useRef(true);
 
@@ -43,26 +45,44 @@ const Tabs = () => {
 
   const tab1HeaderAnimation = useAnimatedStyle(() => {
     return {
-      opacity: selectedTab === 0 ? withTiming(1) : withTiming(0.5),
+      opacity: tab0Opacity.value,
     };
   });
 
   const tab2HeaderAnimation = useAnimatedStyle(() => {
     return {
-      opacity: selectedTab === 1 ? withTiming(1) : withTiming(0.5),
+      opacity: tab1Opacity.value,
     };
   });
 
-  useEffect(() => {
-    if (selectedTab === 0) {
+  const animated = (index: number) => {
+    if (index === 0) {
       indicatorWidth.value = withTiming(tabHeaderWidths.current[0]);
       indicatorX.value = withTiming(TAB_INDICATOR_OFFSET);
+      tab0Opacity.value = withTiming(1);
+      tab1Opacity.value = withTiming(0.5);
     } else {
       indicatorWidth.value = withTiming(tabHeaderWidths.current[1]);
       indicatorX.value = withTiming(
         tabHeaderWidths.current[1] + TAB_INDICATOR_OFFSET,
       );
+      tab0Opacity.value = withTiming(0.5);
+      tab1Opacity.value = withTiming(1);
     }
+  };
+
+  const handleTabPress = (index: number) => {
+    setSelectedTab(index);
+    animated(index);
+    scrollRef.current?.scrollTo({
+      x: index * Dimensions.get("window").width,
+      y: 0,
+      animated: true,
+    });
+  };
+
+  useEffect(() => {
+    animated(selectedTab);
   }, [selectedTab]);
 
   return (
@@ -81,15 +101,7 @@ const Tabs = () => {
             indicatorWidth.value = e.nativeEvent.layout.width;
           }}
         >
-          <Button
-            label={"Stats"}
-            onPress={() => {
-              scrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
-              lockIndicatorAnimation.current = true;
-              indicatorX.value = withTiming(TAB_INDICATOR_OFFSET);
-              indicatorWidth.value = withTiming(tabHeaderWidths.current[0]);
-            }}
-          />
+          <Button label={"Stats"} onPress={() => handleTabPress(0)} />
         </Animated.View>
         <Animated.View
           style={tab2HeaderAnimation}
@@ -97,21 +109,7 @@ const Tabs = () => {
             tabHeaderWidths.current[1] = e.nativeEvent.layout.width;
           }}
         >
-          <Button
-            label="Entries"
-            onPress={() => {
-              scrollRef.current?.scrollTo({
-                x: Dimensions.get("window").width,
-                y: 0,
-                animated: true,
-              });
-              lockIndicatorAnimation.current = true;
-              indicatorX.value = withTiming(
-                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1],
-              );
-              indicatorWidth.value = withTiming(tabHeaderWidths.current[1]);
-            }}
-          />
+          <Button label="Entries" onPress={() => handleTabPress(1)} />
         </Animated.View>
         <Animated.View style={indicatorAnimation}>
           <Box
@@ -144,45 +142,42 @@ const Tabs = () => {
           onScrollBeginDrag={() => {
             onScrollAnimation.current = true;
           }}
-          onScrollEndDrag={() => {
-            onScrollAnimation.current = false;
-            cancelAnimation(indicatorX);
-            cancelAnimation(indicatorWidth);
-            if (selectedTab === 1) {
-              indicatorX.value = withSpring(
-                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1],
-              );
-              indicatorWidth.value = withSpring(tabHeaderWidths.current[1]);
-            } else {
-              indicatorX.value = withSpring(TAB_INDICATOR_OFFSET);
-              indicatorWidth.value = withSpring(tabHeaderWidths.current[0]);
-            }
+          onTouchStart={() => {
+            setIsTouchScroll(true);
           }}
           onScroll={(e) => {
+            if (!isTouchScroll) {
+              return;
+            }
             const delta =
               selectedTab === 0
                 ? e.nativeEvent.contentOffset.x
                 : e.nativeEvent.contentOffset.x -
                   Dimensions.get("window").width;
-
             if (
               e.nativeEvent.contentOffset.x >
-              Dimensions.get("window").width / 2
+                Dimensions.get("window").width / 2 &&
+              selectedTab === 0
             ) {
               setSelectedTab(1);
-            } else {
+              setIsTouchScroll(false);
+            } else if (
+              e.nativeEvent.contentOffset.x <
+                Dimensions.get("window").width / 2 &&
+              selectedTab === 1
+            ) {
               setSelectedTab(0);
+              setIsTouchScroll(false);
             }
-
-            // End early if this lock is set (set on scroll end);
-            if (!onScrollAnimation.current) return;
-
             if (selectedTab === 1) {
               indicatorX.value =
-                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1] + delta / 5;
-              indicatorWidth.value = tabHeaderWidths.current[1] - delta / 5;
+                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1] + delta / 7;
+              indicatorWidth.value = tabHeaderWidths.current[1] - delta / 7;
             } else {
-              indicatorWidth.value = tabHeaderWidths.current[0] + delta / 5;
+              indicatorWidth.value = tabHeaderWidths.current[0] + delta / 7;
+            }
+            if (delta === 0) {
+              setIsTouchScroll(false);
             }
           }}
           snapToInterval={Dimensions.get("window").width}

@@ -1,7 +1,9 @@
 import { StackScreenProps } from "@react-navigation/stack";
+import type { CompositeScreenProps } from "@react-navigation/native";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
+import { baseSku, premiumSku } from "@constants/iaps";
 
 export type HomeStackParamList = {
   Welcome: undefined;
@@ -15,6 +17,7 @@ export type HomeStackParamList = {
   AddFood: undefined | { food: Food };
   SuccessModal: undefined;
   StatsInfo: undefined;
+  Purchase: { sku: typeof baseSku | typeof premiumSku };
 };
 
 export type RootStackParamList = {
@@ -26,4 +29,7 @@ export type RootScreenProps<T extends keyof RootStackParamList> =
   DrawerScreenProps<RootStackParamList, T>;
 
 export type HomeScreenProps<T extends keyof HomeStackParamList> =
-  StackScreenProps<HomeStackParamList, T>;
+  CompositeScreenProps<
+    StackScreenProps<HomeStackParamList, T>,
+    StackScreenProps<RootStackParamList>
+  >;
