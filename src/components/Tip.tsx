@@ -77,7 +77,7 @@ export const TipContainer = ({
 const styles = StyleSheet.create({
   aboveTipContainer: {
     position: "absolute",
-    zIndex: 100,
+    zIndex: 200,
     left: "50%",
     top: 0,
     justifyContent: "flex-end",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     bottom: 12,
-    zIndex: 100,
+    zIndex: 200,
     padding: 4,
   },
   arrowForTipContainer: {
