@@ -113,7 +113,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
             );
           },
           headerRight: () => (
-            <Box paddingTop="xs">
+            <Box paddingTop="xs" marginRight="xs">
               <Menu />
             </Box>
           ),
