@@ -4,6 +4,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
+  Easing,
   runOnJS,
 } from "react-native-reanimated";
 
@@ -49,12 +50,18 @@ export const KeyboardAvoidingView = ({
       );
 
       if (overlap > 0) {
-        avoidValue.value = withTiming(overlap + offset);
+        avoidValue.value = withTiming(overlap + offset, {
+          duration: 300,
+          easing: Easing.bezier(0.25, 0.1, 0.25, 1.0),
+        });
       }
     });
 
     const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      avoidValue.value = withTiming(0);
+      avoidValue.value = withTiming(0, {
+        duration: 300,
+        easing: Easing.bezier(0.25, 0.1, 0.25, 1.0),
+      });
     });
 
     return () => {
