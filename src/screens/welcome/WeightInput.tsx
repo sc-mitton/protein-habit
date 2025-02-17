@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Image, useColorScheme } from "react-native";
-import { Invert } from "react-native-color-matrix-image-filters";
 
-import logo from "../../../assets/icon-tinted.png";
+import logo from "../../../assets/icon.png";
 import {
   Box,
   Text,
@@ -38,19 +37,25 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
   return (
     <Box flex={1} backgroundColor="mainBackground" padding="l">
       <Box flex={1} justifyContent="center">
-        <Box alignItems="center" paddingBottom="xl">
+        <Box
+          alignItems="center"
+          paddingBottom="xl"
+          shadowColor="defaultShadow"
+          shadowOffset={{ width: 0, height: 1 }}
+          shadowOpacity={1}
+          shadowRadius={3}
+          elevation={5}
+        >
           {scheme === "dark" ? (
-            <Invert>
-              <Image
-                source={logo}
-                style={{ width: 100, height: 100 }}
-                resizeMode="contain"
-              />
-            </Invert>
+            <Image
+              source={logo}
+              style={{ width: 64, height: 64, borderRadius: 16 }}
+              resizeMode="contain"
+            />
           ) : (
             <Image
               source={logo}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 64, height: 64, borderRadius: 16 }}
               resizeMode="contain"
             />
           )}
@@ -66,6 +71,7 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
         <KeyboardAvoidingView>
           <TextInput
             value={weight}
+            backgroundColor="borderColor"
             onChangeText={setWeightValue}
             onSubmitEditing={handleSubmit}
             placeholder="Enter your weight in lbs"
@@ -87,6 +93,10 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
           <Box marginTop="l">
             <Button
               variant="primary"
+              backgroundColor={
+                scheme === "dark" ? "quaternaryText" : "primaryText"
+              }
+              textColor={scheme === "dark" ? "primaryText" : "mainBackground"}
               label="Continue"
               onPress={handleSubmit}
               disabled={!weight}

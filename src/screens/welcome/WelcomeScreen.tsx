@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Invert } from "react-native-color-matrix-image-filters";
 import { Image, useColorScheme } from "react-native";
 
-import logo from "../../../assets/icon-tinted.png";
+import logo from "../../../assets/icon.png";
 import {
   Box,
   Text,
@@ -27,21 +26,27 @@ const WelcomeScreen = ({ navigation }: HomeScreenProps<"Welcome">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="mainBackground" padding="l">
+    <Box flex={1} backgroundColor="secondaryBackground" padding="l">
       <Box flex={1} justifyContent="center">
-        <Box alignItems="center" paddingBottom="xl">
+        <Box
+          alignItems="center"
+          paddingBottom="xl"
+          shadowColor="defaultShadow"
+          shadowOffset={{ width: 0, height: 1 }}
+          shadowOpacity={1}
+          shadowRadius={3}
+          elevation={5}
+        >
           {scheme === "dark" ? (
-            <Invert>
-              <Image
-                source={logo}
-                style={{ width: 100, height: 100 }}
-                resizeMode="contain"
-              />
-            </Invert>
+            <Image
+              source={logo}
+              style={{ width: 64, height: 64, borderRadius: 16 }}
+              resizeMode="contain"
+            />
           ) : (
             <Image
               source={logo}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 64, height: 64, borderRadius: 16 }}
               resizeMode="contain"
             />
           )}
@@ -56,6 +61,7 @@ const WelcomeScreen = ({ navigation }: HomeScreenProps<"Welcome">) => {
         </Box>
         <KeyboardAvoidingView>
           <TextInput
+            backgroundColor="borderColor"
             value={inputName}
             onChangeText={setInputName}
             onSubmitEditing={handleSubmit}
@@ -65,6 +71,10 @@ const WelcomeScreen = ({ navigation }: HomeScreenProps<"Welcome">) => {
           <Box marginTop="l">
             <Button
               variant="primary"
+              backgroundColor={
+                scheme === "dark" ? "quaternaryText" : "primaryText"
+              }
+              textColor={scheme === "dark" ? "primaryText" : "mainBackground"}
               label="Continue"
               onPress={handleSubmit}
               disabled={!inputName.trim()}
