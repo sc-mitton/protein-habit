@@ -43,14 +43,14 @@ const Tabs = () => {
   const tab1HeaderAnimation = useAnimatedStyle(() => {
     return {
       opacity: tab0Opacity.value,
-      zIndex: 100,
+      zIndex: 1,
     };
   });
 
   const tab2HeaderAnimation = useAnimatedStyle(() => {
     return {
       opacity: tab1Opacity.value,
-      zIndex: 100,
+      zIndex: 1,
     };
   });
 
@@ -131,17 +131,16 @@ const Tabs = () => {
         shadowRadius={1}
         elevation={12}
         flex={1}
+        zIndex={1}
       >
         <ScrollView
           horizontal
           style={styles.scrollView}
           showsHorizontalScrollIndicator={false}
           ref={scrollRef}
-          hitSlop={{ top: -68 }}
+          hitSlop={{ top: -84 }}
           onScrollBeginDrag={() => {
             onScrollAnimation.current = true;
-          }}
-          onTouchStart={() => {
             setIsTouchScroll(true);
           }}
           onScroll={(e) => {
@@ -199,8 +198,8 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   scrollView: {
-    marginTop: -68,
-    paddingTop: 68,
+    marginTop: -84,
+    paddingTop: 84,
   },
   page: {
     width: Dimensions.get("window").width,
