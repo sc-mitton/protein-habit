@@ -1,8 +1,8 @@
 const getBundleId = () => {
   if (process.env.APP_VARIANT === "production") {
-    return "com.scmitton.proteincount";
+    return "com.northof60labs.proteincount";
   }
-  return "com.scmitton.proteincount.dev";
+  return "com.northof60labs.proteincount.dev";
 };
 
 const getAppName = () => {
@@ -38,7 +38,7 @@ export default {
     },
     ios: {
       supportsTablet: false,
-      buildNumber: "26",
+      buildNumber: "27",
       bundleIdentifier: bundleId,
       infoPlist: {
         CFBundleDisplayName: appName,
@@ -65,12 +65,12 @@ export default {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
-      package: "com.scmitton.proteincount",
+      package: "com.northof60labs.proteincount",
     },
     web: {
       favicon: "./assets/favicon.png",
     },
-    owner: "scmitton",
+    owner: "northof60labs",
     updates: {
       url: "https://u.expo.dev/aa9446c5-886d-49fb-8ba6-3c96ea6981c4",
     },
