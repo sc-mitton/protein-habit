@@ -1,5 +1,8 @@
 import { Fragment } from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  DrawerNavigationOptions,
+} from "@react-navigation/drawer";
 import { useTheme } from "@shopify/restyle";
 import { Home, Book } from "geist-native-icons";
 import Animated, {
@@ -13,7 +16,7 @@ import { useDrawerProgress } from "@react-navigation/drawer";
 import AndroidHomeStack from "./AndroidHomeStack";
 import IOSHomeStack from "./IOSHomeStack";
 import RecipesScreen from "./recipes/RecipesScreen";
-import { Icon, Text } from "@components";
+import { Icon, Text, Box } from "@components";
 import { RootStackParamList } from "@types";
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
@@ -79,6 +82,9 @@ const RootDrawer = () => {
     >
       <Drawer.Screen
         options={{
+          drawerContentStyle: {
+            pointerEvents: "none",
+          },
           drawerLabelStyle: {
             color: theme.colors.primaryText,
           },
@@ -95,15 +101,35 @@ const RootDrawer = () => {
           ),
         }}
         name="Home"
-        // component={withDrawerBlurBackground(HomeStack)}
-        component={Platform.OS === "android" ? AndroidHomeStack : IOSHomeStack}
+        component={
+          Platform.OS === "android"
+            ? withDrawerBlurBackground(AndroidHomeStack)
+            : withDrawerBlurBackground(IOSHomeStack)
+        }
       />
       <Drawer.Screen
         options={{
           drawerLabel: ({ focused }) => (
-            <Text color={focused ? "primaryText" : "tertiaryText"}>
-              Recipes
-            </Text>
+            <Box alignItems="flex-start" gap="xs" width="150%">
+              <Text color={focused ? "primaryText" : "tertiaryText"}>
+                Recipes
+              </Text>
+              <Box
+                paddingHorizontal="xs"
+                paddingVertical="nxs"
+                marginLeft="nxs"
+              >
+                <Box
+                  style={StyleSheet.absoluteFill}
+                  backgroundColor="blue"
+                  opacity={0.2}
+                  borderRadius="sm"
+                />
+                <Text color="blue" fontSize={14}>
+                  Coming Soon
+                </Text>
+              </Box>
+            </Box>
           ),
           drawerIcon: ({ focused, color }) => (
             <Icon
