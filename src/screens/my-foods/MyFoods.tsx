@@ -71,7 +71,7 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}
-      backdropComponent={() => <BackDrop blurIntensity={10} />}
+      backdropComponent={() => <BackDrop blurIntensity={50} />}
     >
       <BottomSheetView>
         <Box gap="m" marginBottom="l" paddingHorizontal="l">
