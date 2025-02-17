@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { MoreHorizontal } from "geist-native-icons";
 import { Platform, View } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
@@ -18,11 +18,11 @@ function Menu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <View>
+    <Fragment>
       {Platform.OS === "ios" ? (
         <DropdownMenu.Root>
-          <DropdownMenu.Trigger style={{ marginTop: 6 }}>
-            <Icon icon={MoreHorizontal} size={24} color={"primaryText"} />
+          <DropdownMenu.Trigger>
+            <Icon icon={MoreHorizontal} size={22} color={"primaryText"} />
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
             <DropdownMenu.Item
@@ -69,14 +69,22 @@ function Menu() {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       ) : (
-        <Box justifyContent="space-between" alignItems="center" gap="s">
+        <Box
+          justifyContent="space-between"
+          alignItems="center"
+          gap="s"
+          position="absolute"
+          top={0}
+          right={0}
+        >
           <PaperMenu
             anchorPosition="top"
             onDismiss={() => setIsOpen(false)}
             contentStyle={{
-              marginTop: 86,
-              marginRight: 18,
+              marginTop: 74,
               borderRadius: 12,
+              paddingVertical: -8,
+              overflow: "hidden",
               backgroundColor: theme.colors.cardBackground,
             }}
             anchor={
@@ -125,7 +133,7 @@ function Menu() {
           </PaperMenu>
         </Box>
       )}
-    </View>
+    </Fragment>
   );
 }
 

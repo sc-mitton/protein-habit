@@ -33,7 +33,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
   useEffect(() => {
     if (
       purchaseStatus === null &&
-      dayjs(inceptionDate).diff(dayjs(), "day") > 0
+      dayjs().diff(dayjs(inceptionDate), "day") > 0
     ) {
       props.navigation.navigate("Purchase", { sku: baseSku });
     }

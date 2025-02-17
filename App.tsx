@@ -11,7 +11,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { EventProvider } from "react-native-outside-press";
-import dayjs from "dayjs";
 
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";

@@ -57,6 +57,7 @@ export const TipContainer = ({
       shadowOffset={{ width: 0, height: 2 }}
       shadowOpacity={1}
       shadowRadius={12}
+      elevation={12}
       style={[styles.aboveTip, { transform: [{ translateX: offset }] }]}
     >
       <Box marginHorizontal="s" marginVertical="xs" flexDirection="row">

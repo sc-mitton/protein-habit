@@ -20,7 +20,7 @@ import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
 import StatsInfo from "./stats-info/StatsInfo";
 import SuccessModal from "./success/SuccessModal";
-import Purchase from "./Purchase";
+import Purchase from "./purchase/Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
 
@@ -114,9 +114,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           },
           headerRight: () => (
             <Box paddingTop="xs">
-              <Box marginTop="nxs">
-                <Menu />
-              </Box>
+              <Menu />
             </Box>
           ),
         }}

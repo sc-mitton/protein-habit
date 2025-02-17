@@ -19,22 +19,30 @@ import {
 import { HomeScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { setPurchaseStatus } from "@store/slices/userSlice";
-import { Box, Text, Button, Icon } from "@components";
+import { Box, Text, Button, Icon, BackDrop } from "@components";
 import { baseSku, premiumSku } from "@constants/iaps";
 import logo from "@assets/icon-tinted.png";
+
+const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
 
 export default function Purchase(props: HomeScreenProps<"Purchase">) {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const [purchasable, setPurchasables] = useState<any>();
+  const [purchasable, setPurchasable] = useState<any>();
   const scheme = useColorScheme();
+  const price = formatter.format(
+    parseInt(props.route.params.sku.match(/[0-9]+$/g)![0]) / 100,
+  );
 
   useEffect(() => {
     const startUp = async () => {
       await initConnection();
 
       const purchaseHistory = await getPurchaseHistory();
-
       // If for some reason redux lost track of the purchase status,
       // restore it
       if (purchaseHistory.length > 0) {
@@ -49,8 +57,8 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
         }
       }
 
-      const purchases = await getProducts([props.route.params.sku]);
-      setPurchasables(purchases[0]);
+      const products = await getProducts([props.route.params.sku]);
+      setPurchasable(products[0]);
     };
 
     startUp();
@@ -59,11 +67,11 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
   const handlePurchase = () => {
     if (isProductIos(purchasable)) {
       requestPurchase({
-        skus: [purchasable.id],
+        sku: purchasable.id,
       });
     } else if (isProductAndroid(purchasable)) {
       requestPurchase({
-        skus: [purchasable.productId],
+        skus: ["fullAccess1199"],
       });
     }
   };
@@ -71,7 +79,6 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
   useEffect(() => {
     const purchaseUpdatedSubs = purchaseUpdatedListener((purchase) => {
       InteractionManager.runAfterInteractions(() => {
-        Alert.alert("Purchase updated", JSON.stringify(purchase));
         dispatch(setPurchaseStatus("base"));
         props.navigation.goBack();
       });
@@ -93,6 +100,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
   return (
     <BottomSheet
       enablePanDownToClose={false}
+      backdropComponent={() => <BackDrop blurIntensity={30} />}
       backgroundStyle={{
         backgroundColor: theme.colors.mainBackground,
       }}
@@ -101,32 +109,50 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       }}
     >
       <BottomSheetView>
-        <Box flex={1} marginBottom="xxxl">
-          <Box borderBottomWidth={1} borderBottomColor="seperator">
+        <Box marginBottom="l" padding="l" paddingTop="none">
+          <Box
+            borderBottomWidth={1}
+            borderBottomColor="seperator"
+            flexDirection="row"
+            marginLeft="ns"
+            gap="xs"
+            alignItems="center"
+            marginBottom="m"
+            paddingBottom="s"
+          >
             {scheme === "dark" ? (
               <Invert>
                 <Image
                   source={logo}
-                  style={{ width: 64, height: 64 }}
+                  style={{ width: 48, height: 48 }}
                   resizeMode="contain"
                 />
               </Invert>
             ) : (
               <Image
                 source={logo}
-                style={{ width: 64, height: 64 }}
+                style={{ width: 48, height: 48 }}
                 resizeMode="contain"
               />
             )}
             <Text variant="header">Protein Count</Text>
           </Box>
-          <Text>Your have completed your free trial.</Text>
+          <Text color="secondaryText" fontSize={15}>
+            Your have completed your free trial. You can purchase a &nbsp;
+            <Text color="primaryText">
+              life time subscription for {price}&nbsp;
+            </Text>
+            to continue using the app.
+          </Text>
           <Button
             variant="primary"
             onPress={handlePurchase}
-            marginTop="l"
-            label="Continue to 1 Time Purchase"
-            icon={<Icon icon={ChevronRight} strokeWidth={2} size={18} />}
+            marginTop="xxl"
+            labelPlacement="left"
+            alignItems="center"
+            lineHeight={18}
+            label="Purchase"
+            icon={<Icon icon={ChevronRight} strokeWidth={2} size={16} />}
           />
         </Box>
       </BottomSheetView>

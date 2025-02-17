@@ -10,9 +10,6 @@ import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
-  withSpring,
-  cancelAnimation,
-  runOnJS,
 } from "react-native-reanimated";
 
 import { Box, Button } from "@components";
@@ -46,12 +43,14 @@ const Tabs = () => {
   const tab1HeaderAnimation = useAnimatedStyle(() => {
     return {
       opacity: tab0Opacity.value,
+      zIndex: 100,
     };
   });
 
   const tab2HeaderAnimation = useAnimatedStyle(() => {
     return {
       opacity: tab1Opacity.value,
+      zIndex: 100,
     };
   });
 

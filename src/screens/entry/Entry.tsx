@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
   View,
   TextInput as RNTextInput,
+  Platform,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Animated, {
@@ -204,6 +205,14 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
     }, 0);
   }, []);
 
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      props.navigation.setOptions({
+        title: "",
+      });
+    }
+  }, []);
+
   const handleSubmit = () => {
     animation.current?.reset();
     animation.current?.play();
@@ -235,7 +244,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
     <Box flex={1} backgroundColor="mainBackground">
       <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box
-        paddingTop="m"
+        paddingTop={Platform.OS === "android" ? "none" : "m"}
         borderRadius="m"
         width="100%"
         backgroundColor="secondaryBackground"

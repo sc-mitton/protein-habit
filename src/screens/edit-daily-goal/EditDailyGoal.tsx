@@ -137,7 +137,7 @@ const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}
-      backdropComponent={() => <BackDrop />}
+      backdropComponent={() => <BackDrop blurIntensity={40} />}
     >
       <BottomSheetView>
         <Box

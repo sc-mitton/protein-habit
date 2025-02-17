@@ -5,23 +5,16 @@ import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
 
 import foodsReducer from "./slices/foodsSlice";
 import userReducer from "./slices/userSlice";
-import proteinReducer, { getRecommendedTarget } from "./slices/proteinSlice";
+import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
 const migrations = {
-  19: (state: RootState) => {
+  26: (state: RootState) => {
     return {
       ...state,
-      protein: {
-        ...state.protein,
-        dailyTargets: state.protein.dailyTargets.map((target) => [
-          target[0],
-          target[1] ||
-            getRecommendedTarget(
-              state.user.weight.value,
-              state.user.weight.unit,
-            ),
-        ]),
+      user: {
+        ...state.user,
+        purchaseStatus: null,
       },
     };
   },
@@ -29,7 +22,7 @@ const migrations = {
 
 const persistConfig = {
   key: "root",
-  version: 19,
+  version: 26,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],

@@ -33,6 +33,7 @@ const Calendar = () => {
     () => generateCalendarData(userInception),
     [userInception],
   );
+  const [containerHeight, setContainerHeight] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
   const [focusedCell, setFocusedCell] = useState<Dayjs>();
   const proteinMonthlyDailyAverage = useAppSelector((state) =>
@@ -67,19 +68,18 @@ const Calendar = () => {
   return (
     <Box
       elevation={8}
-      height={300}
+      flex={1}
+      paddingVertical="l"
       justifyContent="center"
       backgroundColor="mainBackground"
+      shadowColor="calendarSectionShadow"
+      shadowOffset={{ width: 0, height: -1 }}
+      shadowOpacity={0.5}
+      shadowRadius={1}
+      borderTopColor="calendarSectionShadow"
+      borderTopWidth={Platform.OS === "android" ? 1 : 0}
     >
-      <Box
-        style={styles.innerBox}
-        shadowColor="calendarSectionShadow"
-        shadowOffset={{ width: 0, height: -1 }}
-        shadowOpacity={0.5}
-        shadowRadius={1}
-        elevation={12}
-        backgroundColor="mainBackground"
-      >
+      <Box style={styles.innerBox} backgroundColor="mainBackground">
         <View style={styles.calendarContainer}>
           <FlatList
             data={calendarData}
@@ -265,14 +265,14 @@ const Calendar = () => {
 const styles = StyleSheet.create({
   innerBox: {
     flex: 1,
-    paddingTop: 28,
+    transform: [{ translateY: 14 }],
   },
   calendarContainer: {
     alignItems: "flex-start",
   },
   flatList: {
     paddingVertical: 64,
-    marginVertical: -78,
+    marginVertical: Platform.OS === "ios" ? -88 : -84,
   },
   slotNumbers: {
     fontSize: 14,

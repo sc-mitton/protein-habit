@@ -1,5 +1,5 @@
 import { createTheme } from "@shopify/restyle";
-import { StatusBar } from "react-native";
+import { StatusBar, Platform } from "react-native";
 
 const palette = {
   gray50: "hsla(30, 2%, 98%, 1)",
@@ -79,6 +79,7 @@ const lightTheme = createTheme({
     xl: 32,
     xxl: 40,
     xxxl: 48,
+    statusBar: StatusBar?.currentHeight ? StatusBar.currentHeight + 24 : 24,
   },
   boxVariants: {
     defaults: {},
@@ -168,10 +169,14 @@ const lightTheme = createTheme({
       lineHeight: 24,
       color: "secondaryText",
     },
+    miniHeader: {
+      fontSize: Platform.OS === "android" ? 16 : 14,
+      lineHeight: Platform.OS === "android" ? 23 : 21,
+    },
     body: {
       fontFamily: "Inter-Regular",
-      fontSize: 16,
-      lineHeight: 24,
+      fontSize: Platform.OS === "android" ? 18 : 16,
+      lineHeight: Platform.OS === "android" ? 24 : 24,
       color: "primaryText",
     },
     label: {
@@ -183,8 +188,8 @@ const lightTheme = createTheme({
     },
     defaults: {
       fontFamily: "Inter-Regular",
-      fontSize: 16,
-      lineHeight: 20,
+      fontSize: Platform.OS === "android" ? 17 : 16,
+      lineHeight: Platform.OS === "android" ? 25 : 24,
       color: "primaryText",
     },
     light: {
@@ -229,7 +234,7 @@ export const darkTheme: Theme = {
     cardBackground: palette.gray850,
     secondaryCardBackground: palette.gray700,
     primaryText: palette.gray50,
-    secondaryText: palette.gray400,
+    secondaryText: palette.gray500,
     tertiaryText: palette.gray600,
     placeholderText: palette.gray800,
     quaternaryText: palette.gray800,
@@ -243,7 +248,8 @@ export const darkTheme: Theme = {
     primaryButton: palette.gray850,
     foodItemBackground: palette.gray850,
     modalAndroidStatusBackground: palette.gray1100,
-    calendarSectionShadow: palette.gray800,
+    calendarSectionShadow:
+      Platform.OS === "android" ? palette.gray850 : palette.gray800,
   },
 };
 

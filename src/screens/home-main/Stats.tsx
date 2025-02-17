@@ -73,7 +73,7 @@ const Stats = () => {
             >
               <Box flexDirection="row" gap="s" alignItems="center">
                 <Icon icon={Target} accent={true} color="secondaryText" />
-                <Text fontSize={14} accent={true} color="secondaryText">
+                <Text variant="miniHeader" accent={true} color="secondaryText">
                   Daily Goal
                 </Text>
               </Box>
@@ -96,7 +96,7 @@ const Stats = () => {
             <Tip label="How much protein you have left to reach your goal for the day.">
               <Box flexDirection="row" gap="s" alignItems="center">
                 <Icon icon={PieChart} accent={true} color="secondaryText" />
-                <Text color="secondaryText" fontSize={14} accent={true}>
+                <Text color="secondaryText" variant="miniHeader" accent={true}>
                   Remaining
                 </Text>
               </Box>
@@ -130,7 +130,7 @@ const Stats = () => {
                   accent={true}
                   color="secondaryText"
                 />
-                <Text color="secondaryText" fontSize={14} accent={true}>
+                <Text color="secondaryText" variant="miniHeader" accent={true}>
                   Daily Average
                 </Text>
               </Box>
@@ -153,7 +153,7 @@ const Stats = () => {
             <Tip label="The number of consecutive days you've reached your daily goal.">
               <Box flexDirection="row" gap="s" alignItems="center">
                 <Icon icon={Zap} accent={true} color="secondaryText" />
-                <Text color="secondaryText" fontSize={14} accent={true}>
+                <Text color="secondaryText" variant="miniHeader" accent={true}>
                   Streak
                 </Text>
               </Box>

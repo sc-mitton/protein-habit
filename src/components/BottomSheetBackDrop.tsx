@@ -8,6 +8,7 @@ export const BackDrop = ({ blurIntensity = 20 }) => {
   return Platform.OS === "ios" ? (
     <Animated.View exiting={FadeOut} entering={FadeIn} style={styles.overlay}>
       <BlurView
+        pointerEvents="none"
         style={[StyleSheet.absoluteFillObject, { zIndex: 0 }]}
         intensity={blurIntensity}
         experimentalBlurMethod={"dimezisBlurView"}

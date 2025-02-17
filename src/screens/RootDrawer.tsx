@@ -7,10 +7,11 @@ import Animated, {
   interpolate,
 } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
-import { Dimensions, StyleSheet, useColorScheme } from "react-native";
+import { Dimensions, StyleSheet, useColorScheme, Platform } from "react-native";
 import { useDrawerProgress } from "@react-navigation/drawer";
 
-import HomeStack from "./HomeStack";
+import AndroidHomeStack from "./AndroidHomeStack";
+import IOSHomeStack from "./IOSHomeStack";
 import RecipesScreen from "./recipes/RecipesScreen";
 import { Icon, Text } from "@components";
 import { RootStackParamList } from "@types";
@@ -37,6 +38,7 @@ const withDrawerBlurBackground = <P extends object>(
       <Fragment>
         <AnimatedBlurView
           intensity={20}
+          pointerEvents="none"
           experimentalBlurMethod={"dimezisBlurView"}
           tint={colorScheme === "dark" ? "dark" : "light"}
           style={[StyleSheet.absoluteFillObject, animation]}
@@ -93,7 +95,8 @@ const RootDrawer = () => {
           ),
         }}
         name="Home"
-        component={withDrawerBlurBackground(HomeStack)}
+        // component={withDrawerBlurBackground(HomeStack)}
+        component={Platform.OS === "android" ? AndroidHomeStack : IOSHomeStack}
       />
       <Drawer.Screen
         options={{

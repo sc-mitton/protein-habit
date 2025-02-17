@@ -1,0 +1,35 @@
+{
+  "configVersion": 0,
+  "apple": {
+    "categories": ["LIFESTYLE", "HEALTH_AND_FITNESS"],
+    "info": {
+      "en-US": {
+        "title": "Protein Count",
+        "subtitle": "Never miss your protein goals again",
+        "description": "Keep track of your protein intake with the Protein Count app",
+        "keywords": [
+          "protein",
+          "count",
+          "tracker",
+          "macros",
+          "protein tracker",
+          "protein count",
+          "protein intake",
+          "protein balance",
+          "macronutrients",
+          "macronutrient",
+          "macronutrient tracker",
+          "macronutrient count",
+          "macronutrient intake",
+          "macronutrient balance",
+          "macronutrient calculator",
+          "macronutrient tracker",
+          "macronutrient count",
+          "macronutrient intake",
+          "macronutrient balance",
+          "macronutrient calculator"
+        ]
+      }
+    }
+  }
+}
