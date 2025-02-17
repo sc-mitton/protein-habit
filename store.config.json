@@ -5,29 +5,17 @@
     "info": {
       "en-US": {
         "title": "Protein Count",
-        "subtitle": "Never miss your protein goals again",
+        "subtitle": "Daily protein tracker",
         "description": "Keep track of your protein intake with the Protein Count app",
+        "privacyPolicyUrl": "https://gist.github.com/sc-mitton/c0b5e78411f8bfdba6448d4f03a5e666",
         "keywords": [
           "protein",
-          "count",
-          "tracker",
-          "macros",
           "protein tracker",
           "protein count",
-          "protein intake",
-          "protein balance",
-          "macronutrients",
-          "macronutrient",
-          "macronutrient tracker",
-          "macronutrient count",
-          "macronutrient intake",
-          "macronutrient balance",
-          "macronutrient calculator",
-          "macronutrient tracker",
-          "macronutrient count",
-          "macronutrient intake",
-          "macronutrient balance",
-          "macronutrient calculator"
+          "protein counter",
+          "macros",
+          "macro tracker",
+          "macro count"
         ]
       }
     }
