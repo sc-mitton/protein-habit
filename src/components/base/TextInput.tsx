@@ -8,6 +8,7 @@ import { Theme } from "@theme";
 import { Box } from ".";
 import { createBox } from "@shopify/restyle";
 import { forwardRef, useState } from "react";
+import { BoxProps } from "./Box";
 import OutsidePressHandler from "react-native-outside-press";
 
 const InputBox = createBox<Theme>();
@@ -15,10 +16,23 @@ const InputBox = createBox<Theme>();
 interface BaseTextInputProps extends TextInputProps {
   error?: boolean;
   borderLess?: boolean;
+  backgroundColor?: BoxProps["backgroundColor"];
 }
 
 export const TextInput = forwardRef<RNTextInput, BaseTextInputProps>(
-  ({ error, style, children, onFocus, onBlur, borderLess, ...props }, ref) => {
+  (
+    {
+      backgroundColor = "secondaryBackground",
+      error,
+      style,
+      children,
+      onFocus,
+      onBlur,
+      borderLess,
+      ...props
+    },
+    ref,
+  ) => {
     const theme = useTheme<Theme>();
     const [isFocused, setIsFocused] = useState(false);
 
@@ -39,7 +53,7 @@ export const TextInput = forwardRef<RNTextInput, BaseTextInputProps>(
         >
           <InputBox
             borderWidth={1.5}
-            backgroundColor="secondaryBackground"
+            backgroundColor={backgroundColor}
             borderColor={
               borderLess
                 ? "transparent"
