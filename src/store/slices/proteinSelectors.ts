@@ -60,13 +60,12 @@ const selectMonthlyDailyAverage = createSelector(
     // - Always choose min of 3 & 4
     // - Of above result choose min of that and 2
     // - Choose max of that and 1
-
     const denominator = Math.max(
       daysWithEntries,
       Math.min(
         dayjs().diff(dayjs(user.inceptionDate), "day"),
         Math.min(
-          date.startOf("month").diff(dayjs(), "day"),
+          dayjs().diff(date.startOf("month"), "day"),
           date.daysInMonth(),
         ),
       ),

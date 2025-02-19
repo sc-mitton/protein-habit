@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   radios: {
-    gap: 2,
+    gap: 8,
     flexDirection: "row",
   },
   horizontalRadios: {

@@ -10,3 +10,4 @@ export * from "./BackButton";
 export * from "./Tip";
 export * from "./DrumStick";
 export * from "./KeyboardAvoidingView";
+export * from "./slider/Slider";

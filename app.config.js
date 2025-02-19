@@ -38,7 +38,6 @@ export default {
     },
     ios: {
       supportsTablet: false,
-      buildNumber: "27",
       bundleIdentifier: bundleId,
       infoPlist: {
         CFBundleDisplayName: appName,
@@ -76,7 +75,7 @@ export default {
     },
     extra: {
       eas: {
-        projectId: "aa9446c5-886d-49fb-8ba6-3c96ea6981c4",
+        projectId: "6df3f0fe-e7b4-45b7-b721-3139de64dd31",
       },
     },
     runtimeVersion: {

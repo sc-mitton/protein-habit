@@ -33,7 +33,6 @@ const Calendar = () => {
     () => generateCalendarData(userInception),
     [userInception],
   );
-  const [containerHeight, setContainerHeight] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
   const [focusedCell, setFocusedCell] = useState<Dayjs>();
   const proteinMonthlyDailyAverage = useAppSelector((state) =>
@@ -78,6 +77,7 @@ const Calendar = () => {
       shadowRadius={1}
       borderTopColor="calendarSectionShadow"
       borderTopWidth={Platform.OS === "android" ? 1 : 0}
+      zIndex={100}
     >
       <Box style={styles.innerBox} backgroundColor="mainBackground">
         <View style={styles.calendarContainer}>

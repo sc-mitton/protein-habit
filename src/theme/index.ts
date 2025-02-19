@@ -135,6 +135,15 @@ const lightTheme = createTheme({
       fontFamily: "Inter-Regular",
       fontSize: 16,
     },
+    pill: {
+      borderRadius: "full",
+      paddingHorizontal: "xs",
+      paddingVertical: "xxs",
+      fontFamily: "Inter-Regular",
+      fontSize: 16,
+      alignItems: "center",
+      justifyContent: "center",
+    },
     defaults: {
       backgroundColor: "transparent",
       padding: "s",

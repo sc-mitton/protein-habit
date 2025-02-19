@@ -2,27 +2,23 @@ import { useState } from "react";
 import { Image, useColorScheme } from "react-native";
 
 import logo from "../../../assets/icon.png";
-import {
-  Box,
-  Text,
-  TextInput,
-  Button,
-  Radios,
-  KeyboardAvoidingView,
-} from "@components";
+import { Box, Text, Button, Radios } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import {
   getRecommendedTarget,
   setDailyTarget,
 } from "@store/slices/proteinSlice";
 import { setWeight } from "@store/slices/userSlice";
+import { Slider } from "@components";
+import { useTheme } from "@shopify/restyle";
 import type { HomeScreenProps } from "@types";
 
 const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
-  const [weight, setWeightValue] = useState("");
+  const [weight, setWeightValue] = useState<number>();
   const [weightUnit, setWeightUnit] = useState<"lbs" | "kg">("lbs");
   const dispatch = useAppDispatch();
   const scheme = useColorScheme();
+  const theme = useTheme();
 
   const handleSubmit = () => {
     if (weight) {
@@ -35,7 +31,7 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="mainBackground" padding="l">
+    <Box flex={1} backgroundColor="secondaryBackground" padding="l">
       <Box flex={1} justifyContent="center">
         <Box
           alignItems="center"
@@ -60,7 +56,7 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
             />
           )}
         </Box>
-        <Box marginLeft="xs">
+        <Box>
           <Text variant="header" marginBottom="s">
             What's your weight?
           </Text>
@@ -68,41 +64,58 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
             This helps us set your daily protein target
           </Text>
         </Box>
-        <KeyboardAvoidingView>
-          <TextInput
-            value={weight}
-            backgroundColor="borderColor"
-            onChangeText={setWeightValue}
-            onSubmitEditing={handleSubmit}
-            placeholder="Enter your weight in lbs"
-            keyboardType="numeric"
-            returnKeyType="done"
+        <Box marginVertical="l">
+          <Slider
+            onChange={setWeightValue}
+            defaultValue={160}
+            fontStyle={{ color: theme.colors.primaryText, fontSize: 18 }}
+            min={weightUnit === "lbs" ? 80 : 36}
+            max={weightUnit === "lbs" ? 300 : 150}
+            tickColor={theme.colors.primaryText}
+            step={weightUnit === "lbs" ? 1 : 0.5}
           />
-          <Box width="100%" alignContent="center" marginTop="s" marginLeft="s">
-            <Radios
-              options={
-                [
-                  { label: "lbs", value: "lbs" },
-                  { label: "kg", value: "kg" },
-                ] as const
-              }
-              defaultValue={"lbs"}
-              onChange={setWeightUnit}
-            />
-          </Box>
-          <Box marginTop="l">
-            <Button
-              variant="primary"
-              backgroundColor={
-                scheme === "dark" ? "quaternaryText" : "primaryText"
-              }
-              textColor={scheme === "dark" ? "primaryText" : "mainBackground"}
-              label="Continue"
-              onPress={handleSubmit}
-              disabled={!weight}
-            />
-          </Box>
-        </KeyboardAvoidingView>
+        </Box>
+        <Box
+          alignContent="center"
+          flexDirection="row"
+          justifyContent="center"
+          marginBottom="xl"
+          marginLeft="s"
+          gap="s"
+        >
+          <Button
+            variant="pill"
+            borderColor={
+              weightUnit === "lbs" ? "secondaryText" : "primaryButton"
+            }
+            borderWidth={1.5}
+            label="lbs"
+            width={50}
+            onPress={() => setWeightUnit("lbs")}
+          />
+          <Button
+            variant="pill"
+            borderColor={
+              weightUnit === "kg" ? "secondaryText" : "primaryButton"
+            }
+            borderWidth={1.5}
+            width={50}
+            label="kg"
+            onPress={() => setWeightUnit("kg")}
+          />
+        </Box>
+        <Box marginTop="l">
+          <Button
+            variant="primary"
+            backgroundColor={
+              scheme === "dark" ? "quaternaryText" : "primaryText"
+            }
+            textColor={scheme === "dark" ? "primaryText" : "mainBackground"}
+            label="Save"
+            onPress={handleSubmit}
+            disabled={!weight}
+          />
+        </Box>
       </Box>
     </Box>
   );
