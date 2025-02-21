@@ -9,10 +9,10 @@
       "android": {
         "buildType": "app-bundle"
       },
-      "channel": "production",
       "env": {
         "APP_VARIANT": "production"
-      }
+      },
+      "channel": "production"
     },
     "development:simulator": {
       "developmentClient": true,
@@ -36,10 +36,10 @@
       "android": {
         "buildType": "apk"
       },
-      "channel": "preview",
       "env": {
         "APP_VARIANT": "preview"
-      }
+      },
+      "channel": "preview"
     }
   },
   "submit": {
