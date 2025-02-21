@@ -1,8 +1,5 @@
 import { Fragment } from "react";
-import {
-  createDrawerNavigator,
-  DrawerNavigationOptions,
-} from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useTheme } from "@shopify/restyle";
 import { Home, Book } from "geist-native-icons";
 import Animated, {
