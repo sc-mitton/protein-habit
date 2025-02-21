@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Check } from "geist-native-icons";
-import Animated, { ZoomIn, ZoomOut } from "react-native-reanimated";
-
+import LottieView from "lottie-react-native";
+import { useTheme } from "@shopify/restyle";
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+  useSharedValue,
+  withSequence,
+} from "react-native-reanimated";
 import { Box, Text } from "./base";
-import { Icon } from "./Icon";
-// import { Box } from '../../restyled/Box';
-// import { Text } from '../../restyled/Text';
-// import { Icon } from '../../restyled/Icon';
+import checkMark from "@lotties/checkmark.json";
+import { useAppSelector } from "@store/hooks";
+import { selectAccent } from "@store/slices/uiSlice";
 
 export interface CheckboxProps {
   default?: "checked" | "unchecked";
@@ -21,11 +25,45 @@ export function Checkbox(props: CheckboxProps) {
   const [checked, setChecked] = useState(
     props.default === "checked" ? true : false,
   );
+  const key = useId();
   const { size = 24 } = props;
+  const accent = useAppSelector(selectAccent);
+  const animation = useRef<LottieView>(null);
+  const theme = useTheme();
+  const pressScale = useSharedValue(1);
+
+  const press = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: pressScale.value }],
+    };
+  });
+
+  const checkContainerAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: checked ? 1 : 0,
+    };
+  });
 
   useEffect(() => {
     if (props.value !== undefined) setChecked(props.value);
   }, [props.value]);
+
+  useEffect(() => {
+    if (checked) {
+      animation.current?.play();
+    } else {
+      animation.current?.reset();
+    }
+    pressScale.value = withSequence(
+      withTiming(0.8, { duration: 100 }),
+      withTiming(1, { duration: 100 }),
+    );
+
+    return () => {
+      animation.current?.reset();
+    };
+  }, [checked]);
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -35,41 +73,38 @@ export function Checkbox(props: CheckboxProps) {
         props.onChange(!checked);
       }}
     >
-      <Box
-        backgroundColor={checked ? "selected" : "cardBackground"}
-        borderColor={checked ? "transparent" : "borderColor"}
-        borderWidth={1.5}
-        borderRadius="sm"
-        style={{
-          width: size,
-          height: size,
-        }}
-      >
-        <View style={styles.checkIconContainer} pointerEvents="none">
-          {checked && (
-            <Animated.View
-              style={styles.checkIcon}
-              entering={ZoomIn.springify()
-                .damping(5)
-                .stiffness(200)
-                .mass(0.2)
-                .overshootClamping(0)}
-              exiting={ZoomOut.springify()
-                .damping(5)
-                .stiffness(200)
-                .mass(0.2)
-                .overshootClamping(0)}
-            >
-              <Icon
-                icon={Check}
-                color="white"
-                strokeWidth={3}
-                size={size - 7}
-              />
-            </Animated.View>
-          )}
-        </View>
-      </Box>
+      <Animated.View style={press}>
+        <Box
+          backgroundColor={checked ? accent || "selected" : "primaryButton"}
+          borderColor={checked ? "transparent" : "borderColor"}
+          borderWidth={1.5}
+          borderRadius="sm"
+          style={{
+            width: size,
+            height: size,
+          }}
+        >
+          <Animated.View
+            style={[styles.checkIconContainer, checkContainerAnimation]}
+            pointerEvents="none"
+          >
+            <LottieView
+              ref={animation}
+              source={checkMark}
+              autoPlay={false}
+              speed={3}
+              loop={false}
+              colorFilters={[
+                {
+                  keypath: "checkmark",
+                  color: "white",
+                },
+              ]}
+              style={{ width: size - 4, height: size - 4 }}
+            />
+          </Animated.View>
+        </Box>
+      </Animated.View>
       <Text fontSize={15}>{props.label}</Text>
     </TouchableOpacity>
   );
