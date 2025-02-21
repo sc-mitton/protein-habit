@@ -39,6 +39,14 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
   );
 
   useEffect(() => {
+    const sku = props.route.params.sku;
+    if (![baseSku, premiumSku].includes(sku)) {
+      console.error("Invalid SKU", sku);
+      props.navigation.goBack();
+    }
+  }, [props.route.params.sku]);
+
+  useEffect(() => {
     const startUp = async () => {
       await initConnection();
 

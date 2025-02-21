@@ -19,6 +19,7 @@ export default {
   expo: {
     name: appName,
     slug: "protein-count",
+    scheme: "protein-count",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
@@ -71,7 +72,7 @@ export default {
     },
     owner: "northof60labs",
     updates: {
-      url: "https://u.expo.dev/aa9446c5-886d-49fb-8ba6-3c96ea6981c4",
+      url: "https://u.expo.dev/6df3f0fe-e7b4-45b7-b721-3139de64dd31",
     },
     extra: {
       eas: {
@@ -83,6 +84,7 @@ export default {
     },
     plugins: [
       ["expo-iap"],
+      ["./plugins/withNoIpadSupport.js"],
       ["./plugins/withAsyncStorageBackup.js"],
       ["./plugins/withAndroidBackup.js"],
     ],

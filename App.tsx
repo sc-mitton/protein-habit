@@ -19,6 +19,20 @@ import lightTheme, { darkTheme } from "@theme";
 import { Box } from "@components";
 import { store, persistor } from "./src/store";
 import RootStack from "./src/screens/RootDrawer";
+import * as Linking from "expo-linking";
+
+export const linking = {
+  prefixes: [Linking.createURL("/")],
+  config: {
+    screens: {
+      Home: {
+        screens: {
+          Purchase: "iap-review/:sku",
+        },
+      },
+    },
+  },
+};
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -59,7 +73,7 @@ function MainApp() {
 
   return (
     <Box flex={1} onLayout={onLayoutRootView} backgroundColor="mainBackground">
-      <NavigationContainer>
+      <NavigationContainer linking={linking as any}>
         <RootStack />
       </NavigationContainer>
       <StatusBar
