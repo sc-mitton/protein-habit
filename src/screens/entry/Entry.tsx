@@ -29,8 +29,8 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { selectAccent, selectFont } from "@store/slices/uiSlice";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import type { HomeScreenProps } from "@types";
-import success from "@lotties/success.json";
 import { dayFormat } from "@constants/formats";
+import success from "@lotties/success.json";
 
 const KeypadButton = ({
   value,
@@ -251,7 +251,12 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
         borderBottomColor="borderColor"
         borderBottomWidth={1}
       >
-        <Box width="100%" alignItems="flex-start" marginBottom="m">
+        <Box
+          width="100%"
+          alignItems="flex-start"
+          marginBottom="m"
+          marginTop="s"
+        >
           <Text variant="header" color="primaryText" marginLeft="l">
             Add Protein&nbsp;&nbsp;
           </Text>
@@ -296,9 +301,9 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
           <Box>
             <View style={styles.successLottie}>
               <LottieView
-                autoPlay={false}
                 ref={animation}
                 loop={false}
+                autoPlay={false}
                 style={{ width: 48, height: 48 }}
                 source={success}
                 colorFilters={[
@@ -340,7 +345,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
             borderLess
             ref={nameInputRef}
             placeholderTextColor={theme.colors.placeholderText}
-            placeholder="Bagel & Cream Cheese "
+            placeholder={nameFocused ? "" : "Bagel & Cream Cheese "}
             value={name}
             onFocus={() => setNameFocused(true)}
             onBlur={() => setNameFocused(false)}

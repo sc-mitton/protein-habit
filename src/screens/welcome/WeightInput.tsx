@@ -85,21 +85,27 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
         >
           <Button
             variant="pill"
+            backgroundColor={
+              weightUnit === "lbs" ? "primaryButton" : "transparent"
+            }
             borderColor={
-              weightUnit === "lbs" ? "secondaryText" : "primaryButton"
+              weightUnit === "lbs" ? "primaryButton" : "primaryButton"
             }
             borderWidth={1.5}
             label="lbs"
-            width={50}
+            width={60}
             onPress={() => setWeightUnit("lbs")}
           />
           <Button
             variant="pill"
             borderColor={
-              weightUnit === "kg" ? "secondaryText" : "primaryButton"
+              weightUnit === "kg" ? "primaryButton" : "primaryButton"
+            }
+            backgroundColor={
+              weightUnit === "kg" ? "primaryButton" : "transparent"
             }
             borderWidth={1.5}
-            width={50}
+            width={60}
             label="kg"
             onPress={() => setWeightUnit("kg")}
           />

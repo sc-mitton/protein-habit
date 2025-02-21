@@ -14,7 +14,7 @@ interface SliderProps {
   tickColor?: string;
   // Must be an odd number
   numberOfVisibleTicks?: number;
-  fontStyle?: TextStyle;
+  fontStyle?: TextStyle | TextStyle[];
 }
 
 export const Slider = (props: SliderProps) => {
@@ -84,18 +84,18 @@ export const Slider = (props: SliderProps) => {
             onChange(centerIndex + min);
           }}
           onScroll={({ nativeEvent }) => {
-            if (Math.round(nativeEvent.contentOffset.x) % 3 === 0) {
-              Haptics.selectionAsync();
-            }
             scrollProgress.value = nativeEvent.contentOffset.x;
           }}
+          onViewableItemsChanged={() => {
+            Haptics.selectionAsync();
+          }}
+          scrollEventThrottle={16}
           viewabilityConfig={{
             itemVisiblePercentThreshold: 50,
             minimumViewTime: 100,
           }}
           snapToStart
           snapToInterval={containerWidth / numberOfVisibleTicks}
-          decelerationRate={0.3}
           maxToRenderPerBatch={numberOfVisibleTicks}
           windowSize={numberOfVisibleTicks}
           removeClippedSubviews={true}
@@ -103,7 +103,7 @@ export const Slider = (props: SliderProps) => {
           renderItem={({ item }) => (
             <Tick
               item={item}
-              fontStyle={fontStyle}
+              fontStyle={fontStyle as TextStyle}
               scrollProgress={scrollProgress}
               width={containerWidth / numberOfVisibleTicks}
               backgroundColor={tickColor}
