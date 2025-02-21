@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useRef, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Platform } from "react-native";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Platform, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { X } from "geist-native-icons";
 import { z } from "zod";
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition,
-} from "react-native-reanimated";
+import LottieView from "lottie-react-native";
 
 import {
   Box,
@@ -18,13 +14,18 @@ import {
   Button,
   Icon,
   Checkbox,
-  Radios,
+  Slider,
 } from "@components";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setName, setWeight, setWeightUnit } from "@store/slices/userSlice";
 import { selectUserInfo } from "@store/slices/userSlice";
+import {
+  getRecommendedTarget,
+  setDailyTarget,
+} from "@store/slices/proteinSlice";
 import type { HomeScreenProps } from "@types";
-import { Fragment } from "react";
+import { useTheme } from "@shopify/restyle";
+import successLottie from "@lotties/success.json";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -33,16 +34,40 @@ const schema = z.object({
   updateProteinGoal: z.boolean().optional(),
 });
 
+const styles = StyleSheet.create({
+  sliderFont: {
+    fontSize: 14,
+    fontFamily: "InterRegular",
+  },
+  lottieContainer: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 1,
+    height: 1,
+  },
+  lottie: {
+    transform: [{ translateX: 8 }],
+    width: 28,
+    height: 28,
+  },
+});
+
 type FormData = z.infer<typeof schema>;
 
 const Form = (props: HomeScreenProps<"PersonalInfo">) => {
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
+  const theme = useTheme();
+  const animation = useRef<LottieView>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const {
     control,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -53,13 +78,29 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    dispatch(setName(data.name.trim()));
-    dispatch(setWeight(Number(data.weight)));
-    dispatch(setWeightUnit(data.unit));
+  useEffect(() => {
+    setTimeout(() => {
+      animation.current?.reset();
+    }, 0);
+  }, []);
 
-    if (data.updateProteinGoal) {
-    }
+  const onSubmit = (data: FormData) => {
+    animation.current?.reset();
+    animation.current?.play();
+    setShowSuccess(true);
+
+    setTimeout(() => {
+      dispatch(setName(data.name.trim()));
+      dispatch(setWeight(Number(data.weight)));
+      dispatch(setWeightUnit(data.unit));
+
+      if (data.updateProteinGoal) {
+        dispatch(
+          setDailyTarget(getRecommendedTarget(Number(data.weight), data.unit)),
+        );
+      }
+      props.navigation.goBack();
+    }, 1700);
   };
 
   return (
@@ -67,19 +108,27 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
       <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
       <Box flex={1}>
         {Platform.OS === "ios" && (
-          <Fragment>
+          <Box
+            borderBottomWidth={1}
+            borderBottomColor="borderColor"
+            paddingBottom="m"
+            marginBottom="xl"
+          >
             <Button
               onPress={() => props.navigation.goBack()}
               variant="circleButton"
               style={{ position: "absolute", top: -12, right: -12 }}
               icon={
-                <Icon icon={X} size={20} color="primaryText" strokeWidth={2} />
+                <Icon
+                  icon={X}
+                  size={18}
+                  color="primaryText"
+                  strokeWidth={2.5}
+                />
               }
             />
-            <Text variant="header" marginBottom="xl">
-              Personal Info
-            </Text>
-          </Fragment>
+            <Text variant="header">Personal Info</Text>
+          </Box>
         )}
         <Box marginBottom="m">
           <Text variant="label">Name</Text>
@@ -101,108 +150,117 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
             </Text>
           )}
         </Box>
-        <Box flexDirection="row" gap="l" alignItems="flex-start">
-          <Box flex={1}>
-            <Text variant="label">Weight</Text>
-            <Controller
-              control={control}
-              name="weight"
-              render={({ field: { onChange, value } }) => {
-                return (
-                  <TextInput
-                    value={value.toString()}
-                    onChangeText={(v) => onChange(v.toString())}
-                    placeholder="Your weight"
-                    keyboardType="numeric"
-                    error={!!errors.weight}
-                  />
-                );
-              }}
-            />
-            {errors.weight && (
-              <Text variant="caption" color="error" marginTop="xs">
-                {errors.weight.message}
-              </Text>
+        <Box gap="l">
+          <Text variant="label">Weight</Text>
+          <Controller
+            control={control}
+            name="weight"
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Slider
+                  defaultValue={Number(value)}
+                  onChange={(v) => onChange(v.toString())}
+                  tickColor={theme.colors.primaryText}
+                  fontStyle={[
+                    styles.sliderFont,
+                    { color: theme.colors.primaryText },
+                  ]}
+                  min={80}
+                  max={300}
+                  step={1}
+                />
+              );
+            }}
+          />
+          {errors.weight && (
+            <Text variant="caption" color="error" marginTop="xs">
+              {errors.weight.message}
+            </Text>
+          )}
+          <Controller
+            control={control}
+            name="unit"
+            render={({ field: { onChange, value } }) => (
+              <Box
+                alignContent="center"
+                flexDirection="row"
+                justifyContent="center"
+                marginBottom="xl"
+                marginLeft="s"
+                gap="s"
+              >
+                <Button
+                  variant="pill"
+                  backgroundColor={
+                    value === "lbs" ? "primaryButton" : "transparent"
+                  }
+                  borderColor={
+                    value === "lbs" ? "primaryButton" : "primaryButton"
+                  }
+                  borderWidth={1.5}
+                  label="lbs"
+                  width={60}
+                  onPress={() => onChange("lbs")}
+                />
+                <Button
+                  variant="pill"
+                  backgroundColor={
+                    value === "kg" ? "primaryButton" : "transparent"
+                  }
+                  borderColor={
+                    value === "kg" ? "primaryButton" : "primaryButton"
+                  }
+                  borderWidth={1.5}
+                  width={60}
+                  label="kg"
+                  onPress={() => onChange("kg")}
+                />
+              </Box>
             )}
-          </Box>
-          <Box>
-            <Text variant="label">Units</Text>
-            <Box marginTop="s">
-              <Controller
-                control={control}
-                name="unit"
-                render={({ field: { onChange, value } }) => (
-                  <Radios
-                    options={
-                      [
-                        { label: "lbs", value: "lbs" },
-                        { label: "kg", value: "kg" },
-                      ] as const
-                    }
-                    defaultValue={value}
-                    onChange={onChange}
-                  />
-                )}
-              />
-            </Box>
+          />
+        </Box>
+        <Box marginVertical="s" gap="m">
+          <Text color="tertiaryText" fontSize={14}>
+            Automatically update your protein goal based on new weight?
+          </Text>
+          <Controller
+            control={control}
+            name="updateProteinGoal"
+            render={({ field: { onChange, value } }) => (
+              <Checkbox label="Yes" value={value} onChange={onChange} />
+            )}
+          />
+        </Box>
+        <Box marginTop="m">
+          <Button
+            variant="primary"
+            label="Save"
+            textColor={showSuccess ? "transparent" : "primaryText"}
+            onPress={handleSubmit(onSubmit)}
+          />
+          <Box style={styles.lottieContainer} pointerEvents="none">
+            <LottieView
+              ref={animation}
+              loop={false}
+              autoPlay={false}
+              source={successLottie}
+              colorFilters={[
+                {
+                  keypath: "check",
+                  color: theme.colors.primaryText,
+                },
+                {
+                  keypath: "circle",
+                  color: theme.colors.primaryText,
+                },
+              ]}
+              style={styles.lottie}
+            />
           </Box>
         </Box>
-        {dirtyFields.weight && (
-          <Animated.View entering={FadeIn} exiting={FadeOut}>
-            <Box marginTop="l" gap="m">
-              <Text color="tertiaryText" fontSize={14}>
-                Your protein requirements may be different based on your new
-                weight. Would you like to automatically update your daily goal?
-              </Text>
-              <Controller
-                control={control}
-                name="updateProteinGoal"
-                render={({ field: { onChange, value } }) => (
-                  <Checkbox label="Yes" value={value} onChange={onChange} />
-                )}
-              />
-            </Box>
-          </Animated.View>
-        )}
-        <Animated.View layout={LinearTransition}>
-          <Box marginTop="xl">
-            <Button
-              variant="primary"
-              label="Save Changes"
-              onPress={handleSubmit(onSubmit)}
-            />
-          </Box>
-        </Animated.View>
       </Box>
     </Box>
   );
 };
 
-export default function (props: RootScreenProps<"PersonalInfo">) {
-  const [key, setKey] = useState(Math.random().toString(36).slice(0, 9));
-  const [firstPass, setFirstPass] = useState(true);
-  const user = useAppSelector(selectUserInfo);
-
-  // There was a white flash when saving and this whole key setup
-  // was the only hack that would make it go away.
-  useEffect(() => {
-    if (firstPass) {
-      setFirstPass(false);
-    } else {
-      setKey(Math.random().toString(36).slice(0, 9));
-    }
-  }, [user]);
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (!firstPass) {
-      timeout = setTimeout(() => {
-        props.navigation.goBack();
-      }, 300);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [key]);
-
-  return <Form key={key} {...props} />;
-}
+export default Form;
