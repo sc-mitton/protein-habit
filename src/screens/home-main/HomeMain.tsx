@@ -44,7 +44,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
     <Box flex={1} backgroundColor="mainBackground">
       <Box
         paddingHorizontal="m"
-        marginTop="xl"
+        marginTop="xxl"
         marginBottom="l"
         flexDirection="row"
         alignItems="center"
