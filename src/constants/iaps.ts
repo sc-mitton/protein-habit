@@ -1,2 +1,8 @@
-export const baseSku = "lifeAccess1199";
-export const premiumSku = "premiumAccess299";
+export const baseIap = {
+  sku: "lifeAccess1199",
+  unlocks: "base",
+} as const;
+export const premiumIap = {
+  sku: "premiumAccess299",
+  unlocks: "premium",
+} as const;

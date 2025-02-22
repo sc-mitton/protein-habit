@@ -23,8 +23,7 @@ import SuccessModal from "./success/SuccessModal";
 import Purchase from "./purchase/Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
-import { baseSku } from "@constants/iaps";
-
+import CalendarSheet from "./home-main/CalendarSheet";
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const RootStack = (props: RootScreenProps<"Home">) => {
@@ -137,11 +136,8 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           component={SuccessModal}
           options={{ animation: "fade" }}
         />
-        <Stack.Screen
-          name="Purchase"
-          component={Purchase}
-          initialParams={{ sku: baseSku }}
-        />
+        <Stack.Screen name="Purchase" component={Purchase} />
+        <Stack.Screen name="Calendar" component={CalendarSheet} />
       </Stack.Group>
 
       {/* Other Modals */}

@@ -49,7 +49,7 @@ const Stats = () => {
   }, [remainingProtein, navigation, dispatch, hasShownSuccessModal]);
 
   return (
-    <Box justifyContent="center" flex={1} gap="l">
+    <Box justifyContent="space-evenly" flex={1}>
       <Box
         paddingHorizontal="l"
         paddingTop={"s"}

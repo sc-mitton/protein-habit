@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
-import { StatusBar } from "expo-status-bar";
-import { useColorScheme, Platform } from "react-native";
+import { StatusBar, Platform } from "react-native";
+import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "@shopify/restyle";
 import { Provider } from "react-redux";
@@ -11,23 +11,37 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { EventProvider } from "react-native-outside-press";
+import * as Linking from "expo-linking";
 
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
 
 import lightTheme, { darkTheme } from "@theme";
-import { Box } from "@components";
+import { Box, Text } from "@components";
 import { store, persistor } from "./src/store";
 import RootStack from "./src/screens/RootDrawer";
-import * as Linking from "expo-linking";
+import { baseIap, premiumIap } from "@constants/iaps";
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
   config: {
     screens: {
+      Recipes: "recipes",
       Home: {
         screens: {
-          Purchase: "iap-review/:sku",
+          Purchase: {
+            path: "iap-review/:iap",
+            parse: {
+              iap: (iap: string) => {
+                if (iap === baseIap.sku) {
+                  return baseIap;
+                } else if (iap === premiumIap.sku) {
+                  return premiumIap;
+                }
+                return "bad-sku";
+              },
+            },
+          },
         },
       },
     },
@@ -79,7 +93,7 @@ function MainApp() {
       <StatusBar
         backgroundColor="transparent"
         translucent
-        style={colorScheme === "dark" ? "light" : "dark"}
+        barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
       />
     </Box>
   );

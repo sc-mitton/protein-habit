@@ -3,7 +3,7 @@ import type { CompositeScreenProps } from "@react-navigation/native";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
-import { baseSku, premiumSku } from "@constants/iaps";
+import { baseIap, premiumIap } from "@constants/iaps";
 
 export type HomeStackParamList = {
   Welcome: undefined;
@@ -17,7 +17,8 @@ export type HomeStackParamList = {
   AddFood: undefined | { food: Food };
   SuccessModal: undefined;
   StatsInfo: undefined;
-  Purchase: { sku: typeof baseSku | typeof premiumSku };
+  Purchase: { iap: typeof baseIap | typeof premiumIap };
+  Calendar: undefined;
 };
 
 export type RootStackParamList = {

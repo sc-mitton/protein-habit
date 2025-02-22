@@ -11,3 +11,5 @@ export * from "./Tip";
 export * from "./DrumStick";
 export * from "./KeyboardAvoidingView";
 export * from "./slider/Slider";
+export * from "./loaders/Pulse";
+export * from "./loaders/PulseBox";
