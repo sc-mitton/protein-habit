@@ -87,29 +87,44 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           headerStyle: {
             backgroundColor: theme.colors.mainBackground,
           },
-          headerTitle: () => {
+          // headerTitle: () => {
+          //   return (
+          //     <Box
+          //       paddingTop="xs"
+          //       paddingHorizontal="xs"
+          //       gap="xs"
+          //       alignItems="center"
+          //     >
+          //       <Text>Welcome, {name}</Text>
+          //       <Text color="tertiaryText">
+          //         {currentDay.format("MMM D, YYYY")}
+          //       </Text>
+          //     </Box>
+          //   );
+          // },
+          headerLeft: () => {
             return (
+              // <Button
+              //   marginTop="xs"
+              //   onPress={() => props.navigation.openDrawer()}
+              // >
+              //   <Icon
+              //     icon={Menu2}
+              //     strokeWidth={2}
+              //     size={22}
+              //   />
+              // </Button>
               <Box
                 paddingTop="xs"
-                paddingHorizontal="xs"
+                paddingHorizontal="s"
                 gap="xs"
-                alignItems="center"
+                alignItems="flex-start"
               >
-                <Text>Welcome, {name}</Text>
+                <Text fontSize={18}>Welcome, {name}</Text>
                 <Text color="tertiaryText">
                   {currentDay.format("MMM D, YYYY")}
                 </Text>
               </Box>
-            );
-          },
-          headerLeft: () => {
-            return (
-              <Button
-                marginTop="xs"
-                onPress={() => props.navigation.openDrawer()}
-              >
-                <Icon icon={Menu2} strokeWidth={2} size={22} />
-              </Button>
             );
           },
           headerRight: () => (
