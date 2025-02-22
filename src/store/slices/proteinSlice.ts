@@ -40,19 +40,34 @@ const proteinSlice = createSlice({
   initialState,
   reducers: {
     addEntry: (state, action: PayloadAction<ProteinEntryPayload>) => {
-      if (dayjs(state.entries[0][0]).isBefore(dayjs().format(dayFormat))) {
-        state.entries.unshift([dayjs().format(dayFormat), []]);
+      // Find the index of the entries list
+      // There may be no entries list for the day, so we need to insert one in that case
+      let entriesIndex = 0;
+      for (let i = state.entries.length - 1; i >= 0; i--) {
+        if (
+          dayjs(state.entries[i][0]).isSame(dayjs(action.payload.day), "day")
+        ) {
+          entriesIndex = i;
+          break;
+        } else if (
+          dayjs(state.entries[i][0]).isBefore(dayjs(action.payload.day), "day")
+        ) {
+          entriesIndex = i;
+          state.entries.splice(i, 0, [
+            dayjs(action.payload.day).format(dayFormat),
+            [],
+          ]);
+          break;
+        }
       }
 
-      const entry = state.entries[0][1];
-      entry.unshift({
+      state.entries[entriesIndex][1].push({
         grams: action.payload.grams,
         id: Math.random().toString(36).slice(2, 11),
         time: dayjs().format(timeFormat),
         food: "food" in action.payload ? action.payload.food : undefined,
         name: "name" in action.payload ? action.payload.name : undefined,
       });
-      state.entries[0][1] = entry;
     },
     removeEntry: (
       state,
@@ -80,11 +95,16 @@ const proteinSlice = createSlice({
     },
     setDailyTarget: (state, action: PayloadAction<DailyTarget[1]>) => {
       // Make sure to not build up multiple target changes in one day
-      if (dayjs(state.dailyTargets[0][0]).isSame(dayjs(), "day")) {
+      if (
+        dayjs(state.dailyTargets[state.dailyTargets.length - 1][0]).isSame(
+          dayjs(),
+          "day",
+        )
+      ) {
         state.dailyTargets.shift();
       }
 
-      state.dailyTargets.unshift([dayjs().format(dayFormat), action.payload]);
+      state.dailyTargets.push([dayjs().format(dayFormat), action.payload]);
     },
   },
 });

@@ -154,17 +154,17 @@ describe("selectStreak", () => {
     protein: {
       ...initialState,
       entries: [
-        [dayjs().format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
-        [dayjs().subtract(1, "day").format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
-        [dayjs().subtract(2, "day").format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
-        [dayjs().subtract(3, "day").format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
-        [dayjs().subtract(4, "day").format(dayFormat), [{grams: 105}, {grams: 50}, {grams: 50}]],
-        [dayjs().subtract(5, "day").format(dayFormat), [{grams: 30}, {grams: 10}, {grams: 20}]],
         [dayjs().subtract(6, "day").format(dayFormat), [{grams: 75}, {grams: 75}, {grams: 75}]],
+        [dayjs().subtract(5, "day").format(dayFormat), [{grams: 30}, {grams: 10}, {grams: 20}]],
+        [dayjs().subtract(4, "day").format(dayFormat), [{grams: 105}, {grams: 50}, {grams: 50}]],
+        [dayjs().subtract(3, "day").format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
+        [dayjs().subtract(2, "day").format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
+        [dayjs().subtract(1, "day").format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
+        [dayjs().format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
       ],
       dailyTargets: [
-        [dayjs().subtract(1, "day").format(dayFormat), 150],
         [dayjs().subtract(2, "day").format(dayFormat), 135],
+        [dayjs().subtract(1, "day").format(dayFormat), 150]
       ]
     } as ProteinState,
     weight: {
@@ -184,7 +184,7 @@ describe("selectStreak", () => {
   });
 
   it("should decrease streak when today has no entries", () => {
-    state.protein.entries[0][1] = [];
+    state.protein.entries[state.protein.entries.length - 1][1] = [];
     expect(
       selectStreak.resultFunc(
         state.protein.entries,
@@ -197,7 +197,9 @@ describe("selectStreak", () => {
   it("should have no streak when no entries for the past day before streak", () => {
     jest.useFakeTimers();
     jest.setSystemTime(
-      dayjs(state.protein.entries[0][0]).add(2, "day").toDate(),
+      dayjs(state.protein.entries[state.protein.entries.length - 1][0])
+        .add(2, "day")
+        .toDate(),
     );
     expect(
       selectStreak.resultFunc(
@@ -211,7 +213,7 @@ describe("selectStreak", () => {
   });
 
   it("should have a smaller streak than expected if there's a gap with no entries", () => {
-    state.protein.entries.splice(2, 1);
+    state.protein.entries.splice(state.protein.entries.length - 3, 1);
     expect(
       selectStreak.resultFunc(
         state.protein.entries,
@@ -256,34 +258,34 @@ it("should select the daily target results", () => {
     user.weight.unit,
   );
 
-  const rootDate = "2025-01-05";
+  const mockedToday = "2025-01-05";
   jest.useFakeTimers();
-  jest.setSystemTime(dayjs(rootDate).toDate());
+  jest.setSystemTime(dayjs(mockedToday).toDate());
 
   // prettier-ignore
   const tests = [
     {
       entries:[
         [
-          dayjs().subtract(3, "day").format(dayFormat),
+          dayjs().subtract(4, "day").format(dayFormat),
           [{ grams: 50 }, { grams: 50 }, { grams: 50 }],
         ],
         [
-          dayjs().subtract(4, "day").format(dayFormat),
+          dayjs().subtract(3, "day").format(dayFormat),
           [{ grams: 50 }, { grams: 50 }, { grams: 50 }],
         ],
       ],
       targets:[
-        [dayjs().subtract(2, "day").format(dayFormat), 150],
-        [dayjs().subtract(3, "day").format(dayFormat), 135],
         [dayjs().subtract(5, "day").format(dayFormat), calculateTarget],
+        [dayjs().subtract(3, "day").format(dayFormat), 135],
+        [dayjs().subtract(2, "day").format(dayFormat), 150],
       ],
       selected: [
-        [dayjs().subtract(1, "day").format(dayFormat), 0, false, 150],
-        [dayjs().subtract(2, "day").format(dayFormat), 0, false, 150],
-        [dayjs().subtract(3, "day").format(dayFormat), 150, true, 135],
-        [dayjs().subtract(4, "day").format(dayFormat), 150, true, calculateTarget],
         [dayjs().subtract(5, "day").format(dayFormat), 0, false, calculateTarget],
+        [dayjs().subtract(4, "day").format(dayFormat), 150, true, calculateTarget],
+        [dayjs().subtract(3, "day").format(dayFormat), 150, true, 135],
+        [dayjs().subtract(2, "day").format(dayFormat), 0, false, 150],
+        [dayjs().subtract(1, "day").format(dayFormat), 0, false, 150],
       ],
       start: dayjs().subtract(5, "day").format(dayFormat),
     },

@@ -9,17 +9,23 @@ import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
 const migrations = {
-  29: (state: RootState) => {
+  30: (state: RootState) => {
     return {
       ...state,
-      ui: state.ui,
+      protein: {
+        ...state.protein,
+        // Reverse the entries array
+        entries: state.protein.entries.reverse(),
+        // Reverse the daily targets array
+        dailyTargets: state.protein.dailyTargets.reverse(),
+      },
     };
   },
 } as any;
 
 const persistConfig = {
   key: "root",
-  version: 29,
+  version: 30,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],

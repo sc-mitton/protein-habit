@@ -8,22 +8,20 @@ import { getRecommendedTarget } from "./proteinSlice";
 
 // Selectors
 const selectTotalProteinForDay = (state: RootState, day: string) => {
-  const dayEntry = state.protein.entries.find(([entryDay]) => {
-    return dayjs(entryDay).isSame(dayjs(day), "day");
-  });
-  if (!dayEntry) return 0;
-  return dayEntry[1].reduce((total, entry) => total + entry.grams, 0);
+  return (
+    state.protein.entries
+      .find(([entryDay]) => {
+        return dayjs(entryDay).isSame(dayjs(day), "day");
+      })?.[1]
+      .reduce((total, entry) => total + entry.grams, 0) ?? 0
+  );
 };
 
 const selectDailyProteinTarget = (state: RootState) => {
-  if (state.protein.dailyTargets[0][1]) {
-    return state.protein.dailyTargets[0][1];
-  } else {
-    return getRecommendedTarget(
-      state.user.weight.value,
-      state.user.weight.unit,
-    );
-  }
+  return (
+    state.protein.dailyTargets[state.protein.dailyTargets.length - 1][1] ??
+    getRecommendedTarget(state.user.weight.value, state.user.weight.unit)
+  );
 };
 
 // Returns the average protein intake per day for a given month
@@ -36,19 +34,24 @@ const selectMonthlyDailyAverage = createSelector(
   (entries, user, month) => {
     const date = dayjs(month, "YYYY-MM");
 
-    const monthEntries = entries.filter(([day]) => {
+    const totalProtein = entries
+      .filter(([day]) => {
+        return (
+          dayjs(day).isSame(date, "month") &&
+          dayjs(day).isBefore(dayjs(), "day")
+        );
+      })
+      .reduce(
+        (sum, [, dayEntries]) =>
+          sum + dayEntries.reduce((daySum, entry) => daySum + entry.grams, 0),
+        0,
+      );
+
+    const daysWithEntries = entries.filter(([day]) => {
       return (
         dayjs(day).isSame(date, "month") && dayjs(day).isBefore(dayjs(), "day")
       );
-    });
-
-    const totalProtein = monthEntries.reduce(
-      (sum, [, dayEntries]) =>
-        sum + dayEntries.reduce((daySum, entry) => daySum + entry.grams, 0),
-      0,
-    );
-
-    const daysWithEntries = monthEntries.length;
+    }).length;
 
     // How many days are we averaging over?
     // It could be
@@ -117,8 +120,8 @@ const selectDailyTargetResults = createSelector(
   (_: RootState, start: string) => start,
   (state: RootState) => state.protein.dailyTargets,
   (entries, start, targets) => {
-    // The resulting array should go from present to the start
-    // [curent day, current day - 1, ..., start]
+    // The resulting array should go from start (user inception date) to the present
+    // [start, start + 1, ..., current day]
 
     // [day, totalProtein, targetMet, target]
     const results = [] as [string, number, boolean, number][];
@@ -130,16 +133,18 @@ const selectDailyTargetResults = createSelector(
       entryMap[entries[i][0]] = i;
     }
 
-    let targetIndex = targets.length - 1;
+    let targetIndex = 0;
 
     for (let i = 0; i < iterLength; i++) {
       const day = dayjs(start).add(i, "day");
 
       if (
-        targetIndex > 0 &&
-        day.isAfter(dayjs(targets[targetIndex - 1][0]).subtract(1, "day"))
+        targetIndex < targets.length - 1 &&
+        dayjs(targets[targetIndex + 1][0])
+          .subtract(1, "day")
+          .isBefore(day)
       ) {
-        targetIndex--;
+        targetIndex++;
       }
 
       const entryIndex = entryMap[day.format(dayFormat)];
@@ -163,9 +168,7 @@ const selectDailyTargetResults = createSelector(
       })?.[1]
       .reduce((sum, e) => sum + e.grams, 0);
 
-    const todaysTarget = targets.find(([day]) =>
-      dayjs(day).isBefore(dayjs(), "day"),
-    )?.[1];
+    const todaysTarget = targets[targets.length - 1][1];
 
     if (todaysTotals && todaysTarget && todaysTotals >= todaysTarget) {
       results.push([
@@ -175,8 +178,6 @@ const selectDailyTargetResults = createSelector(
         todaysTarget,
       ]);
     }
-
-    results.reverse();
 
     return results;
   },
@@ -192,7 +193,7 @@ const selectDaysEntries = createSelector(
   (state: RootState) => state.protein.entries,
   (_: RootState, day: string) => day,
   (entries, day) => {
-    return entries.find(([entryDay]) => {
+    return entries.findLast(([entryDay]) => {
       return dayjs(entryDay).isSame(dayjs(day), "day");
     })?.[1];
   },
@@ -206,7 +207,9 @@ const selectStreak = createSelector(
     let streak = 0;
     const defaultTarget = getRecommendedTarget(weight.value, weight.unit);
 
-    let lastDay = dayjs(entries[0][0]);
+    let lastDay = dayjs(entries[entries.length - 1][0]);
+
+    const numEntries = entries.length;
 
     // Can't have a streak if the last day is before today
     if (dayjs().diff(dayjs(lastDay), "day") > 1) {
@@ -215,14 +218,19 @@ const selectStreak = createSelector(
 
     for (let i = 0; i < entries.length; i++) {
       // Can't have a streak if the last day is before today
-      if (dayjs(lastDay).diff(dayjs(entries[i][0]), "day") > 1) {
+      if (
+        dayjs(lastDay).diff(dayjs(entries[numEntries - 1 - i][0]), "day") > 1
+      ) {
         break;
       }
 
-      const totalProtein = entries[i][1].reduce((sum, e) => sum + e.grams, 0);
+      const totalProtein = entries[numEntries - 1 - i][1].reduce(
+        (sum, e) => sum + e.grams,
+        0,
+      );
       const target =
         targets.find(([day]) =>
-          dayjs(day).isBefore(dayjs(entries[i][0])),
+          dayjs(day).isBefore(dayjs(entries[numEntries - 1 - i][0])),
         )?.[1] ?? defaultTarget;
       if (totalProtein >= target) {
         streak++;
@@ -230,7 +238,7 @@ const selectStreak = createSelector(
         break;
       }
 
-      lastDay = dayjs(entries[i][0]);
+      lastDay = dayjs(entries[numEntries - 1 - i][0]);
     }
 
     return streak;
