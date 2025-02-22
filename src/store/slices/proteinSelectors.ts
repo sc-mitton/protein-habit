@@ -193,9 +193,11 @@ const selectDaysEntries = createSelector(
   (state: RootState) => state.protein.entries,
   (_: RootState, day: string) => day,
   (entries, day) => {
-    return entries.findLast(([entryDay]) => {
-      return dayjs(entryDay).isSame(dayjs(day), "day");
-    })?.[1];
+    return entries
+      .findLast(([entryDay]) => {
+        return dayjs(entryDay).isSame(dayjs(day), "day");
+      })?.[1]
+      .reverse();
   },
 );
 
