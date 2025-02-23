@@ -14,7 +14,7 @@ import { useAppSelector } from "@store/hooks";
 import { Box, Text, Icon, Button } from "@components";
 import { selectDaysEntries } from "@store/slices/proteinSelectors";
 import { selectFoods } from "@store/slices/foodsSlice";
-import Options from "./Options";
+import Options from "./SwipeOptions";
 import { dayTimeFormat } from "@constants/formats";
 
 const styles = StyleSheet.create({

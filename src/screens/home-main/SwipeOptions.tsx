@@ -20,7 +20,7 @@ import { removeEntry } from "@store/slices/proteinSlice";
 import { dayFormat } from "@constants/formats";
 import type { ProteinEntry } from "@store/slices/proteinSlice";
 
-const ACTIONS_WIDTH = 110;
+const ACTIONS_WIDTH = 105;
 const THRESHOLD = ACTIONS_WIDTH / 2;
 
 interface OptionsProps {

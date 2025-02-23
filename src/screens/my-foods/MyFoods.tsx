@@ -53,7 +53,7 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
           addEntry({
             grams: selectedFoods[i].protein * selectedAmounts[i],
             food: selectedFoods[i].id,
-            day: dayjs().format(dayFormat),
+            day,
           }),
         );
       }
