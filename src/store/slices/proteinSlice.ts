@@ -52,8 +52,8 @@ const proteinSlice = createSlice({
         } else if (
           dayjs(state.entries[i][0]).isBefore(dayjs(action.payload.day), "day")
         ) {
-          entriesIndex = i;
-          state.entries.splice(i, 0, [
+          entriesIndex = i + 1;
+          state.entries.splice(i + 1, 0, [
             dayjs(action.payload.day).format(dayFormat),
             [],
           ]);

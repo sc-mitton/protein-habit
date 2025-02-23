@@ -197,6 +197,7 @@ const selectDaysEntries = createSelector(
       .findLast(([entryDay]) => {
         return dayjs(entryDay).isSame(dayjs(day), "day");
       })?.[1]
+      .slice()
       .reverse();
   },
 );
