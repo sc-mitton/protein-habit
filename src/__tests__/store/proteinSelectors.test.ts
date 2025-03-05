@@ -163,6 +163,7 @@ describe("selectStreak", () => {
         [dayjs().format(dayFormat), [{grams: 50}, {grams: 50}, {grams: 50}]],
       ],
       dailyTargets: [
+        [dayjs().subtract(6, "day").format(dayFormat), 130],
         [dayjs().subtract(2, "day").format(dayFormat), 135],
         [dayjs().subtract(1, "day").format(dayFormat), 150]
       ]

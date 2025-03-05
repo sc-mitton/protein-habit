@@ -208,42 +208,39 @@ const selectStreak = createSelector(
   (state: RootState) => state.user.weight,
   (entries, targets, weight) => {
     let streak = 0;
-    const defaultTarget = getRecommendedTarget(weight.value, weight.unit);
+    let targetIndex = targets.length - 1;
+    let day = dayjs();
 
-    let lastDay = dayjs(entries[entries.length - 1][0]);
+    for (let i = entries.length - 1; i >= 0; i--) {
+      // If gap in entires, break streak
+      if (Math.abs(dayjs(day).diff(dayjs(entries[i][0]), "day")) > 1) {
+        break;
+      }
+      day = dayjs(entries[i][0]);
+      const totalProtein = entries[i][1].reduce((sum, e) => sum + e.grams, 0);
 
-    const numEntries = entries.length;
+      if (dayjs(targets[targetIndex][0]).isAfter(day)) {
+        targetIndex = targets.findLastIndex(([d]) =>
+          dayjs(d).subtract(1, "day").isBefore(day),
+        );
+      }
 
-    // Can't have a streak if the last day is before today
-    if (dayjs().diff(dayjs(lastDay), "day") > 1) {
-      return 0;
-    }
-
-    for (let i = 0; i < entries.length; i++) {
-      // Can't have a streak if the last day is before today
-      if (
-        dayjs(lastDay).diff(dayjs(entries[numEntries - 1 - i][0]), "day") > 1
-      ) {
+      if (targetIndex === -1) {
         break;
       }
 
-      const totalProtein = entries[numEntries - 1 - i][1].reduce(
-        (sum, e) => sum + e.grams,
-        0,
-      );
-      const target =
-        targets.find(([day]) =>
-          dayjs(day).isBefore(dayjs(entries[numEntries - 1 - i][0])),
-        )?.[1] ?? defaultTarget;
+      const target = targets[targetIndex][1];
+
       if (totalProtein >= target) {
         streak++;
-      } else if (i !== 0) {
+      }
+      // Don't count streak as broken if todays' target wasn't met yet
+      else if (dayjs(day).isSame(dayjs(), "day")) {
+        continue;
+      } else {
         break;
       }
-
-      lastDay = dayjs(entries[numEntries - 1 - i][0]);
     }
-
     return streak;
   },
 );

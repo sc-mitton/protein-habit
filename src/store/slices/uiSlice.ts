@@ -15,6 +15,7 @@ interface UIState {
 
 const initialState: UIState = {
   font: "inter",
+  accent: "blue",
   hasShownSuccessModal: false,
   day: dayjs().format(dayFormat),
 };
