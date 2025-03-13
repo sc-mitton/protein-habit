@@ -5,6 +5,7 @@ export const accentOptions = [
   "purple",
   "pink",
   "red",
+  "orange",
 ] as const;
 
 export type AccentOption = (typeof accentOptions)[number];

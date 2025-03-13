@@ -115,8 +115,8 @@ const Appearance = (props: HomeScreenProps<"Appearance">) => {
                   padding="xs"
                 >
                   <Box
-                    width={28}
-                    height={28}
+                    width={20}
+                    height={20}
                     borderRadius="full"
                     alignItems="center"
                     justifyContent="center"

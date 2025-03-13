@@ -22,8 +22,8 @@ const palette = {
 // Light theme
 const lightTheme = createTheme({
   colors: {
-    mainBackground: palette.gray50,
-    secondaryBackground: palette.gray150,
+    mainBackground: palette.gray100,
+    secondaryBackground: palette.gray50,
     foodItemBackground: palette.gray50,
     cardBackground: palette.gray50,
     secondaryCardBackground: palette.gray200,
@@ -32,7 +32,7 @@ const lightTheme = createTheme({
     placeholderText: palette.gray500,
     tertiaryText: palette.gray500,
     quaternaryText: palette.gray300,
-    borderColor: palette.gray250,
+    borderColor: palette.gray200,
     borderColorBold: palette.gray400,
     transparent: "transparent",
     error: "hsla(0, 84%, 60%, 1)",
@@ -46,14 +46,14 @@ const lightTheme = createTheme({
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
     primaryButton: palette.gray200,
-    primaryButtonPressed: palette.gray250,
     defaultShadow:
-      Platform.OS === "android" ? palette.gray800 : palette.gray400,
+      Platform.OS === "android" ? palette.gray1000 : palette.gray800,
     modalAndroidStatusBackground: "#858585",
     white: "white",
 
     // Accent colors
     yellow: "hsl(45, 57.40%, 47.80%)",
+    orange: "hsl(25, 70%, 50%)",
     green: "hsl(163, 75.00%, 28.20%)",
     blue: "hsl(228, 76.30%, 65.30%)",
     purple: "hsl(276, 63.90%, 64.10%)",
@@ -252,9 +252,8 @@ export const darkTheme: Theme = {
     overlay: "rgba(0, 0, 0, 0.9)",
     radioCardSelected: palette.gray200,
     radioCardUnselected: palette.gray100,
-    defaultShadow: palette.gray1000,
+    defaultShadow: palette.gray1100,
     primaryButton: palette.gray850,
-    primaryButtonPressed: palette.gray800,
     foodItemBackground: palette.gray850,
     modalAndroidStatusBackground: palette.gray1100,
   },

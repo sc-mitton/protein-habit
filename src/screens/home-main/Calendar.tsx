@@ -4,14 +4,13 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
-  TouchableHighlight,
   Platform,
+  Appearance,
 } from "react-native";
-import { useTheme } from "@shopify/restyle";
-import { Check, X, BarChart2 } from "geist-native-icons";
+import { Check, X } from "geist-native-icons";
 
 import { Text, Box, Icon, Tip } from "@components";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useAppSelector } from "@store/hooks";
 import {
   selectMonthlyDailyAverage,
@@ -20,13 +19,15 @@ import {
 import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
-import CalendarTip from "./Tips";
-const CALENDAR_WIDTH = Dimensions.get("window").width * 0.7;
+import { selectAccent } from "@store/slices/uiSlice";
+
+const CALENDAR_WIDTH = Dimensions.get("window").width;
 // the window width minus the calendar width
 const CALENDAR_NEGATIVE_SPACE = Dimensions.get("window").width - CALENDAR_WIDTH;
 const CALENDAR_PADDING = 12;
 
 const Calendar = () => {
+  const accent = useAppSelector(selectAccent);
   const userInception = useAppSelector(selectUserInception);
   const calendarRef = useRef<FlatList>(null);
   const calendarData = useMemo(
@@ -34,11 +35,9 @@ const Calendar = () => {
     [userInception],
   );
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
-  const [focusedCell, setFocusedCell] = useState<Dayjs>();
   const proteinMonthlyDailyAverage = useAppSelector((state) =>
     selectMonthlyDailyAverage(state, calendarData[currentIndex][0]),
   );
-  const theme = useTheme();
   useEffect(() => {
     setTimeout(() => {
       calendarRef.current?.scrollToEnd({ animated: false });
@@ -70,6 +69,7 @@ const Calendar = () => {
         <FlatList
           data={calendarData}
           style={styles.flatList}
+          nestedScrollEnabled={true}
           keyExtractor={(item) => item[0]}
           hitSlop={{ top: -64 }}
           horizontal
@@ -90,7 +90,7 @@ const Calendar = () => {
           })}
           decelerationRate={0.01}
           renderItem={({ item, index }) => (
-            <View
+            <Box
               key={`scroll-container-${index}`}
               style={[
                 styles.scrollContainer,
@@ -100,38 +100,53 @@ const Calendar = () => {
             >
               <Box
                 flexDirection="row"
-                justifyContent="space-between"
                 alignItems="center"
+                justifyContent="space-between"
+                paddingRight="l"
+                marginLeft="l"
+                paddingLeft="xxs"
+                gap="s"
               >
-                <Text fontSize={15} style={styles.monthHeader}>
+                <Text accent={true}>
                   {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
                 </Text>
-
                 <Box
-                  marginBottom="s"
-                  backgroundColor="primaryButtonPressed"
+                  paddingHorizontal="s"
+                  paddingVertical="xs"
                   borderRadius="s"
-                  marginRight="ml"
+                  overflow="hidden"
                 >
-                  <Tip
-                    offset={3}
-                    label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
+                  <Box
+                    backgroundColor={accent}
+                    opacity={0.2}
+                    style={StyleSheet.absoluteFill}
+                  />
+                  <Text
+                    color="primaryText"
+                    fontSize={12}
+                    lineHeight={16}
+                    variant="bold"
                   >
-                    <Box margin="xs">
-                      <Icon icon={BarChart2} size={16} strokeWidth={2} />
-                    </Box>
-                  </Tip>
+                    {`${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
+                  </Text>
                 </Box>
               </Box>
-              <View style={styles.monthContainer} key={item[0]}>
+              <Box style={styles.monthContainer} key={item[0]}>
                 {item[1].map((days: number[], columnIndex: number) => {
                   return (
-                    <View style={styles.column} key={`column-${columnIndex}`}>
-                      <View style={styles.cell}>
-                        <Text color="secondaryText" fontSize={14}>
+                    <View
+                      style={[
+                        styles.column,
+                        columnIndex == 0 && styles.firstColumn,
+                        columnIndex == 6 && styles.lastColumn,
+                      ]}
+                      key={`column-${columnIndex}`}
+                    >
+                      <Box style={styles.cell}>
+                        <Text fontSize={10} variant="bold">
                           {dayjs().day(columnIndex).format("dd")[0]}
                         </Text>
-                      </View>
+                      </Box>
                       {days.map((day, rowIndex) => {
                         const isBookend =
                           Math.abs(rowIndex - Math.floor(day / 7)) > 1;
@@ -151,95 +166,67 @@ const Calendar = () => {
                             : null;
 
                         return (
-                          <TouchableHighlight
-                            style={[
-                              styles.cellContainer,
-                              {
-                                zIndex:
-                                  focusedCell &&
-                                  focusedCell.isSame(
-                                    dayjs(item[0]).date(day),
-                                    "day",
-                                  )
-                                    ? 100
-                                    : 7 - rowIndex,
-                              },
-                            ]}
-                            disabled={isBookend || targetMet === null}
-                            activeOpacity={targetMet === undefined ? 1 : 0.97}
-                            underlayColor={theme.colors.primaryText}
-                            onPressOut={() => {
-                              if (focusedCell) {
-                                setFocusedCell(undefined);
-                              } else {
-                                setFocusedCell(dayjs(item[0]).date(day));
-                              }
-                            }}
-                            key={`cell-${columnIndex}-${rowIndex}`}
+                          <Box
+                            key={`cell-${dayInJS.format(dayFormat)}-${columnIndex}-${rowIndex}`}
+                            style={[styles.cell, { zIndex: rowIndex }]}
+                            borderColor="seperator"
+                            borderTopWidth={1.5}
                           >
-                            <>
-                              {focusedCell?.isSame(
-                                dayjs(item[0]).date(day),
-                                "day",
-                              ) &&
-                                !isBookend && (
-                                  <CalendarTip
-                                    targetResult={
-                                      mappedDailyTargetResults[
-                                        dayInJS.format(dayFormat)
-                                      ]
-                                    }
-                                    onOutsidePress={() =>
-                                      setFocusedCell(undefined)
-                                    }
+                            <Box
+                              style={StyleSheet.absoluteFill}
+                              opacity={
+                                Appearance.getColorScheme() == "dark" ? 0.3 : 1
+                              }
+                              backgroundColor={
+                                rowIndex % 2 == 0
+                                  ? "primaryButton"
+                                  : "transparent"
+                              }
+                            />
+                            <Tip
+                              offset={3}
+                              label={`Total: ${mappedDailyTargetResults[dayInJS.format(dayFormat)]?.[1]}g  \nTarget: ${mappedDailyTargetResults[dayInJS.format(dayFormat)]?.[3]}g`}
+                            >
+                              <Text
+                                color={
+                                  isBookend ? "secondaryText" : "primaryText"
+                                }
+                                lineHeight={24}
+                                fontSize={12}
+                              >
+                                {day}
+                              </Text>
+                            </Tip>
+                            <View style={styles.belowIconContainer}>
+                              <View style={styles.belowIcon}>
+                                {targetMet && !isBookend && (
+                                  <Icon
+                                    icon={Check}
+                                    size={10}
+                                    color={"primaryText"}
+                                    strokeWidth={4}
                                   />
                                 )}
-                              <Box
-                                borderRadius="m"
-                                style={styles.cell}
-                                backgroundColor="secondaryBackground"
-                              >
-                                <Text
-                                  color={
-                                    isBookend ? "secondaryText" : "primaryText"
-                                  }
-                                  lineHeight={24}
-                                  fontSize={12}
-                                >
-                                  {day}
-                                </Text>
-                                <View style={styles.belowIconContainer}>
-                                  <View style={styles.belowIcon}>
-                                    {targetMet && !isBookend && (
-                                      <Icon
-                                        icon={Check}
-                                        size={10}
-                                        color={"primaryText"}
-                                        strokeWidth={4}
-                                      />
-                                    )}
-                                    {targetMet === false &&
-                                      !isBookend &&
-                                      !dayInJS.isSame(dayjs(), "day") && (
-                                        <Icon
-                                          icon={X}
-                                          size={12}
-                                          color={"error"}
-                                          strokeWidth={3}
-                                        />
-                                      )}
-                                  </View>
-                                </View>
-                              </Box>
-                            </>
-                          </TouchableHighlight>
+                                {targetMet === false &&
+                                  !isBookend &&
+                                  !dayInJS.isSame(dayjs(), "day") && (
+                                    <Icon
+                                      icon={X}
+                                      size={12}
+                                      color={"error"}
+                                      strokeWidth={3}
+                                    />
+                                  )}
+                              </View>
+                            </View>
+                          </Box>
                         );
                       })}
                     </View>
                   );
                 })}
-              </View>
-            </View>
+              </Box>
+            </Box>
           )}
         />
       </View>
@@ -250,8 +237,7 @@ const Calendar = () => {
 const styles = StyleSheet.create({
   calendarContainer: {
     alignItems: "flex-start",
-    paddingTop: 12,
-    paddingBottom: 24,
+    transform: [{ translateY: 16 }],
   },
   flatList: {
     paddingVertical: 64,
@@ -264,7 +250,6 @@ const styles = StyleSheet.create({
   scrollContainer: {
     marginTop: 8,
     flexDirection: "column",
-    backgroundColor: "red",
   },
   lastScrollContainer: {
     paddingRight: CALENDAR_NEGATIVE_SPACE / 2,
@@ -272,37 +257,33 @@ const styles = StyleSheet.create({
   firstScrollContainer: {
     paddingLeft: CALENDAR_NEGATIVE_SPACE / 2,
   },
-  monthHeader: {
-    paddingHorizontal: CALENDAR_PADDING + 12,
-    marginBottom: 8,
-  },
   monthContainer: {
     flexDirection: "row",
     width: CALENDAR_WIDTH,
+    paddingTop: 16,
     paddingHorizontal: CALENDAR_PADDING,
+  },
+  firstColumn: {
+    marginLeft: 12,
+  },
+  lastColumn: {
+    marginRight: 12,
   },
   column: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
   },
-  cellContainer: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 6,
-  },
   cell: {
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 4,
+    justifyContent: "flex-start",
     paddingHorizontal: Platform.OS === "ios" ? 3 : 4,
-    paddingVertical: Platform.OS === "ios" ? 4 : 5,
+    paddingBottom: Platform.OS === "ios" ? 11 : 12,
   },
   belowIconContainer: {
     position: "absolute",
-    bottom: 0,
+    bottom: 10,
     zIndex: 10,
     left: "50%",
     justifyContent: "center",

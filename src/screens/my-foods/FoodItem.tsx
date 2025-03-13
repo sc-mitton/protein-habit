@@ -107,7 +107,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
       <Box
         backgroundColor="transparent"
         shadowColor="defaultShadow"
-        shadowOpacity={0.2}
+        shadowOpacity={0.1}
         shadowOffset={{ width: 0, height: 2 }}
         shadowRadius={2}
         elevation={5}
@@ -119,7 +119,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           borderRadius="l"
           shadowColor="defaultShadow"
           shadowOffset={{ width: 0, height: 2 }}
-          shadowOpacity={0.2}
+          shadowOpacity={0.1}
           shadowRadius={8}
           elevation={5}
           flexDirection="row"

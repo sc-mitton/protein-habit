@@ -1,5 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Dimensions, StyleSheet, ScrollView, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+  View,
+  Platform,
+} from "react-native";
 import Animated, {
   useSharedValue,
   withTiming,
@@ -118,9 +124,14 @@ const Tabs = () => {
         justifyContent="center"
         borderTopEndRadius="xl"
         borderTopStartRadius="xl"
-        backgroundColor="secondaryBackground"
         flex={1}
         zIndex={1}
+        backgroundColor="secondaryBackground"
+        shadowColor="defaultShadow"
+        shadowOpacity={Platform.OS === "ios" ? 0.3 : 1}
+        shadowOffset={{ width: 0, height: 2 }}
+        shadowRadius={12}
+        elevation={12}
       >
         <ScrollView
           horizontal

@@ -131,9 +131,10 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
               backgroundColor="transparent"
               borderColor="borderColor"
               borderWidth={1}
-              padding="xs"
-              paddingHorizontal="sm"
-              fontSize={14}
+              padding="s"
+              paddingVertical="xxs"
+              paddingHorizontal="s"
+              fontSize={15}
               labelPlacement="left"
               onPress={() => {
                 props.navigation.navigate("AddFood");
@@ -172,7 +173,6 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
             marginTop="m"
             borderTopColor="borderColor"
             borderTopWidth={1}
-            backgroundColor="secondaryBackground"
             style={{ height: Dimensions.get("window").height / 2 }}
           >
             <Box flexDirection="row" paddingTop="m" paddingHorizontal="l">
