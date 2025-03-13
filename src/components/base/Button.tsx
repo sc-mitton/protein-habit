@@ -59,6 +59,7 @@ export type ButtonProps = RestyleProps &
     transparent?: boolean;
     style?: StyleProp<ViewStyle>;
     icon?: React.ReactNode;
+    accent?: boolean;
   };
 
 export const Button = (props: ButtonProps) => {
@@ -72,6 +73,7 @@ export const Button = (props: ButtonProps) => {
     labelPlacement = "right",
     onLayout,
     icon,
+    accent,
     ...rest
   } = props;
   const restyledProps = useRestyle(restyleFunctions, rest);
@@ -102,6 +104,7 @@ export const Button = (props: ButtonProps) => {
               color={transparent ? "transparent" : textColor}
               fontSize={fontSize}
               lineHeight={lineHeight}
+              accent={accent}
               style={
                 textColor
                   ? {}

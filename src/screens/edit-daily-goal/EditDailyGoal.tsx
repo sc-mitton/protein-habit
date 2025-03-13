@@ -156,6 +156,7 @@ const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
               weight is recommended for most people trying to build muscle.
             </Text>
             <Button
+              accent={true}
               onPress={() => {
                 dispatch(
                   setDailyTarget(

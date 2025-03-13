@@ -53,33 +53,24 @@ const selectMonthlyDailyAverage = createSelector(
       );
     }).length;
 
-    // How many days are we averaging over?
-    // It could be
-    // 1 number of days with entries in the month
-    // 2 days since the users inception
-    // 3 number of days in the month
-    // 4 today minus the start of the month
-    // When should it be each of these?
-    // - Always choose min of 3 & 4
-    // - Of above result choose min of that and 2
-    // - Choose max of that and 1
-    const denominator = Math.max(
-      daysWithEntries,
-      Math.min(
-        dayjs().diff(dayjs(user.inceptionDate), "day"),
-        Math.min(
-          dayjs().diff(date.startOf("month"), "day"),
-          date.daysInMonth(),
-        ),
-      ),
-    );
+    const startDate = dayjs(user.inceptionDate).isBefore(date.startOf("month"))
+      ? date.startOf("month")
+      : dayjs(user.inceptionDate).subtract(1, "day");
+    const endDate = dayjs().isAfter(date.endOf("month"))
+      ? date.endOf("month")
+      : dayjs();
+
+    const denominator = Math.abs(dayjs(startDate).diff(endDate, "day"));
 
     const avgProteinPerDay =
       daysWithEntries > 0
         ? Big(totalProtein).div(denominator).round(1).toNumber()
         : 0;
 
-    return { avgProteinPerDay, totalProtein };
+    return {
+      avgProteinPerDay,
+      totalProtein,
+    };
   },
 );
 
