@@ -1,5 +1,6 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { View, Dimensions, ScrollView, StyleSheet } from "react-native";
 import { Plus, Minus, ChevronDown } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import Animated, { LinearTransition } from "react-native-reanimated";
@@ -14,26 +15,39 @@ import { HomeScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
 import FoodList from "./FoodList";
+import { Theme } from "@theme";
 
-const Appearance = (props: HomeScreenProps<"MyFoods">) => {
+const styles = StyleSheet.create({
+  selectedItemsScroll: {
+    height: "auto",
+  },
+});
+
+const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
   const dispatch = useAppDispatch();
-  const theme = useTheme();
   const foods = useAppSelector(selectFoods);
 
   const [day, setDay] = useState(dayjs().format(dayFormat));
   const [openDatePicker, setOpenDatePicker] = useState(false);
-  const [selectedFoods, setSelectedFoods] = useState<Food[]>([]);
-  const [selectedAmounts, setSelectedAmounts] = useState<number[]>([1]);
+  const [selectedFoods, setSelectedFoods] = useState<
+    {
+      food: Food;
+      amount: number;
+    }[]
+  >([]);
 
   useEffect(() => {
     if (props.route.params?.entry) {
-      setSelectedFoods(
-        foods.filter((food) => food.id === props.route.params?.entry?.food),
-      );
-      setSelectedAmounts([
-        props.route.params?.entry?.grams! /
-          foods.find((food) => food.id === props.route.params?.entry?.food)!
-            .protein,
+      setSelectedFoods([
+        {
+          food: foods.find(
+            (food) => food.id === props.route.params?.entry?.food,
+          )!,
+          amount:
+            props.route.params?.entry?.grams! /
+            foods.find((food) => food.id === props.route.params?.entry?.food)!
+              .protein,
+        },
       ]);
     }
   }, [props.route.params?.entry]);
@@ -43,16 +57,16 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
       dispatch(
         updateEntry({
           ...props.route.params.entry,
-          food: selectedFoods[0].id,
-          grams: selectedFoods[0].protein * selectedAmounts[0],
+          food: selectedFoods[0].food.id,
+          grams: selectedFoods[0].food.protein * selectedFoods[0].amount,
         }),
       );
     } else {
       for (let i = 0; i < selectedFoods.length; i++) {
         dispatch(
           addEntry({
-            grams: selectedFoods[i].protein * selectedAmounts[i],
-            food: selectedFoods[i].id,
+            grams: selectedFoods[i].food.protein * selectedFoods[i].amount,
+            food: selectedFoods[i].food.id,
             day,
           }),
         );
@@ -62,8 +76,8 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
   };
 
   return (
-    <Fragment>
-      <Box gap="m" marginBottom="l" paddingHorizontal="l">
+    <View style={{ maxHeight: Dimensions.get("window").height }}>
+      <Box gap="m" paddingLeft="l" paddingRight="m">
         <Box
           justifyContent="space-between"
           alignItems="center"
@@ -138,127 +152,111 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
           )}
         </Box>
       </Box>
-      <Box minHeight={200} marginBottom="xl">
+      <Box>
         {!props.route.params?.entry && (
-          <FoodList
-            selectedFoods={selectedFoods}
-            onPress={(food) => {
-              setSelectedFoods([...selectedFoods, food]);
-              setSelectedAmounts([...selectedAmounts, 1]);
+          <View
+            style={{
+              height: selectedFoods.length > 0 ? 348 : "auto",
             }}
-          />
+          >
+            <FoodList
+              selectedFoods={selectedFoods.map((food) => food.food.id)}
+              onPress={(food) => {
+                setSelectedFoods([...selectedFoods, { food, amount: 1 }]);
+              }}
+            />
+          </View>
         )}
         {selectedFoods.length > 0 && (
-          <Box marginTop="m">
-            <Box flexDirection="row" justifyContent="space-between">
-              <Box gap="m">
-                <Box
-                  borderBottomColor="seperator"
-                  borderBottomWidth={1.5}
-                  paddingBottom="s"
-                >
-                  <Text variant="body" paddingLeft="l" color="tertiaryText">
-                    Amount
-                  </Text>
-                </Box>
+          <Box
+            marginTop="m"
+            borderTopColor="borderColor"
+            borderTopWidth={1}
+            backgroundColor="secondaryBackground"
+            style={{ height: Dimensions.get("window").height / 2 }}
+          >
+            <Box flexDirection="row" paddingTop="m" paddingHorizontal="l">
+              <Box width={80}>
+                <Text color="secondaryText">Amount</Text>
+              </Box>
+              <Box flex={1} justifyContent="flex-start" paddingLeft="l">
+                <Text color="secondaryText">Name</Text>
+              </Box>
+              <Text color="secondaryText">Protein</Text>
+            </Box>
+            <Box maxHeight={180} height="auto" paddingTop="s">
+              <ScrollView style={styles.selectedItemsScroll}>
                 {selectedFoods.map((food, index) => (
                   <Box
-                    marginLeft="l"
-                    gap="s"
-                    backgroundColor="primaryButton"
-                    borderRadius="m"
+                    paddingHorizontal="l"
+                    marginVertical="s"
+                    key={`food-${food.food.id}`}
                     flexDirection="row"
-                    alignItems="center"
-                    paddingVertical="xs"
-                    paddingHorizontal="s"
-                    key={`amount-button-${index}`}
                   >
-                    <Button
-                      padding="xs"
-                      icon={<Icon icon={Minus} size={16} strokeWidth={2.5} />}
-                      onPress={() => {
-                        if (selectedAmounts[index] > 1) {
-                          setSelectedAmounts((prev) => {
-                            const newAmounts = [...prev];
-                            newAmounts[index] = prev[index] - 1;
-                            return newAmounts;
-                          });
-                        }
-                        // If editin the entry, don't allow to go to 0.
-                        // User should just remove the entry instead.
-                        else if (!props.route.params?.entry) {
-                          setSelectedFoods((prev) =>
-                            prev.filter((_, i) => i !== index),
-                          );
-                          setSelectedAmounts((prev) =>
-                            prev.filter((_, i) => i !== index),
-                          );
-                        }
-                      }}
-                    />
-                    <Text variant="body">
-                      {selectedAmounts?.[index]?.toString() ?? "1"}
-                    </Text>
-                    <Button
-                      padding="xs"
-                      icon={<Icon icon={Plus} size={16} strokeWidth={2.5} />}
-                      onPress={() => {
-                        setSelectedAmounts((prev) => {
-                          const newAmounts = [...prev];
-                          newAmounts[index] = prev[index] + 1;
-                          return newAmounts;
-                        });
-                      }}
-                    />
+                    <Box width={80}>
+                      <Box
+                        flexDirection="row"
+                        alignItems="center"
+                        justifyContent="center"
+                        backgroundColor="primaryButton"
+                        borderRadius="m"
+                        gap="s"
+                        paddingHorizontal="s"
+                        paddingVertical="xxs"
+                      >
+                        <Button
+                          padding="xs"
+                          icon={
+                            <Icon icon={Minus} size={16} strokeWidth={2.5} />
+                          }
+                          onPress={() => {
+                            if (selectedFoods[index].amount === 1) {
+                              setSelectedFoods(
+                                selectedFoods.filter((_, i) => i !== index),
+                              );
+                            } else {
+                              setSelectedFoods(
+                                selectedFoods.map((food, i) =>
+                                  i === index
+                                    ? { ...food, amount: food.amount - 1 }
+                                    : food,
+                                ),
+                              );
+                            }
+                          }}
+                        />
+                        <Text>{selectedFoods[index].amount}</Text>
+                        <Button
+                          padding="xs"
+                          icon={
+                            <Icon icon={Plus} size={16} strokeWidth={2.5} />
+                          }
+                          onPress={() => {
+                            setSelectedFoods(
+                              selectedFoods.map((food, i) =>
+                                i === index
+                                  ? {
+                                      ...food,
+                                      amount: Math.min(food.amount + 1, 9),
+                                    }
+                                  : food,
+                              ),
+                            );
+                          }}
+                        />
+                      </Box>
+                    </Box>
+                    <Box flex={1} justifyContent="flex-start" paddingLeft="l">
+                      <Text>{food.food.name}</Text>
+                    </Box>
+                    <Text>{food.food.protein * food.amount}g</Text>
                   </Box>
                 ))}
-              </Box>
-              <Box gap="m" flex={1}>
-                <Box
-                  borderBottomColor="seperator"
-                  borderBottomWidth={1.5}
-                  paddingBottom="s"
-                >
-                  <Text variant="body" paddingLeft="l" color="tertiaryText">
-                    Name
-                  </Text>
-                </Box>
-                {selectedFoods.map((food) => (
-                  <Text
-                    variant="body"
-                    paddingLeft="l"
-                    paddingVertical="xs"
-                    key={`name-${food.id}`}
-                  >
-                    {food.name}
-                  </Text>
-                ))}
-              </Box>
-              <Box gap="m">
-                <Box
-                  borderBottomColor="seperator"
-                  borderBottomWidth={1.5}
-                  paddingBottom="s"
-                >
-                  <Text variant="body" paddingRight="l" color="tertiaryText">
-                    Total
-                  </Text>
-                </Box>
-                {selectedFoods.map((food, index) => (
-                  <Text
-                    key={`amount-${index}`}
-                    variant="body"
-                    paddingRight="l"
-                    textAlign="right"
-                    paddingVertical="xs"
-                  >
-                    {food.protein * selectedAmounts[index]}g
-                  </Text>
-                ))}
-              </Box>
+              </ScrollView>
             </Box>
             <Animated.View layout={LinearTransition}>
               <Button
+                marginBottom="xxl"
                 marginHorizontal="l"
                 variant="primary"
                 onPress={handleSave}
@@ -268,28 +266,30 @@ const Appearance = (props: HomeScreenProps<"MyFoods">) => {
                     ? "Save"
                     : `Add ${selectedFoods.reduce(
                         (acc, food, index) =>
-                          acc + food.protein * selectedAmounts[index],
+                          acc + food.food.protein * food.amount,
                         0,
                       )} g`
                 }
-                marginTop="xxl"
-                marginBottom="l"
+                marginTop="l"
               />
             </Animated.View>
           </Box>
         )}
       </Box>
-    </Fragment>
+    </View>
   );
 };
 
 export default function (props: HomeScreenProps<"MyFoods">) {
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
 
   return (
     <BottomSheet
-      onClose={() => props.navigation.goBack()}
       enablePanDownToClose
+      onClose={() => props.navigation.goBack()}
+      topInset={theme.spacing.statusBar * 2.5}
+      enableOverDrag={false}
+      enableDynamicSizing={true}
       backgroundStyle={{
         backgroundColor: theme.colors.mainBackground,
       }}
@@ -299,7 +299,7 @@ export default function (props: HomeScreenProps<"MyFoods">) {
       backdropComponent={() => <BackDrop blurIntensity={30} />}
     >
       <BottomSheetView>
-        <Appearance {...props} />
+        <MyFoods {...props} />
       </BottomSheetView>
     </BottomSheet>
   );

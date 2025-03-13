@@ -22,7 +22,7 @@ function Menu() {
       {Platform.OS === "ios" ? (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Icon icon={MoreHorizontal} size={22} color={"primaryText"} />
+            <Icon icon={MoreHorizontal} size={26} color={"primaryText"} />
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
             <DropdownMenu.Item
@@ -81,7 +81,7 @@ function Menu() {
             anchorPosition="top"
             onDismiss={() => setIsOpen(false)}
             contentStyle={{
-              marginTop: 74,
+              marginTop: 94,
               borderRadius: 12,
               paddingVertical: -8,
               overflow: "hidden",
@@ -96,7 +96,7 @@ function Menu() {
                   },
                 }}
               >
-                <Icon icon={MoreHorizontal} size={24} color={"primaryText"} />
+                <Icon icon={MoreHorizontal} size={28} color={"primaryText"} />
               </PaperButton>
             }
             visible={isOpen}

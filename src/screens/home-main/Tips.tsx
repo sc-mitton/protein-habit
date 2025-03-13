@@ -14,7 +14,7 @@ export const CalendarTip = (props: CalendarTipProps) => (
     style={styles.aboveTip}
     onOutsidePress={props.onOutsidePress}
   >
-    <TipContainer>
+    <TipContainer offset={3}>
       <Text variant="body" fontSize={14}>
         Total:&nbsp;
         {props.targetResult[1]}

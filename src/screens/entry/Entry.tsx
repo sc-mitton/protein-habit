@@ -242,7 +242,13 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
 
   return (
     <Box flex={1} backgroundColor="mainBackground">
-      <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
+      {Platform.OS === "ios" && (
+        <StatusBar
+          style={"light"}
+          backgroundColor={"transparent"}
+          translucent
+        />
+      )}
       <Box
         paddingTop={Platform.OS === "android" ? "none" : "m"}
         borderRadius="m"

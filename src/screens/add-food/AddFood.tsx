@@ -84,20 +84,31 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
               <Icon icon={X} size={20} color="primaryText" strokeWidth={2} />
             }
           />
-          <Box
-            borderBottomWidth={1.5}
-            borderBottomColor="seperator"
-            paddingBottom="m"
-            marginBottom="xl"
-          >
-            {Platform.OS === "android" ? (
-              <BackButton />
-            ) : (
+          {Platform.OS === "ios" && (
+            <Box
+              borderBottomWidth={1.5}
+              borderBottomColor="seperator"
+              paddingBottom="m"
+              marginBottom="xl"
+            >
+              <Button
+                onPress={() => navigation.goBack()}
+                variant="circleButton"
+                style={{ position: "absolute", top: -12, right: -12 }}
+                icon={
+                  <Icon
+                    icon={X}
+                    size={18}
+                    color="primaryText"
+                    strokeWidth={2.5}
+                  />
+                }
+              />
               <Text variant="header">
                 {route.params?.food ? "Edit Food" : "Add Food"}
               </Text>
-            )}
-          </Box>
+            </Box>
+          )}
           <Box gap="m">
             <Box>
               <Text variant="label">Name</Text>

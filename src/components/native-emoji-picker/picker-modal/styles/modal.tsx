@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   sectionListContent: {
-    paddingBottom: 0,
+    paddingBottom: 64,
   },
 });
 

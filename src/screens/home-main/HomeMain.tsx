@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import SlotNumbers from "react-native-slot-numbers";
-import { Plus, Calendar as CalendarIcon } from "geist-native-icons";
+import { Plus } from "geist-native-icons";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
-import * as Device from "expo-device";
 import dayjs from "dayjs";
 
 import styles from "./styles/home-screen";
@@ -19,7 +18,6 @@ import {
   selectUserInception,
 } from "@store/slices/userSlice";
 import { baseIap } from "@constants/iaps";
-import Calendar from "./Calendar";
 import Tabs from "./Tabs";
 
 const HomeMain = (props: HomeScreenProps<"Main">) => {
@@ -107,20 +105,6 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
         </ReAnimated.View>
       </Box>
       <Tabs />
-      {Device.osName === "iPadOS" ? (
-        <Box justifyContent="center" alignItems="center">
-          <Button
-            marginVertical="m"
-            borderColor="borderColor"
-            borderWidth={1.5}
-            borderRadius="full"
-            icon={<Icon icon={CalendarIcon} size={24} />}
-            onPress={() => props.navigation.navigate("Calendar")}
-          />
-        </Box>
-      ) : (
-        <Calendar />
-      )}
     </Box>
   );
 };

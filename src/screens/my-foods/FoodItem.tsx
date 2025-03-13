@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Platform, useColorScheme } from "react-native";
+import { View, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
@@ -102,8 +102,6 @@ const Menu = ({
 };
 
 const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
-  const scheme = useColorScheme();
-
   return (
     <Menu food={food}>
       <Box
@@ -118,7 +116,6 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           key={food.id}
           backgroundColor="foodItemBackground"
           padding={Platform.OS === "ios" ? "s" : "sm"}
-          paddingRight="xxs"
           borderRadius="l"
           shadowColor="defaultShadow"
           shadowOffset={{ width: 0, height: 2 }}
@@ -129,7 +126,14 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box flexDirection="row" alignItems="center" gap="xs" marginRight="s">
+          <Button
+            flexDirection="row"
+            alignItems="center"
+            padding="none"
+            gap="s"
+            marginRight="s"
+            onPress={onPress}
+          >
             <Text fontSize={20} lineHeight={28}>
               {food.emoji}
             </Text>
@@ -149,18 +153,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
                 {food.protein}g
               </Text>
             </Box>
-          </Box>
-          <Button
-            onPress={onPress}
-            icon={
-              <Icon
-                icon={Plus}
-                size={20}
-                strokeWidth={2}
-                color="tertiaryText"
-              />
-            }
-          />
+          </Button>
         </Box>
       </Box>
     </Menu>

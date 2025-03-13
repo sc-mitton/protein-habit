@@ -1,11 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  Platform,
-  ScrollView,
-  View,
-} from "react-native";
+import { Dimensions, StyleSheet, ScrollView, View } from "react-native";
 import Animated, {
   useSharedValue,
   withTiming,
@@ -122,14 +116,9 @@ const Tabs = () => {
       </Box>
       <Box
         justifyContent="center"
-        borderTopWidth={Platform.OS === "android" ? 2 : 0}
-        borderTopColor="seperator"
+        borderTopEndRadius="xl"
+        borderTopStartRadius="xl"
         backgroundColor="secondaryBackground"
-        shadowColor="seperator"
-        shadowOffset={{ width: 0, height: -1 }}
-        shadowOpacity={0.7}
-        shadowRadius={1}
-        elevation={12}
         flex={1}
         zIndex={1}
       >

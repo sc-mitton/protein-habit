@@ -104,20 +104,31 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="mainBackground" padding="l">
-      <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
+    <Box
+      flex={1}
+      backgroundColor="mainBackground"
+      padding="l"
+      paddingTop="none"
+    >
+      {Platform.OS === "ios" && (
+        <StatusBar
+          style={"light"}
+          backgroundColor={"transparent"}
+          translucent
+        />
+      )}
       <Box flex={1}>
         {Platform.OS === "ios" && (
           <Box
-            borderBottomWidth={1}
+            paddingTop="l"
+            borderBottomWidth={1.5}
             borderBottomColor="borderColor"
             paddingBottom="m"
-            marginBottom="xl"
           >
             <Button
               onPress={() => props.navigation.goBack()}
               variant="circleButton"
-              style={{ position: "absolute", top: -12, right: -12 }}
+              style={{ position: "absolute", top: 12, right: -12 }}
               icon={
                 <Icon
                   icon={X}
@@ -130,7 +141,7 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
             <Text variant="header">Personal Info</Text>
           </Box>
         )}
-        <Box marginBottom="m">
+        <Box marginVertical="l">
           <Text variant="label">Name</Text>
           <Controller
             control={control}
@@ -156,7 +167,7 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
             control={control}
             name="weight"
             render={({ field: { onChange, value } }) => {
-              return (
+              return Platform.OS === "ios" ? (
                 <Slider
                   defaultValue={Number(value)}
                   onChange={(v) => onChange(v.toString())}
@@ -169,6 +180,16 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
                   max={300}
                   step={1}
                 />
+              ) : (
+                <Box marginTop="nl">
+                  <TextInput
+                    keyboardType="numeric"
+                    value={value}
+                    onChangeText={onChange}
+                    placeholder="Your weight"
+                    error={!!errors.weight}
+                  />
+                </Box>
               );
             }}
           />

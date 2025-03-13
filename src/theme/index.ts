@@ -4,6 +4,7 @@ import { StatusBar, Platform } from "react-native";
 const palette = {
   gray50: "hsla(30, 2%, 98%, 1)",
   gray100: "hsla(30, 2%, 95%, 1)",
+  gray150: "hsla(30, 2%, 92%, 1)",
   gray200: "hsla(30, 2%, 90%, 1)",
   gray250: "hsla(30, 2%, 87%, 1)",
   gray300: "hsla(30, 2%, 83%, 1)",
@@ -21,22 +22,17 @@ const palette = {
 // Light theme
 const lightTheme = createTheme({
   colors: {
-    mainBackground: palette.gray100,
-    secondaryBackground: palette.gray100
-      .replace(
-        /(\d+)%,\s\d\)/,
-        (match) => `${Math.max(0, parseInt(match) + 5)}%, 1)`,
-      )
-      .toString(),
+    mainBackground: palette.gray50,
+    secondaryBackground: palette.gray150,
     foodItemBackground: palette.gray50,
-    cardBackground: palette.gray100,
+    cardBackground: palette.gray50,
     secondaryCardBackground: palette.gray200,
     primaryText: palette.gray900,
     secondaryText: palette.gray600,
     placeholderText: palette.gray500,
     tertiaryText: palette.gray500,
     quaternaryText: palette.gray300,
-    borderColor: palette.gray200,
+    borderColor: palette.gray250,
     borderColorBold: palette.gray400,
     transparent: "transparent",
     error: "hsla(0, 84%, 60%, 1)",
@@ -45,13 +41,14 @@ const lightTheme = createTheme({
     selectedSecondary: "hsla(210, 100%, 50%, .5)",
     success: "rgb(17, 155, 81)",
     unselected: "transparent",
-    seperator: palette.gray200,
+    seperator: palette.gray250,
     overlay: "rgba(0, 0, 0, 0.5)",
-    calendarSectionShadow: palette.gray400,
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
-    defaultShadow: palette.gray400,
     primaryButton: palette.gray200,
+    primaryButtonPressed: palette.gray250,
+    defaultShadow:
+      Platform.OS === "android" ? palette.gray800 : palette.gray400,
     modalAndroidStatusBackground: "#858585",
     white: "white",
 
@@ -235,13 +232,13 @@ export const darkTheme: Theme = {
   ...lightTheme,
   colors: {
     ...lightTheme.colors,
-    mainBackground: palette.gray900,
-    secondaryBackground: palette.gray900
+    mainBackground: palette.gray900
       .replace(
         /(\d+)%,\s\d\)/,
         (match) => `${Math.max(0, parseInt(match) - 3)}%, 1)`,
       )
       .toString(),
+    secondaryBackground: palette.gray900,
     cardBackground: palette.gray850,
     secondaryCardBackground: palette.gray700,
     primaryText: palette.gray50,
@@ -257,10 +254,9 @@ export const darkTheme: Theme = {
     radioCardUnselected: palette.gray100,
     defaultShadow: palette.gray1000,
     primaryButton: palette.gray850,
+    primaryButtonPressed: palette.gray800,
     foodItemBackground: palette.gray850,
     modalAndroidStatusBackground: palette.gray1100,
-    calendarSectionShadow:
-      Platform.OS === "android" ? palette.gray850 : palette.gray800,
   },
 };
 

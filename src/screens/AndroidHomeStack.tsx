@@ -3,12 +3,11 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from "@react-navigation/stack";
-import { Platform, AppState, StyleSheet } from "react-native";
-import { Menu2 } from "geist-native-icons";
+import { AppState } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { Box, Text, Icon, Button } from "@components";
+import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import WelcomeScreen from "./welcome/WelcomeScreen";
 import HomeMainScreen from "./home-main/HomeMain";
@@ -26,6 +25,7 @@ import SuccessModal from "./success/SuccessModal";
 import Purchase from "./purchase/Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
+import CalendarSheet from "./home-main/CalendarSheet";
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
@@ -107,12 +107,18 @@ const RootStack = (props: RootScreenProps<"Home">) => {
                 alignItems="center"
                 paddingHorizontal="m"
               >
-                <Box flex={1}>
+                {/* <Box flex={1}>
                   <Button onPress={() => props.navigation.openDrawer()}>
                     <Icon icon={Menu2} strokeWidth={2} size={22} />
                   </Button>
-                </Box>
-                <Box alignItems="center" gap="xs" flex={2} flexGrow={2}>
+                </Box> */}
+                <Box
+                  // alignItems="center"
+                  alignItems="flex-start"
+                  gap="xs"
+                  flex={2}
+                  flexGrow={2}
+                >
                   <Text>Welcome, {name}</Text>
                   <Text color="tertiaryText">
                     {currentDay.format("MMM D, YYYY")}
@@ -146,6 +152,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           options={{ animation: "fade" }}
         />
         <Stack.Screen name="Purchase" component={Purchase} />
+        <Stack.Screen name="Calendar" component={CalendarSheet} />
       </Stack.Group>
 
       {/* Other Modals */}
@@ -163,18 +170,23 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         options={{
           animation: "fade_from_bottom",
           presentation: "modal",
-          headerShown: Platform.OS === "android" ? true : false,
-          ...(Platform.OS === "android" && androidHeaderOptions),
+          headerShown: true,
+          ...androidHeaderOptions,
         }}
       />
       <Stack.Screen
         options={{
           presentation: "modal",
           animation: "fade_from_bottom",
-          headerShown: Platform.OS === "android" ? true : false,
+          headerShown: true,
           headerTitle: "Personal Info",
           headerBackground: () => (
-            <Box backgroundColor="mainBackground" flex={1} />
+            <Box
+              backgroundColor="mainBackground"
+              flex={1}
+              borderBottomWidth={1.5}
+              borderBottomColor="borderColor"
+            />
           ),
           headerTintColor: theme.colors.primaryText,
         }}
@@ -185,11 +197,20 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         name="AddFood"
         component={AddFood}
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: "Add Food",
+          headerBackTitle: "",
+          headerBackground: () => (
+            <Box
+              backgroundColor="mainBackground"
+              flex={1}
+              borderBottomWidth={1.5}
+              borderBottomColor="borderColor"
+            />
+          ),
           presentation: "modal",
-          ...(Platform.OS === "android" && androidHeaderOptions),
           animation: "fade_from_bottom",
-          headerShadowVisible: false,
+          ...androidHeaderOptions,
         }}
       />
     </Stack.Navigator>

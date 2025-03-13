@@ -66,7 +66,7 @@ const Days = ({
           width={pillWidth}
           style={{ transform: [{ translateX: -pillWidth / 2 }] }}
           height={32}
-          backgroundColor="mainBackground"
+          backgroundColor="primaryButtonPressed"
           position="absolute"
           borderRadius="m"
         />

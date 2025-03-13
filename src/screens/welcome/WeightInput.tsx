@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Image, useColorScheme } from "react-native";
+import { Image, useColorScheme, Platform } from "react-native";
 
 import logo from "../../../assets/icon.png";
-import { Box, Text, Button, Radios } from "@components";
+import { Box, Text, Button, TextInput } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import {
   getRecommendedTarget,
@@ -65,15 +65,25 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
           </Text>
         </Box>
         <Box marginVertical="l">
-          <Slider
-            onChange={setWeightValue}
-            defaultValue={160}
-            fontStyle={{ color: theme.colors.primaryText, fontSize: 18 }}
-            min={weightUnit === "lbs" ? 80 : 36}
-            max={weightUnit === "lbs" ? 300 : 150}
-            tickColor={theme.colors.primaryText}
-            step={weightUnit === "lbs" ? 1 : 0.5}
-          />
+          {Platform.OS === "ios" ? (
+            <Slider
+              onChange={setWeightValue}
+              defaultValue={160}
+              fontStyle={{ color: theme.colors.primaryText, fontSize: 18 }}
+              min={weightUnit === "lbs" ? 80 : 36}
+              max={weightUnit === "lbs" ? 300 : 150}
+              tickColor={theme.colors.primaryText}
+              step={weightUnit === "lbs" ? 1 : 0.5}
+            />
+          ) : (
+            <TextInput
+              backgroundColor="mainBackground"
+              keyboardType="numeric"
+              value={weight?.toString()}
+              onChangeText={(text) => setWeightValue(Number(text))}
+              placeholder="160"
+            />
+          )}
         </Box>
         <Box
           alignContent="center"
@@ -86,10 +96,12 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
           <Button
             variant="pill"
             backgroundColor={
-              weightUnit === "lbs" ? "primaryButton" : "transparent"
+              weightUnit === "lbs" ? "primaryButtonPressed" : "transparent"
             }
             borderColor={
-              weightUnit === "lbs" ? "primaryButton" : "primaryButton"
+              weightUnit === "lbs"
+                ? "primaryButtonPressed"
+                : "primaryButtonPressed"
             }
             borderWidth={1.5}
             label="lbs"
@@ -99,10 +111,12 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
           <Button
             variant="pill"
             borderColor={
-              weightUnit === "kg" ? "primaryButton" : "primaryButton"
+              weightUnit === "kg"
+                ? "primaryButtonPressed"
+                : "primaryButtonPressed"
             }
             backgroundColor={
-              weightUnit === "kg" ? "primaryButton" : "transparent"
+              weightUnit === "kg" ? "primaryButtonPressed" : "transparent"
             }
             borderWidth={1.5}
             width={60}

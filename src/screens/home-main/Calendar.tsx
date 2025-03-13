@@ -65,19 +65,7 @@ const Calendar = () => {
   }, [dailyTargetResults]);
 
   return (
-    <Box
-      elevation={8}
-      paddingVertical="l"
-      justifyContent="center"
-      backgroundColor="mainBackground"
-      shadowColor="calendarSectionShadow"
-      shadowOffset={{ width: 0, height: -1 }}
-      shadowOpacity={0.5}
-      shadowRadius={1}
-      borderTopColor="calendarSectionShadow"
-      borderTopWidth={Platform.OS === "android" ? 1 : 0}
-      zIndex={100}
-    >
+    <Box paddingVertical="l" justifyContent="center" zIndex={100}>
       <View style={styles.calendarContainer}>
         <FlatList
           data={calendarData}
@@ -121,11 +109,12 @@ const Calendar = () => {
 
                 <Box
                   marginBottom="s"
-                  backgroundColor="primaryButton"
+                  backgroundColor="primaryButtonPressed"
                   borderRadius="s"
                   marginRight="ml"
                 >
                   <Tip
+                    offset={3}
                     label={`Averaged ${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
                   >
                     <Box margin="xs">
@@ -139,7 +128,7 @@ const Calendar = () => {
                   return (
                     <View style={styles.column} key={`column-${columnIndex}`}>
                       <View style={styles.cell}>
-                        <Text color="tertiaryText" fontSize={14}>
+                        <Text color="secondaryText" fontSize={14}>
                           {dayjs().day(columnIndex).format("dd")[0]}
                         </Text>
                       </View>
@@ -208,11 +197,11 @@ const Calendar = () => {
                               <Box
                                 borderRadius="m"
                                 style={styles.cell}
-                                backgroundColor="mainBackground"
+                                backgroundColor="secondaryBackground"
                               >
                                 <Text
                                   color={
-                                    isBookend ? "tertiaryText" : "primaryText"
+                                    isBookend ? "secondaryText" : "primaryText"
                                   }
                                   lineHeight={24}
                                   fontSize={12}
@@ -275,6 +264,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     marginTop: 8,
     flexDirection: "column",
+    backgroundColor: "red",
   },
   lastScrollContainer: {
     paddingRight: CALENDAR_NEGATIVE_SPACE / 2,

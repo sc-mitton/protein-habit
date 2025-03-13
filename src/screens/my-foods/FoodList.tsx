@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScrollView, StyleSheet, Platform } from "react-native";
+import { ScrollView, StyleSheet, Platform, Dimensions } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useTheme } from "@shopify/restyle";
@@ -14,7 +14,7 @@ const FoodList = ({
   selectedFoods,
 }: {
   onPress: (food: Food) => void;
-  selectedFoods: Food[];
+  selectedFoods: string[];
 }) => {
   const foods = useAppSelector(selectFoods);
   const theme = useTheme();
@@ -24,7 +24,7 @@ const FoodList = ({
       {foods.length > 0 ? (
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {foods
-            .filter((f) => !selectedFoods.some((sf) => sf.id === f.id))
+            .filter((f) => !selectedFoods.some((sf) => sf === f.id))
             .map((food) => (
               <Animated.View layout={LinearTransition} key={food.id}>
                 <FoodItem
@@ -36,7 +36,13 @@ const FoodList = ({
             ))}
         </ScrollView>
       ) : (
-        <Box flex={1} justifyContent="flex-start" alignItems="center" gap="l">
+        <Box
+          justifyContent="flex-start"
+          alignItems="center"
+          gap="l"
+          paddingVertical="xxxl"
+          width="100%"
+        >
           <Box
             borderWidth={1}
             borderColor="borderColor"
@@ -49,7 +55,7 @@ const FoodList = ({
               color={theme.colors.primaryText}
             />
           </Box>
-          <Box width={"50%"}>
+          <Box width={"80%"}>
             <Text variant="body" color="tertiaryText" textAlign="center">
               Add your most common foods to quickly add their protein in the
               future
@@ -65,9 +71,9 @@ export default FoodList;
 
 const styles = StyleSheet.create({
   scrollContent: {
-    paddingTop: 12,
-    paddingVertical: 12,
+    paddingTop: 14,
     paddingHorizontal: 6,
+    paddingBottom: 36,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",

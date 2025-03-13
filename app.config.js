@@ -65,6 +65,10 @@ export default {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
+      splash: {
+        image: "./assets/splash-icon.png",
+        resizeMode: "contain",
+      },
       package: "com.northof60labs.proteincount",
     },
     web: {
