@@ -194,9 +194,6 @@ const Tabs = () => {
           <View key="2" style={styles.page}>
             <Entries />
           </View>
-          <View key="3" style={styles.page}>
-            <Entries />
-          </View>
         </PagerView>
       </Box>
     </Box>
