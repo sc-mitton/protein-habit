@@ -24,12 +24,11 @@ const Tabs = () => {
   const indicatorX = useSharedValue(TAB_INDICATOR_OFFSET);
   const tab0Opacity = useSharedValue(1);
   const tab1Opacity = useSharedValue(0.5);
+  const delta = useSharedValue(0);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [isTouchScroll, setIsTouchScroll] = useState(false);
   const tabHeaderWidths = useRef(new Array(2).fill(0));
-  const pagerRef = useRef<ScrollView>(null);
-
-  const onScrollAnimation = useRef(true);
+  const pagerRef = useRef<PagerView>(null);
+  const tabIndicatorState = useRef<"idle" | "dragging" | "settling">("idle");
 
   const indicatorAnimation = useAnimatedStyle(() => {
     return {
@@ -56,29 +55,18 @@ const Tabs = () => {
   });
 
   const animated = (index: number) => {
-    if (index === 0) {
-      indicatorWidth.value = withTiming(tabHeaderWidths.current[0]);
-      indicatorX.value = withTiming(TAB_INDICATOR_OFFSET);
-      tab0Opacity.value = withTiming(1);
-      tab1Opacity.value = withTiming(0.5);
-    } else {
-      indicatorWidth.value = withTiming(tabHeaderWidths.current[1]);
-      indicatorX.value = withTiming(
-        tabHeaderWidths.current[1] + TAB_INDICATOR_OFFSET,
-      );
-      tab0Opacity.value = withTiming(0.5);
-      tab1Opacity.value = withTiming(1);
-    }
+    indicatorWidth.value = withTiming(tabHeaderWidths.current[index]);
+    indicatorX.value = withTiming(
+      TAB_INDICATOR_OFFSET + (index === 0 ? 0 : tabHeaderWidths.current[index]),
+    );
+    tab0Opacity.value = withTiming(index === 0 ? 1 : 0.5);
+    tab1Opacity.value = withTiming(index === 0 ? 0.5 : 1);
   };
 
   const handleTabPress = (index: number) => {
     setSelectedTab(index);
     animated(index);
-    pagerRef.current?.scrollTo({
-      x: index * Dimensions.get("window").width,
-      y: 0,
-      animated: true,
-    });
+    pagerRef.current?.setPage(index);
   };
 
   useEffect(() => {
@@ -93,6 +81,7 @@ const Tabs = () => {
         gap="m"
         paddingHorizontal="m"
         paddingBottom="s"
+        zIndex={2}
       >
         <Animated.View
           style={tab1HeaderAnimation}
@@ -101,7 +90,11 @@ const Tabs = () => {
             indicatorWidth.value = e.nativeEvent.layout.width;
           }}
         >
-          <Button label={"Stats"} onPress={() => handleTabPress(0)} />
+          <Button
+            label={"Stats"}
+            onPress={() => handleTabPress(0)}
+            disabled={Platform.OS !== "ios"}
+          />
         </Animated.View>
         <Animated.View
           style={tab2HeaderAnimation}
@@ -109,7 +102,13 @@ const Tabs = () => {
             tabHeaderWidths.current[1] = e.nativeEvent.layout.width;
           }}
         >
-          <Button label="Entries" onPress={() => handleTabPress(1)} />
+          <Button
+            label="Entries"
+            disabled={Platform.OS !== "ios"}
+            onPress={() => {
+              handleTabPress(1);
+            }}
+          />
         </Animated.View>
         <Animated.View style={indicatorAnimation}>
           <Box
@@ -126,7 +125,7 @@ const Tabs = () => {
         borderTopEndRadius="xl"
         borderTopStartRadius="xl"
         flex={1}
-        zIndex={1}
+        zIndex={0}
         backgroundColor="secondaryBackground"
         shadowColor="defaultShadow"
         shadowOpacity={Platform.OS === "ios" ? 0.3 : 1}
@@ -135,46 +134,57 @@ const Tabs = () => {
         elevation={12}
       >
         <PagerView
-          hitSlop={{ top: -84 }}
           style={styles.scrollView}
+          ref={pagerRef}
           initialPage={0}
-          onPageScrollStateChanged={(e) => {
-            if (e.nativeEvent.pageScrollState === "dragging") {
-              onScrollAnimation.current = true;
-              setIsTouchScroll(true);
-            }
-          }}
           orientation="horizontal"
-          onPageScroll={({ nativeEvent }) => {
-            if (!isTouchScroll) {
-              return;
-            }
-            const delta =
-              selectedTab === 0
-                ? nativeEvent.offset
-                : nativeEvent.offset - Dimensions.get("window").width;
-            if (
-              nativeEvent.offset > Dimensions.get("window").width / 2 &&
-              selectedTab === 0
-            ) {
-              setSelectedTab(1);
-              setIsTouchScroll(false);
-            } else if (
-              nativeEvent.offset < Dimensions.get("window").width / 2 &&
-              selectedTab === 1
-            ) {
-              setSelectedTab(0);
-              setIsTouchScroll(false);
-            }
-            if (selectedTab === 1) {
-              indicatorX.value =
-                TAB_INDICATOR_OFFSET + tabHeaderWidths.current[1] + delta / 7;
-              indicatorWidth.value = tabHeaderWidths.current[1] - delta / 7;
-            } else {
-              indicatorWidth.value = tabHeaderWidths.current[0] + delta / 7;
-            }
-            if (delta === 0) {
-              setIsTouchScroll(false);
+          onPageSelected={({ nativeEvent }) => {
+            setSelectedTab(nativeEvent.position);
+          }}
+          onPageScrollStateChanged={({ nativeEvent: ne }) => {
+            tabIndicatorState.current = ne.pageScrollState;
+          }}
+          onPageScroll={({ nativeEvent: ne }) => {
+            const d = ne.position != selectedTab ? 1 - ne.offset : ne.offset;
+
+            if (tabIndicatorState.current === "dragging") {
+              delta.value = d;
+              indicatorWidth.value =
+                tabHeaderWidths.current[selectedTab] +
+                d * tabHeaderWidths.current[selectedTab];
+              if (ne.position != selectedTab) {
+                indicatorX.value =
+                  TAB_INDICATOR_OFFSET +
+                  tabHeaderWidths.current[selectedTab] -
+                  d * tabHeaderWidths.current[selectedTab];
+              }
+            } else if (tabIndicatorState.current === "settling") {
+              // Settling
+              if (d < delta.value) {
+                // Settling back to original position
+                indicatorWidth.value = withTiming(
+                  tabHeaderWidths.current[selectedTab],
+                );
+                indicatorX.value = withTiming(
+                  TAB_INDICATOR_OFFSET +
+                    (selectedTab === 0
+                      ? 0
+                      : tabHeaderWidths.current[selectedTab]),
+                );
+              } else {
+                // Settling to new position
+                const newIndex =
+                  ne.position != selectedTab ? ne.position : selectedTab + 1;
+
+                indicatorWidth.value = withTiming(
+                  tabHeaderWidths.current[newIndex],
+                );
+                indicatorX.value = withTiming(
+                  TAB_INDICATOR_OFFSET +
+                    (newIndex === 0 ? 0 : tabHeaderWidths.current[newIndex]),
+                );
+              }
+              tabIndicatorState.current = "idle";
             }
           }}
         >
@@ -182,6 +192,9 @@ const Tabs = () => {
             <Stats />
           </View>
           <View key="2" style={styles.page}>
+            <Entries />
+          </View>
+          <View key="3" style={styles.page}>
             <Entries />
           </View>
         </PagerView>
@@ -194,11 +207,11 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   scrollView: {
-    marginTop: -84,
-    paddingTop: 84,
     flex: 1,
+    marginTop: -84,
   },
   page: {
+    paddingTop: 84,
     width: Dimensions.get("window").width,
     height: "100%",
   },
