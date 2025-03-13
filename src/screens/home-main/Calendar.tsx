@@ -64,14 +64,9 @@ const Calendar = () => {
   }, [dailyTargetResults]);
 
   return (
-    <Box
-      paddingVertical="l"
-      justifyContent="center"
-      alignItems="center"
-      zIndex={100}
-      flex={1}
-    >
+    <Box justifyContent="center" alignItems="center" zIndex={100} flex={1}>
       <FlatList
+        style={styles.flatList}
         data={calendarData}
         nestedScrollEnabled={true}
         keyExtractor={(item) => item[0]}
@@ -237,13 +232,14 @@ const Calendar = () => {
 };
 
 const styles = StyleSheet.create({
-  slotNumbers: {
-    fontSize: 14,
-    fontFamily: "Inter-Medium",
+  flatList: {
+    flex: 1,
   },
   scrollContainer: {
-    marginTop: 8,
+    marginTop: 16,
+    justifyContent: "center",
     flexDirection: "column",
+    height: "100%",
   },
   lastScrollContainer: {
     paddingRight: CALENDAR_NEGATIVE_SPACE / 2,
