@@ -73,7 +73,7 @@ const Days = ({
       </Animated.View>
       {Array.from({ length: 7 }).map((_, index) => (
         <Button
-          key={index}
+          key={`entrie-days-day-${index}`}
           width={pillWidth}
           paddingVertical="sm"
           paddingHorizontal="none"

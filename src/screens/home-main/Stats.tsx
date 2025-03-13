@@ -58,8 +58,13 @@ const Stats = () => {
 
   return (
     <Box justifyContent="flex-start" flex={1} paddingVertical="xl">
-      <Box flex={1} gap="xl" justifyContent="flex-start">
-        <Box paddingHorizontal="l" flexDirection="row" gap="xxxl">
+      <Box>
+        <Box
+          paddingHorizontal="l"
+          flexDirection="row"
+          gap="xxxl"
+          marginBottom="xl"
+        >
           <Box gap="s" flex={1}>
             <Box
               flexDirection={"row"}
@@ -119,7 +124,12 @@ const Stats = () => {
             </Box>
           </Box>
         </Box>
-        <Box paddingHorizontal="l" flexDirection="row" gap="xxxl">
+        <Box
+          paddingHorizontal="l"
+          flexDirection="row"
+          gap="xxxl"
+          marginBottom="s"
+        >
           <Box paddingBottom="s" gap="s" flex={1}>
             <Box
               flexDirection={"row"}

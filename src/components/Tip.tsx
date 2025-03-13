@@ -13,7 +13,7 @@ export const Tip = ({
   offset = 0,
 }: {
   children: React.ReactNode;
-  label: string;
+  label?: string;
   maxWidth?: number;
   offset?: number;
 }) => {
@@ -22,7 +22,7 @@ export const Tip = ({
   return (
     <OutsidePressHandler onOutsidePress={() => setIsOpen(false)}>
       <Box alignItems="center">
-        <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
+        <TouchableOpacity onPress={() => setIsOpen(!isOpen)} disabled={!label}>
           {children}
         </TouchableOpacity>
         {isOpen && (

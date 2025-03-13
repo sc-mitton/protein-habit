@@ -64,185 +64,179 @@ const Calendar = () => {
   }, [dailyTargetResults]);
 
   return (
-    <Box paddingVertical="l" justifyContent="center" zIndex={100}>
-      <View style={styles.calendarContainer}>
-        <FlatList
-          data={calendarData}
-          style={styles.flatList}
-          nestedScrollEnabled={true}
-          keyExtractor={(item) => item[0]}
-          hitSlop={{ top: -64 }}
-          horizontal
-          pagingEnabled
-          onScroll={({ nativeEvent }) => {
-            setCurrentIndex(
-              Math.abs(
-                Math.round(nativeEvent.contentOffset.x / CALENDAR_WIDTH),
-              ),
-            );
-          }}
-          ref={calendarRef}
-          showsHorizontalScrollIndicator={false}
-          onScrollToIndexFailed={() => {}}
-          scrollEventThrottle={16}
-          snapToOffsets={calendarData.map((_, index) => {
-            return index * CALENDAR_WIDTH;
-          })}
-          decelerationRate={0.01}
-          renderItem={({ item, index }) => (
+    <Box
+      paddingVertical="l"
+      justifyContent="center"
+      alignItems="center"
+      zIndex={100}
+      flex={1}
+    >
+      <FlatList
+        data={calendarData}
+        nestedScrollEnabled={true}
+        keyExtractor={(item) => item[0]}
+        hitSlop={{ top: -64 }}
+        horizontal
+        pagingEnabled
+        onScroll={({ nativeEvent }) => {
+          setCurrentIndex(
+            Math.abs(Math.round(nativeEvent.contentOffset.x / CALENDAR_WIDTH)),
+          );
+        }}
+        ref={calendarRef}
+        showsHorizontalScrollIndicator={false}
+        onScrollToIndexFailed={() => {}}
+        scrollEventThrottle={16}
+        snapToOffsets={calendarData.map((_, index) => {
+          return index * CALENDAR_WIDTH;
+        })}
+        decelerationRate={0.01}
+        renderItem={({ item, index }) => (
+          <Box
+            key={`scroll-container-${index}`}
+            style={[
+              styles.scrollContainer,
+              index == 0 && styles.firstScrollContainer,
+              index === calendarData.length - 1 && styles.lastScrollContainer,
+            ]}
+          >
             <Box
-              key={`scroll-container-${index}`}
-              style={[
-                styles.scrollContainer,
-                index == 0 && styles.firstScrollContainer,
-                index === calendarData.length - 1 && styles.lastScrollContainer,
-              ]}
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="space-between"
+              paddingRight="l"
+              marginLeft="l"
+              paddingLeft="xxs"
+              gap="s"
             >
+              <Text accent={true}>
+                {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
+              </Text>
               <Box
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="space-between"
-                paddingRight="l"
-                marginLeft="l"
-                paddingLeft="xxs"
-                gap="s"
+                paddingHorizontal="s"
+                paddingVertical="xs"
+                borderRadius="s"
+                overflow="hidden"
               >
-                <Text accent={true}>
-                  {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
-                </Text>
                 <Box
-                  paddingHorizontal="s"
-                  paddingVertical="xs"
-                  borderRadius="s"
-                  overflow="hidden"
+                  backgroundColor={accent}
+                  opacity={0.2}
+                  style={StyleSheet.absoluteFill}
+                />
+                <Text
+                  color="primaryText"
+                  fontSize={12}
+                  lineHeight={16}
+                  variant="bold"
                 >
-                  <Box
-                    backgroundColor={accent}
-                    opacity={0.2}
-                    style={StyleSheet.absoluteFill}
-                  />
-                  <Text
-                    color="primaryText"
-                    fontSize={12}
-                    lineHeight={16}
-                    variant="bold"
-                  >
-                    {`${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
-                  </Text>
-                </Box>
-              </Box>
-              <Box style={styles.monthContainer} key={item[0]}>
-                {item[1].map((days: number[], columnIndex: number) => {
-                  return (
-                    <View
-                      style={[
-                        styles.column,
-                        columnIndex == 0 && styles.firstColumn,
-                        columnIndex == 6 && styles.lastColumn,
-                      ]}
-                      key={`column-${columnIndex}`}
-                    >
-                      <Box style={styles.cell}>
-                        <Text fontSize={10} variant="bold">
-                          {dayjs().day(columnIndex).format("dd")[0]}
-                        </Text>
-                      </Box>
-                      {days.map((day, rowIndex) => {
-                        const isBookend =
-                          Math.abs(rowIndex - Math.floor(day / 7)) > 1;
-
-                        const dayInJS = dayjs(item[0], "MMM DD, YYYY").date(
-                          day,
-                        );
-
-                        const targetMet =
-                          dayInJS.isAfter(
-                            dayjs(userInception).subtract(1, "day"),
-                            "day",
-                          ) && dayInJS.isBefore(dayjs().add(1, "day"), "day")
-                            ? mappedDailyTargetResults[
-                                dayInJS.format(dayFormat)
-                              ]?.[2] || false
-                            : null;
-
-                        return (
-                          <Box
-                            key={`cell-${dayInJS.format(dayFormat)}-${columnIndex}-${rowIndex}`}
-                            style={[styles.cell, { zIndex: rowIndex }]}
-                            borderColor="seperator"
-                            borderTopWidth={1.5}
-                          >
-                            <Box
-                              style={StyleSheet.absoluteFill}
-                              opacity={
-                                Appearance.getColorScheme() == "dark" ? 0.3 : 1
-                              }
-                              backgroundColor={
-                                rowIndex % 2 == 0
-                                  ? "primaryButton"
-                                  : "transparent"
-                              }
-                            />
-                            <Tip
-                              offset={3}
-                              label={`Total: ${mappedDailyTargetResults[dayInJS.format(dayFormat)]?.[1]}g  \nTarget: ${mappedDailyTargetResults[dayInJS.format(dayFormat)]?.[3]}g`}
-                            >
-                              <Text
-                                color={
-                                  isBookend ? "secondaryText" : "primaryText"
-                                }
-                                lineHeight={24}
-                                fontSize={12}
-                              >
-                                {day}
-                              </Text>
-                            </Tip>
-                            <View style={styles.belowIconContainer}>
-                              <View style={styles.belowIcon}>
-                                {targetMet && !isBookend && (
-                                  <Icon
-                                    icon={Check}
-                                    size={10}
-                                    color={"primaryText"}
-                                    strokeWidth={4}
-                                  />
-                                )}
-                                {targetMet === false &&
-                                  !isBookend &&
-                                  !dayInJS.isSame(dayjs(), "day") && (
-                                    <Icon
-                                      icon={X}
-                                      size={12}
-                                      color={"error"}
-                                      strokeWidth={3}
-                                    />
-                                  )}
-                              </View>
-                            </View>
-                          </Box>
-                        );
-                      })}
-                    </View>
-                  );
-                })}
+                  {`${proteinMonthlyDailyAverage.avgProteinPerDay}g / day`}
+                </Text>
               </Box>
             </Box>
-          )}
-        />
-      </View>
+            <Box style={styles.monthContainer} key={item[0]}>
+              {item[1].map((days: number[], columnIndex: number) => {
+                return (
+                  <View
+                    style={[
+                      styles.column,
+                      columnIndex == 0 && styles.firstColumn,
+                      columnIndex == 6 && styles.lastColumn,
+                    ]}
+                    key={`column-${columnIndex}`}
+                  >
+                    <Box style={styles.cell}>
+                      <Text fontSize={10} variant="bold">
+                        {dayjs().day(columnIndex).format("dd")[0]}
+                      </Text>
+                    </Box>
+                    {days.map((day, rowIndex) => {
+                      const isBookend =
+                        Math.abs(rowIndex - Math.floor(day / 7)) > 1;
+
+                      const dayInJS = dayjs(item[0], "MMM DD, YYYY").date(day);
+
+                      const targetMet =
+                        dayInJS.isAfter(
+                          dayjs(userInception).subtract(1, "day"),
+                          "day",
+                        ) && dayInJS.isBefore(dayjs().add(1, "day"), "day")
+                          ? mappedDailyTargetResults[
+                              dayInJS.format(dayFormat)
+                            ]?.[2] || false
+                          : null;
+
+                      const targetResult =
+                        mappedDailyTargetResults[dayInJS.format(dayFormat)];
+                      const tipLabel = targetResult
+                        ? `Total: ${targetResult[1]}g  \nTarget: ${targetResult[3]}g`
+                        : undefined;
+
+                      return (
+                        <Box
+                          key={`cell-${dayInJS.format(dayFormat)}-${columnIndex}-${rowIndex}`}
+                          style={[styles.cell, { zIndex: rowIndex }]}
+                          borderColor="seperator"
+                          borderTopWidth={1.5}
+                        >
+                          <Box
+                            style={StyleSheet.absoluteFill}
+                            opacity={
+                              Appearance.getColorScheme() == "dark" ? 0.3 : 1
+                            }
+                            backgroundColor={
+                              rowIndex % 2 == 0
+                                ? "primaryButton"
+                                : "transparent"
+                            }
+                          />
+                          <Tip offset={3} label={tipLabel}>
+                            <Text
+                              color={
+                                isBookend ? "secondaryText" : "primaryText"
+                              }
+                              lineHeight={24}
+                              fontSize={12}
+                            >
+                              {day}
+                            </Text>
+                          </Tip>
+                          <View style={styles.belowIconContainer}>
+                            <View style={styles.belowIcon}>
+                              {targetMet && !isBookend && (
+                                <Icon
+                                  icon={Check}
+                                  size={10}
+                                  color={"primaryText"}
+                                  strokeWidth={4}
+                                />
+                              )}
+                              {targetMet === false &&
+                                !isBookend &&
+                                !dayInJS.isSame(dayjs(), "day") && (
+                                  <Icon
+                                    icon={X}
+                                    size={12}
+                                    color={"error"}
+                                    strokeWidth={3}
+                                  />
+                                )}
+                            </View>
+                          </View>
+                        </Box>
+                      );
+                    })}
+                  </View>
+                );
+              })}
+            </Box>
+          </Box>
+        )}
+      />
     </Box>
   );
 };
 
 const styles = StyleSheet.create({
-  calendarContainer: {
-    alignItems: "flex-start",
-    transform: [{ translateY: 16 }],
-  },
-  flatList: {
-    paddingVertical: 64,
-    marginVertical: Platform.OS === "ios" ? -88 : -84,
-  },
   slotNumbers: {
     fontSize: 14,
     fontFamily: "Inter-Medium",

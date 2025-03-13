@@ -115,7 +115,7 @@ const KeyPad = memo(
           ["", 0, "del"],
         ].map((row, i) => (
           <Box
-            key={i}
+            key={`keypad-row-${i}`}
             flexDirection="row"
             gap="s"
             alignItems="center"
@@ -124,7 +124,7 @@ const KeyPad = memo(
             {row.map((key) => (
               <KeypadButton
                 disabled={key === "" || (disabled && key !== "del")}
-                key={key}
+                key={`keypad-button-${key}`}
                 value={key}
                 onPress={() => handleKeyPress(key)}
               />

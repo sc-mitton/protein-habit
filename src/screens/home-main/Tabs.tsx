@@ -11,6 +11,7 @@ import Animated, {
   withTiming,
   useAnimatedStyle,
 } from "react-native-reanimated";
+import PagerView from "react-native-pager-view";
 
 import { Box, Button } from "@components";
 import Entries from "./Entries";
@@ -26,7 +27,7 @@ const Tabs = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [isTouchScroll, setIsTouchScroll] = useState(false);
   const tabHeaderWidths = useRef(new Array(2).fill(0));
-  const scrollRef = useRef<ScrollView>(null);
+  const pagerRef = useRef<ScrollView>(null);
 
   const onScrollAnimation = useRef(true);
 
@@ -73,7 +74,7 @@ const Tabs = () => {
   const handleTabPress = (index: number) => {
     setSelectedTab(index);
     animated(index);
-    scrollRef.current?.scrollTo({
+    pagerRef.current?.scrollTo({
       x: index * Dimensions.get("window").width,
       y: 0,
       animated: true,
@@ -133,35 +134,33 @@ const Tabs = () => {
         shadowRadius={12}
         elevation={12}
       >
-        <ScrollView
-          horizontal
-          style={styles.scrollView}
-          showsHorizontalScrollIndicator={false}
-          ref={scrollRef}
+        <PagerView
           hitSlop={{ top: -84 }}
-          onScrollBeginDrag={() => {
-            onScrollAnimation.current = true;
-            setIsTouchScroll(true);
+          style={styles.scrollView}
+          initialPage={0}
+          onPageScrollStateChanged={(e) => {
+            if (e.nativeEvent.pageScrollState === "dragging") {
+              onScrollAnimation.current = true;
+              setIsTouchScroll(true);
+            }
           }}
-          onScroll={(e) => {
+          orientation="horizontal"
+          onPageScroll={({ nativeEvent }) => {
             if (!isTouchScroll) {
               return;
             }
             const delta =
               selectedTab === 0
-                ? e.nativeEvent.contentOffset.x
-                : e.nativeEvent.contentOffset.x -
-                  Dimensions.get("window").width;
+                ? nativeEvent.offset
+                : nativeEvent.offset - Dimensions.get("window").width;
             if (
-              e.nativeEvent.contentOffset.x >
-                Dimensions.get("window").width / 2 &&
+              nativeEvent.offset > Dimensions.get("window").width / 2 &&
               selectedTab === 0
             ) {
               setSelectedTab(1);
               setIsTouchScroll(false);
             } else if (
-              e.nativeEvent.contentOffset.x <
-                Dimensions.get("window").width / 2 &&
+              nativeEvent.offset < Dimensions.get("window").width / 2 &&
               selectedTab === 1
             ) {
               setSelectedTab(0);
@@ -178,9 +177,6 @@ const Tabs = () => {
               setIsTouchScroll(false);
             }
           }}
-          snapToInterval={Dimensions.get("window").width}
-          snapToAlignment="start"
-          decelerationRate={0.01}
         >
           <View key="1" style={styles.page}>
             <Stats />
@@ -188,7 +184,7 @@ const Tabs = () => {
           <View key="2" style={styles.page}>
             <Entries />
           </View>
-        </ScrollView>
+        </PagerView>
       </Box>
     </Box>
   );
@@ -200,6 +196,7 @@ const styles = StyleSheet.create({
   scrollView: {
     marginTop: -84,
     paddingTop: 84,
+    flex: 1,
   },
   page: {
     width: Dimensions.get("window").width,
