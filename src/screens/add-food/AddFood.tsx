@@ -1,18 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, useWatch, useController } from "react-hook-form";
-import { AlertCircle, Smile } from "geist-native-icons";
+import { AlertCircle } from "geist-native-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+import { useTheme } from "@shopify/restyle";
+
 import { X } from "geist-native-icons";
 import { z } from "zod";
 import { Platform } from "react-native";
-import {
-  Box,
-  Text,
-  TextInput,
-  Button,
-  Icon,
-  EmojiPicker,
-  BackButton,
-} from "@components";
+import { Box, Text, TextInput, Button, Icon, EmojiPicker } from "@components";
 import { HomeScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { addFood, deactiveFood } from "@store/slices/foodsSlice";
@@ -33,6 +29,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
+  const theme = useTheme();
   const dispatch = useAppDispatch();
   const {
     control,
@@ -129,7 +126,11 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                             {emoji}
                           </Text>
                         ) : (
-                          <Icon icon={Smile} color="secondaryText" size={22} />
+                          <Ionicons
+                            name="fast-food"
+                            size={22}
+                            color={theme.colors.secondaryText}
+                          />
                         )}
                       </Box>
                     </Box>

@@ -8,6 +8,7 @@ import {
   Appearance,
 } from "react-native";
 import { Check, X } from "geist-native-icons";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 import { Text, Box, Icon, Tip } from "@components";
 import dayjs from "dayjs";
@@ -20,6 +21,7 @@ import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
 import { selectAccent } from "@store/slices/uiSlice";
+import { HomeStackParamList } from "@types";
 
 const CALENDAR_WIDTH = Dimensions.get("window").width;
 // the window width minus the calendar width
@@ -34,6 +36,7 @@ const Calendar = () => {
     () => generateCalendarData(userInception),
     [userInception],
   );
+  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
   const proteinMonthlyDailyAverage = useAppSelector((state) =>
     selectMonthlyDailyAverage(state, calendarData[currentIndex][0]),
@@ -104,7 +107,12 @@ const Calendar = () => {
               paddingLeft="xxs"
               gap="s"
             >
-              <Text accent={true}>
+              <Text
+                accent={true}
+                variant={
+                  navigation.getState().routes.length > 1 ? "bold" : undefined
+                }
+              >
                 {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
               </Text>
               <Box

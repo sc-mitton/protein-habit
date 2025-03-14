@@ -86,7 +86,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
                   icon={Plus}
                   size={20}
                   color="primaryText"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                 />
               }
             />
@@ -99,7 +99,13 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
               onPress={() => {
                 props.navigation.navigate("MyFoods");
               }}
-              icon={<Icon icon={DrumStickIcon} color="primaryText" />}
+              icon={
+                <Icon
+                  icon={DrumStickIcon}
+                  color="primaryText"
+                  strokeWidth={2}
+                />
+              }
             />
           </Box>
         </ReAnimated.View>

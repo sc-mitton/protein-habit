@@ -3,18 +3,22 @@ import { MoreHorizontal } from "geist-native-icons";
 import { Platform, TouchableHighlight } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
 import * as DropdownMenu from "zeego/dropdown-menu";
-import { Target } from "geist-native-icons";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Foundation from "@expo/vector-icons/Foundation";
+import Entypo from "@expo/vector-icons/Entypo";
 
 import { Icon, Box, Text } from "@components";
 import { HomeStackParamList } from "@types";
 import { useNavigation } from "@react-navigation/native";
+import { useAppSelector } from "@store/hooks";
+import { selectAccent } from "@store/slices/uiSlice";
 
 function Menu() {
   const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
   const theme = useTheme();
+  const accent = useAppSelector(selectAccent);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -32,7 +36,7 @@ function Menu() {
               <DropdownMenu.ItemTitle>Personal Info</DropdownMenu.ItemTitle>
               <DropdownMenu.ItemIcon
                 ios={{
-                  name: "person.circle",
+                  name: "person.crop.circle.fill",
                   pointSize: 16,
                   scale: "medium",
                 }}
@@ -45,7 +49,7 @@ function Menu() {
               <DropdownMenu.ItemTitle>Appearance</DropdownMenu.ItemTitle>
               <DropdownMenu.ItemIcon
                 ios={{
-                  name: "wand.and.rays",
+                  name: "paintbrush.pointed.fill",
                   pointSize: 16,
                   scale: "medium",
                 }}
@@ -59,7 +63,7 @@ function Menu() {
                 <DropdownMenu.ItemTitle>Edit Daily Goal</DropdownMenu.ItemTitle>
                 <DropdownMenu.ItemIcon
                   ios={{
-                    name: "target",
+                    name: "flag.fill",
                     pointSize: 16,
                     scale: "medium",
                   }}
@@ -81,7 +85,7 @@ function Menu() {
             anchorPosition="top"
             onDismiss={() => setIsOpen(false)}
             contentStyle={{
-              marginTop: 94,
+              marginTop: 64,
               borderRadius: 12,
               paddingVertical: -8,
               overflow: "hidden",
@@ -107,7 +111,7 @@ function Menu() {
               title="Personal Info"
               leadingIcon={() => (
                 <Ionicons
-                  name="person-circle-outline"
+                  name="person-circle-sharp"
                   size={24}
                   color={theme.colors.primaryText}
                 />
@@ -117,9 +121,9 @@ function Menu() {
             <PaperMenu.Item
               title="Appearance"
               leadingIcon={() => (
-                <Ionicons
-                  name="color-wand-outline"
-                  size={24}
+                <Entypo
+                  name="brush"
+                  size={20}
                   color={theme.colors.primaryText}
                 />
               )}
@@ -128,7 +132,13 @@ function Menu() {
             <PaperMenu.Item
               title="Edit Daily Goal"
               leadingIcon={() => (
-                <Icon icon={Target} size={24} color="primaryText" />
+                <Box marginLeft="xs">
+                  <Foundation
+                    name="flag"
+                    size={20}
+                    color={theme.colors.primaryText}
+                  />
+                </Box>
               )}
               onPress={() => navigation.navigate("EditDailyGoal")}
             />

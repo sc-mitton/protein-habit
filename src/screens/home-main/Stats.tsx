@@ -1,17 +1,16 @@
-import { memo, useEffect } from "react";
-import {
-  PieChart,
-  Target,
-  BarChart2,
-  Zap,
-  Calendar as CalendarIcon,
-} from "geist-native-icons";
+import { memo, useEffect, useState } from "react";
+import { useWindowDimensions } from "react-native";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
 import * as Device from "expo-device";
-import { useWindowDimensions, Platform } from "react-native";
+import { SymbolView } from "expo-symbols";
+import { Zap } from "geist-native-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Foundation from "@expo/vector-icons/Foundation";
+import Entypo from "@expo/vector-icons/Entypo";
+import { useTheme } from "@shopify/restyle";
 
-import { Box, Text, Icon, Tip, Button } from "@components";
+import { Box, Text, Tip, Button, Icon } from "@components";
 import {
   selectDailyProteinTarget,
   selectTotalProteinForDay,
@@ -21,7 +20,9 @@ import {
 import {
   selectHasShownSuccessModal,
   setHasShownSuccessModal,
+  selectAccent,
 } from "@store/slices/uiSlice";
+
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { dayFormat } from "@constants/formats";
 import Calendar from "./Calendar";
@@ -37,10 +38,15 @@ const Stats = () => {
   const totalProteinForDay = useAppSelector((state) =>
     selectTotalProteinForDay(state, dayjs().format("YYYY-MM-DD")),
   );
+  const accent = useAppSelector(selectAccent);
   const streak = useAppSelector(selectStreak);
-  const { height } = useWindowDimensions();
 
+  const theme = useTheme();
   const remainingProtein = Math.max(dailyTarget - totalProteinForDay, 0);
+  const { height } = useWindowDimensions();
+  const [collapseCalendar, setCollapseCalendar] = useState(
+    Device.osName === "iPadOS" || height < 800,
+  );
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -67,7 +73,11 @@ const Stats = () => {
           gap="xxxl"
           marginBottom="xl"
         >
-          <Box gap="s" flex={1}>
+          <Box
+            gap="s"
+            flex={1}
+            marginVertical={collapseCalendar ? "l" : "none"}
+          >
             <Box
               flexDirection={"row"}
               gap="s"
@@ -82,7 +92,13 @@ const Stats = () => {
                 offset={12}
               >
                 <Box flexDirection="row" gap="s" alignItems="center">
-                  <Icon icon={Target} accent={true} color="secondaryText" />
+                  <Ionicons
+                    name="flag"
+                    size={18}
+                    color={
+                      accent ? theme.colors[accent] : theme.colors.secondaryText
+                    }
+                  />
                   <Text
                     variant="miniHeader"
                     accent={true}
@@ -98,7 +114,11 @@ const Stats = () => {
               <Text fontSize={18}>g</Text>
             </Box>
           </Box>
-          <Box gap="s" flex={1}>
+          <Box
+            gap="s"
+            flex={1}
+            marginVertical={collapseCalendar ? "l" : "none"}
+          >
             <Box
               flexDirection={"row"}
               gap="s"
@@ -109,7 +129,13 @@ const Stats = () => {
             >
               <Tip label="How much protein you have left to reach your goal for the day.">
                 <Box flexDirection="row" gap="s" alignItems="center">
-                  <Icon icon={PieChart} accent={true} color="secondaryText" />
+                  <Entypo
+                    name="pie-chart"
+                    size={18}
+                    color={
+                      accent ? theme.colors[accent] : theme.colors.secondaryText
+                    }
+                  />
                   <Text
                     color="secondaryText"
                     variant="miniHeader"
@@ -147,11 +173,23 @@ const Stats = () => {
                 offset={8}
               >
                 <Box flexDirection="row" gap="s" alignItems="center">
-                  <Icon
-                    icon={BarChart2}
-                    strokeWidth={2}
-                    accent={true}
-                    color="secondaryText"
+                  <SymbolView
+                    name="chart.bar.xaxis"
+                    tintColor={
+                      accent ? theme.colors[accent] : theme.colors.secondaryText
+                    }
+                    size={20}
+                    fallback={
+                      <Entypo
+                        name="bar-graph"
+                        size={18}
+                        color={
+                          accent
+                            ? theme.colors[accent]
+                            : theme.colors.secondaryText
+                        }
+                      />
+                    }
                   />
                   <Text
                     color="secondaryText"
@@ -179,7 +217,13 @@ const Stats = () => {
             >
               <Tip label="The number of consecutive days you've reached your daily goal.">
                 <Box flexDirection="row" gap="s" alignItems="center">
-                  <Icon icon={Zap} accent={true} color="secondaryText" />
+                  <Icon
+                    icon={Zap}
+                    accent={true}
+                    size={18}
+                    color="secondaryText"
+                    borderColor="secondaryText"
+                  />
                   <Text
                     color="secondaryText"
                     variant="miniHeader"
@@ -198,7 +242,7 @@ const Stats = () => {
           </Box>
         </Box>
       </Box>
-      {Device.osName === "iPadOS" ? (
+      {collapseCalendar ? (
         <Box
           justifyContent="center"
           alignItems="center"
@@ -214,7 +258,13 @@ const Stats = () => {
             borderColor="borderColor"
             borderWidth={1.5}
             borderRadius="full"
-            icon={<Icon icon={CalendarIcon} size={24} />}
+            icon={
+              <Ionicons
+                name="calendar"
+                size={24}
+                color={accent ? theme.colors[accent] : theme.colors.primaryText}
+              />
+            }
             onPress={() => navigation.navigate("Calendar")}
           />
         </Box>

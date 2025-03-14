@@ -67,12 +67,11 @@ const KeypadButton = ({
         onPressOut={() => {
           scale.value = withSpring(1, { mass: 0.5, damping: 8 });
         }}
-        activeOpacity={0.97}
+        activeOpacity={1}
         disabled={disabled}
-        underlayColor={theme.colors.primaryText}
+        underlayColor={theme.colors.primaryButton}
       >
         <Box
-          backgroundColor="mainBackground"
           flex={1}
           justifyContent="center"
           alignItems="center"
@@ -141,12 +140,7 @@ const Value = ({ value }: { value: number }) => {
   const font = useAppSelector(selectFont);
 
   return (
-    <Box
-      flexDirection="row"
-      alignItems="baseline"
-      justifyContent="center"
-      style={styles.entryContainer}
-    >
+    <Box flexDirection="row" alignItems="baseline" justifyContent="center">
       {value
         .toString()
         .split("")
@@ -166,9 +160,11 @@ const Value = ({ value }: { value: number }) => {
           </Animated.Text>
         ))}
       <Animated.View layout={LinearTransition}>
-        <Text variant="bold" marginLeft="xs" fontSize={24} lineHeight={24}>
-          g
-        </Text>
+        <Box paddingBottom="s">
+          <Text variant="bold" marginLeft="xs" fontSize={32} lineHeight={44}>
+            g
+          </Text>
+        </Box>
       </Animated.View>
     </Box>
   );
@@ -357,6 +353,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
               <Icon
                 icon={Edit3}
                 size={18}
+                borderColor={name ? "primaryText" : "placeholderText"}
                 color={name ? "primaryText" : "placeholderText"}
               />
             </Button>
@@ -368,9 +365,10 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
           handleKeyPress={handleKeyPress}
           disabled={value.toString().length >= 3}
         />
-        <Box>
+        <Box marginBottom="l">
           <Button
             margin="l"
+            marginBottom="xxxl"
             variant="primary"
             textColor="selected"
             onPress={handleSubmit}
@@ -388,9 +386,6 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
 export default Entry;
 
 const styles = StyleSheet.create({
-  entryContainer: {
-    transform: [{ translateY: 8 }],
-  },
   entry: {
     fontSize: 84,
     lineHeight: 84,

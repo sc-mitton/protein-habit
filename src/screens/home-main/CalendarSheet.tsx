@@ -1,7 +1,7 @@
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useTheme } from "@shopify/restyle";
 
-import { BackDrop } from "@components";
+import { BackDrop, Box } from "@components";
 import { HomeScreenProps } from "@types";
 import Calendar from "./Calendar";
 
@@ -21,7 +21,9 @@ const Appearance = (props: HomeScreenProps<"Calendar">) => {
       backdropComponent={() => <BackDrop blurIntensity={0} />}
     >
       <BottomSheetView>
-        <Calendar />
+        <Box marginBottom="xxl" paddingBottom="s">
+          <Calendar />
+        </Box>
       </BottomSheetView>
     </BottomSheet>
   );
