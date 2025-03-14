@@ -76,7 +76,10 @@ const SuccessModal = () => {
           </Text>
         </Button>
       </Animated.View>
-      <Animated.View style={[StyleSheet.absoluteFill, confettiOpacityStyle]}>
+      <Animated.View
+        style={[StyleSheet.absoluteFill, confettiOpacityStyle]}
+        pointerEvents={"none"}
+      >
         <ConfettiCannon
           count={200}
           origin={{ x: Dimensions.get("window").width / 2, y: 0 }}
