@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
 import { MoreHorizontal } from "geist-native-icons";
-import { Platform, View } from "react-native";
+import { Platform, TouchableHighlight } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
 import * as DropdownMenu from "zeego/dropdown-menu";
 import { Target } from "geist-native-icons";
-import { Button as PaperButton, Menu as PaperMenu } from "react-native-paper";
+import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -88,16 +88,18 @@ function Menu() {
               backgroundColor: theme.colors.cardBackground,
             }}
             anchor={
-              <PaperButton
+              <TouchableHighlight
                 onPress={() => setIsOpen(!isOpen)}
-                theme={{
-                  colors: {
-                    primary: theme.colors.primaryText,
-                  },
+                underlayColor={theme.colors.secondaryBackground}
+                style={{
+                  paddingVertical: 6,
+                  paddingHorizontal: 12,
+                  marginRight: 2,
+                  borderRadius: 24,
                 }}
               >
                 <Icon icon={MoreHorizontal} size={28} color={"primaryText"} />
-              </PaperButton>
+              </TouchableHighlight>
             }
             visible={isOpen}
           >

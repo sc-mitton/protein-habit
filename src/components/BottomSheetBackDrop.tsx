@@ -24,7 +24,11 @@ export const BackDrop = ({ blurIntensity = 20 }) => {
       />
     </Animated.View>
   ) : (
-    <Animated.View exiting={FadeOut} entering={FadeIn} style={styles.overlay}>
+    <Animated.View
+      exiting={FadeOut}
+      entering={FadeIn.delay(300)}
+      style={styles.overlay}
+    >
       <Box
         style={StyleSheet.absoluteFillObject}
         opacity={0.9}

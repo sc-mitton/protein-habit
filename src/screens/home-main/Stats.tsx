@@ -9,6 +9,7 @@ import {
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
 import * as Device from "expo-device";
+import { useWindowDimensions, Platform } from "react-native";
 
 import { Box, Text, Icon, Tip, Button } from "@components";
 import {
@@ -37,6 +38,7 @@ const Stats = () => {
     selectTotalProteinForDay(state, dayjs().format("YYYY-MM-DD")),
   );
   const streak = useAppSelector(selectStreak);
+  const { height } = useWindowDimensions();
 
   const remainingProtein = Math.max(dailyTarget - totalProteinForDay, 0);
 

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from "@react-navigation/stack";
+// import {
+//   CardStyleInterpolators,
+//   createStackNavigator,
+// } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AppState } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -20,14 +21,13 @@ import Menu from "./Menu";
 import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
-import StatsInfo from "./stats-info/StatsInfo";
 import SuccessModal from "./success/SuccessModal";
 import Purchase from "./purchase/Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
 import CalendarSheet from "./home-main/CalendarSheet";
 
-const Stack = createStackNavigator<HomeStackParamList>();
+const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const RootStack = (props: RootScreenProps<"Home">) => {
   const theme = useTheme();
@@ -73,11 +73,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
 
   return (
     <Stack.Navigator initialRouteName={name ? "Main" : "Welcome"}>
-      <Stack.Group
-        screenOptions={{
-          cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid,
-        }}
-      >
+      <Stack.Group>
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
@@ -139,8 +135,8 @@ const RootStack = (props: RootScreenProps<"Home">) => {
       <Stack.Group
         screenOptions={{
           presentation: "transparentModal",
+          animation: "slide_from_bottom",
           headerShown: false,
-          animation: "fade_from_bottom",
         }}
       >
         <Stack.Screen name="EditDailyGoal" component={EditDailyGoal} />
@@ -149,7 +145,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         <Stack.Screen
           name="SuccessModal"
           component={SuccessModal}
-          options={{ animation: "fade" }}
+          options={{ animation: "slide_from_bottom" }}
         />
         <Stack.Screen name="Purchase" component={Purchase} />
         <Stack.Screen name="Calendar" component={CalendarSheet} />
@@ -157,27 +153,20 @@ const RootStack = (props: RootScreenProps<"Home">) => {
 
       {/* Other Modals */}
       <Stack.Screen
-        name="StatsInfo"
-        component={StatsInfo}
-        options={{
-          presentation: "transparentModal",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="Entry"
         component={Entry}
         options={{
-          animation: "fade_from_bottom",
+          animation: "slide_from_bottom",
           presentation: "modal",
           headerShown: true,
           ...androidHeaderOptions,
+          title: "",
         }}
       />
       <Stack.Screen
         options={{
           presentation: "modal",
-          animation: "fade_from_bottom",
+          animation: "slide_from_bottom",
           headerShown: true,
           headerTitle: "Personal Info",
           headerBackground: () => (

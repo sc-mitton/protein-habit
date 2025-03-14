@@ -205,14 +205,6 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
     }, 0);
   }, []);
 
-  useEffect(() => {
-    if (Platform.OS === "android") {
-      props.navigation.setOptions({
-        title: "",
-      });
-    }
-  }, []);
-
   const handleSubmit = () => {
     animation.current?.reset();
     animation.current?.play();
