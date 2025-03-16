@@ -86,28 +86,18 @@ const Stats = () => {
               borderColor="seperator"
               borderBottomWidth={1.5}
             >
-              <Tip
-                label="Your current daily protein goal."
-                maxWidth={125}
-                offset={12}
-              >
-                <Box flexDirection="row" gap="s" alignItems="center">
-                  <Ionicons
-                    name="flag"
-                    size={18}
-                    color={
-                      accent ? theme.colors[accent] : theme.colors.secondaryText
-                    }
-                  />
-                  <Text
-                    variant="miniHeader"
-                    accent={true}
-                    color="secondaryText"
-                  >
-                    Daily Goal
-                  </Text>
-                </Box>
-              </Tip>
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <Ionicons
+                  name="flag"
+                  size={18}
+                  color={
+                    accent ? theme.colors[accent] : theme.colors.secondaryText
+                  }
+                />
+                <Text variant="miniHeader" accent={true} color="secondaryText">
+                  Daily Goal
+                </Text>
+              </Box>
             </Box>
             <Box flexDirection="row" gap="xs" marginLeft="xs">
               <Text fontSize={18}>{dailyTarget}</Text>
