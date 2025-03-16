@@ -3,6 +3,8 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { InteractionManager, Alert, useColorScheme, Image } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { ChevronRight, ArrowLeft } from "geist-native-icons";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Invert } from "react-native-color-matrix-image-filters";
 import { useTheme } from "@shopify/restyle";
 import {
@@ -20,11 +22,12 @@ import type { ProductAndroid } from "expo-iap/build/types/ExpoIapAndroid.types";
 import type { ProductIos } from "expo-iap/build/types/ExpoIapIos.types";
 
 import { HomeScreenProps } from "@types";
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { setPurchaseStatus } from "@store/slices/userSlice";
-import { Box, Text, Button, Icon, BackDrop, PulseText } from "@components";
+import { Box, Text, Button, Icon, BackDrop, PulseText, Tip } from "@components";
 import { baseIap, premiumIap } from "@constants/iaps";
 import logo from "@assets/icon-tinted.png";
+import { selectAccent } from "@store/slices/uiSlice";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -70,11 +73,13 @@ const Message = ({
 
 export default function Purchase(props: HomeScreenProps<"Purchase">) {
   const theme = useTheme();
+  const accent = useAppSelector(selectAccent);
   const dispatch = useAppDispatch();
   const [purchasable, setPurchasable] = useState<ProductIos | ProductAndroid>();
   const scheme = useColorScheme();
   const [hasPurchased, setHasPurchased] = useState<boolean>();
   const [listenForPurchase, setListenForPurchase] = useState(false);
+  const [restoreFailed, setRestoreFailed] = useState(false);
 
   useEffect(() => {
     const iap = props.route.params.iap;
@@ -89,21 +94,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       await initConnection();
 
       const purchaseHistory = await getPurchaseHistory();
-      // If for some reason redux lost track of the purchase status,
-      // restore it
-      if (purchaseHistory.length > 0) {
-        if (purchaseHistory.some((p: any) => p.productID === baseIap.sku)) {
-          dispatch(setPurchaseStatus(baseIap.unlocks));
-          setHasPurchased(true);
-        } else if (
-          purchaseHistory.some((p: any) => p.productID === premiumIap.sku)
-        ) {
-          dispatch(setPurchaseStatus(premiumIap.unlocks));
-          setHasPurchased(true);
-        } else {
-          setListenForPurchase(true);
-        }
-      } else {
+      if (purchaseHistory.length <= 0) {
         setListenForPurchase(true);
         setHasPurchased(false);
       }
@@ -133,6 +124,26 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       requestPurchase({
         skus: ["fullAccess1199"],
       });
+    }
+  };
+
+  const handleRestore = async () => {
+    const purchaseHistory = await getPurchaseHistory();
+    if (purchaseHistory.length > 0) {
+      const basePurchase = purchaseHistory.find(
+        (p: any) => p.productId === baseIap.sku,
+      );
+      const premiumPurchase = purchaseHistory.find(
+        (p: any) => p.productId === premiumIap.sku,
+      );
+
+      if (basePurchase) {
+        dispatch(setPurchaseStatus(baseIap.unlocks));
+        setHasPurchased(true);
+      } else if (premiumPurchase) {
+        dispatch(setPurchaseStatus(premiumIap.unlocks));
+        setHasPurchased(true);
+      }
     }
   };
 
@@ -170,7 +181,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       }}
     >
       <BottomSheetView>
-        <Box marginBottom="l" padding="l" paddingTop="none">
+        <Box paddingHorizontal="l" marginBottom="l">
           <Box
             borderBottomWidth={1}
             borderBottomColor="seperator"
@@ -214,13 +225,47 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
               label={hasPurchased ? "Back" : "Purchase"}
               icon={
                 hasPurchased ? (
-                  <Icon icon={ArrowLeft} strokeWidth={2} size={16} />
+                  <Icon icon={ArrowLeft} strokeWidth={2.5} size={16} />
                 ) : (
-                  <Icon icon={ChevronRight} strokeWidth={2} size={16} />
+                  <Icon icon={ChevronRight} strokeWidth={2.5} size={16} />
                 )
               }
             />
           </Animated.View>
+          {!hasPurchased && (
+            <Button
+              marginTop="m"
+              variant="primary"
+              backgroundColor="transparent"
+              onPress={handleRestore}
+              label={
+                restoreFailed
+                  ? "Failed to Restore Purchase"
+                  : "Restore Purchase"
+              }
+              textColor={restoreFailed ? "error" : "secondaryText"}
+              icon={
+                restoreFailed && (
+                  <Ionicons
+                    name="alert-circle"
+                    size={20}
+                    color={theme.colors.error}
+                  />
+                )
+              }
+              accent={!restoreFailed}
+            >
+              {!restoreFailed && (
+                <Tip label="If you have already purchased the app, you can restore your purchase here.">
+                  <AntDesign
+                    name="questioncircle"
+                    size={18}
+                    color={accent ? theme.colors[accent] : "secondaryText"}
+                  />
+                </Tip>
+              )}
+            </Button>
+          )}
         </Box>
       </BottomSheetView>
     </BottomSheet>

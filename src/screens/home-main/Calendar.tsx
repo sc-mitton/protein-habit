@@ -37,6 +37,7 @@ const Calendar = () => {
     [userInception],
   );
   const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
+  const isInModal = navigation.getState().routes.length > 1;
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
   const proteinMonthlyDailyAverage = useAppSelector((state) =>
     selectMonthlyDailyAverage(state, calendarData[currentIndex][0]),
@@ -67,7 +68,14 @@ const Calendar = () => {
   }, [dailyTargetResults]);
 
   return (
-    <Box justifyContent="center" alignItems="center" zIndex={100} flex={1}>
+    <Box
+      justifyContent="center"
+      alignItems="center"
+      zIndex={100}
+      height={isInModal ? 300 : "auto"}
+      {...(!isInModal && { flex: 1 })}
+      width={"100%"}
+    >
       <FlatList
         style={styles.flatList}
         data={calendarData}
@@ -107,12 +115,7 @@ const Calendar = () => {
               paddingLeft="xxs"
               gap="s"
             >
-              <Text
-                accent={true}
-                variant={
-                  navigation.getState().routes.length > 1 ? "bold" : undefined
-                }
-              >
+              <Text accent={true} variant={isInModal ? "bold" : undefined}>
                 {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
               </Text>
               <Box

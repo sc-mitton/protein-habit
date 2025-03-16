@@ -70,6 +70,7 @@ export default {
         resizeMode: "contain",
       },
       package: "com.northof60labs.proteincount",
+      allowBackup: true,
     },
     web: {
       favicon: "./assets/favicon.png",

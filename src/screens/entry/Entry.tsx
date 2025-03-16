@@ -8,6 +8,7 @@ import {
   Platform,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Animated, {
   FadeInUp,
   FadeOutDown,
@@ -71,15 +72,8 @@ const KeypadButton = ({
         disabled={disabled}
         underlayColor={theme.colors.primaryButton}
       >
-        <Box
-          flex={1}
-          justifyContent="center"
-          alignItems="center"
-          width="100%"
-          height="100%"
-          paddingTop="s"
-        >
-          <Text textAlign="center" fontSize={32} lineHeight={32}>
+        <Box flex={1} justifyContent="center" alignItems="center" width="100%">
+          <Text textAlign="center" fontSize={32} lineHeight={36}>
             {value === "del" ? (
               <Icon
                 icon={Delete}
@@ -106,7 +100,7 @@ const KeyPad = memo(
     disabled: boolean;
   }) => {
     return (
-      <Box width="100%" gap="s" padding="l" justifyContent="center">
+      <Box width="100%" gap="s" padding="l" justifyContent="center" flex={3}>
         {[
           [1, 2, 3],
           [4, 5, 6],
@@ -116,9 +110,9 @@ const KeyPad = memo(
           <Box
             key={`keypad-row-${i}`}
             flexDirection="row"
-            gap="s"
             alignItems="center"
-            justifyContent="center"
+            justifyContent="space-evenly"
+            flex={1}
           >
             {row.map((key) => (
               <KeypadButton
@@ -360,15 +354,14 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
           )}
         </Box>
       </Box>
-      <Box flex={1} justifyContent="space-evenly">
+      <Box flex={1} justifyContent="center">
         <KeyPad
           handleKeyPress={handleKeyPress}
           disabled={value.toString().length >= 3}
         />
-        <Box marginBottom="l">
+        <Box flex={1}>
           <Button
-            margin="l"
-            marginBottom="xxxl"
+            marginHorizontal="l"
             variant="primary"
             textColor="selected"
             onPress={handleSubmit}
@@ -392,15 +385,14 @@ const styles = StyleSheet.create({
   },
   keyTouchContainer: {
     flex: 1,
-    width: 64,
-    height: 64,
   },
   keyTouch: {
     width: "100%",
-    height: "100%",
+    flex: 1,
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
+    maxHeight: 64,
   },
   mask: {
     width: "100%",
