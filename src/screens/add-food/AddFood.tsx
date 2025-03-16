@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, useWatch, useController } from "react-hook-form";
-import { AlertCircle } from "geist-native-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { useTheme } from "@shopify/restyle";
@@ -157,7 +156,11 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                     alignItems="center"
                     marginTop="s"
                   >
-                    <Icon icon={AlertCircle} size={16} color="error" />
+                    <Ionicons
+                      name="alert-circle"
+                      size={16}
+                      color={theme.colors.error}
+                    />
                     <Text variant="caption" color="error">
                       {errors.name.message}
                     </Text>
@@ -188,7 +191,11 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                     alignItems="center"
                     marginTop="s"
                   >
-                    <Icon icon={AlertCircle} size={16} color="error" />
+                    <Ionicons
+                      name="alert-circle"
+                      size={16}
+                      color={theme.colors.error}
+                    />
                     <Text variant="caption" color="error">
                       {errors.protein.message}
                     </Text>

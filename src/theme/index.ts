@@ -22,6 +22,7 @@ const palette = {
 // Light theme
 const lightTheme = createTheme({
   colors: {
+    modalBackground: palette.gray50,
     mainBackground: palette.gray100,
     secondaryBackground: palette.gray50,
     foodItemBackground: palette.gray50,
@@ -233,6 +234,7 @@ export const darkTheme: Theme = {
   ...lightTheme,
   colors: {
     ...lightTheme.colors,
+    modalBackground: palette.gray900,
     mainBackground: palette.gray900
       .replace(
         /(\d+)%,\s\d\)/,

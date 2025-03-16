@@ -130,7 +130,7 @@ const Tabs = () => {
         shadowColor="defaultShadow"
         shadowOpacity={Platform.OS === "ios" ? 0.3 : 1}
         shadowOffset={{ width: 0, height: 2 }}
-        shadowRadius={12}
+        shadowRadius={64}
         elevation={12}
       >
         <PagerView

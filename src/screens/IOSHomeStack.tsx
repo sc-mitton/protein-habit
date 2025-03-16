@@ -119,7 +119,9 @@ const RootStack = (props: RootScreenProps<"Home">) => {
                 gap="xs"
                 alignItems="flex-start"
               >
-                <Text fontSize={18}>Welcome, {name}</Text>
+                <Text fontSize={18} variant="bold">
+                  Welcome, {name}
+                </Text>
                 <Text color="tertiaryText">
                   {currentDay.format("MMM D, YYYY")}
                 </Text>

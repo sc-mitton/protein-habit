@@ -181,13 +181,13 @@ const Calendar = () => {
                         <Box
                           key={`cell-${dayInJS.format(dayFormat)}-${columnIndex}-${rowIndex}`}
                           style={[styles.cell, { zIndex: rowIndex }]}
-                          borderColor="seperator"
+                          borderColor="borderColor"
                           borderTopWidth={1.5}
                         >
                           <Box
                             style={StyleSheet.absoluteFill}
                             opacity={
-                              Appearance.getColorScheme() == "dark" ? 0.3 : 1
+                              Appearance.getColorScheme() == "dark" ? 0.3 : 0.5
                             }
                             backgroundColor={
                               rowIndex % 2 == 0

@@ -291,7 +291,7 @@ export default function (props: HomeScreenProps<"MyFoods">) {
       enableOverDrag={false}
       enableDynamicSizing={true}
       backgroundStyle={{
-        backgroundColor: theme.colors.mainBackground,
+        backgroundColor: theme.colors.modalBackground,
       }}
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,

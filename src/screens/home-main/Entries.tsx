@@ -65,35 +65,55 @@ const Days = ({
         <Box
           width={pillWidth}
           style={{ transform: [{ translateX: -pillWidth / 2 }] }}
-          height={32}
-          backgroundColor="primaryButton"
+          height={64}
+          borderColor="primaryButton"
+          borderWidth={1.5}
           position="absolute"
-          borderRadius="m"
+          borderRadius="l"
         />
       </Animated.View>
-      {Array.from({ length: 7 }).map((_, index) => (
-        <Button
-          key={`entrie-days-day-${index}`}
-          width={pillWidth}
-          paddingVertical="sm"
-          paddingHorizontal="none"
-          alignItems="center"
-          justifyContent="center"
-          disabled={dayjs().isBefore(dayjs().startOf("week").add(index, "day"))}
-          textColor={
-            dayjs().isBefore(dayjs().startOf("week").add(index, "day"))
-              ? "tertiaryText"
-              : "primaryText"
-          }
-          backgroundColor="transparent"
-          onPress={() => {
-            setDay(
-              dayjs().startOf("week").add(index, "day").format(dayTimeFormat),
-            );
-          }}
-          label={dayjs().startOf("week").add(index, "day").format("dd")}
-        />
-      ))}
+      {Array.from({ length: 7 }).map((_, index) => {
+        const disabled = dayjs().isBefore(
+          dayjs().startOf("week").add(index, "day"),
+        );
+        return (
+          <Button
+            key={`entrie-days-day-${index}`}
+            width={pillWidth}
+            paddingVertical="sm"
+            paddingHorizontal="none"
+            alignItems="center"
+            justifyContent="center"
+            disabled={disabled}
+            textColor={
+              dayjs().isBefore(dayjs().startOf("week").add(index, "day"))
+                ? "tertiaryText"
+                : "primaryText"
+            }
+            backgroundColor="transparent"
+            onPress={() => {
+              setDay(
+                dayjs().startOf("week").add(index, "day").format(dayTimeFormat),
+              );
+            }}
+          >
+            <Box flexDirection="column" alignItems="center">
+              <Text
+                variant="bold"
+                color={disabled ? "quaternaryText" : "secondaryText"}
+              >
+                {dayjs().startOf("week").add(index, "day").format("D")}
+              </Text>
+              <Text
+                accent={!disabled}
+                color={disabled ? "quaternaryText" : "primaryText"}
+              >
+                {dayjs().startOf("week").add(index, "day").format("dd")}
+              </Text>
+            </Box>
+          </Button>
+        );
+      })}
     </Box>
   );
 };

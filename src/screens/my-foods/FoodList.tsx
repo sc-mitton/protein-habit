@@ -72,6 +72,7 @@ export default FoodList;
 const styles = StyleSheet.create({
   scrollContent: {
     paddingTop: 14,
+    minHeight: 250,
     paddingHorizontal: 6,
     paddingBottom: 36,
     flexDirection: "row",

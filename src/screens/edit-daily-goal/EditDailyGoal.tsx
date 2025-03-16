@@ -132,7 +132,7 @@ const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
       onClose={() => props.navigation.goBack()}
       enablePanDownToClose
       backgroundStyle={{
-        backgroundColor: theme.colors.mainBackground,
+        backgroundColor: theme.colors.modalBackground,
       }}
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,

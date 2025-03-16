@@ -37,25 +37,16 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 const Message = ({
   iap,
-  hasPurchased,
   purchaseable,
 }: {
   iap: typeof baseIap | typeof premiumIap;
-  hasPurchased?: boolean;
   purchaseable?: ProductIos | ProductAndroid;
 }) => {
-  return hasPurchased === undefined || purchaseable === undefined ? (
+  return purchaseable === undefined ? (
     <Box gap="m">
       <PulseText numberOfLines={1.25} width={250} />
       <PulseText numberOfLines={1.25} width={150} />
     </Box>
-  ) : hasPurchased === true ? (
-    <Text>
-      You have already purchased{" "}
-      {isProductIos(purchaseable)
-        ? purchaseable.displayName.toLowerCase()
-        : purchaseable?.productId}
-    </Text>
   ) : iap === baseIap ? (
     <Text color="secondaryText" fontSize={15}>
       Your have completed your free trial. You can purchase a &nbsp;
@@ -174,7 +165,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       enablePanDownToClose={false}
       backdropComponent={() => <BackDrop blurIntensity={30} />}
       backgroundStyle={{
-        backgroundColor: theme.colors.mainBackground,
+        backgroundColor: theme.colors.modalBackground,
       }}
       handleIndicatorStyle={{
         backgroundColor: "transparent",
@@ -209,11 +200,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
             )}
             <Text variant="header">Protein Count</Text>
           </Box>
-          <Message
-            iap={props.route.params.iap}
-            hasPurchased={hasPurchased}
-            purchaseable={purchasable}
-          />
+          <Message iap={props.route.params.iap} purchaseable={purchasable} />
           <Animated.View layout={LinearTransition.duration(200)}>
             <Button
               variant="primary"

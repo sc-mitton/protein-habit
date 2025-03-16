@@ -13,7 +13,7 @@ const Appearance = (props: HomeScreenProps<"Calendar">) => {
       onClose={() => props.navigation.goBack()}
       enablePanDownToClose
       backgroundStyle={{
-        backgroundColor: theme.colors.secondaryBackground,
+        backgroundColor: theme.colors.modalBackground,
       }}
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
