@@ -21,7 +21,11 @@ import {
 } from "@components";
 import { HomeScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { addFood, deactiveFood, selectTags } from "@store/slices/foodsSlice";
+import {
+  addFood,
+  updateCreateFood,
+  selectTags,
+} from "@store/slices/foodsSlice";
 import { TagMenu } from "./Menu";
 
 const schema = z.object({
@@ -35,7 +39,7 @@ const schema = z.object({
       "Must be a positive number",
     )
     .transform((val) => Number(val)),
-  tags: z.array(z.string()),
+  tags: z.array(z.string()).optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -59,9 +63,10 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
 
   const onSubmit = (data: FormData) => {
     if (route.params?.food) {
-      dispatch(deactiveFood(route.params.food.id));
+      dispatch(updateCreateFood({ ...data, id: route.params.food.id }));
+    } else {
+      dispatch(addFood(data));
     }
-    dispatch(addFood(data));
     navigation.goBack();
   };
 
@@ -253,7 +258,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                                   );
                                 }
                               }}
-                              selected={value?.includes(tag.id)}
+                              selected={value?.includes(tag.id) ?? false}
                             />
                           </TagMenu>
                         </Animated.View>
@@ -267,6 +272,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                     label="New"
                     labelPlacement="left"
                     fontSize={14}
+                    lineHeight={16}
                     variant="pillMedium"
                     backgroundColor="transparent"
                     borderColor="borderColor"

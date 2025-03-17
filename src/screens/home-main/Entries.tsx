@@ -13,7 +13,6 @@ import { StyleSheet, Dimensions } from "react-native";
 import { useAppSelector } from "@store/hooks";
 import { Box, Text, Icon, Button } from "@components";
 import { selectDaysEntries } from "@store/slices/proteinSelectors";
-import { selectFoods } from "@store/slices/foodsSlice";
 import Options from "./SwipeOptions";
 import { dayTimeFormat } from "@constants/formats";
 
@@ -124,7 +123,6 @@ const Entries = () => {
   const daysEntries = useAppSelector((state) =>
     selectDaysEntries(state, dayjs(day).format(dayTimeFormat)),
   );
-  const foods = useAppSelector(selectFoods);
 
   return (
     <Fragment>
@@ -160,18 +158,7 @@ const Entries = () => {
                     marginHorizontal="xs"
                     gap="s"
                   >
-                    {foods.find((food) => food.id === entry.food)?.emoji && (
-                      <Text>
-                        {foods.find((food) => food.id === entry.food)?.emoji}
-                      </Text>
-                    )}
-                    {foods.find((food) => food.id === entry.food)?.name ? (
-                      <Text>
-                        {foods.find((food) => food.id === entry.food)?.name}
-                      </Text>
-                    ) : (
-                      <Text>{entry.name}</Text>
-                    )}
+                    <Text>{entry.name || entry.description}</Text>
                   </Box>
                   <Text color="secondaryText">
                     {dayjs()

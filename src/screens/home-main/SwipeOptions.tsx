@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import dayjs from "dayjs";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -13,12 +13,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-import { useAppDispatch } from "@store/hooks";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Box } from "@components";
 import { Button } from "@components";
 import { removeEntry } from "@store/slices/proteinSlice";
 import { dayFormat } from "@constants/formats";
 import type { ProteinEntry } from "@store/slices/proteinSlice";
+import { selectFoods } from "@store/slices/foodsSlice";
 
 const ACTIONS_WIDTH = 105;
 const THRESHOLD = ACTIONS_WIDTH / 2;
@@ -49,6 +50,16 @@ const Options = ({ children, entry }: OptionsProps) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
   const theme = useTheme();
+  const foods = useAppSelector(selectFoods);
+
+  const isEditable = useMemo(
+    () =>
+      !entry.food ||
+      foods.some((f) => f.id === entry.food && f.isActive !== false)
+        ? 1
+        : 1.5,
+    [entry.food, foods],
+  );
 
   const translateX = useSharedValue(0);
   const [isOpenState, setIsOpenState] = useState(false);
@@ -62,7 +73,10 @@ const Options = ({ children, entry }: OptionsProps) => {
     .failOffsetX(isOpenState ? [-Infinity, Infinity] : 0)
     .activeOffsetX([-5, 5])
     .onUpdate((event) => {
-      const x = Math.min(0, Math.max(-ACTIONS_WIDTH, event.translationX));
+      const x = Math.min(
+        0,
+        Math.max(-ACTIONS_WIDTH / isEditable, event.translationX),
+      );
       translateX.value = isOpen.value ? withSpring(0) : x;
     })
     .onEnd((event) => {
@@ -71,7 +85,7 @@ const Options = ({ children, entry }: OptionsProps) => {
         (translateX.value < -THRESHOLD && event.velocityX > -500);
 
       if (shouldOpen) {
-        translateX.value = withSpring(-ACTIONS_WIDTH);
+        translateX.value = withSpring(-ACTIONS_WIDTH / isEditable);
         runOnJS(setIsOpenState)(true);
         isOpen.value = true;
       } else {
@@ -126,22 +140,24 @@ const Options = ({ children, entry }: OptionsProps) => {
                   />
                 }
               />
-              <Button
-                style={styles.button}
-                backgroundColor="primaryButton"
-                padding="s"
-                borderRadius="m"
-                justifyContent="center"
-                alignItems="center"
-                onPress={handleEdit}
-                icon={
-                  <Ionicons
-                    name="pencil"
-                    size={24}
-                    color={theme.colors.primaryText}
-                  />
-                }
-              />
+              {isEditable <= 1 && (
+                <Button
+                  style={styles.button}
+                  backgroundColor="primaryButton"
+                  padding="s"
+                  borderRadius="m"
+                  justifyContent="center"
+                  alignItems="center"
+                  onPress={handleEdit}
+                  icon={
+                    <Ionicons
+                      name="pencil"
+                      size={24}
+                      color={theme.colors.primaryText}
+                    />
+                  }
+                />
+              )}
             </Box>
             {children}
           </Box>

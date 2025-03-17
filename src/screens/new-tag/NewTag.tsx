@@ -60,7 +60,7 @@ const NewTag = (props: HomeScreenProps<"NewTag">) => {
     <Box
       padding="l"
       flex={1}
-      backgroundColor="modalBackground"
+      backgroundColor="mainBackground"
       paddingTop={Platform.OS === "ios" ? "l" : "xxxl"}
     >
       {Platform.OS === "ios" && (

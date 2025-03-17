@@ -5,6 +5,7 @@ import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import * as ZMenu from "zeego/context-menu";
+import * as Haptics from "expo-haptics";
 
 import { Button, Text, Box } from "@components";
 import { deactiveFood, type Food } from "@store/slices/foodsSlice";
@@ -71,7 +72,14 @@ const Menu = ({
       ) : (
         <PaperMenu
           anchor={
-            <Button onPress={() => setIsOpen(!isOpen)}>{children}</Button>
+            <Button
+              onLongPress={() => {
+                Haptics.selectionAsync();
+                setIsOpen(!isOpen);
+              }}
+            >
+              {children}
+            </Button>
           }
           visible={isOpen}
           onDismiss={() => setIsOpen(false)}
@@ -127,7 +135,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           shadowOffset={{ width: 0, height: 2 }}
           shadowOpacity={0.1}
           shadowRadius={8}
-          elevation={5}
+          elevation={12}
           flexDirection="row"
           alignItems="center"
           justifyContent="space-between"

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { ArrowLeft, Plus, Search, Tag as TagIcon } from "geist-native-icons";
 import Animated, {
-  FadeIn,
-  FadeOut,
   LinearTransition,
+  useAnimatedStyle,
+  withTiming,
 } from "react-native-reanimated";
 import DatePicker from "react-native-date-picker";
 import dayjs from "dayjs";
@@ -66,6 +66,12 @@ const Actions = () => {
   const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
   const theme = useTheme();
 
+  const headerTopAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(focusedSearch ? 0 : 1),
+    };
+  });
+
   return (
     <Box marginBottom="s">
       {Platform.OS === "ios" && (
@@ -80,7 +86,7 @@ const Actions = () => {
         </Box>
       )}
       {!focusedSearch && (
-        <Animated.View entering={FadeIn} exiting={FadeOut}>
+        <Animated.View style={headerTopAnimation}>
           <Box
             flexDirection="row"
             justifyContent="space-between"
@@ -206,9 +212,15 @@ const Actions = () => {
                       key={tag.id}
                       color={tag.color}
                       label={tag.name}
-                      onPress={() =>
-                        setSelectedTags((prev) => [...prev, tag.id])
-                      }
+                      onPress={() => {
+                        if (selectedTags.includes(tag.id)) {
+                          setSelectedTags((prev) =>
+                            prev.filter((t) => t !== tag.id),
+                          );
+                        } else {
+                          setSelectedTags((prev) => [...prev, tag.id]);
+                        }
+                      }}
                       selected={selectedTags.includes(tag.id)}
                     />
                   ))}

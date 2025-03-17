@@ -49,27 +49,43 @@ const foodsSlice = createSlice({
       }));
       state.tags = state.tags.filter((tag) => tag.id !== action.payload);
     },
+    updateCreateFood: (state, action: PayloadAction<Food>) => {
+      const food = state.foods.find((f) => f.id === action.payload.id);
+      if (food?.protein !== action.payload.protein) {
+        // If updating the amount of protein, deactivate the food and create new one
+        // otherwise, update the food
+        state.foods = state.foods.map((f) =>
+          f.id === action.payload.id ? { ...f, isActive: false } : f,
+        );
+        state.foods.push({
+          ...action.payload,
+          id: Math.random().toString(36).slice(2, 15),
+        });
+      } else {
+        state.foods = state.foods.map((f) =>
+          f.id === action.payload.id ? { ...f, ...action.payload } : f,
+        );
+      }
+    },
     deactiveFood: (state, action: PayloadAction<string>) => {
-      state.foods = state.foods.map((food) =>
-        food.id === action.payload ? { ...food, isActive: false } : food,
-      );
-      // Remove tags that are no longer associated with any food
-      state.tags = state.tags.filter((tag) =>
-        state.foods.some((food) => food.tags?.some((t) => t === tag.id)),
+      state.foods = state.foods.map((f) =>
+        f.id === action.payload ? { ...f, isActive: false } : f,
       );
     },
     removeFood: (state, action: PayloadAction<string>) => {
       state.foods = state.foods.filter((food) => food.id !== action.payload);
-      // Remove tags that are no longer associated with any food
-      state.tags = state.tags.filter((tag) =>
-        state.foods.some((food) => food.tags?.some((t) => t === tag.id)),
-      );
     },
   },
 });
 
-export const { addFood, removeFood, deactiveFood, addTag, removeTag } =
-  foodsSlice.actions;
+export const {
+  addFood,
+  removeFood,
+  updateCreateFood,
+  addTag,
+  removeTag,
+  deactiveFood,
+} = foodsSlice.actions;
 
 export const selectFoods = createSelector(
   (state: RootState) => state.foods.foods,

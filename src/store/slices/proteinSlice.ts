@@ -9,6 +9,7 @@ export interface ProteinEntry {
   grams: number;
   time: string;
   name?: string;
+  description?: string;
   food?: Food["id"];
 }
 
@@ -30,7 +31,7 @@ export const getRecommendedTarget = (weight: number, unit: "lbs" | "kg") => {
 
 type ProteinEntryPayload = (
   | (Required<Pick<ProteinEntry, "grams">> & Pick<ProteinEntry, "name">)
-  | Required<Pick<ProteinEntry, "food" | "grams">>
+  | { food: Food }
 ) & {
   day: string;
 };
@@ -62,11 +63,18 @@ const proteinSlice = createSlice({
       }
 
       state.entries[entriesIndex][1].push({
-        grams: action.payload.grams,
+        grams:
+          "food" in action.payload
+            ? action.payload.food.protein
+            : action.payload.grams,
         id: Math.random().toString(36).slice(2, 11),
         time: dayjs().format(timeFormat),
-        food: "food" in action.payload ? action.payload.food : undefined,
+        food: "food" in action.payload ? action.payload.food.id : undefined,
         name: "name" in action.payload ? action.payload.name : undefined,
+        description:
+          "food" in action.payload
+            ? `${action.payload.food.emoji} ${action.payload.food.name}`
+            : undefined,
       });
     },
     removeEntry: (
