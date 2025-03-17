@@ -2,6 +2,7 @@ import { createTheme } from "@shopify/restyle";
 import { StatusBar, Platform } from "react-native";
 
 const palette = {
+  gray0: "hsla(30, 2%, 100%, 1)",
   gray50: "hsla(30, 2%, 98%, 1)",
   gray100: "hsla(30, 2%, 95%, 1)",
   gray150: "hsla(30, 2%, 92%, 1)",
@@ -47,6 +48,7 @@ const lightTheme = createTheme({
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
     primaryButton: palette.gray200,
+    inputBackground: palette.gray0,
     defaultShadow:
       Platform.OS === "android" ? palette.gray1000 : palette.gray800,
     buttonShadow: palette.gray500,
@@ -55,12 +57,19 @@ const lightTheme = createTheme({
 
     // Accent colors
     yellow: "#c09d34",
+    yellowText: "#967d29",
     orange: "#d97126",
+    orangeText: "#ad5a1e",
     green: "#127e5f",
+    greenText: "#0e654c",
     blue: "#637eea",
+    blueText: "#4f65bb",
     purple: "#af69de",
+    purpleText: "#8c54b2",
     pink: "#db6ca3",
+    pinkText: "#af5682",
     red: "#bf4044",
+    redText: "#993336",
   },
   spacing: {
     nl: -24,
@@ -81,6 +90,14 @@ const lightTheme = createTheme({
     statusBar: StatusBar?.currentHeight ? StatusBar.currentHeight + 24 : 24,
   },
   boxVariants: {
+    pillMedium: {
+      borderRadius: "full",
+      paddingHorizontal: "m",
+      paddingVertical: "s",
+      fontFamily: "Inter-Regular",
+      alignItems: "center",
+      justifyContent: "center",
+    },
     defaults: {},
   },
   borderRadii: {
@@ -138,6 +155,16 @@ const lightTheme = createTheme({
       borderRadius: "full",
       paddingHorizontal: "xs",
       paddingVertical: "xs",
+      fontFamily: "Inter-Regular",
+      fontSize: 16,
+      lineHeight: 18,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    pillMedium: {
+      borderRadius: "full",
+      paddingHorizontal: "m",
+      paddingVertical: "s",
       fontFamily: "Inter-Regular",
       fontSize: 16,
       lineHeight: 18,
@@ -258,6 +285,7 @@ export const darkTheme: Theme = {
     defaultShadow: palette.gray1100,
     buttonShadow: palette.gray700,
     primaryButton: palette.gray850,
+    inputBackground: palette.gray900,
     foodItemBackground: palette.gray850,
     modalAndroidStatusBackground: palette.gray1100,
   },

@@ -144,7 +144,7 @@ const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
           alignItems="center"
           gap="m"
           marginTop="l"
-          backgroundColor="mainBackground"
+          backgroundColor="modalBackground"
         >
           <Text variant="header" color="secondaryText">
             Edit Daily Goal

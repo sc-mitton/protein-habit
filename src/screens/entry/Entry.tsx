@@ -8,7 +8,6 @@ import {
   Platform,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Animated, {
   FadeInUp,
   FadeOutDown,
@@ -331,6 +330,7 @@ const Entry = (props: HomeScreenProps<"Entry">) => {
         >
           <TextInput
             borderLess
+            backgroundColor="transparent"
             ref={nameInputRef}
             placeholderTextColor={theme.colors.placeholderText}
             placeholder={nameFocused ? "" : "Bagel & Cream Cheese "}

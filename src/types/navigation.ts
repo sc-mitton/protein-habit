@@ -19,6 +19,7 @@ export type HomeStackParamList = {
   StatsInfo: undefined;
   Purchase: { iap: typeof baseIap | typeof premiumIap };
   Calendar: undefined;
+  NewTag: undefined;
 };
 
 export type RootStackParamList = {

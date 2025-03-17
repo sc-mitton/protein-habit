@@ -1,16 +1,28 @@
+import { Fragment } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, useWatch, useController } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Animated, { LinearTransition } from "react-native-reanimated";
+import { Plus } from "geist-native-icons";
 
 import { useTheme } from "@shopify/restyle";
 
 import { X } from "geist-native-icons";
 import { z } from "zod";
 import { Platform } from "react-native";
-import { Box, Text, TextInput, Button, Icon, EmojiPicker } from "@components";
+import {
+  Box,
+  Text,
+  TextInput,
+  Button,
+  Icon,
+  EmojiPicker,
+  Tag,
+} from "@components";
 import { HomeScreenProps } from "@types";
-import { useAppDispatch } from "@store/hooks";
-import { addFood, deactiveFood } from "@store/slices/foodsSlice";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { addFood, deactiveFood, selectTags } from "@store/slices/foodsSlice";
+import { TagMenu } from "./Menu";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required").trim(),
@@ -23,6 +35,7 @@ const schema = z.object({
       "Must be a positive number",
     )
     .transform((val) => Number(val)),
+  tags: z.array(z.string()),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -42,19 +55,13 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
       protein: route.params?.food?.protein?.toString() as any,
     },
   });
+  const tags = useAppSelector(selectTags);
 
   const onSubmit = (data: FormData) => {
     if (route.params?.food) {
       dispatch(deactiveFood(route.params.food.id));
     }
-    dispatch(
-      addFood({
-        id: Math.random().toString(36).slice(2),
-        name: data.name,
-        emoji: data.emoji,
-        protein: data.protein,
-      }),
-    );
+    dispatch(addFood(data));
     navigation.goBack();
   };
 
@@ -180,6 +187,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                       onChangeText={(e) => onChange(e.toString())}
                       placeholder="31"
                       keyboardType="numeric"
+                      autoCapitalize="words"
                       error={!!errors.protein}
                     />
                   )}
@@ -201,6 +209,59 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                     </Text>
                   </Box>
                 )}
+              </Box>
+            </Box>
+            <Box>
+              <Text variant="label">Tags</Text>
+              <Box flexDirection="row" gap="sm" flexWrap="wrap">
+                <Controller
+                  control={control}
+                  name="tags"
+                  render={({ field: { onChange, value } }) => (
+                    <Fragment>
+                      {tags.map((tag) => (
+                        <Animated.View layout={LinearTransition} key={tag.id}>
+                          <TagMenu tagId={tag.id}>
+                            <Tag
+                              label={tag.name}
+                              color={tag.color}
+                              onPress={() => {
+                                if (value?.includes(tag.id)) {
+                                  onChange(value.filter((t) => t !== tag.id));
+                                } else {
+                                  onChange(
+                                    value ? [...value, tag.id] : [tag.id],
+                                  );
+                                }
+                              }}
+                              selected={value?.includes(tag.id)}
+                            />
+                          </TagMenu>
+                        </Animated.View>
+                      ))}
+                    </Fragment>
+                  )}
+                />
+                <Animated.View layout={LinearTransition}>
+                  <Button
+                    onPress={() => navigation.navigate("NewTag")}
+                    label="New"
+                    labelPlacement="left"
+                    fontSize={14}
+                    variant="pillMedium"
+                    backgroundColor="transparent"
+                    borderColor="borderColor"
+                    borderWidth={1.5}
+                    icon={
+                      <Icon
+                        icon={Plus}
+                        size={16}
+                        color="primaryText"
+                        strokeWidth={2}
+                      />
+                    }
+                  />
+                </Animated.View>
               </Box>
             </Box>
           </Box>

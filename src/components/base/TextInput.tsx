@@ -22,7 +22,7 @@ interface BaseTextInputProps extends TextInputProps {
 export const TextInput = forwardRef<RNTextInput, BaseTextInputProps>(
   (
     {
-      backgroundColor = "secondaryBackground",
+      backgroundColor = "inputBackground",
       error,
       style,
       children,

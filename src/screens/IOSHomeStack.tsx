@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Platform, AppState } from "react-native";
+import { AppState } from "react-native";
 import { Menu2 } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -19,6 +19,7 @@ import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
 import SuccessModal from "./success/SuccessModal";
+import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
@@ -146,7 +147,6 @@ const RootStack = (props: RootScreenProps<"Home">) => {
       >
         <Stack.Screen name="Appearance" component={Appearance} />
         <Stack.Screen name="EditDailyGoal" component={EditDailyGoal} />
-        <Stack.Screen name="MyFoods" component={MyFoods} />
         <Stack.Screen
           name="SuccessModal"
           component={SuccessModal}
@@ -163,14 +163,31 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         options={{
           animation: "fade_from_bottom",
           presentation: "modal",
-          headerShown: Platform.OS === "android" ? true : false,
-          ...(Platform.OS === "android" && androidHeaderOptions),
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="NewTag"
+        component={NewTag}
+        options={{
+          animation: "fade_from_bottom",
+          presentation: "modal",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="MyFoods"
+        component={MyFoods}
+        options={{
+          animation: "fade_from_bottom",
+          presentation: "modal",
+          headerShown: false,
         }}
       />
       <Stack.Screen
         options={{
           presentation: "modal",
-          headerShown: Platform.OS === "android" ? true : false,
+          headerShown: false,
           headerTitle: "Personal Info",
           headerBackground: () => (
             <Box backgroundColor="mainBackground" flex={1} />
@@ -187,7 +204,6 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         options={{
           headerShown: false,
           presentation: "modal",
-          ...(Platform.OS === "android" && androidHeaderOptions),
           animation: "fade_from_bottom",
           headerShadowVisible: false,
           statusBarTranslucent: true,

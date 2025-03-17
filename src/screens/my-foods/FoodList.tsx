@@ -1,5 +1,4 @@
-import { Fragment } from "react";
-import { ScrollView, StyleSheet, Platform, Dimensions } from "react-native";
+import { ScrollView, StyleSheet, Platform } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useTheme } from "@shopify/restyle";
@@ -8,6 +7,7 @@ import { Food, selectFoods } from "@store/slices/foodsSlice";
 import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import FoodItem from "./FoodItem";
+import { useMyFoods } from "./context";
 
 const FoodList = ({
   onPress,
@@ -16,15 +16,28 @@ const FoodList = ({
   onPress: (food: Food) => void;
   selectedFoods: string[];
 }) => {
+  const { searchString, selectedTags } = useMyFoods();
   const foods = useAppSelector(selectFoods);
   const theme = useTheme();
 
   return (
-    <Fragment>
+    <Animated.View
+      layout={LinearTransition.springify().mass(0.5).damping(15).stiffness(100)}
+    >
       {foods.length > 0 ? (
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {foods
             .filter((f) => !selectedFoods.some((sf) => sf === f.id))
+            .filter((f) =>
+              selectedTags.length > 0
+                ? selectedTags.some((t) => f.tags?.some((ft) => ft === t))
+                : true,
+            )
+            .filter((f) =>
+              searchString
+                ? f.name.toLowerCase().includes(searchString.toLowerCase())
+                : true,
+            )
             .map((food) => (
               <Animated.View layout={LinearTransition} key={food.id}>
                 <FoodItem
@@ -63,7 +76,7 @@ const FoodList = ({
           </Box>
         </Box>
       )}
-    </Fragment>
+    </Animated.View>
   );
 };
 

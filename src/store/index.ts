@@ -11,14 +11,20 @@ import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
 
 const migrations = {
-  32: (state: RootState) => {
-    return state;
+  33: (state: RootState) => {
+    return {
+      ...state,
+      foods: {
+        ...state.foods,
+        tags: [],
+      },
+    };
   },
 } as any;
 
 const persistConfig = {
   key: "root",
-  version: 32,
+  version: 33,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],

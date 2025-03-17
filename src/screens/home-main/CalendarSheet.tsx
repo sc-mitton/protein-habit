@@ -21,7 +21,11 @@ const Appearance = (props: HomeScreenProps<"Calendar">) => {
       backdropComponent={() => <BackDrop blurIntensity={0} />}
     >
       <BottomSheetView>
-        <Box marginBottom="xxl" paddingBottom="s">
+        <Box
+          marginBottom="xxl"
+          paddingBottom="s"
+          backgroundColor="modalBackground"
+        >
           <Calendar />
         </Box>
       </BottomSheetView>

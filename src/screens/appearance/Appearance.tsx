@@ -35,7 +35,7 @@ const Appearance = (props: HomeScreenProps<"Appearance">) => {
     >
       <BottomSheetView>
         <Box
-          backgroundColor="mainBackground"
+          backgroundColor="modalBackground"
           padding="l"
           paddingBottom="xxxl"
           borderTopLeftRadius="l"

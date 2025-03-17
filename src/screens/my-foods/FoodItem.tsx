@@ -4,11 +4,10 @@ import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-
 import * as ZMenu from "zeego/context-menu";
-import { Button, Icon, Text, Box } from "@components";
+
+import { Button, Text, Box } from "@components";
 import { deactiveFood, type Food } from "@store/slices/foodsSlice";
-import { Plus } from "geist-native-icons";
 import { useAppDispatch } from "@store/hooks";
 
 const Menu = ({
@@ -26,43 +25,49 @@ const Menu = ({
   return (
     <View>
       {Platform.OS === "ios" ? (
-        <View>
-          <ZMenu.Root>
-            <ZMenu.Trigger>{children}</ZMenu.Trigger>
-            <ZMenu.Content>
-              <ZMenu.Item
-                onSelect={() => navigation.navigate("AddFood", { food })}
-                key={food.id + "2"}
-              >
-                <ZMenu.ItemTitle>Edit</ZMenu.ItemTitle>
-                <ZMenu.ItemIcon
-                  ios={{
-                    name: "pencil",
-                    pointSize: 16,
-                    weight: "semibold",
-                    scale: "medium",
-                  }}
-                />
-              </ZMenu.Item>
-              <ZMenu.Separator />
-              <ZMenu.Item
-                onSelect={() => dispatch(deactiveFood(food.id))}
-                key={food.id + "1"}
-                destructive={true}
-              >
-                <ZMenu.ItemTitle>Delete</ZMenu.ItemTitle>
-                <ZMenu.ItemIcon
-                  ios={{
-                    name: "trash",
-                    pointSize: 16,
-                    weight: "semibold",
-                    scale: "medium",
-                  }}
-                />
-              </ZMenu.Item>
-            </ZMenu.Content>
-          </ZMenu.Root>
-        </View>
+        // @ts-ignore
+        <ZMenu.Root style={{ borderRadius: 12 }}>
+          <ZMenu.Trigger
+            style={{
+              backgroundColor: theme.colors.foodItemBackground,
+              borderRadius: 12,
+            }}
+          >
+            {children}
+          </ZMenu.Trigger>
+          <ZMenu.Content>
+            <ZMenu.Item
+              onSelect={() => navigation.navigate("AddFood", { food })}
+              key={food.id + "2"}
+            >
+              <ZMenu.ItemTitle>Edit</ZMenu.ItemTitle>
+              <ZMenu.ItemIcon
+                ios={{
+                  name: "pencil",
+                  pointSize: 16,
+                  weight: "semibold",
+                  scale: "medium",
+                }}
+              />
+            </ZMenu.Item>
+            <ZMenu.Separator />
+            <ZMenu.Item
+              onSelect={() => dispatch(deactiveFood(food.id))}
+              key={food.id + "1"}
+              destructive={true}
+            >
+              <ZMenu.ItemTitle>Delete</ZMenu.ItemTitle>
+              <ZMenu.ItemIcon
+                ios={{
+                  name: "trash",
+                  pointSize: 16,
+                  weight: "semibold",
+                  scale: "medium",
+                }}
+              />
+            </ZMenu.Item>
+          </ZMenu.Content>
+        </ZMenu.Root>
       ) : (
         <PaperMenu
           anchor={
@@ -111,10 +116,11 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
         shadowOffset={{ width: 0, height: 2 }}
         shadowRadius={2}
         elevation={5}
+        borderRadius="l"
       >
         <Box
           key={food.id}
-          backgroundColor="foodItemBackground"
+          backgroundColor={"foodItemBackground"}
           padding={Platform.OS === "ios" ? "s" : "sm"}
           borderRadius="l"
           shadowColor="defaultShadow"

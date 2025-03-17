@@ -22,6 +22,7 @@ import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
 import SuccessModal from "./success/SuccessModal";
+import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
@@ -141,7 +142,6 @@ const RootStack = (props: RootScreenProps<"Home">) => {
       >
         <Stack.Screen name="EditDailyGoal" component={EditDailyGoal} />
         <Stack.Screen name="Appearance" component={Appearance} />
-        <Stack.Screen name="MyFoods" component={MyFoods} />
         <Stack.Screen
           name="SuccessModal"
           component={SuccessModal}
@@ -155,6 +155,28 @@ const RootStack = (props: RootScreenProps<"Home">) => {
       <Stack.Screen
         name="Entry"
         component={Entry}
+        options={{
+          animation: "slide_from_bottom",
+          presentation: "modal",
+          headerShown: true,
+          ...androidHeaderOptions,
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="NewTag"
+        component={NewTag}
+        options={{
+          animation: "slide_from_bottom",
+          presentation: "modal",
+          headerShown: true,
+          ...androidHeaderOptions,
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="MyFoods"
+        component={MyFoods}
         options={{
           animation: "slide_from_bottom",
           presentation: "modal",
