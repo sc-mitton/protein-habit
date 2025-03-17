@@ -45,9 +45,9 @@ const EmojiPicker = (props: NativeEmojiPickerProps) => {
           {visible && (
             <Animated.View
               entering={SlideInDown.withInitialValues({ opacity: 0 }).duration(
-                500,
+                300,
               )}
-              exiting={SlideOutDown.duration(500).withInitialValues({
+              exiting={SlideOutDown.duration(300).withInitialValues({
                 opacity: 1,
               })}
               style={[StyleSheet.absoluteFill, styles.modal]}
@@ -111,7 +111,12 @@ function EmojiPickerContent(props: NativeEmojiPickerProps) {
   }, [emojis]);
 
   return (
-    <Box style={styles.main} backgroundColor="mainBackground" flex={1}>
+    <Box
+      style={styles.main}
+      backgroundColor="mainBackground"
+      flex={1}
+      paddingTop={Platform.OS === "android" ? "xl" : "none"}
+    >
       <Header
         onRemove={() => {
           props.onChange && props.onChange("");
@@ -123,9 +128,10 @@ function EmojiPickerContent(props: NativeEmojiPickerProps) {
         }}
         title={props.title}
       />
-      <Box width="100%" paddingHorizontal="m">
+      <Box width="100%" paddingHorizontal="m" marginVertical="s">
         <TextInput
           value={searchValue}
+          backgroundColor="inputBackground"
           onChangeText={setSearchValue}
           placeholder="Search..."
           style={styles.searchInput}
@@ -139,12 +145,18 @@ function EmojiPickerContent(props: NativeEmojiPickerProps) {
         <FlatList
           data={emojis
             .filter((item) => item.category === "Food & Drink")
-            .filter((item) =>
-              item.name
-                .split(" ")
-                .some((word) =>
-                  word.toLowerCase().startsWith(searchValue.toLowerCase()),
-                ),
+            .filter(
+              (item) =>
+                item.name
+                  .split(" ")
+                  .some((word) =>
+                    word.toLowerCase().startsWith(searchValue.toLowerCase()),
+                  ) ||
+                item.short_name
+                  .split(" ")
+                  .some((word) =>
+                    word.toLowerCase().startsWith(searchValue.toLowerCase()),
+                  ),
             )
             .reduce(
               (acc, emoji) => {

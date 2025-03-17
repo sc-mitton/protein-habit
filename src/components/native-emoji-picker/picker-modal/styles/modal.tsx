@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 const styles = StyleSheet.create({
   main: {
@@ -7,12 +7,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchInput: {
-    paddingLeft: 28,
+    paddingLeft: 24,
+    marginVertical: -8,
   },
   searchIcon: {
     position: "absolute",
-    top: "75%",
-    left: 16,
+    top: Platform.OS === "android" ? 12 : 6,
+    left: 12,
     marginTop: 1,
   },
   modal: {
