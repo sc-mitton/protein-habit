@@ -69,7 +69,11 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="modalBackground">
+    <Box
+      flex={1}
+      backgroundColor="modalBackground"
+      paddingTop={Platform.OS === "ios" ? "none" : "xl"}
+    >
       {Platform.OS === "ios" && (
         <StatusBar
           style={"light"}

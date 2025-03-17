@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { Plus, Search, Tag as TagIcon } from "geist-native-icons";
+import { ArrowLeft, Plus, Search, Tag as TagIcon } from "geist-native-icons";
 import Animated, {
   FadeIn,
   FadeOut,
@@ -8,7 +8,13 @@ import Animated, {
 } from "react-native-reanimated";
 import DatePicker from "react-native-date-picker";
 import dayjs from "dayjs";
-import { Appearance, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Appearance,
+  ScrollView,
+  StyleSheet,
+  View,
+  Platform,
+} from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
   searchIcon: {
     position: "absolute",
     left: 12,
-    top: 9,
+    top: Platform.OS === "android" ? 12 : 9,
   },
   inputContainer: {
     zIndex: 1,
@@ -62,15 +68,17 @@ const Actions = () => {
 
   return (
     <Box marginBottom="s">
-      <Box justifyContent="center" alignItems="center" marginTop="sm">
-        <Box
-          width={44}
-          height={5}
-          backgroundColor="quaternaryText"
-          borderRadius="full"
-          marginBottom="s"
-        />
-      </Box>
+      {Platform.OS === "ios" && (
+        <Box justifyContent="center" alignItems="center" marginTop="sm">
+          <Box
+            width={44}
+            height={5}
+            backgroundColor="quaternaryText"
+            borderRadius="full"
+            marginBottom="s"
+          />
+        </Box>
+      )}
       {!focusedSearch && (
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <Box
@@ -80,13 +88,28 @@ const Actions = () => {
             padding="m"
             paddingBottom="none"
           >
-            <Text variant="header" paddingLeft="xs">
-              {navigation.getState().routes[1].params
-                ? "Update"
-                : selectedFoods.length > 0
-                  ? "Add Protein"
-                  : "My Foods"}
-            </Text>
+            <Box flexDirection="row" alignItems="center" gap="xs">
+              {Platform.OS === "android" && (
+                <Button
+                  onPress={() => navigation.goBack()}
+                  icon={
+                    <Icon
+                      icon={ArrowLeft}
+                      size={24}
+                      strokeWidth={2.5}
+                      color="primaryText"
+                    />
+                  }
+                />
+              )}
+              <Text variant="header" paddingLeft="xs">
+                {navigation.getState().routes[1].params
+                  ? "Update"
+                  : selectedFoods.length > 0
+                    ? "Add Protein"
+                    : "My Foods"}
+              </Text>
+            </Box>
             <Box flexDirection="row" gap="s">
               {tags.length > 0 && (
                 <Button

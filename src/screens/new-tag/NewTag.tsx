@@ -11,12 +11,13 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { Box, Text, Button, TextInput } from "@components";
+import { Box, Text, Button, TextInput, Icon } from "@components";
 import { HomeScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { addTag } from "@store/slices/foodsSlice";
 import type { Theme } from "@theme";
 import { AccentOption } from "@constants/accents";
+import { ArrowLeft, X } from "geist-native-icons";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -56,7 +57,12 @@ const NewTag = (props: HomeScreenProps<"NewTag">) => {
   };
 
   return (
-    <Box padding="l" flex={1} backgroundColor="mainBackground">
+    <Box
+      padding="l"
+      flex={1}
+      backgroundColor="mainBackground"
+      paddingTop={Platform.OS === "ios" ? "l" : "xxxl"}
+    >
       {Platform.OS === "ios" && (
         <StatusBar
           backgroundColor="transparent"
@@ -65,9 +71,36 @@ const NewTag = (props: HomeScreenProps<"NewTag">) => {
         />
       )}
       <Box borderBottomWidth={1} borderColor="borderColor" marginBottom="m">
-        <Text variant="header" marginBottom="m">
-          New Tag
-        </Text>
+        <Box flexDirection="row" alignItems="center" gap="s" marginBottom="m">
+          {Platform.OS === "android" ? (
+            <Button
+              onPress={() => props.navigation.goBack()}
+              icon={
+                <Icon
+                  icon={ArrowLeft}
+                  size={24}
+                  strokeWidth={2.5}
+                  color="primaryText"
+                />
+              }
+            />
+          ) : (
+            <Button
+              onPress={() => props.navigation.goBack()}
+              variant="circleButton"
+              style={{ position: "absolute", top: -12, right: -12 }}
+              icon={
+                <Icon
+                  icon={X}
+                  size={18}
+                  color="primaryText"
+                  strokeWidth={2.5}
+                />
+              }
+            />
+          )}
+          <Text variant="header">New Tag</Text>
+        </Box>
       </Box>
 
       <Box gap="m">

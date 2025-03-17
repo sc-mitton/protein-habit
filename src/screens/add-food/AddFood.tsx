@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, useWatch, useController } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import { Plus } from "geist-native-icons";
+import { ArrowLeft, Plus } from "geist-native-icons";
 
 import { useTheme } from "@shopify/restyle";
 
@@ -71,7 +71,11 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
   const emoji = useWatch({ control, name: "emoji" });
 
   return (
-    <Box flex={1} backgroundColor="mainBackground">
+    <Box
+      flex={1}
+      backgroundColor="mainBackground"
+      paddingTop={Platform.OS === "ios" ? "none" : "xl"}
+    >
       <EmojiPicker
         value={emoji}
         onChange={onEmojiChange}
@@ -87,13 +91,16 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
               <Icon icon={X} size={20} color="primaryText" strokeWidth={2} />
             }
           />
-          {Platform.OS === "ios" && (
-            <Box
-              borderBottomWidth={1.5}
-              borderBottomColor="seperator"
-              paddingBottom="m"
-              marginBottom="xl"
-            >
+          <Box
+            borderBottomWidth={1.5}
+            borderBottomColor="seperator"
+            flexDirection="row"
+            alignItems="center"
+            gap="s"
+            paddingBottom="m"
+            marginBottom="xl"
+          >
+            {Platform.OS === "ios" ? (
               <Button
                 onPress={() => navigation.goBack()}
                 variant="circleButton"
@@ -107,11 +114,23 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                   />
                 }
               />
-              <Text variant="header">
-                {route.params?.food ? "Edit Food" : "Add Food"}
-              </Text>
-            </Box>
-          )}
+            ) : (
+              <Button
+                onPress={() => navigation.goBack()}
+                icon={
+                  <Icon
+                    icon={ArrowLeft}
+                    size={24}
+                    strokeWidth={2.5}
+                    color="primaryText"
+                  />
+                }
+              />
+            )}
+            <Text variant="header">
+              {route.params?.food ? "Edit Food" : "Add Food"}
+            </Text>
+          </Box>
           <Box gap="m">
             <Box>
               <Text variant="label">Name</Text>

@@ -169,7 +169,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         options={{
           animation: "slide_from_bottom",
           presentation: "modal",
-          headerShown: true,
+          headerShown: false,
           ...androidHeaderOptions,
           title: "",
         }}
@@ -180,7 +180,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         options={{
           animation: "slide_from_bottom",
           presentation: "modal",
-          headerShown: true,
+          headerShown: false,
           ...androidHeaderOptions,
           title: "",
         }}
@@ -208,17 +208,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         name="AddFood"
         component={AddFood}
         options={{
-          headerShown: true,
-          headerTitle: "Add Food",
-          headerBackTitle: "",
-          headerBackground: () => (
-            <Box
-              backgroundColor="mainBackground"
-              flex={1}
-              borderBottomWidth={1.5}
-              borderBottomColor="borderColor"
-            />
-          ),
+          headerShown: false,
           presentation: "modal",
           animation: "fade_from_bottom",
           ...androidHeaderOptions,
