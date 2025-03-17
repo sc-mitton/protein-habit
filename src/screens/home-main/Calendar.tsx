@@ -7,10 +7,9 @@ import {
   Platform,
   Appearance,
 } from "react-native";
-import { Check, X } from "geist-native-icons";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
-import { Text, Box, Icon, Tip } from "@components";
+import { Text, Box } from "@components";
 import dayjs from "dayjs";
 import { useAppSelector } from "@store/hooks";
 import {
@@ -22,6 +21,7 @@ import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
 import { selectAccent } from "@store/slices/uiSlice";
 import { HomeStackParamList } from "@types";
+import CalendarCell from "./CalendarCell";
 
 const CALENDAR_WIDTH = Dimensions.get("window").width;
 // the window width minus the calendar width
@@ -140,22 +140,24 @@ const Calendar = () => {
               </Box>
             </Box>
             <Box style={styles.monthContainer} key={item[0]}>
-              {item[1].map((days: number[], columnIndex: number) => {
-                return (
-                  <View
-                    style={[
-                      styles.column,
-                      columnIndex == 0 && styles.firstColumn,
-                      columnIndex == 6 && styles.lastColumn,
-                    ]}
-                    key={`column-${columnIndex}`}
-                  >
+              <Box style={styles.row}>
+                {Array.from({ length: 7 }).map((_, columnIndex) => {
+                  return (
                     <Box style={styles.cell}>
                       <Text fontSize={10} variant="bold">
                         {dayjs().day(columnIndex).format("dd")[0]}
                       </Text>
                     </Box>
-                    {days.map((day, rowIndex) => {
+                  );
+                })}
+              </Box>
+              {item[1].map((days: number[], rowIndex: number) => {
+                return (
+                  <View
+                    style={[styles.row, { zIndex: rowIndex }]}
+                    key={`row-${rowIndex}`}
+                  >
+                    {days.map((day, columnIndex) => {
                       const isBookend =
                         Math.abs(rowIndex - Math.floor(day / 7)) > 1;
 
@@ -178,50 +180,14 @@ const Calendar = () => {
                         : undefined;
 
                       return (
-                        <Box
-                          key={`cell-${dayInJS.format(dayFormat)}-${columnIndex}-${rowIndex}`}
-                          style={[styles.cell, { zIndex: rowIndex }]}
-                          borderColor="borderColor"
-                          borderTopWidth={1.5}
-                        >
-                          <Box
-                            style={StyleSheet.absoluteFill}
-                            opacity={
-                              Appearance.getColorScheme() == "dark" ? 0.3 : 0.5
-                            }
-                            backgroundColor={
-                              rowIndex % 2 == 0
-                                ? "primaryButton"
-                                : "transparent"
-                            }
-                          />
-                          <Tip offset={3} label={tipLabel}>
-                            <Box alignItems="center" gap="xs">
-                              <Text
-                                marginBottom="nxs"
-                                color={
-                                  isBookend ? "secondaryText" : "primaryText"
-                                }
-                                lineHeight={24}
-                                fontSize={12}
-                              >
-                                {day}
-                              </Text>
-                              <Icon
-                                icon={targetMet && !isBookend ? Check : X}
-                                size={10}
-                                strokeWidth={4}
-                                color={
-                                  targetMet && !isBookend
-                                    ? "primaryText"
-                                    : targetMet === false && !isBookend
-                                      ? "error"
-                                      : "transparent"
-                                }
-                              />
-                            </Box>
-                          </Tip>
-                        </Box>
+                        <CalendarCell
+                          dayInJS={dayInJS}
+                          columnIndex={columnIndex}
+                          rowIndex={rowIndex}
+                          isBookend={isBookend}
+                          targetMet={targetMet}
+                          tipLabel={tipLabel}
+                        />
                       );
                     })}
                   </View>
@@ -252,24 +218,17 @@ const styles = StyleSheet.create({
     paddingLeft: CALENDAR_NEGATIVE_SPACE / 2,
   },
   monthContainer: {
-    flexDirection: "row",
     width: CALENDAR_WIDTH,
     paddingTop: 16,
     paddingHorizontal: CALENDAR_PADDING,
   },
-  firstColumn: {
+  row: {
+    flexDirection: "row",
     marginLeft: 12,
-  },
-  lastColumn: {
     marginRight: 12,
   },
-  column: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
   cell: {
-    width: "100%",
+    width: `${100 / 7}%`,
     alignItems: "center",
     justifyContent: "flex-start",
     paddingHorizontal: Platform.OS === "ios" ? 3 : 4,

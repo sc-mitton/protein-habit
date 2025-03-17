@@ -22,29 +22,35 @@ export const generateCalendarData = (userInception: string) => {
         if (i === 0) {
           for (let j = 0; j < sparePreviousDays; j++) {
             const day = previousDaysInMonth - sparePreviousDays + j + 1;
-            acc[j % 7].push(day);
+            acc.push(day);
           }
         }
         // Add day
-        const columnIndex = (i + sparePreviousDays) % 7;
-        acc[columnIndex].push(day);
+        acc.push(day);
 
         // Add bookend
         if (day === daysInMonth) {
           for (let k = 1; k <= spareNextDays; k++) {
-            const columnIndex =(i + sparePreviousDays + k) % 7;
-            acc[columnIndex].push(k);
+            acc.push(k);
           }
         }
-        if (acc[acc.length - 1].length === 5 && day === daysInMonth) {
-            for (let k = 0; k < 7; k++) {
-                acc[k].push(k + spareNextDays + 1);
-            }
-        }
         return acc;
-      }, [...Array.from({ length: 7 }).map(() => [] as number[])]);
+      }, [] as number[]);
 
-    data.push([month.startOf("month").format(dayFormat), days]);
+    if (days.length / 7 < 6) {
+      for (let k = 0; k < 7; k++) {
+        days.push(k + spareNextDays + 1);
+      }
+    }
+
+    // Group days into rows of 7
+    const groupedDays = days.reduce((acc, day, i) => {
+      const rowIndex = Math.floor(i / 7);
+      acc[rowIndex] = [...(acc[rowIndex] || []), day];
+      return acc;
+    }, [] as number[][]);
+
+    data.push([month.startOf("month").format(dayFormat), groupedDays]);
   }
 
   return data.reverse();

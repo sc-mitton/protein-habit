@@ -11,18 +11,33 @@ export const Tip = ({
   label,
   maxWidth = 200,
   offset = 0,
+  onShow,
+  onHide,
 }: {
   children: React.ReactNode;
   label?: string;
   maxWidth?: number;
   offset?: number;
+  onShow?: () => void;
+  onHide?: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <OutsidePressHandler onOutsidePress={() => setIsOpen(false)}>
+    <OutsidePressHandler
+      onOutsidePress={() => {
+        setIsOpen(false);
+        onHide?.();
+      }}
+    >
       <Box alignItems="center">
-        <TouchableOpacity onPress={() => setIsOpen(!isOpen)} disabled={!label}>
+        <TouchableOpacity
+          onPress={() => {
+            setIsOpen(!isOpen);
+            onShow?.();
+          }}
+          disabled={!label}
+        >
           {children}
         </TouchableOpacity>
         {isOpen && (
@@ -47,7 +62,7 @@ export const TipContainer = ({
   offset?: number;
 }) => (
   <Animated.View
-    entering={FadeInUp.duration(300)}
+    entering={FadeInUp}
     exiting={FadeOut.duration(300)}
     style={[styles.aboveTipContainer]}
   >
