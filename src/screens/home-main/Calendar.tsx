@@ -196,38 +196,31 @@ const Calendar = () => {
                             }
                           />
                           <Tip offset={3} label={tipLabel}>
-                            <Text
-                              color={
-                                isBookend ? "secondaryText" : "primaryText"
-                              }
-                              lineHeight={24}
-                              fontSize={12}
-                            >
-                              {day}
-                            </Text>
+                            <Box alignItems="center" gap="xs">
+                              <Text
+                                marginBottom="nxs"
+                                color={
+                                  isBookend ? "secondaryText" : "primaryText"
+                                }
+                                lineHeight={24}
+                                fontSize={12}
+                              >
+                                {day}
+                              </Text>
+                              <Icon
+                                icon={targetMet && !isBookend ? Check : X}
+                                size={10}
+                                strokeWidth={4}
+                                color={
+                                  targetMet && !isBookend
+                                    ? "primaryText"
+                                    : targetMet === false && !isBookend
+                                      ? "error"
+                                      : "transparent"
+                                }
+                              />
+                            </Box>
                           </Tip>
-                          <View style={styles.belowIconContainer}>
-                            <View style={styles.belowIcon}>
-                              {targetMet && !isBookend && (
-                                <Icon
-                                  icon={Check}
-                                  size={10}
-                                  color={"primaryText"}
-                                  strokeWidth={4}
-                                />
-                              )}
-                              {targetMet === false &&
-                                !isBookend &&
-                                !dayInJS.isSame(dayjs(), "day") && (
-                                  <Icon
-                                    icon={X}
-                                    size={12}
-                                    color={"error"}
-                                    strokeWidth={3}
-                                  />
-                                )}
-                            </View>
-                          </View>
                         </Box>
                       );
                     })}
@@ -280,21 +273,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     paddingHorizontal: Platform.OS === "ios" ? 3 : 4,
-    paddingBottom: Platform.OS === "ios" ? 11 : 12,
-  },
-  belowIconContainer: {
-    position: "absolute",
-    bottom: 10,
-    zIndex: 10,
-    left: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  belowIcon: {
-    transform: [{ translateX: 3 }],
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
+    paddingBottom: Platform.OS === "ios" ? 3 : 4,
   },
 });
 

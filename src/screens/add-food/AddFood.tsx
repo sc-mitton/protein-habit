@@ -174,6 +174,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                           value={value}
                           onChangeText={onChange}
                           placeholder="e.g. Protein Shake"
+                          autoCapitalize="words"
                           error={!!errors.name}
                         />
                       )}
@@ -211,7 +212,6 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                       onChangeText={(e) => onChange(e.toString())}
                       placeholder="31"
                       keyboardType="numeric"
-                      autoCapitalize="words"
                       error={!!errors.protein}
                     />
                   )}

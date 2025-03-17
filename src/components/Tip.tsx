@@ -1,10 +1,10 @@
 import { useState } from "react";
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { FadeInUp, FadeOut } from "react-native-reanimated";
 import OutsidePressHandler from "react-native-outside-press";
 
-import { Text, Box, Button } from "@components";
+import { Text, Box } from "@components";
 
 export const Tip = ({
   children,
@@ -47,7 +47,8 @@ export const TipContainer = ({
   offset?: number;
 }) => (
   <Animated.View
-    entering={FadeIn.duration(300)}
+    entering={FadeInUp.duration(300)}
+    exiting={FadeOut.duration(300)}
     style={[styles.aboveTipContainer]}
   >
     <Box
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    bottom: 16,
+    bottom: 10,
     zIndex: 200,
     padding: 4,
   },

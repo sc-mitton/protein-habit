@@ -117,6 +117,7 @@ const NewTag = (props: HomeScreenProps<"NewTag">) => {
                 backgroundColor="inputBackground"
                 onChangeText={onChange}
                 placeholder="e.g. Breakfast"
+                autoCapitalize="words"
                 autoFocus
               />
             )}
