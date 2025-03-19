@@ -37,8 +37,8 @@ const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
       for (let i = 0; i < selectedFoods.length; i++) {
         dispatch(
           addEntry({
-            grams: selectedFoods[i].food.protein * selectedFoods[i].amount,
             food: selectedFoods[i].food,
+            amount: selectedFoods[i].amount,
             day,
           }),
         );

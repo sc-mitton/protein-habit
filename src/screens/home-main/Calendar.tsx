@@ -126,11 +126,12 @@ const Calendar = () => {
               >
                 <Box
                   backgroundColor={accent}
-                  opacity={0.2}
+                  opacity={0.1}
                   style={StyleSheet.absoluteFill}
                 />
                 <Text
                   color="primaryText"
+                  accent={true}
                   fontSize={12}
                   lineHeight={16}
                   variant="bold"
@@ -143,7 +144,7 @@ const Calendar = () => {
               <Box style={styles.row}>
                 {Array.from({ length: 7 }).map((_, columnIndex) => {
                   return (
-                    <Box style={styles.cell}>
+                    <Box style={styles.cell} key={`header-${columnIndex}`}>
                       <Text fontSize={10} variant="bold">
                         {dayjs().day(columnIndex).format("dd")[0]}
                       </Text>
@@ -155,7 +156,7 @@ const Calendar = () => {
                 return (
                   <View
                     style={[styles.row, { zIndex: rowIndex }]}
-                    key={`row-${rowIndex}`}
+                    key={`row-${rowIndex}-${item[0]}`}
                   >
                     {days.map((day, columnIndex) => {
                       const isBookend =

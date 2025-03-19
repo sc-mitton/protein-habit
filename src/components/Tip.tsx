@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Insets } from "react-native";
 import Animated, { FadeInUp, FadeOut } from "react-native-reanimated";
 import OutsidePressHandler from "react-native-outside-press";
 
@@ -13,6 +13,7 @@ export const Tip = ({
   offset = 0,
   onShow,
   onHide,
+  hitSlop,
 }: {
   children: React.ReactNode;
   label?: string;
@@ -20,6 +21,7 @@ export const Tip = ({
   offset?: number;
   onShow?: () => void;
   onHide?: () => void;
+  hitSlop?: number | Insets | null;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,6 +38,7 @@ export const Tip = ({
             setIsOpen(!isOpen);
             onShow?.();
           }}
+          hitSlop={hitSlop}
           disabled={!label}
         >
           {children}

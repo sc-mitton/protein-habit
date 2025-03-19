@@ -53,7 +53,8 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
           <SlotNumbers
             spring
             animateIntermediateValues
-            value={totalProteinForDay}
+            value={Number(totalProteinForDay.toString().replace(".", ""))}
+            precision={totalProteinForDay.toString().split(".")[1]?.length || 0}
             fontStyle={[
               styles.bigSlotNumbersStyle,
               { color: theme.colors.primaryText },

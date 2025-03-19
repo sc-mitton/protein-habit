@@ -52,6 +52,7 @@ const foodsSlice = createSlice({
     updateCreateFood: (state, action: PayloadAction<Food>) => {
       const food = state.foods.find((f) => f.id === action.payload.id);
       if (food?.protein !== action.payload.protein) {
+        console.log("updating protein", action.payload.protein);
         // If updating the amount of protein, deactivate the food and create new one
         // otherwise, update the food
         state.foods = state.foods.map((f) =>

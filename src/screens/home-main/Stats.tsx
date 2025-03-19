@@ -6,11 +6,10 @@ import * as Device from "expo-device";
 import { SymbolView } from "expo-symbols";
 import { Zap } from "geist-native-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Foundation from "@expo/vector-icons/Foundation";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useTheme } from "@shopify/restyle";
 
-import { Box, Text, Tip, Button, Icon } from "@components";
+import { Box, Text, Tip, Button, Icon, ProgressPie } from "@components";
 import {
   selectDailyProteinTarget,
   selectTotalProteinForDay,
@@ -119,12 +118,8 @@ const Stats = () => {
             >
               <Tip label="How much protein you have left to reach your goal for the day.">
                 <Box flexDirection="row" gap="s" alignItems="center">
-                  <Entypo
-                    name="pie-chart"
-                    size={18}
-                    color={
-                      accent ? theme.colors[accent] : theme.colors.secondaryText
-                    }
+                  <ProgressPie
+                    progress={(dailyTarget - remainingProtein) / dailyTarget}
                   />
                   <Text
                     color="secondaryText"

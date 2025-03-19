@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, useWatch, useController } from "react-hook-form";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -51,6 +51,8 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
+    getValues,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onSubmit",
@@ -60,6 +62,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
     },
   });
   const tags = useAppSelector(selectTags);
+  const [tagOptions, setTagOptions] = useState(tags);
 
   const onSubmit = (data: FormData) => {
     if (route.params?.food) {
@@ -69,6 +72,13 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
     }
     navigation.goBack();
   };
+
+  useEffect(() => {
+    if (tags.length > tagOptions.length) {
+      setValue("tags", [...(getValues("tags") || []), tags.at(-1)!.id]);
+    }
+    setTagOptions(tags);
+  }, [tags]);
 
   const {
     field: { onChange: onEmojiChange },
@@ -243,7 +253,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                   name="tags"
                   render={({ field: { onChange, value } }) => (
                     <Fragment>
-                      {tags.map((tag) => (
+                      {tagOptions.map((tag) => (
                         <Animated.View layout={LinearTransition} key={tag.id}>
                           <TagMenu tagId={tag.id}>
                             <Tag

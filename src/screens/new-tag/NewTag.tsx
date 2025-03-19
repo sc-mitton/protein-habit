@@ -149,7 +149,7 @@ const NewTag = (props: HomeScreenProps<"NewTag">) => {
                       borderRadius="full"
                       borderWidth={2}
                       borderColor={
-                        value === colorName ? "white" : "transparent"
+                        value === colorName ? "selected" : "transparent"
                       }
                       padding="xs"
                     >

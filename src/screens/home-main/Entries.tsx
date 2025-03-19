@@ -134,7 +134,7 @@ const Entries = () => {
               {entryIndex !== 0 && (
                 <Box
                   height={1.5}
-                  backgroundColor="mainBackground"
+                  backgroundColor="borderColor"
                   marginHorizontal="s"
                 />
               )}

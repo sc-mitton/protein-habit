@@ -75,7 +75,7 @@ const Options = ({ children, entry }: OptionsProps) => {
     .onUpdate((event) => {
       const x = Math.min(
         0,
-        Math.max(-ACTIONS_WIDTH / isEditable, event.translationX),
+        Math.max((-ACTIONS_WIDTH - 12) / isEditable, event.translationX),
       );
       translateX.value = isOpen.value ? withSpring(0) : x;
     })
@@ -85,7 +85,7 @@ const Options = ({ children, entry }: OptionsProps) => {
         (translateX.value < -THRESHOLD && event.velocityX > -500);
 
       if (shouldOpen) {
-        translateX.value = withSpring(-ACTIONS_WIDTH / isEditable);
+        translateX.value = withSpring((-ACTIONS_WIDTH - 12) / isEditable);
         runOnJS(setIsOpenState)(true);
         isOpen.value = true;
       } else {

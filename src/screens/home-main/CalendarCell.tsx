@@ -53,6 +53,7 @@ const CalendarCell = ({
         label={tipLabel}
         onShow={() => setIsOpen(true)}
         onHide={() => setIsOpen(false)}
+        hitSlop={{ left: 16, right: 16 }}
       >
         <Box alignItems="center" gap="xxs">
           <Text
