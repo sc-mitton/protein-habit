@@ -50,7 +50,7 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
       <Box>
         {!props.route.params?.entry && (
           <Box
-            height={selectedFoods.length > 0 ? 275 : "auto"}
+            height={selectedFoods.length > 0 ? 225 : "auto"}
             backgroundColor="modalBackground"
           >
             <FoodList

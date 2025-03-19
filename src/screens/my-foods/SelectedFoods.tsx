@@ -1,12 +1,8 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { Dimensions, ScrollView, StyleSheet } from "react-native";
 import { Plus, Minus } from "geist-native-icons";
-import Animated, {
-  LinearTransition,
-  FadeIn,
-  FadeOut,
-  FadeOutDown,
-} from "react-native-reanimated";
+import Animated, { LinearTransition, FadeIn } from "react-native-reanimated";
+import * as Device from "expo-device";
 
 import { Box, Button, Icon, Text } from "@components";
 import { useMyFoods } from "./context";
@@ -74,7 +70,11 @@ const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
               </Box>
               <Text color="secondaryText">Protein</Text>
             </Box>
-            <Box maxHeight={180} height="auto" paddingTop="s">
+            <Box
+              maxHeight={Device.osName === "iPadOS" ? 100 : 180}
+              height="auto"
+              paddingTop="s"
+            >
               <ScrollView style={styles.selectedItemsScroll}>
                 {selectedFoods.map((food, index) => (
                   <Box
