@@ -68,7 +68,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
   const dispatch = useAppDispatch();
   const [purchasable, setPurchasable] = useState<ProductIos | ProductAndroid>();
   const scheme = useColorScheme();
-  const [hasPurchased, setHasPurchased] = useState<boolean>();
+  const [hasRestored, setHasRestored] = useState<boolean>();
   const [listenForPurchase, setListenForPurchase] = useState(false);
   const [restoreFailed, setRestoreFailed] = useState(false);
 
@@ -87,7 +87,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       const purchaseHistory = await getPurchaseHistory();
       if (purchaseHistory.length <= 0) {
         setListenForPurchase(true);
-        setHasPurchased(false);
+        setHasRestored(false);
       }
 
       const products = await getProducts([props.route.params.iap.sku]);
@@ -99,7 +99,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
 
   const handlePress = () => {
     if (!purchasable) return;
-    if (hasPurchased) {
+    if (hasRestored) {
       if (props.navigation.canGoBack()) {
         props.navigation.goBack();
       } else {
@@ -122,21 +122,40 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
     const purchaseHistory = await getPurchaseHistory();
     if (purchaseHistory.length > 0) {
       const basePurchase = purchaseHistory.find(
-        (p: any) => p.productId === baseIap.sku,
+        (p: any) => p.productID === baseIap.sku,
       );
       const premiumPurchase = purchaseHistory.find(
-        (p: any) => p.productId === premiumIap.sku,
+        (p: any) => p.productID === premiumIap.sku,
       );
 
       if (basePurchase) {
         dispatch(setPurchaseStatus(baseIap.unlocks));
-        setHasPurchased(true);
-      } else if (premiumPurchase) {
+        setHasRestored(true);
+      }
+      if (premiumPurchase) {
         dispatch(setPurchaseStatus(premiumIap.unlocks));
-        setHasPurchased(true);
+        setHasRestored(true);
+      }
+
+      if (!basePurchase && !premiumPurchase) {
+        setRestoreFailed(true);
       }
     }
   };
+
+  useEffect(() => {
+    if (restoreFailed) {
+      Alert.alert("Failed to restore purchase");
+    }
+  }, [restoreFailed]);
+
+  useEffect(() => {
+    if (hasRestored) {
+      Alert.alert("Purchase restored", "Your purchase has been restored.", [
+        { text: "OK", onPress: () => props.navigation.goBack() },
+      ]);
+    }
+  }, [hasRestored]);
 
   useEffect(() => {
     if (!listenForPurchase) return;
@@ -206,12 +225,12 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
               variant="primary"
               onPress={handlePress}
               marginTop="xxl"
-              labelPlacement={hasPurchased ? "right" : "left"}
+              labelPlacement={"left"}
               alignItems="center"
               lineHeight={18}
-              label={hasPurchased ? "Back" : "Purchase"}
+              label={"Purchase"}
               icon={
-                hasPurchased ? (
+                hasRestored ? (
                   <Icon icon={ArrowLeft} strokeWidth={2.5} size={16} />
                 ) : (
                   <Icon icon={ChevronRight} strokeWidth={2.5} size={16} />
@@ -219,40 +238,37 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
               }
             />
           </Animated.View>
-          {!hasPurchased && (
-            <Button
-              marginTop="m"
-              variant="primary"
-              backgroundColor="transparent"
-              onPress={handleRestore}
-              label={
-                restoreFailed
-                  ? "Failed to Restore Purchase"
-                  : "Restore Purchase"
-              }
-              textColor={restoreFailed ? "error" : "secondaryText"}
-              icon={
-                restoreFailed && (
-                  <Ionicons
-                    name="alert-circle"
-                    size={20}
-                    color={theme.colors.error}
-                  />
-                )
-              }
-              accent={!restoreFailed}
-            >
-              {!restoreFailed && (
-                <Tip label="If you have already purchased the app, you can restore your purchase here.">
-                  <AntDesign
-                    name="questioncircle"
-                    size={18}
-                    color={accent ? theme.colors[accent] : "secondaryText"}
-                  />
-                </Tip>
-              )}
-            </Button>
-          )}
+          <Button
+            marginTop="m"
+            variant="primary"
+            backgroundColor="transparent"
+            onPress={handleRestore}
+            label={
+              restoreFailed ? "Failed to Restore Purchase" : "Restore Purchase"
+            }
+            disabled={hasRestored}
+            textColor={restoreFailed ? "error" : "secondaryText"}
+            icon={
+              restoreFailed && (
+                <Ionicons
+                  name="alert-circle"
+                  size={20}
+                  color={theme.colors.error}
+                />
+              )
+            }
+            accent={!restoreFailed}
+          >
+            {!restoreFailed && (
+              <Tip label="If you have already purchased the app, you can restore your purchase here.">
+                <AntDesign
+                  name="questioncircleo"
+                  size={18}
+                  color={accent ? theme.colors[accent] : "secondaryText"}
+                />
+              </Tip>
+            )}
+          </Button>
         </Box>
       </BottomSheetView>
     </BottomSheet>
