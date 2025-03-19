@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { InteractionManager, Alert, useColorScheme, Image } from "react-native";
+import {
+  InteractionManager,
+  Alert,
+  useColorScheme,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { ChevronRight, ArrowLeft } from "geist-native-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -140,6 +146,8 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       if (!basePurchase && !premiumPurchase) {
         setRestoreFailed(true);
       }
+    } else {
+      setRestoreFailed(true);
     }
   };
 
@@ -242,7 +250,16 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
             marginTop="m"
             variant="primary"
             backgroundColor="transparent"
-            onPress={handleRestore}
+            onPress={() => {
+              Alert.alert(
+                "Restore purchase",
+                "If you have already purchased the app, you can restore your purchase here.",
+                [
+                  { text: "Cancel", onPress: () => {}, style: "destructive" },
+                  { text: "Restore", onPress: handleRestore },
+                ],
+              );
+            }}
             label={
               restoreFailed ? "Failed to Restore Purchase" : "Restore Purchase"
             }
@@ -258,17 +275,7 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
               )
             }
             accent={!restoreFailed}
-          >
-            {!restoreFailed && (
-              <Tip label="If you have already purchased the app, you can restore your purchase here.">
-                <AntDesign
-                  name="questioncircleo"
-                  size={18}
-                  color={accent ? theme.colors[accent] : "secondaryText"}
-                />
-              </Tip>
-            )}
-          </Button>
+          />
         </Box>
       </BottomSheetView>
     </BottomSheet>
