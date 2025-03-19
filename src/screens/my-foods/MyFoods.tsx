@@ -23,10 +23,11 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
           food: foods.find(
             (food) => food.id === props.route.params?.entry?.food,
           )!,
-          amount:
+          amount: Math.round(
             props.route.params?.entry?.grams! /
-            foods.find((food) => food.id === props.route.params?.entry?.food)!
-              .protein,
+              foods.find((food) => food.id === props.route.params?.entry?.food)!
+                .protein,
+          ),
         },
       ]);
     }

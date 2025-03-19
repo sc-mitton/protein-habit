@@ -21,11 +21,7 @@ import {
 } from "@components";
 import { HomeScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import {
-  addFood,
-  updateCreateFood,
-  selectTags,
-} from "@store/slices/foodsSlice";
+import { addFood, updateFood, selectTags } from "@store/slices/foodsSlice";
 import { TagMenu } from "./Menu";
 
 const schema = z.object({
@@ -66,7 +62,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
 
   const onSubmit = (data: FormData) => {
     if (route.params?.food) {
-      dispatch(updateCreateFood({ ...data, id: route.params.food.id }));
+      dispatch(updateFood({ ...data, id: route.params.food.id }));
     } else {
       dispatch(addFood(data));
     }

@@ -8,7 +8,7 @@ import * as ZMenu from "zeego/context-menu";
 import * as Haptics from "expo-haptics";
 
 import { Button, Text, Box } from "@components";
-import { deactiveFood, type Food } from "@store/slices/foodsSlice";
+import { removeFood, type Food } from "@store/slices/foodsSlice";
 import { useAppDispatch } from "@store/hooks";
 
 const Menu = ({
@@ -53,7 +53,7 @@ const Menu = ({
             </ZMenu.Item>
             <ZMenu.Separator />
             <ZMenu.Item
-              onSelect={() => dispatch(deactiveFood(food.id))}
+              onSelect={() => dispatch(removeFood(food.id))}
               key={food.id + "1"}
               destructive={true}
             >
@@ -105,7 +105,7 @@ const Menu = ({
               />
             )}
             onPress={() => {
-              dispatch(deactiveFood(food.id));
+              dispatch(removeFood(food.id));
             }}
           />
         </PaperMenu>

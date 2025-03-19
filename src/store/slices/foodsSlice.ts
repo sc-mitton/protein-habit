@@ -14,7 +14,6 @@ export interface Food {
   emoji?: string;
   protein: number;
   servingSize?: number;
-  isActive?: boolean;
   tags?: string[];
 }
 
@@ -49,28 +48,9 @@ const foodsSlice = createSlice({
       }));
       state.tags = state.tags.filter((tag) => tag.id !== action.payload);
     },
-    updateCreateFood: (state, action: PayloadAction<Food>) => {
-      const food = state.foods.find((f) => f.id === action.payload.id);
-      if (food?.protein !== action.payload.protein) {
-        console.log("updating protein", action.payload.protein);
-        // If updating the amount of protein, deactivate the food and create new one
-        // otherwise, update the food
-        state.foods = state.foods.map((f) =>
-          f.id === action.payload.id ? { ...f, isActive: false } : f,
-        );
-        state.foods.push({
-          ...action.payload,
-          id: Math.random().toString(36).slice(2, 15),
-        });
-      } else {
-        state.foods = state.foods.map((f) =>
-          f.id === action.payload.id ? { ...f, ...action.payload } : f,
-        );
-      }
-    },
-    deactiveFood: (state, action: PayloadAction<string>) => {
+    updateFood: (state, action: PayloadAction<Food>) => {
       state.foods = state.foods.map((f) =>
-        f.id === action.payload ? { ...f, isActive: false } : f,
+        f.id === action.payload.id ? { ...f, ...action.payload } : f,
       );
     },
     removeFood: (state, action: PayloadAction<string>) => {
@@ -79,19 +59,10 @@ const foodsSlice = createSlice({
   },
 });
 
-export const {
-  addFood,
-  removeFood,
-  updateCreateFood,
-  addTag,
-  removeTag,
-  deactiveFood,
-} = foodsSlice.actions;
+export const { addFood, removeFood, updateFood, addTag, removeTag } =
+  foodsSlice.actions;
 
-export const selectFoods = createSelector(
-  (state: RootState) => state.foods.foods,
-  (foods) => foods.filter((f) => f.isActive || f.isActive === undefined),
-);
+export const selectFoods = (state: RootState) => state.foods.foods;
 
 export const selectTags = createSelector(
   (state: RootState) => state.foods.tags,

@@ -53,11 +53,7 @@ const Options = ({ children, entry }: OptionsProps) => {
   const foods = useAppSelector(selectFoods);
 
   const isEditable = useMemo(
-    () =>
-      !entry.food ||
-      foods.some((f) => f.id === entry.food && f.isActive !== false)
-        ? 1
-        : 1.5,
+    () => (!entry.food || foods.some((f) => f.id === entry.food) ? 1 : 1.5),
     [entry.food, foods],
   );
 
