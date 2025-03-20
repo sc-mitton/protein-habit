@@ -3,20 +3,14 @@ import Animated, { LinearTransition } from "react-native-reanimated";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useTheme } from "@shopify/restyle";
 
-import { Food, selectFoods } from "@store/slices/foodsSlice";
+import { selectFoods } from "@store/slices/foodsSlice";
 import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import FoodItem from "./FoodItem";
 import { useMyFoods } from "./context";
 
-const FoodList = ({
-  onPress,
-  selectedFoods,
-}: {
-  onPress: (food: Food) => void;
-  selectedFoods: string[];
-}) => {
-  const { searchString, selectedTags } = useMyFoods();
+const FoodList = () => {
+  const { searchString, selectedTags, selectedFoods } = useMyFoods();
   const foods = useAppSelector(selectFoods);
   const theme = useTheme();
 
@@ -27,7 +21,7 @@ const FoodList = ({
       {foods.length > 0 ? (
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {foods
-            .filter((f) => !selectedFoods.some((sf) => sf === f.id))
+            .filter((f) => !selectedFoods.some((sf) => sf.food.id === f.id))
             .filter((f) =>
               selectedTags.length > 0
                 ? selectedTags.some((t) => f.tags?.some((ft) => ft === t))
@@ -40,11 +34,7 @@ const FoodList = ({
             )
             .map((food) => (
               <Animated.View layout={LinearTransition} key={food.id}>
-                <FoodItem
-                  key={food.id}
-                  food={food}
-                  onPress={() => onPress(food)}
-                />
+                <FoodItem key={food.id} food={food} />
               </Animated.View>
             ))}
         </ScrollView>
@@ -85,7 +75,7 @@ export default FoodList;
 const styles = StyleSheet.create({
   scrollContent: {
     paddingTop: 14,
-    minHeight: 250,
+    minHeight: 275,
     paddingHorizontal: 6,
     paddingBottom: 36,
     flexDirection: "row",

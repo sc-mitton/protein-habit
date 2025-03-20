@@ -1,8 +1,7 @@
 import { Fragment } from "react";
-import { Dimensions, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Appearance } from "react-native";
 import { Plus, Minus } from "geist-native-icons";
 import Animated, { LinearTransition, FadeIn } from "react-native-reanimated";
-import * as Device from "expo-device";
 
 import { Box, Button, Icon, Text } from "@components";
 import { useMyFoods } from "./context";
@@ -52,14 +51,23 @@ const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
             .mass(0.5)
             .damping(15)
             .stiffness(100)}
-          style={{ height: Dimensions.get("window").height }}
+          style={{
+            flex: 1,
+            flexGrow: 1,
+          }}
         >
           <Box
             marginTop="m"
             borderTopColor="borderColor"
             borderTopWidth={1}
-            backgroundColor="mainBackground"
+            backgroundColor={
+              Appearance.getColorScheme() === "dark"
+                ? "mainBackground"
+                : "modalBackground"
+            }
             flex={1}
+            flexGrow={1}
+            paddingBottom="xl"
           >
             <Box flexDirection="row" paddingTop="m" paddingHorizontal="l">
               <Box width={80}>
@@ -70,11 +78,7 @@ const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
               </Box>
               <Text color="secondaryText">Protein</Text>
             </Box>
-            <Box
-              maxHeight={Device.osName === "iPadOS" ? 100 : 180}
-              height="auto"
-              paddingTop="s"
-            >
+            <Box paddingTop="s" flex={1} flexGrow={1}>
               <ScrollView style={styles.selectedItemsScroll}>
                 {selectedFoods.map((food, index) => (
                   <Box

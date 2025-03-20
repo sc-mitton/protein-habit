@@ -16,7 +16,14 @@ interface MyFoodsContextType {
     food: Food;
     amount: number;
   }[];
-  setSelectedFoods: (foods: { food: Food; amount: number }[]) => void;
+  setSelectedFoods: React.Dispatch<
+    React.SetStateAction<
+      {
+        food: Food;
+        amount: number;
+      }[]
+    >
+  >;
 }
 
 const MyFoodsContext = createContext<MyFoodsContextType | undefined>(undefined);

@@ -51,6 +51,8 @@ const lightTheme = createTheme({
     inputBackground: palette.gray0,
     defaultShadow:
       Platform.OS === "android" ? palette.gray1000 : palette.gray800,
+    foodItemShadow:
+      Platform.OS === "android" ? palette.gray1000 : palette.gray700,
     buttonShadow: palette.gray500,
     modalAndroidStatusBackground: "#858585",
     white: "white",
@@ -283,6 +285,7 @@ export const darkTheme: Theme = {
     radioCardSelected: palette.gray200,
     radioCardUnselected: palette.gray100,
     defaultShadow: palette.gray1100,
+    foodItemShadow: palette.gray1100,
     buttonShadow: palette.gray700,
     primaryButton: palette.gray850,
     inputBackground: palette.gray900,

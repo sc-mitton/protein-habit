@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { Platform } from "react-native";
+import { Platform, Appearance } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import * as Device from "expo-device";
 
 import { selectFoods } from "@store/slices/foodsSlice";
 import { Box } from "@components";
@@ -36,7 +37,11 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
   return (
     <Box
       flex={1}
-      backgroundColor="modalBackground"
+      backgroundColor={
+        Appearance.getColorScheme() === "dark"
+          ? "modalBackground"
+          : "mainBackground"
+      }
       paddingTop={Platform.OS === "ios" ? "none" : "xl"}
     >
       {Platform.OS === "ios" && (
@@ -47,18 +52,23 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
         />
       )}
       <Header />
-      <Box>
+      <Box flex={1} flexGrow={1}>
         {!props.route.params?.entry && (
           <Box
-            height={selectedFoods.length > 0 ? 225 : "auto"}
-            backgroundColor="modalBackground"
+            height={
+              selectedFoods.length > 0
+                ? Device.osName === "iPadOS"
+                  ? 190
+                  : 280
+                : "auto"
+            }
+            backgroundColor={
+              Appearance.getColorScheme() === "dark"
+                ? "modalBackground"
+                : "mainBackground"
+            }
           >
-            <FoodList
-              selectedFoods={selectedFoods.map((food) => food.food.id)}
-              onPress={(food) => {
-                setSelectedFoods([...selectedFoods, { food, amount: 1 }]);
-              }}
-            />
+            <FoodList />
           </Box>
         )}
         <SelectedFoods {...props} />

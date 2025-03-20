@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View, Platform } from "react-native";
+import { useRef, useState } from "react";
+import { View, Platform, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
@@ -10,6 +10,7 @@ import * as Haptics from "expo-haptics";
 import { Button, Text, Box } from "@components";
 import { removeFood, type Food } from "@store/slices/foodsSlice";
 import { useAppDispatch } from "@store/hooks";
+import { useMyFoods } from "./context";
 
 const Menu = ({
   food,
@@ -22,6 +23,11 @@ const Menu = ({
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const navigation = useNavigation<any>();
+  const { setSelectedFoods } = useMyFoods();
+  const foodPresstimer = useRef(0);
+
+  // Use a ref to track whether a long press has occurred
+  const longPressActivated = useRef(false);
 
   return (
     <View>
@@ -34,7 +40,19 @@ const Menu = ({
               borderRadius: 12,
             }}
           >
-            {children}
+            <Pressable
+              onPressIn={() => {
+                foodPresstimer.current = performance.now();
+              }}
+              onPressOut={() => {
+                const delta = performance.now() - foodPresstimer.current;
+                if (delta < 200) {
+                  setSelectedFoods((prev) => [...prev, { food, amount: 1 }]);
+                }
+              }}
+            >
+              {children}
+            </Pressable>
           </ZMenu.Trigger>
           <ZMenu.Content>
             <ZMenu.Item
@@ -114,12 +132,12 @@ const Menu = ({
   );
 };
 
-const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
+const FoodItem = ({ food }: { food: Food }) => {
   return (
     <Menu food={food}>
       <Box
         backgroundColor="transparent"
-        shadowColor="defaultShadow"
+        shadowColor="foodItemShadow"
         shadowOpacity={0.1}
         shadowOffset={{ width: 0, height: 2 }}
         shadowRadius={2}
@@ -131,7 +149,7 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           backgroundColor={"foodItemBackground"}
           padding={Platform.OS === "ios" ? "s" : "sm"}
           borderRadius="l"
-          shadowColor="defaultShadow"
+          shadowColor="foodItemShadow"
           shadowOffset={{ width: 0, height: 2 }}
           shadowOpacity={0.1}
           shadowRadius={8}
@@ -139,35 +157,28 @@ const FoodItem = ({ food, onPress }: { food: Food; onPress: () => void }) => {
           flexDirection="row"
           alignItems="center"
           justifyContent="space-between"
+          gap="s"
+          paddingRight="m"
         >
-          <Button
-            flexDirection="row"
-            alignItems="center"
-            padding="none"
-            gap="s"
-            marginRight="s"
-            onPress={onPress}
-          >
-            <Text fontSize={20} lineHeight={28}>
-              {food.emoji}
+          <Text fontSize={20} lineHeight={28}>
+            {food.emoji}
+          </Text>
+          <Box>
+            <Text
+              variant="body"
+              fontSize={Platform.OS === "ios" ? 14 : 15}
+              lineHeight={16}
+            >
+              {food.name}
             </Text>
-            <Box>
-              <Text
-                variant="body"
-                fontSize={Platform.OS === "ios" ? 14 : 15}
-                lineHeight={16}
-              >
-                {food.name}
-              </Text>
-              <Text
-                variant="body"
-                color="secondaryText"
-                fontSize={Platform.OS === "ios" ? 13 : 14}
-              >
-                {food.protein}g
-              </Text>
-            </Box>
-          </Button>
+            <Text
+              variant="body"
+              color="secondaryText"
+              fontSize={Platform.OS === "ios" ? 13 : 14}
+            >
+              {food.protein}g
+            </Text>
+          </Box>
         </Box>
       </Box>
     </Menu>
