@@ -156,7 +156,7 @@ const Calendar = () => {
                 return (
                   <View
                     style={[styles.row, { zIndex: rowIndex }]}
-                    key={`row-${rowIndex}-${item[0]}`}
+                    key={`row-${rowIndex}`}
                   >
                     {days.map((day, columnIndex) => {
                       const isBookend =
@@ -182,6 +182,7 @@ const Calendar = () => {
 
                       return (
                         <CalendarCell
+                          key={`row-${rowIndex}-${columnIndex}`}
                           dayInJS={dayInJS}
                           columnIndex={columnIndex}
                           rowIndex={rowIndex}
