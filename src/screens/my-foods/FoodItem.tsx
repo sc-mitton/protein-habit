@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { View, Platform, Pressable } from "react-native";
+import { View, Platform, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
@@ -23,8 +23,9 @@ const Menu = ({
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const navigation = useNavigation<any>();
-  const { setSelectedFoods } = useMyFoods();
+  const { setSelectedFoods, scrolling } = useMyFoods();
   const foodPresstimer = useRef(0);
+  const lock = useRef(false);
 
   // Use a ref to track whether a long press has occurred
   const longPressActivated = useRef(false);
@@ -40,19 +41,19 @@ const Menu = ({
               borderRadius: 12,
             }}
           >
-            <Pressable
+            <TouchableOpacity
               onPressIn={() => {
                 foodPresstimer.current = performance.now();
               }}
-              onPressOut={() => {
+              onPressOut={(e) => {
                 const delta = performance.now() - foodPresstimer.current;
-                if (delta < 200) {
+                if (delta < 150 && !scrolling.current) {
                   setSelectedFoods((prev) => [...prev, { food, amount: 1 }]);
                 }
               }}
             >
               {children}
-            </Pressable>
+            </TouchableOpacity>
           </ZMenu.Trigger>
           <ZMenu.Content>
             <ZMenu.Item

@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { ArrowLeft, Plus, Search, Tag as TagIcon } from "geist-native-icons";
+import {
+  ArrowLeft,
+  ChevronDown,
+  Plus,
+  Search,
+  Tag as TagIcon,
+} from "geist-native-icons";
 import Animated, {
   LinearTransition,
   useAnimatedStyle,
@@ -65,6 +71,7 @@ const Actions = () => {
   const [focusedSearch, setFocusedSearch] = useState(false);
   const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
   const theme = useTheme();
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const headerTopAnimation = useAnimatedStyle(() => {
     return {
@@ -89,12 +96,12 @@ const Actions = () => {
         <Animated.View style={headerTopAnimation}>
           <Box
             flexDirection="row"
-            justifyContent="space-between"
             alignItems="center"
+            justifyContent="space-between"
             padding="m"
             paddingBottom="none"
           >
-            <Box flexDirection="row" alignItems="center" gap="xs">
+            <Box>
               {Platform.OS === "android" && (
                 <Button
                   onPress={() => navigation.goBack()}
@@ -115,6 +122,30 @@ const Actions = () => {
                     ? "Add Protein"
                     : "My Foods"}
               </Text>
+              {selectedFoods.length > 0 && (
+                <Button
+                  marginTop="nxs"
+                  onPress={() => {
+                    setShowDatePicker(!showDatePicker);
+                  }}
+                  textColor="secondaryText"
+                  paddingLeft="xs"
+                  labelPlacement="left"
+                  label={
+                    dayjs(day).isSame(dayjs(), "day")
+                      ? "Today"
+                      : dayjs(day).format("MMM D, YYYY")
+                  }
+                  icon={
+                    <Icon
+                      icon={ChevronDown}
+                      size={18}
+                      strokeWidth={2.5}
+                      color="secondaryText"
+                    />
+                  }
+                />
+              )}
             </Box>
             <Box flexDirection="row" gap="s">
               {tags.length > 0 && (
@@ -158,9 +189,14 @@ const Actions = () => {
             <DatePicker
               modal
               mode="date"
+              open={showDatePicker}
+              onCancel={() => setShowDatePicker(false)}
               maximumDate={dayjs().toDate()}
               date={dayjs(day).toDate()}
-              onConfirm={(date) => setDay(dayjs(date).format(dayFormat))}
+              onConfirm={(date) => {
+                setDay(dayjs(date).format(dayFormat));
+                setShowDatePicker(false);
+              }}
             />
           </Box>
         </Animated.View>

@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import { createContext, useContext, ReactNode, useState, useRef } from "react";
 import dayjs from "dayjs";
 import { dayFormat } from "@constants/formats";
 import { Food } from "@store/slices/foodsSlice";
@@ -24,6 +24,7 @@ interface MyFoodsContextType {
       }[]
     >
   >;
+  scrolling: React.MutableRefObject<boolean>;
 }
 
 const MyFoodsContext = createContext<MyFoodsContextType | undefined>(undefined);
@@ -39,6 +40,7 @@ export function MyFoodsProvider({ children }: { children: ReactNode }) {
   >([]);
 
   const [day, setDay] = useState(dayjs().format(dayFormat));
+  const scrolling = useRef(false);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) => {
@@ -67,6 +69,7 @@ export function MyFoodsProvider({ children }: { children: ReactNode }) {
         clearFilters,
         day,
         setDay,
+        scrolling,
       }}
     >
       {children}

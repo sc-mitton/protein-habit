@@ -10,7 +10,7 @@ import FoodItem from "./FoodItem";
 import { useMyFoods } from "./context";
 
 const FoodList = () => {
-  const { searchString, selectedTags, selectedFoods } = useMyFoods();
+  const { searchString, selectedTags, selectedFoods, scrolling } = useMyFoods();
   const foods = useAppSelector(selectFoods);
   const theme = useTheme();
 
@@ -19,7 +19,15 @@ const FoodList = () => {
       layout={LinearTransition.springify().mass(0.5).damping(15).stiffness(100)}
     >
       {foods.length > 0 ? (
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          onScroll={() => {
+            scrolling.current = true;
+          }}
+          onScrollEndDrag={() => {
+            scrolling.current = false;
+          }}
+        >
           {foods
             .filter((f) => !selectedFoods.some((sf) => sf.food.id === f.id))
             .filter((f) =>
