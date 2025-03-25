@@ -42,14 +42,9 @@ const Menu = ({
             }}
           >
             <TouchableOpacity
-              onPressIn={() => {
-                foodPresstimer.current = performance.now();
-              }}
-              onPressOut={(e) => {
-                const delta = performance.now() - foodPresstimer.current;
-                if (delta < 150 && !scrolling.current) {
-                  setSelectedFoods((prev) => [...prev, { food, amount: 1 }]);
-                }
+              onLongPress={() => {}}
+              onPress={() => {
+                setSelectedFoods((prev) => [...prev, { food, amount: 1 }]);
               }}
             >
               {children}
