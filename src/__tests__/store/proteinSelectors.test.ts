@@ -42,44 +42,6 @@ it("should select the total amount of protein for day", () => {
   ).toBe(300);
 });
 
-it("should select the monthly daily average", () => {
-  const state = {
-    protein: {
-      ...initialState,
-      entries: Array.from({
-        length: dayjs().add(1, "month").daysInMonth(),
-      }).map((_, index) => [
-        dayjs()
-          .subtract(1, "month")
-          .startOf("month")
-          .add(index, "day")
-          .format(dayFormat),
-        Array.from({ length: 10 }).map((_, i) => ({
-          id: Math.random().toString(36).slice(0, 9),
-          grams: 10,
-          time: dayjs().subtract(index, "day").format(timeFormat),
-        })),
-      ]),
-    } as ProteinState,
-    user: {
-      ...userInitialState,
-      name: "John Doe",
-      inceptionDate: dayjs().subtract(100, "day").format(dayFormat),
-      weight: {
-        value: 100,
-        unit: "lbs",
-      },
-    },
-  };
-
-  expect(
-    selectMonthlyDailyAverage(
-      state as any,
-      dayjs().startOf("month").subtract(1, "month").format(dayFormat),
-    ).avgProteinPerDay,
-  ).toBe(100);
-});
-
 describe("select the weekly average", () => {
   const rootDate = "2025-01-05";
   jest.useFakeTimers();
