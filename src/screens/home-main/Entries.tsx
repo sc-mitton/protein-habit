@@ -38,6 +38,7 @@ const Days = ({
 
   const pillStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: pillX.value }],
+    left: 0,
     position: "absolute",
     top: "50%",
     justifyContent: "center",
