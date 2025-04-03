@@ -115,11 +115,17 @@ export default function Purchase(props: HomeScreenProps<"Purchase">) {
       }
     } else if (isProductIos(purchasable)) {
       requestPurchase({
-        sku: purchasable.id,
+        request: {
+          sku: purchasable.id,
+        },
+        type: "inapp",
       });
     } else if (isProductAndroid(purchasable)) {
       requestPurchase({
-        skus: ["fullAccess1199"],
+        request: {
+          sku: purchasable.id,
+        },
+        type: "inapp",
       });
     }
   };
