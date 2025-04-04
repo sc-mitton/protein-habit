@@ -11,16 +11,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { EventProvider } from "react-native-outside-press";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 import * as Linking from "expo-linking";
 
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
 
 import lightTheme, { darkTheme } from "@theme";
-import { Box, Text } from "@components";
-import { store, persistor } from "./src/store";
 import RootStack from "./src/screens/RootDrawer";
+import { Box } from "@components";
+import { store, persistor } from "./src/store";
 import { baseIap, premiumIap } from "@constants/iaps";
+import { useMobileAttest } from "./src/hooks/useMobileAttest";
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
@@ -52,6 +54,8 @@ export const linking = {
 SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
+  useMobileAttest();
+
   const colorScheme = useColorScheme();
   const [fontsLoaded] = useFonts({
     "Inter-Light": require("./assets/fonts/Inter_18pt-Light.ttf"),
@@ -105,21 +109,23 @@ function App() {
 
   return (
     <Provider store={store}>
-      <ThemeProvider theme={restyledTheme}>
-        <PaperProvider>
-          <EventProvider>
-            <BottomSheetModalProvider>
-              <SafeAreaProvider>
-                <GestureHandlerRootView>
-                  <PersistGate loading={null} persistor={persistor}>
-                    <MainApp />
-                  </PersistGate>
-                </GestureHandlerRootView>
-              </SafeAreaProvider>
-            </BottomSheetModalProvider>
-          </EventProvider>
-        </PaperProvider>
-      </ThemeProvider>
+      <KeyboardProvider>
+        <ThemeProvider theme={restyledTheme}>
+          <PaperProvider>
+            <EventProvider>
+              <BottomSheetModalProvider>
+                <SafeAreaProvider>
+                  <GestureHandlerRootView>
+                    <PersistGate loading={null} persistor={persistor}>
+                      <MainApp />
+                    </PersistGate>
+                  </GestureHandlerRootView>
+                </SafeAreaProvider>
+              </BottomSheetModalProvider>
+            </EventProvider>
+          </PaperProvider>
+        </ThemeProvider>
+      </KeyboardProvider>
     </Provider>
   );
 }

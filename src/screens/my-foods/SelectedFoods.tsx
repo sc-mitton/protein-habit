@@ -1,9 +1,8 @@
 import { Fragment } from "react";
 import { ScrollView, StyleSheet, Appearance } from "react-native";
-import { Plus, Minus } from "geist-native-icons";
 import Animated, { LinearTransition, FadeIn } from "react-native-reanimated";
 
-import { Box, Button, Icon, Text } from "@components";
+import { Box, Button, IncrementDecrement, Text } from "@components";
 import { useMyFoods } from "./context";
 import { useAppDispatch } from "@store/hooks";
 import { HomeScreenProps } from "@types";
@@ -87,59 +86,36 @@ const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
                     key={`food-${food.food.id}`}
                     flexDirection="row"
                   >
-                    <Box width={80}>
-                      <Box
-                        flexDirection="row"
-                        alignItems="center"
-                        justifyContent="center"
-                        backgroundColor="primaryButton"
-                        borderRadius="m"
-                        gap="s"
-                        paddingHorizontal="s"
-                        paddingVertical="xxs"
-                      >
-                        <Button
-                          padding="xs"
-                          icon={
-                            <Icon icon={Minus} size={16} strokeWidth={2.5} />
-                          }
-                          onPress={() => {
-                            if (selectedFoods[index].amount === 1) {
-                              setSelectedFoods(
-                                selectedFoods.filter((_, i) => i !== index),
-                              );
-                            } else {
-                              setSelectedFoods(
-                                selectedFoods.map((food, i) =>
-                                  i === index
-                                    ? { ...food, amount: food.amount - 1 }
-                                    : food,
-                                ),
-                              );
-                            }
-                          }}
-                        />
-                        <Text>{selectedFoods[index].amount}</Text>
-                        <Button
-                          padding="xs"
-                          icon={
-                            <Icon icon={Plus} size={16} strokeWidth={2.5} />
-                          }
-                          onPress={() => {
-                            setSelectedFoods(
-                              selectedFoods.map((food, i) =>
-                                i === index
-                                  ? {
-                                      ...food,
-                                      amount: Math.min(food.amount + 1, 9),
-                                    }
-                                  : food,
-                              ),
-                            );
-                          }}
-                        />
-                      </Box>
-                    </Box>
+                    <IncrementDecrement
+                      value={food.amount}
+                      onIncrement={() => {
+                        setSelectedFoods(
+                          selectedFoods.map((food, i) =>
+                            i === index
+                              ? {
+                                  ...food,
+                                  amount: Math.min(food.amount + 1, 9),
+                                }
+                              : food,
+                          ),
+                        );
+                      }}
+                      onDecrement={() => {
+                        if (selectedFoods[index].amount === 1) {
+                          setSelectedFoods(
+                            selectedFoods.filter((_, i) => i !== index),
+                          );
+                        } else {
+                          setSelectedFoods(
+                            selectedFoods.map((food, i) =>
+                              i === index
+                                ? { ...food, amount: food.amount - 1 }
+                                : food,
+                            ),
+                          );
+                        }
+                      }}
+                    />
                     <Box flex={1} justifyContent="flex-start" paddingLeft="l">
                       <Text>{food.food.name}</Text>
                     </Box>

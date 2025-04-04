@@ -1,7 +1,5 @@
-import { useState, useMemo } from "react";
-import dayjs from "dayjs";
+import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "@shopify/restyle";
 import Animated, {
@@ -13,20 +11,18 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Box } from "@components";
 import { Button } from "@components";
-import { removeEntry } from "@store/slices/proteinSlice";
-import { dayFormat } from "@constants/formats";
-import type { ProteinEntry } from "@store/slices/proteinSlice";
-import { selectFoods } from "@store/slices/foodsSlice";
+import OutsidePressHandler from "react-native-outside-press";
 
 const ACTIONS_WIDTH = 105;
 const THRESHOLD = ACTIONS_WIDTH / 2;
 
 interface OptionsProps {
   children: React.ReactNode;
-  entry: ProteinEntry;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  noEdit?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -46,16 +42,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const Options = ({ children, entry }: OptionsProps) => {
-  const dispatch = useAppDispatch();
-  const navigation = useNavigation<any>();
+export const SwipeOptions = ({
+  children,
+  onDelete,
+  onEdit,
+  noEdit,
+}: OptionsProps) => {
   const theme = useTheme();
-  const foods = useAppSelector(selectFoods);
-
-  const isEditable = useMemo(
-    () => (!entry.food || foods.some((f) => f.id === entry.food) ? 1 : 1.5),
-    [entry.food, foods],
-  );
+  const isEditable = noEdit ? 1.5 : 1;
 
   const translateX = useSharedValue(0);
   const [isOpenState, setIsOpenState] = useState(false);
@@ -97,46 +91,21 @@ const Options = ({ children, entry }: OptionsProps) => {
 
   const handleDelete = () => {
     runOnJS(closeSwipe)();
-    dispatch(
-      removeEntry({
-        day: dayjs().format(dayFormat),
-        id: entry.id,
-      }),
-    );
+    onDelete?.();
   };
 
   const handleEdit = () => {
-    closeSwipe();
-    if (entry.food) {
-      navigation.navigate("MyFoods", { entry });
-    } else {
-      navigation.navigate("Entry", { entry });
-    }
+    runOnJS(closeSwipe)();
+    onEdit?.();
   };
 
   return (
     <Box overflow="hidden">
-      <GestureDetector gesture={gesture} touchAction={"pan-x"}>
-        <Animated.View style={rStyle}>
-          <Box style={styles.actions}>
-            <Box style={[styles.actionsContainer]} flexDirection="row">
-              <Button
-                style={styles.button}
-                backgroundColor="primaryButton"
-                padding="s"
-                borderRadius="m"
-                justifyContent="center"
-                alignItems="center"
-                onPress={handleDelete}
-                icon={
-                  <Ionicons
-                    name="trash-outline"
-                    size={24}
-                    color={theme.colors.error}
-                  />
-                }
-              />
-              {isEditable <= 1 && (
+      <OutsidePressHandler onOutsidePress={closeSwipe}>
+        <GestureDetector gesture={gesture} touchAction={"pan-x"}>
+          <Animated.View style={rStyle}>
+            <Box style={styles.actions}>
+              <Box style={[styles.actionsContainer]} flexDirection="row">
                 <Button
                   style={styles.button}
                   backgroundColor="primaryButton"
@@ -144,23 +113,39 @@ const Options = ({ children, entry }: OptionsProps) => {
                   borderRadius="m"
                   justifyContent="center"
                   alignItems="center"
-                  onPress={handleEdit}
+                  onPress={handleDelete}
                   icon={
                     <Ionicons
-                      name="pencil"
+                      name="trash-outline"
                       size={24}
-                      color={theme.colors.primaryText}
+                      color={theme.colors.error}
                     />
                   }
                 />
-              )}
+                {isEditable <= 1 && (
+                  <Button
+                    style={styles.button}
+                    backgroundColor="primaryButton"
+                    padding="s"
+                    borderRadius="m"
+                    justifyContent="center"
+                    alignItems="center"
+                    onPress={handleEdit}
+                    icon={
+                      <Ionicons
+                        name="pencil"
+                        size={24}
+                        color={theme.colors.primaryText}
+                      />
+                    }
+                  />
+                )}
+              </Box>
+              {children}
             </Box>
-            {children}
-          </Box>
-        </Animated.View>
-      </GestureDetector>
+          </Animated.View>
+        </GestureDetector>
+      </OutsidePressHandler>
     </Box>
   );
 };
-
-export default Options;

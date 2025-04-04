@@ -9,8 +9,9 @@ bun.lockb
 dist/
 web-build/
 expo-env.d.ts
-ios
-android
+/ios
+/android
+.gradle/
 
 # Native
 *.orig.*
@@ -40,6 +41,6 @@ yarn-error.*
 
 # python
 .venv
-env
-__pycache__
-.env*
+env/
+api/.env*
+__pycache__/

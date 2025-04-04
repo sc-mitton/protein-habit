@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AppState } from "react-native";
 import { Menu2 } from "geist-native-icons";
@@ -21,9 +21,10 @@ import AddFood from "./add-food/AddFood";
 import SuccessModal from "./success/SuccessModal";
 import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
-import { useEffect } from "react";
+import Search from "./search/Search";
 import { RootScreenProps } from "@types";
 import CalendarSheet from "./home-main/CalendarSheet";
+
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 const RootStack = (props: RootScreenProps<"Home">) => {
@@ -154,6 +155,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         />
         <Stack.Screen name="Purchase" component={Purchase} />
         <Stack.Screen name="Calendar" component={CalendarSheet} />
+        <Stack.Screen name="Search" component={Search} />
       </Stack.Group>
 
       {/* Other Modals */}

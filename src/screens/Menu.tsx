@@ -3,7 +3,10 @@ import { MoreHorizontal } from "geist-native-icons";
 import { Platform, TouchableHighlight } from "react-native";
 import { NavigationProp } from "@react-navigation/native";
 import * as DropdownMenu from "zeego/dropdown-menu";
-import { Menu as PaperMenu } from "react-native-paper";
+import {
+  Menu as MMenu,
+  MenuItem as MMenuItem,
+} from "react-native-material-menu";
 import { useTheme } from "@shopify/restyle";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Foundation from "@expo/vector-icons/Foundation";
@@ -12,14 +15,11 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { Icon, Box, Text } from "@components";
 import { HomeStackParamList } from "@types";
 import { useNavigation } from "@react-navigation/native";
-import { useAppSelector } from "@store/hooks";
-import { selectAccent } from "@store/slices/uiSlice";
 
 function Menu() {
   const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
-  const theme = useTheme();
-  const accent = useAppSelector(selectAccent);
   const [isOpen, setIsOpen] = useState(false);
+  const theme = useTheme();
 
   return (
     <Fragment>
@@ -81,15 +81,12 @@ function Menu() {
           top={0}
           right={0}
         >
-          <PaperMenu
-            anchorPosition="top"
-            onDismiss={() => setIsOpen(false)}
-            contentStyle={{
-              marginTop: 64,
-              borderRadius: 12,
-              paddingVertical: -8,
+          <MMenu
+            visible={isOpen}
+            style={{
+              backgroundColor: theme.colors.secondaryBackground,
+              borderRadius: theme.borderRadii.l,
               overflow: "hidden",
-              backgroundColor: theme.colors.cardBackground,
             }}
             anchor={
               <TouchableHighlight
@@ -102,47 +99,71 @@ function Menu() {
                   borderRadius: 24,
                 }}
               >
-                <Icon icon={MoreHorizontal} size={28} color={"primaryText"} />
+                <Icon
+                  icon={MoreHorizontal}
+                  size={28}
+                  color={"primaryText"}
+                  strokeWidth={2}
+                />
               </TouchableHighlight>
             }
-            visible={isOpen}
+            onRequestClose={() => setIsOpen(false)}
           >
-            <PaperMenu.Item
-              title="Personal Info"
-              leadingIcon={() => (
-                <Ionicons
-                  name="person-circle-sharp"
-                  size={24}
-                  color={theme.colors.primaryText}
-                />
-              )}
-              onPress={() => navigation.navigate("PersonalInfo")}
-            />
-            <PaperMenu.Item
-              title="Appearance"
-              leadingIcon={() => (
-                <Entypo
-                  name="brush"
-                  size={20}
-                  color={theme.colors.primaryText}
-                />
-              )}
-              onPress={() => navigation.navigate("Appearance")}
-            />
-            <PaperMenu.Item
-              title="Edit Daily Goal"
-              leadingIcon={() => (
-                <Box marginLeft="xs">
+            <MMenuItem
+              onPress={() => {
+                navigation.navigate("PersonalInfo");
+                setIsOpen(false);
+              }}
+              pressColor={theme.colors.quaternaryText}
+            >
+              <Box flexDirection="row" alignItems="center">
+                <Box width={36} alignItems="flex-start">
+                  <Ionicons
+                    name="person-circle-sharp"
+                    size={24}
+                    color={theme.colors.primaryText}
+                  />
+                </Box>
+                <Text>Personal Info</Text>
+              </Box>
+            </MMenuItem>
+            <MMenuItem
+              onPress={() => {
+                navigation.navigate("Appearance");
+                setIsOpen(false);
+              }}
+              pressColor={theme.colors.quaternaryText}
+            >
+              <Box flexDirection="row" alignItems="center">
+                <Box width={36} alignItems="flex-start">
+                  <Entypo
+                    name="brush"
+                    size={20}
+                    color={theme.colors.primaryText}
+                  />
+                </Box>
+                <Text>Appearance</Text>
+              </Box>
+            </MMenuItem>
+            <MMenuItem
+              onPress={() => {
+                navigation.navigate("EditDailyGoal");
+                setIsOpen(false);
+              }}
+              pressColor={theme.colors.quaternaryText}
+            >
+              <Box flexDirection="row" alignItems="center">
+                <Box width={36} alignItems="flex-start">
                   <Foundation
                     name="flag"
                     size={20}
                     color={theme.colors.primaryText}
                   />
                 </Box>
-              )}
-              onPress={() => navigation.navigate("EditDailyGoal")}
-            />
-          </PaperMenu>
+                <Text>Edit Daily Goal</Text>
+              </Box>
+            </MMenuItem>
+          </MMenu>
         </Box>
       )}
     </Fragment>

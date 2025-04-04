@@ -20,6 +20,7 @@ export type HomeStackParamList = {
   Purchase: { iap: typeof baseIap | typeof premiumIap };
   Calendar: undefined;
   NewTag: undefined;
+  Search: { entry: ProteinEntry };
 };
 
 export type RootStackParamList = {

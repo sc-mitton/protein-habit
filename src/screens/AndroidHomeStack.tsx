@@ -18,6 +18,7 @@ import WeightInput from "./welcome/WeightInput";
 import PersonalInfo from "./personal-info/PersonalInfo";
 import Entry from "./entry/Entry";
 import Menu from "./Menu";
+import Search from "./search/Search";
 import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
@@ -149,6 +150,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         />
         <Stack.Screen name="Purchase" component={Purchase} />
         <Stack.Screen name="Calendar" component={CalendarSheet} />
+        <Stack.Screen name="Search" component={Search} />
       </Stack.Group>
 
       {/* Other Modals */}

@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sqlalchemy = "*"
+langchain = "*"
+langchain-community = "*"
+openai = "*"
+langchain-openai = "*"
+jinja2 = "*"
+fastapi = "*"
+uvicorn = "*"
+pyjwt = "*"
+autopep8 = "*"
+cryptography = "*"
+cbor2 = "*"
+asn1crypto = "*"
+alembic = "*"
+pytest = "*"
+jose = "*"
+
+[dev-packages]
+ipykernel = "*"
+
+[requires]
+python_version = "3.13"

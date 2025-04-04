@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import SlotNumbers from "react-native-slot-numbers";
-import { Plus } from "geist-native-icons";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
 import styles from "./styles/home-screen";
 import fontStyles from "@styles/fonts";
-import { Box, Text, Button, Icon, DrumStickIcon } from "@components";
+import { Box, Text } from "@components";
 import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { useAppSelector } from "@store/hooks";
 import { HomeScreenProps } from "@types";
@@ -19,6 +18,7 @@ import {
 } from "@store/slices/userSlice";
 import { baseIap } from "@constants/iaps";
 import Tabs from "./Tabs";
+import PlusMenu from "./PlusMenu";
 
 const HomeMain = (props: HomeScreenProps<"Main">) => {
   const theme = useTheme();
@@ -42,8 +42,8 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
     <Box flex={1} backgroundColor="mainBackground">
       <Box
         paddingHorizontal="m"
-        marginTop="xxl"
-        marginBottom="l"
+        marginTop="xl"
+        marginBottom="m"
         flexDirection="row"
         alignItems="center"
         gap="xl"
@@ -72,43 +72,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
           </Text>
         </Box>
         <ReAnimated.View layout={LinearTransition} style={styles.buttons}>
-          <Box flexDirection="row" gap="sm" paddingRight="m">
-            <Button
-              borderRadius="full"
-              borderColor="borderColor"
-              borderWidth={1.5}
-              backgroundColor="transparent"
-              padding="s"
-              onPress={() => {
-                props.navigation.navigate("Entry");
-              }}
-              icon={
-                <Icon
-                  icon={Plus}
-                  size={20}
-                  color="primaryText"
-                  strokeWidth={2.5}
-                />
-              }
-            />
-            <Button
-              borderRadius="full"
-              borderColor="borderColor"
-              borderWidth={1.5}
-              backgroundColor="transparent"
-              padding="s"
-              onPress={() => {
-                props.navigation.navigate("MyFoods");
-              }}
-              icon={
-                <Icon
-                  icon={DrumStickIcon}
-                  color="primaryText"
-                  strokeWidth={2}
-                />
-              }
-            />
-          </Box>
+          <PlusMenu />
         </ReAnimated.View>
       </Box>
       <Tabs />

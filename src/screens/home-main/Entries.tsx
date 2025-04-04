@@ -7,14 +7,16 @@ import Animated, {
 } from "react-native-reanimated";
 import { ZeroConfig } from "geist-native-icons";
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
 import { StyleSheet, Dimensions } from "react-native";
 
-import { useAppSelector } from "@store/hooks";
-import { Box, Text, Icon, Button } from "@components";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { Box, Text, Icon, Button, SwipeOptions } from "@components";
 import { selectDaysEntries } from "@store/slices/proteinSelectors";
-import Options from "./SwipeOptions";
-import { dayTimeFormat } from "@constants/formats";
+import { dayFormat, dayTimeFormat } from "@constants/formats";
+import { removeEntry } from "@store/slices/proteinSlice";
+import { selectFoods } from "@store/slices/foodsSlice";
 
 const styles = StyleSheet.create({
   scrollContent: {
@@ -119,11 +121,13 @@ const Days = ({
 };
 
 const Entries = () => {
+  const dispatch = useAppDispatch();
   const [day, setDay] = useState(dayjs().format(dayTimeFormat));
-
+  const navigation = useNavigation<any>();
   const daysEntries = useAppSelector((state) =>
     selectDaysEntries(state, dayjs(day).format(dayTimeFormat)),
   );
+  const foods = useAppSelector(selectFoods);
 
   return (
     <Fragment>
@@ -139,7 +143,28 @@ const Entries = () => {
                   marginHorizontal="s"
                 />
               )}
-              <Options entry={entry}>
+              <SwipeOptions
+                noEdit={
+                  !entry.food || foods.some((f) => f.id === entry.food)
+                    ? false
+                    : true
+                }
+                onDelete={() => {
+                  dispatch(
+                    removeEntry({
+                      day: dayjs().format(dayFormat),
+                      id: entry.id,
+                    }),
+                  );
+                }}
+                onEdit={() => {
+                  if (entry.food) {
+                    navigation.navigate("MyFoods", { entry });
+                  } else {
+                    navigation.navigate("Entry", { entry });
+                  }
+                }}
+              >
                 <Box
                   flexDirection="row"
                   padding="m"
@@ -168,7 +193,7 @@ const Entries = () => {
                       .format("h:mm A")}
                   </Text>
                 </Box>
-              </Options>
+              </SwipeOptions>
             </Animated.View>
           ))}
         </ScrollView>

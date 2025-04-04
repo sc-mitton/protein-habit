@@ -1,23 +1,25 @@
 import { createTheme } from "@shopify/restyle";
 import { StatusBar, Platform } from "react-native";
+import convert from "color-convert";
+import { convertHex2Hsl } from "@utils";
 
 const palette = {
-  gray0: "hsla(30, 2%, 100%, 1)",
-  gray50: "hsla(30, 2%, 98%, 1)",
-  gray100: "hsla(30, 2%, 95%, 1)",
-  gray150: "hsla(30, 2%, 92%, 1)",
-  gray200: "hsla(30, 2%, 90%, 1)",
-  gray250: "hsla(30, 2%, 87%, 1)",
-  gray300: "hsla(30, 2%, 83%, 1)",
-  gray400: "hsla(30, 2%, 74%, 1)",
-  gray500: "hsla(30, 4%, 62%, 1)",
-  gray600: "hsla(30, 4%, 46%, 1)",
-  gray700: "hsla(30, 4%, 38%, 1)",
-  gray800: "hsla(30, 4%, 26%, 1)",
-  gray850: "hsla(30, 4%, 17%, 1)",
-  gray900: "hsla(30, 4%, 13%, 1)",
-  gray1000: "hsla(30, 4%, 5%, 1)",
-  gray1100: "hsla(30, 4%, 0%, 1)",
+  gray0: "#ffffff",
+  gray50: "#fafafa",
+  gray100: "#f3f2f2",
+  gray150: "#ebebea",
+  gray200: "#e6e6e5",
+  gray250: "#dfdedd",
+  gray300: "#d5d4d3",
+  gray400: "#bebdbb",
+  gray500: "#a29e9a",
+  gray600: "#7a7571",
+  gray700: "#65615d",
+  gray800: "#454240",
+  gray850: "#2d2b2a",
+  gray900: "#222120",
+  gray1000: "#0d0d0c",
+  gray1100: "#000000",
 };
 
 // Light theme
@@ -37,11 +39,11 @@ const lightTheme = createTheme({
     borderColor: palette.gray200,
     borderColorBold: palette.gray400,
     transparent: "transparent",
-    error: "hsla(0, 84%, 60%, 1)",
-    errorSecondary: "hsla(0, 84%, 60%, 0.5)",
-    selected: "hsla(210, 100%, 50%, 1)",
-    selectedSecondary: "hsla(210, 100%, 50%, .5)",
-    success: "rgb(17, 155, 81)",
+    error: "#ef4343",
+    errorSecondary: "#ef4343",
+    selected: "#007fff",
+    selectedSecondary: "#007fff",
+    success: "#119b51",
     unselected: "transparent",
     seperator: palette.gray250,
     overlay: "rgba(0, 0, 0, 0.5)",
@@ -264,7 +266,7 @@ export const darkTheme: Theme = {
   colors: {
     ...lightTheme.colors,
     modalBackground: palette.gray900,
-    mainBackground: palette.gray900
+    mainBackground: convertHex2Hsl(palette.gray900)
       .replace(
         /(\d+)%,\s\d\)/,
         (match) => `${Math.max(0, parseInt(match) - 3)}%, 1)`,

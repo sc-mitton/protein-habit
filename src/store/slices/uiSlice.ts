@@ -5,12 +5,14 @@ import { FontOption } from "@constants/fonts";
 import { AccentOption } from "@constants/accents";
 import { RootState } from "../index";
 import { dayFormat } from "@constants/formats";
+import { HomeStackParamList } from "@types";
 
 interface UIState {
   font: FontOption;
   accent?: AccentOption;
   hasShownSuccessModal: boolean;
   day: string;
+  seenScreens: (keyof HomeStackParamList)[];
 }
 
 const initialState: UIState = {
@@ -18,6 +20,7 @@ const initialState: UIState = {
   accent: "blue",
   hasShownSuccessModal: false,
   day: dayjs().format(dayFormat),
+  seenScreens: [],
 };
 
 const uiSlice = createSlice({
@@ -33,10 +36,14 @@ const uiSlice = createSlice({
     setHasShownSuccessModal: (state, action: PayloadAction<boolean>) => {
       state.hasShownSuccessModal = action.payload;
     },
+    seeScreen: (state, action: PayloadAction<keyof HomeStackParamList>) => {
+      state.seenScreens.push(action.payload);
+    },
   },
 });
 
-export const { setFont, setAccent, setHasShownSuccessModal } = uiSlice.actions;
+export const { setFont, setAccent, setHasShownSuccessModal, seeScreen } =
+  uiSlice.actions;
 export default uiSlice.reducer;
 
 export const selectFont = (state: RootState) => state.ui.font;
@@ -45,3 +52,4 @@ export const selectInceptionDate = (state: RootState) =>
   state.user.inceptionDate;
 export const selectHasShownSuccessModal = (state: RootState) =>
   state.ui.hasShownSuccessModal;
+export const selectSeenScreens = (state: RootState) => state.ui.seenScreens;

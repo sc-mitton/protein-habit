@@ -5,14 +5,17 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["src/components"],
+      "@hooks": ["src/hooks"],
       "@store/*": ["src/store/*"],
       "@theme": ["src/theme/index.ts"],
+      "@theme/*": ["src/theme/*"],
       "@types": ["src/types"],
       "@constants/*": ["src/constants/*"],
       "@styles/*": ["src/styles/*"],
       "@lotties/*": ["src/lotties/*"],
       "@assets/*": ["assets/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils"]
     }
   }
 }

@@ -14,3 +14,5 @@ export * from "./slider/Slider";
 export * from "./loaders/Pulse";
 export * from "./loaders/PulseBox";
 export * from "./ProgressCircle";
+export * from "./SwipeOptions";
+export * from "./IncrementDecrement";
