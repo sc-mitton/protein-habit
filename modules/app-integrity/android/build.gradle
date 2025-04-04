@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-group = 'expo.modules.attest'
+group = 'expo.modules.appintegrity'
 version = '0.6.3'
 
 def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
@@ -32,7 +32,7 @@ if (useManagedAndroidSdkVersions) {
 }
 
 android {
-  namespace "expo.modules.attest"
+  namespace "expo.modules.appintegrity"
   defaultConfig {
     versionCode 1
     versionName "0.6.3"
@@ -40,8 +40,4 @@ android {
   lintOptions {
     abortOnError false
   }
-}
-
-dependencies {
-  implementation 'com.google.android.play:integrity:1.3.0'
 }

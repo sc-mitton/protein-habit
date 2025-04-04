@@ -22,7 +22,7 @@ import { Box } from "@components";
 import { store, persistor } from "./src/store";
 import RootStack from "./src/screens/RootTabs";
 import { baseIap, premiumIap } from "@constants/iaps";
-import { useMobileAttest } from "./src/hooks/useMobileAttest";
+// import { useAppIntegrity } from "./src/hooks/useAppIntegrity";
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
@@ -54,7 +54,7 @@ export const linking = {
 SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
-  useMobileAttest();
+  // useAppIntegrity();
 
   const colorScheme = useColorScheme();
   const [fontsLoaded] = useFonts({

@@ -25,7 +25,7 @@
     "@shopify/restyle": "^2.4.4",
     "@types/big.js": "^6.2.2",
     "@types/lodash-es": "^4.17.12",
-    "attest": "file:./modules/attest",
+    "app-integrity": "file:./modules/app-integrity",
     "axios": "^1.8.4",
     "big.js": "^6.2.2",
     "color-convert": "^3.0.1",

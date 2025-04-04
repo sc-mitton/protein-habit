@@ -154,7 +154,7 @@ const Search = (props: HomeScreenProps<"SearchModal">) => {
       height:
         progress.value > 0
           ? 60
-          : withDelay(300, withTiming(measuredKeyboardHeight.value * 1.25)),
+          : withDelay(300, withTiming(measuredKeyboardHeight.value)),
       opacity:
         progress.value > 0
           ? 1

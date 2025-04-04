@@ -27,7 +27,6 @@ const PlusMenu = () => {
           <DropdownMenu.Root>
             <DropdownMenu.Trigger style={{ marginBottom: 10 }}>
               <Box
-                accent
                 backgroundColor="secondaryText"
                 borderRadius="full"
                 padding="xs"
@@ -111,7 +110,6 @@ const PlusMenu = () => {
             >
               <Box
                 backgroundColor="secondaryText"
-                accent
                 borderRadius="full"
                 padding="xs"
                 alignItems="center"

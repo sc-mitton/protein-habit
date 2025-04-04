@@ -15,6 +15,7 @@ import AddFood from "./add-food/AddFood";
 import SuccessModal from "./success/SuccessModal";
 import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
+import Search from "./search/Search";
 import { useEffect } from "react";
 import { RootScreenProps } from "@types";
 
@@ -95,6 +96,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           component={SuccessModal}
           options={{ animation: "slide_from_bottom" }}
         />
+        <Stack.Screen name="SearchModal" component={Search} />
         <Stack.Screen name="PurchaseModal" component={Purchase} />
       </Stack.Group>
 

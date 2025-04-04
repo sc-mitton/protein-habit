@@ -1,55 +1,56 @@
 import ExpoModulesCore
-import DCAppAttest
+import DeviceCheck
 
-let appAttestService = DCAppAttestService.shared
+let appAttestService = DeviceCheck.DCAppAttestService.shared
 
-public class AttestModule: Module {
+
+public class AppIntegrityModule: Module {
   public func definition() -> ModuleDefinition {
-    Name("AttestModule")
+    Name("AppIntegrity")
 
     AsyncFunction("asyncGenerateKey") { (challenge: String, promise: Promise) in
-      // Check if App Attest is supported
+      // Check if App AppIntegrity is supported
       guard appAttestService.isSupported else {
-        promise.reject([
-          "code": "ATTEST_NOT_SUPPORTED",
-          "message": "App Attest is not supported on this device"
-        ])
+        promise.reject(Exception(
+          name: "APP_INTEGRITY_NOT_SUPPORTED",
+          description: "App AppIntegrity is not supported on this device"
+        ))
         return
       }
 
       // Generate a key
       appAttestService.generateKey { keyId, error in
         if let error = error {
-          promise.reject([
-            "code": "KEY_GENERATION_ERROR",
-            "message": error.localizedDescription
-          ])
+          promise.reject(Exception(
+            name: "KEY_GENERATION_ERROR",
+            description: error.localizedDescription
+          ))
           return
         }
 
         guard let keyId = keyId else {
-          promise.reject([
-            "code": "KEY_GENERATION_ERROR",
-            "message": "Failed to generate key"
-          ])
+          promise.reject(Exception(
+            name: "KEY_GENERATION_ERROR",
+            description: "Failed to generate key"
+          ))
           return
         }
 
         // Generate attestation for the key
         appAttestService.attestKey(keyId, clientDataHash: challenge.data(using: .utf8)!) { attestation, error in
           if let error = error {
-            promise.reject([
-              "code": "ATTESTATION_ERROR",
-              "message": error.localizedDescription
-            ])
+            promise.reject(Exception(
+              name: "APP_INTEGRITY_ERROR",
+                  description: error.localizedDescription
+            ))
             return
           }
 
           guard let attestation = attestation else {
-            promise.reject([
-              "code": "ATTESTATION_ERROR",
-              "message": "Failed to generate attestation"
-            ])
+            promise.reject(Exception(
+              name: "APP_INTEGRITY_ERROR",
+              description: "Failed to generate attestation"
+            ))
             return
           }
 
@@ -66,28 +67,28 @@ public class AttestModule: Module {
     AsyncFunction("asyncGenerateAssertion") { (keyId: String, clientData: String, promise: Promise) in
       // Check if App Attest is supported
       guard appAttestService.isSupported else {
-        promise.reject([
-          "code": "ATTEST_NOT_SUPPORTED",
-          "message": "App Attest is not supported on this device"
-        ])
+        promise.reject(Exception(
+          name: "APP_INTEGRITY_NOT_SUPPORTED",
+          description: "App AppIntegrity is not supported on this device"
+        ))
         return
       }
 
       // Generate assertion
       appAttestService.generateAssertion(keyId, clientDataHash: clientData.data(using: .utf8)!) { assertion, error in
         if let error = error {
-          promise.reject([
-            "code": "ASSERTION_ERROR",
-            "message": error.localizedDescription
-          ])
+          promise.reject(Exception(
+            name: "ASSERTION_ERROR",
+            description: error.localizedDescription
+          ))
           return
         }
 
         guard let assertion = assertion else {
-          promise.reject([
-            "code": "ASSERTION_ERROR",
-            "message": "Failed to generate assertion"
-          ])
+          promise.reject(Exception(
+            name: "ASSERTION_ERROR",
+            description: "Failed to generate assertion"
+          ))
           return
         }
 

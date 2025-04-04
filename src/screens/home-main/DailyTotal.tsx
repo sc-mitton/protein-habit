@@ -1,17 +1,17 @@
 import SlotNumbers from "react-native-slot-numbers";
-import { Plus } from "geist-native-icons";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
 import styles from "./styles/home-screen";
 import fontStyles from "@styles/fonts";
-import { Box, Text, Button, Icon, DrumStickIcon } from "@components";
+import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { dayFormat } from "@constants/formats";
 import { HomeScreenProps } from "@types";
 import { selectFont } from "@store/slices/uiSlice";
+import PlusMenu from "./PlusMenu";
 
 const DailyTotal = (props: HomeScreenProps<"Main">) => {
   const theme = useTheme();
@@ -54,39 +54,7 @@ const DailyTotal = (props: HomeScreenProps<"Main">) => {
         </Text>
       </Box>
       <ReAnimated.View layout={LinearTransition} style={styles.buttons}>
-        <Box flexDirection="row" gap="sm" paddingRight="m">
-          <Button
-            borderRadius="full"
-            borderColor="borderColor"
-            borderWidth={1.5}
-            backgroundColor="transparent"
-            padding="s"
-            onPress={() => {
-              props.navigation.navigate("EntryModal");
-            }}
-            icon={
-              <Icon
-                icon={Plus}
-                size={20}
-                color="primaryText"
-                strokeWidth={2.5}
-              />
-            }
-          />
-          <Button
-            borderRadius="full"
-            borderColor="borderColor"
-            borderWidth={1.5}
-            backgroundColor="transparent"
-            padding="s"
-            onPress={() => {
-              props.navigation.navigate("MyFoodsModal");
-            }}
-            icon={
-              <Icon icon={DrumStickIcon} color="primaryText" strokeWidth={2} />
-            }
-          />
-        </Box>
+        <PlusMenu />
       </ReAnimated.View>
     </Box>
   );

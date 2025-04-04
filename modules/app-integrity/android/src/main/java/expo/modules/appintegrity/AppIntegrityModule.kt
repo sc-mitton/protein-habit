@@ -1,16 +1,10 @@
-package expo.modules.attest
+package expo.modules.appintegrity
 
-import com.google.android.play.core.integrity.IntegrityManager
-import com.google.android.play.core.integrity.IntegrityManagerFactory
-import com.google.android.play.core.integrity.IntegrityTokenRequest
-import com.google.android.play.core.integrity.IntegrityTokenResponse
-import com.google.android.play.core.tasks.Task
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import java.net.URL
-import java.util.Base64
 
-class AttestModule : Module() {
+class AppIntegrityModule : Module() {
   private val integrityManager: IntegrityManager by lazy {
     IntegrityManagerFactory.create(context)
   }
@@ -21,8 +15,8 @@ class AttestModule : Module() {
   override fun definition() = ModuleDefinition {
     // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('Attest')` in JavaScript.
-    Name("Attest")
+    // The module will be accessible from `requireNativeModule('AppIntegrity')` in JavaScript.
+    Name("AppIntegrity")
 
     AsyncFunction("asyncGenerateKey") { challenge: String ->
       // Android doesn't support key generation, return undefined
@@ -48,17 +42,6 @@ class AttestModule : Module() {
           "message" to (e.message ?: "Unknown error occurred")
         )
       }
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(AttestView::class) {
-      // Defines a setter for the `url` prop.
-      Prop("url") { view: AttestView, url: URL ->
-        view.webView.loadUrl(url.toString())
-      }
-      // Defines an event that the view can send to JavaScript.
-      Events("onLoad")
     }
   }
 }

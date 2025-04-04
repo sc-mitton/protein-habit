@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosError } from "axios";
 
-import AttestModule from "attest";
+import AppIntegrity from "app-integrity";
 
 const tagTypes = ["ProteinSearch"];
 
@@ -25,7 +25,7 @@ const axiosBaseQuery =
     const challenge = await AsyncStorage.getItem("challenge");
     const keyId = await AsyncStorage.getItem("keyId");
     const clientData = { ...data, challenge };
-    const assertion = await AttestModule.asyncGenerateAssertion(
+    const assertion = await AppIntegrity.asyncGenerateAssertion(
       JSON.stringify(clientData),
     );
 

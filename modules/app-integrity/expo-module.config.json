@@ -6,12 +6,12 @@
   ],
   "apple": {
     "modules": [
-      "AttestModule"
+      "AppIntegrityModule"
     ]
   },
   "android": {
     "modules": [
-      "expo.modules.attest.AttestModule"
+      "expo.modules.appintegrity.AppIntegrityModule"
     ]
   }
 }
