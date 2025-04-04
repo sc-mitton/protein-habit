@@ -4,7 +4,6 @@ import { AppState } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import WelcomeScreen from "./welcome/WelcomeScreen";
 import HomeMainScreen from "./home-main/HomeMain";

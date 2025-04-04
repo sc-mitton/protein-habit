@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 import { useTheme } from "@shopify/restyle";
 import Animated, {

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { ScrollView, StyleSheet, Appearance } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import Animated, { LinearTransition, FadeIn } from "react-native-reanimated";
 
 import { Box, Button, IncrementDecrement, Text } from "@components";

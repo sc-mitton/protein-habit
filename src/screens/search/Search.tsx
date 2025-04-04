@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Search = (props: HomeScreenProps<"Search">) => {
+const Search = (props: HomeScreenProps<"SearchModal">) => {
   const theme = useTheme();
   const accent = useAppSelector(selectAccent);
   const dispatch = useAppDispatch();
@@ -361,7 +361,7 @@ const Search = (props: HomeScreenProps<"Search">) => {
   );
 };
 
-export default function (props: HomeScreenProps<"Search">) {
+export default function (props: HomeScreenProps<"SearchModal">) {
   return (
     <BottomSheet
       onClose={() => props.navigation.goBack()}

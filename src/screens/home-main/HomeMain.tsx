@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Platform, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { Platform, ScrollView, StyleSheet } from "react-native";
 import dayjs from "dayjs";
 
 import { Box } from "@components";

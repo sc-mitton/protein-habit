@@ -1,9 +1,8 @@
 import { memo } from "react";
-import { View, StyleSheet, TextStyle, Text } from "react-native";
+import { View, StyleSheet, TextStyle } from "react-native";
 import Animated, {
   SharedValue,
   useAnimatedStyle,
-  withTiming,
   interpolate,
 } from "react-native-reanimated";
 

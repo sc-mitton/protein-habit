@@ -16,6 +16,7 @@ export type HomeStackParamList = {
   SuccessModal: undefined;
   PurchaseModal: { iap: typeof baseIap | typeof premiumIap };
   NewTagModal: undefined;
+  SearchModal: undefined;
 };
 
 export type ProfileStackParamList = {

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { withTiming } from "react-native-reanimated";
 import PagerView from "react-native-pager-view";
 

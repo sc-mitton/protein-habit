@@ -47,7 +47,7 @@ const PlusMenu = () => {
                 key="menu-1"
                 title=""
                 onSelect={() => {
-                  navigation.navigate("Entry");
+                  navigation.navigate("EntryModal");
                 }}
               >
                 <DropdownMenu.ItemTitle>Manual Entry</DropdownMenu.ItemTitle>
@@ -63,7 +63,7 @@ const PlusMenu = () => {
                 key="menu-2"
                 title="Saved"
                 onSelect={() => {
-                  navigation.navigate("MyFoods");
+                  navigation.navigate("MyFoodsModal");
                 }}
               >
                 <DropdownMenu.ItemTitle>Saved Foods</DropdownMenu.ItemTitle>
@@ -79,7 +79,7 @@ const PlusMenu = () => {
                 key="menu-3"
                 title="Search"
                 onSelect={() => {
-                  navigation.navigate("Search");
+                  navigation.navigate("SearchModal");
                 }}
               >
                 <DropdownMenu.ItemTitle>Search</DropdownMenu.ItemTitle>
@@ -130,7 +130,7 @@ const PlusMenu = () => {
         >
           <MMenuItem
             onPress={() => {
-              navigation.navigate("Entry");
+              navigation.navigate("EntryModal");
               setIsOpen(false);
             }}
             pressColor={theme.colors.quaternaryText}
@@ -157,7 +157,7 @@ const PlusMenu = () => {
           </MMenuItem>
           <MMenuItem
             onPress={() => {
-              navigation.navigate("MyFoods");
+              navigation.navigate("MyFoodsModal");
               setIsOpen(false);
             }}
             pressColor={theme.colors.quaternaryText}
@@ -175,7 +175,7 @@ const PlusMenu = () => {
           </MMenuItem>
           <MMenuItem
             onPress={() => {
-              navigation.navigate("Search");
+              navigation.navigate("SearchModal");
               setIsOpen(false);
             }}
             pressColor={theme.colors.quaternaryText}

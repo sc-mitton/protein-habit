@@ -1,10 +1,4 @@
-import {
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Pressable,
-  Dimensions,
-} from "react-native";
+import { Platform, StatusBar, StyleSheet, Pressable } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import * as Haptics from "expo-haptics";
 import { useForm, Controller } from "react-hook-form";

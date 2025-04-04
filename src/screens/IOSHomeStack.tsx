@@ -84,6 +84,15 @@ const RootStack = (props: RootScreenProps<"Home">) => {
 
       {/* Other Modals */}
       <Stack.Screen
+        name="SearchModal"
+        component={Search}
+        options={{
+          animation: "fade_from_bottom",
+          presentation: "modal",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="EntryModal"
         component={Entry}
         options={{
