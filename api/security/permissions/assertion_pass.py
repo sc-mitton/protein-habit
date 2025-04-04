@@ -1,7 +1,7 @@
 from fastapi import Depends, Header, HTTPException, Body
 from sqlalchemy.orm import Session
 
-from db.attest_db import get_db as get_attest_db
+from db.tables import get_db as get_attest_db
 from security.attest.ios import validate_assertion
 from security.attest.android import validate_token
 from conf import IOS_APP_ID, IOS_BUNDLE_ID

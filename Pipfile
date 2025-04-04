@@ -19,7 +19,7 @@ cbor2 = "*"
 asn1crypto = "*"
 alembic = "*"
 pytest = "*"
-jose = "*"
+python-jose = "*"
 
 [dev-packages]
 ipykernel = "*"

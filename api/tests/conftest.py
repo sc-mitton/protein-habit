@@ -2,7 +2,7 @@ import os
 import sys
 from dotenv import load_dotenv
 
-env_file = os.path.join(os.path.dirname(__file__), '..', '.env.dev')
+env_file = os.path.join(os.path.dirname(__file__), '..', '.env.development')
 
 load_dotenv(env_file)
 
