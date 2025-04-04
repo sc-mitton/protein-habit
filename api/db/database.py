@@ -8,8 +8,11 @@ from sqlalchemy import (
     String,
     DateTime,
     Integer,
-    ForeignKey
+    ForeignKey,
+    Text,
+    Enum
 )
+from enum import Enum as PyEnum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from cryptography.fernet import Fernet
@@ -74,6 +77,121 @@ class Challenge(Base):
         id = base64.urlsafe_b64encode(os.urandom(16)).decode()
         challenge = base64.urlsafe_b64encode(os.urandom(32)).decode()
         return id, challenge
+
+
+class CuisineEnum(PyEnum):
+    ITALIAN = "Italian"
+    MEXICAN = "Mexican"
+    INDIAN = "Indian"
+    ASIAN = "Asian"
+    MEDITERRANEAN = "Mediterranean"
+
+
+class MealTypeEnum(PyEnum):
+    BREAKFAST = "Breakfast"
+    LUNCH = "Lunch"
+    DINNER = "Dinner"
+    SNACK = "Snack"
+    DESSERT = "Dessert"
+    DRINK = "Drink"
+    SHAKE_SMOOTHIE = "Shake/Smoothie"
+
+
+class ProteinEnum(PyEnum):
+    SHRIMP = "Shrimp"
+    STEAK = "Steak"
+    CHICKEN = "Chicken"
+    PORK = "Pork"
+    TOFU = "Tofu"
+    FISH = "Fish"
+
+
+class DietTypeEnum(PyEnum):
+    LOW_CARB = "Low Carb"
+    LOW_FAT = "Low Fat"
+    VEGETARIAN = "Vegetarian"
+
+
+# Association Tables (Many-to-many relationships)
+class recipe_cuisine_association(Base):
+    __tablename__ = 'recipe_cuisine_association'
+    recipe_id = Column(Integer, ForeignKey('recipes.id'), primary_key=True)
+    cuisine_id = Column(Integer, ForeignKey('cuisines.id'), primary_key=True)
+
+
+class recipe_meal_type_association(Base):
+    __tablename__ = 'recipe_meal_type_association'
+    recipe_id = Column(Integer, ForeignKey('recipes.id'), primary_key=True)
+    meal_type_id = Column(Integer, ForeignKey(
+        'meal_types.id'), primary_key=True)
+
+
+class recipe_protein_association(Base):
+    __tablename__ = 'recipe_protein_association'
+    recipe_id = Column(Integer, ForeignKey('recipes.id'), primary_key=True)
+    protein_id = Column(Integer, ForeignKey('proteins.id'), primary_key=True)
+
+
+class recipe_diet_type_association(Base):
+    __tablename__ = 'recipe_diet_type_association'
+    recipe_id = Column(Integer, ForeignKey('recipes.id'), primary_key=True)
+    diet_type_id = Column(Integer, ForeignKey(
+        'diet_types.id'), primary_key=True)
+
+
+class Cuisine(Base):
+    __tablename__ = 'cuisines'
+    id = Column(Integer, primary_key=True)
+    name = Column(Enum(CuisineEnum), unique=True, nullable=False)
+
+    recipes = relationship(
+        'Recipe', secondary='recipe_cuisine_association', back_populates='cuisines')
+
+
+class MealType(Base):
+    __tablename__ = 'meal_types'
+    id = Column(Integer, primary_key=True)
+    name = Column(Enum(MealTypeEnum), unique=True, nullable=False)
+
+    recipes = relationship(
+        'Recipe', secondary='recipe_meal_type_association', back_populates='meal_types')
+
+
+class Protein(Base):
+    __tablename__ = 'proteins'
+    id = Column(Integer, primary_key=True)
+    name = Column(Enum(ProteinEnum), unique=True, nullable=False)
+
+    recipes = relationship(
+        'Recipe', secondary='recipe_protein_association', back_populates='proteins')
+
+
+class DietType(Base):
+    __tablename__ = 'diet_types'
+    id = Column(Integer, primary_key=True)
+    name = Column(Enum(DietTypeEnum), unique=True, nullable=False)
+
+    recipes = relationship(
+        'Recipe', secondary='recipe_diet_type_association', back_populates='diet_types')
+
+
+class Recipe(Base):
+    __tablename__ = 'recipes'
+    id = Column(Integer, primary_key=True)
+    description = Column(Text, nullable=True)
+    ingredients = Column(Text, nullable=True)
+    instructions = Column(Text, nullable=True)
+    thumbnail = Column(String(255), nullable=True)
+
+    # Many-to-many relationships
+    cuisines = relationship(
+        'Cuisine', secondary='recipe_cuisine_association', back_populates='recipes')
+    meal_types = relationship(
+        'MealType', secondary='recipe_meal_type_association', back_populates='recipes')
+    proteins = relationship(
+        'Protein', secondary='recipe_protein_association', back_populates='recipes')
+    diet_types = relationship(
+        'DietType', secondary='recipe_diet_type_association', back_populates='recipes')
 
 
 # Create tables
