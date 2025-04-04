@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session, subqueryload
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import ec
 
-from db.tables import Key
+from db.database import Key
 
 
 def _verify_nonce(assertion: dict, client_data: dict, public_key: str) -> bool:

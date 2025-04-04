@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from unittest.mock import patch
 
 from main import app
-from db.tables import get_db, Challenge, Key
+from db.database import get_db, Challenge, Key
 from tests.ios_variables import (
     TEST_KEY_ID,
     TEST_APP_ID,

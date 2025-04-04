@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from fastapi_types import TextInput
 
-from db.database import get_db
-from db.tables import get_db as get_attest_db, Key, Challenge
+from db.comp_food_database import get_db
+from db.database import get_db as get_attest_db, Key, Challenge
 from rags.protein_amount import chain
 from utils.get_secret import get_secret
 from security.attest.ios import validate_attestation, get_public_key

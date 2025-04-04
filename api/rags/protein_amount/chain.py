@@ -7,9 +7,9 @@ from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnableLambda, RunnableParallel
 from langchain_core.output_parsers import JsonOutputParser
 from fastapi import Depends
-from db.database import engine
+from db.comp_food_database import engine
 
-from db.database import get_db
+from db.comp_food_database import get_db
 from rags.protein_amount.retrieval import (
     get_restaurant_or_brand_prompt,
     food_items_prompt,
