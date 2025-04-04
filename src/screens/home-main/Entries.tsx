@@ -14,9 +14,9 @@ import { StyleSheet, Dimensions } from "react-native";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Box, Text, Icon, Button, SwipeOptions } from "@components";
 import { selectDaysEntries } from "@store/slices/proteinSelectors";
+import { selectFoods } from "@store/slices/foodsSlice";
 import { dayFormat, dayTimeFormat } from "@constants/formats";
 import { removeEntry } from "@store/slices/proteinSlice";
-import { selectFoods } from "@store/slices/foodsSlice";
 
 const styles = StyleSheet.create({
   scrollContent: {
@@ -65,9 +65,9 @@ const Days = ({
     >
       <Animated.View style={pillStyle}>
         <Box
-          width={pillWidth}
+          width={pillWidth - 12}
           style={{ transform: [{ translateX: -pillWidth / 2 }] }}
-          height={64}
+          height={58}
           borderColor="primaryButton"
           borderWidth={1.5}
           position="absolute"
@@ -108,6 +108,7 @@ const Days = ({
               </Text>
               <Text
                 accent={!disabled}
+                fontSize={14}
                 color={disabled ? "quaternaryText" : "primaryText"}
               >
                 {dayjs().startOf("week").add(index, "day").format("dd")}
@@ -144,11 +145,6 @@ const Entries = () => {
                 />
               )}
               <SwipeOptions
-                noEdit={
-                  !entry.food || foods.some((f) => f.id === entry.food)
-                    ? false
-                    : true
-                }
                 onDelete={() => {
                   dispatch(
                     removeEntry({

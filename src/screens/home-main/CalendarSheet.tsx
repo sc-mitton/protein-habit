@@ -5,7 +5,7 @@ import { BackDrop, Box } from "@components";
 import { HomeScreenProps } from "@types";
 import Calendar from "./Calendar";
 
-const Appearance = (props: HomeScreenProps<"Calendar">) => {
+const CalendarSheet = (props: HomeScreenProps<"Calendar">) => {
   const theme = useTheme();
 
   return (
@@ -33,4 +33,4 @@ const Appearance = (props: HomeScreenProps<"Calendar">) => {
   );
 };
 
-export default Appearance;
+export default CalendarSheet;

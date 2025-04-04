@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Platform, Appearance } from "react-native";
+import { Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
 
@@ -12,7 +12,7 @@ import { MyFoodsProvider, useMyFoods } from "./context";
 import Header from "./Header";
 import SelectedFoods from "./SelectedFoods";
 
-const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
+const MyFoods = (props: HomeScreenProps<"MyFoodsModal">) => {
   const foods = useAppSelector(selectFoods);
 
   const { selectedFoods, setSelectedFoods } = useMyFoods();
@@ -37,11 +37,7 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
   return (
     <Box
       flex={1}
-      backgroundColor={
-        Appearance.getColorScheme() === "dark"
-          ? "modalBackground"
-          : "mainBackground"
-      }
+      backgroundColor={"mainBackground"}
       paddingTop={Platform.OS === "ios" ? "none" : "xl"}
     >
       {Platform.OS === "ios" && (
@@ -62,11 +58,7 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
                   : 280
                 : "auto"
             }
-            backgroundColor={
-              Appearance.getColorScheme() === "dark"
-                ? "modalBackground"
-                : "mainBackground"
-            }
+            backgroundColor={"mainBackground"}
           >
             <FoodList />
           </Box>
@@ -77,7 +69,7 @@ const MyFoods = (props: HomeScreenProps<"MyFoods">) => {
   );
 };
 
-export default function (props: HomeScreenProps<"MyFoods">) {
+export default function MyFoodsWrapper(props: HomeScreenProps<"MyFoodsModal">) {
   return (
     <MyFoodsProvider>
       <MyFoods {...props} />

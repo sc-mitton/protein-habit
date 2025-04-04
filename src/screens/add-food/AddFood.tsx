@@ -40,7 +40,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
+const AddFood = ({ navigation, route }: HomeScreenProps<"AddFoodModal">) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const {
@@ -274,7 +274,7 @@ const AddFood = ({ navigation, route }: HomeScreenProps<"AddFood">) => {
                 />
                 <Animated.View layout={LinearTransition}>
                   <Button
-                    onPress={() => navigation.navigate("NewTag")}
+                    onPress={() => navigation.navigate("NewTagModal")}
                     label="New"
                     labelPlacement="left"
                     fontSize={14}

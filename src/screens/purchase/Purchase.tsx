@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import {
-  InteractionManager,
-  Alert,
-  useColorScheme,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { InteractionManager, Alert, useColorScheme, Image } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import { ChevronRight, ArrowLeft } from "geist-native-icons";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Invert } from "react-native-color-matrix-image-filters";
 import { useTheme } from "@shopify/restyle";
@@ -28,12 +21,11 @@ import type { ProductAndroid } from "expo-iap/build/types/ExpoIapAndroid.types";
 import type { ProductIos } from "expo-iap/build/types/ExpoIapIos.types";
 
 import { HomeScreenProps } from "@types";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useAppDispatch } from "@store/hooks";
 import { setPurchaseStatus } from "@store/slices/userSlice";
-import { Box, Text, Button, Icon, BackDrop, PulseText, Tip } from "@components";
+import { Box, Text, Button, Icon, BackDrop, PulseText } from "@components";
 import { baseIap, premiumIap } from "@constants/iaps";
 import logo from "@assets/icon-tinted.png";
-import { selectAccent } from "@store/slices/uiSlice";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -68,9 +60,8 @@ const Message = ({
   );
 };
 
-export default function Purchase(props: HomeScreenProps<"Purchase">) {
+export default function Purchase(props: HomeScreenProps<"PurchaseModal">) {
   const theme = useTheme();
-  const accent = useAppSelector(selectAccent);
   const dispatch = useAppDispatch();
   const [purchasable, setPurchasable] = useState<ProductIos | ProductAndroid>();
   const scheme = useColorScheme();

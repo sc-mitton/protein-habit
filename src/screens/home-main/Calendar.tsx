@@ -1,13 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, memo } from "react";
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Dimensions,
-  Platform,
-  Appearance,
-} from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { View, FlatList, StyleSheet, Dimensions, Platform } from "react-native";
 
 import { Text, Box } from "@components";
 import dayjs from "dayjs";
@@ -20,13 +12,12 @@ import { selectUserInception } from "@store/slices/userSlice";
 import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
 import { selectAccent } from "@store/slices/uiSlice";
-import { HomeStackParamList } from "@types";
 import CalendarCell from "./CalendarCell";
 
 const CALENDAR_WIDTH = Dimensions.get("window").width;
 // the window width minus the calendar width
 const CALENDAR_NEGATIVE_SPACE = Dimensions.get("window").width - CALENDAR_WIDTH;
-const CALENDAR_PADDING = 12;
+const CALENDAR_PADDING = 18;
 
 const Calendar = () => {
   const accent = useAppSelector(selectAccent);
@@ -36,8 +27,6 @@ const Calendar = () => {
     () => generateCalendarData(userInception),
     [userInception],
   );
-  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
-  const isInModal = navigation.getState().routes.length > 1;
   const [currentIndex, setCurrentIndex] = useState(calendarData.length - 1);
   const proteinMonthlyDailyAverage = useAppSelector((state) =>
     selectMonthlyDailyAverage(state, calendarData[currentIndex][0]),
@@ -72,12 +61,11 @@ const Calendar = () => {
       justifyContent="center"
       alignItems="center"
       zIndex={100}
-      height={isInModal ? 300 : "auto"}
-      {...(!isInModal && { flex: 1 })}
+      marginTop="m"
       width={"100%"}
+      height={380}
     >
       <FlatList
-        style={styles.flatList}
         data={calendarData}
         nestedScrollEnabled={true}
         keyExtractor={(item) => item[0]}
@@ -115,7 +103,7 @@ const Calendar = () => {
               paddingLeft="xxs"
               gap="s"
             >
-              <Text accent={true} variant={isInModal ? "bold" : undefined}>
+              <Text accent={true}>
                 {dayjs(item[0], "MMM DD, YYYY").format("MMM YYYY")}
               </Text>
               <Box
@@ -204,12 +192,9 @@ const Calendar = () => {
 };
 
 const styles = StyleSheet.create({
-  flatList: {
-    flex: 1,
-  },
   scrollContainer: {
     marginTop: 16,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     flexDirection: "column",
     height: "100%",
   },

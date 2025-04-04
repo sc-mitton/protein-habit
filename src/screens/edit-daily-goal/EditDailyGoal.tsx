@@ -19,10 +19,9 @@ import {
   setDailyTarget,
   getRecommendedTarget,
 } from "@store/slices/proteinSlice";
-import { HomeScreenProps } from "@types";
+import { ProfileScreenProps } from "@types";
 
 import { BackDrop } from "@components";
-import { StyleSheet, Dimensions } from "react-native";
 import { selectUserInfo } from "@store/slices/userSlice";
 
 const Value = ({ onSave }: { onSave: () => void }) => {
@@ -67,7 +66,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
         />
         <Box flexDirection="row" alignItems="baseline">
           <SlotNumbers
-            value={displayVal}
+            value={1200}
             animateIntermediateValues
             animationDuration={300}
             easing={"in-out"}
@@ -122,7 +121,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
   );
 };
 
-const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
+const EditDailyGoal = (props: ProfileScreenProps<"EditDailyGoalModal">) => {
   const theme = useTheme();
   const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
@@ -180,22 +179,3 @@ const EditDailyGoal = (props: HomeScreenProps<"EditDailyGoal">) => {
 };
 
 export default EditDailyGoal;
-
-const styles = StyleSheet.create({
-  overlay: {
-    position: "absolute",
-    top: -Dimensions.get("window").width,
-    left: 0,
-    right: 0,
-    bottom: -Dimensions.get("window").width,
-  },
-  border: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderWidth: 2,
-    opacity: 1,
-  },
-});

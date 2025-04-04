@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { View, Platform, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
@@ -24,11 +24,6 @@ const Menu = ({
   const theme = useTheme();
   const navigation = useNavigation<any>();
   const { setSelectedFoods, scrolling } = useMyFoods();
-  const foodPresstimer = useRef(0);
-  const lock = useRef(false);
-
-  // Use a ref to track whether a long press has occurred
-  const longPressActivated = useRef(false);
 
   return (
     <View>
@@ -143,7 +138,8 @@ const FoodItem = ({ food }: { food: Food }) => {
         <Box
           key={food.id}
           backgroundColor={"foodItemBackground"}
-          padding={Platform.OS === "ios" ? "s" : "sm"}
+          padding={"s"}
+          paddingHorizontal={Platform.OS === "ios" ? "sm" : "s"}
           borderRadius="l"
           shadowColor="foodItemShadow"
           shadowOffset={{ width: 0, height: 2 }}

@@ -1,140 +1,45 @@
-import { useState, useRef, useEffect } from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  ScrollView,
-  View,
-  Platform,
-} from "react-native";
-import Animated, {
-  useSharedValue,
-  withTiming,
-  useAnimatedStyle,
-} from "react-native-reanimated";
+import { useRef } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { withTiming } from "react-native-reanimated";
 import PagerView from "react-native-pager-view";
 
-import { Box, Button } from "@components";
+import { Box } from "@components";
 import Entries from "./Entries";
 import Stats from "./Stats";
-
-const TAB_INDICATOR_OFFSET = 18;
+import { TAB_INDICATOR_OFFSET } from "./constants";
+import { useTabs } from "./tabsContext";
 
 const Tabs = () => {
-  const indicatorWidth = useSharedValue(0);
-  const indicatorX = useSharedValue(TAB_INDICATOR_OFFSET);
-  const tab0Opacity = useSharedValue(1);
-  const tab1Opacity = useSharedValue(0.5);
-  const delta = useSharedValue(0);
-  const [selectedTab, setSelectedTab] = useState(0);
-  const tabHeaderWidths = useRef(new Array(2).fill(0));
-  const pagerRef = useRef<PagerView>(null);
+  const {
+    pagerRef,
+    indicatorX,
+    indicatorWidth,
+    selectedTab,
+    setSelectedTab,
+    tabHeaderWidths,
+    delta,
+  } = useTabs();
+
   const tabIndicatorState = useRef<"idle" | "dragging" | "settling">("idle");
-
-  const indicatorAnimation = useAnimatedStyle(() => {
-    return {
-      position: "absolute",
-      bottom: 0,
-      height: 4,
-      width: indicatorWidth.value,
-      transform: [{ translateX: indicatorX.value }],
-    };
-  });
-
-  const tab1HeaderAnimation = useAnimatedStyle(() => {
-    return {
-      opacity: tab0Opacity.value,
-      zIndex: 1,
-    };
-  });
-
-  const tab2HeaderAnimation = useAnimatedStyle(() => {
-    return {
-      opacity: tab1Opacity.value,
-      zIndex: 1,
-    };
-  });
-
-  const animated = (index: number) => {
-    indicatorWidth.value = withTiming(tabHeaderWidths.current[index]);
-    indicatorX.value = withTiming(
-      TAB_INDICATOR_OFFSET + (index === 0 ? 0 : tabHeaderWidths.current[index]),
-    );
-    tab0Opacity.value = withTiming(index === 0 ? 1 : 0.5);
-    tab1Opacity.value = withTiming(index === 0 ? 0.5 : 1);
-  };
-
-  const handleTabPress = (index: number) => {
-    setSelectedTab(index);
-    animated(index);
-    pagerRef.current?.setPage(index);
-  };
-
-  useEffect(() => {
-    animated(selectedTab);
-  }, [selectedTab]);
 
   return (
     <Box flexGrow={1}>
-      <Box
-        flexDirection="row"
-        justifyContent="flex-start"
-        gap="m"
-        paddingHorizontal="m"
-        paddingBottom="s"
-        zIndex={2}
-      >
-        <Animated.View
-          style={tab1HeaderAnimation}
-          onLayout={(e) => {
-            tabHeaderWidths.current[0] = e.nativeEvent.layout.width;
-            indicatorWidth.value = e.nativeEvent.layout.width;
-          }}
-        >
-          <Button
-            label={"Stats"}
-            onPress={() => handleTabPress(0)}
-            disabled={Platform.OS !== "ios"}
-          />
-        </Animated.View>
-        <Animated.View
-          style={tab2HeaderAnimation}
-          onLayout={(e) => {
-            tabHeaderWidths.current[1] = e.nativeEvent.layout.width;
-          }}
-        >
-          <Button
-            label="Entries"
-            disabled={Platform.OS !== "ios"}
-            onPress={() => {
-              handleTabPress(1);
-            }}
-          />
-        </Animated.View>
-        <Animated.View style={indicatorAnimation}>
-          <Box
-            accent={true}
-            style={StyleSheet.absoluteFill}
-            backgroundColor="tertiaryText"
-            borderTopLeftRadius="s"
-            borderTopRightRadius="s"
-          />
-        </Animated.View>
-      </Box>
       <Box
         justifyContent="center"
         borderTopEndRadius="xl"
         borderTopStartRadius="xl"
         flex={1}
+        flexGrow={1}
         zIndex={0}
         backgroundColor="secondaryBackground"
-        shadowColor="defaultShadow"
-        shadowOpacity={Platform.OS === "ios" ? 0.3 : 1}
+        shadowColor="sectionShadow"
+        shadowOpacity={1}
         shadowOffset={{ width: 0, height: 2 }}
         shadowRadius={64}
-        elevation={12}
+        elevation={64}
       >
         <PagerView
-          style={styles.scrollView}
+          style={styles.pagerView}
           ref={pagerRef}
           initialPage={0}
           orientation="horizontal"
@@ -146,21 +51,22 @@ const Tabs = () => {
           }}
           onPageScroll={({ nativeEvent: ne }) => {
             const d = ne.position != selectedTab ? 1 - ne.offset : ne.offset;
+            const updatedDelta = (2 * d) / (4 * d + 1);
 
             if (tabIndicatorState.current === "dragging") {
-              delta.value = d;
+              delta.value = updatedDelta;
+              const extra = updatedDelta * tabHeaderWidths.current[selectedTab];
               indicatorWidth.value =
-                tabHeaderWidths.current[selectedTab] +
-                d * tabHeaderWidths.current[selectedTab];
+                tabHeaderWidths.current[selectedTab] + extra;
               if (ne.position != selectedTab) {
                 indicatorX.value =
                   TAB_INDICATOR_OFFSET +
                   tabHeaderWidths.current[selectedTab] -
-                  d * tabHeaderWidths.current[selectedTab];
+                  extra;
               }
             } else if (tabIndicatorState.current === "settling") {
               // Settling
-              if (d < delta.value) {
+              if (updatedDelta < delta.value) {
                 // Settling back to original position
                 indicatorWidth.value = withTiming(
                   tabHeaderWidths.current[selectedTab],
@@ -188,12 +94,8 @@ const Tabs = () => {
             }
           }}
         >
-          <View key="1" style={styles.page}>
-            <Stats />
-          </View>
-          <View key="2" style={styles.page}>
-            <Entries />
-          </View>
+          <Stats key={1} />
+          <Entries key={2} />
         </PagerView>
       </Box>
     </Box>
@@ -203,13 +105,10 @@ const Tabs = () => {
 export default Tabs;
 
 const styles = StyleSheet.create({
-  scrollView: {
+  pagerView: {
     flex: 1,
-    marginTop: -84,
-  },
-  page: {
-    paddingTop: 84,
-    width: Dimensions.get("window").width,
-    height: "100%",
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    overflow: "hidden",
   },
 });

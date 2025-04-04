@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AppState } from "react-native";
-import { Menu2 } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { Box, Text, Icon, Button } from "@components";
 import { useAppSelector } from "@store/hooks";
 import WelcomeScreen from "./welcome/WelcomeScreen";
 import HomeMainScreen from "./home-main/HomeMain";
 import { HomeStackParamList } from "@types";
-import Appearance from "./appearance/Appearance";
 import WeightInput from "./welcome/WeightInput";
-import PersonalInfo from "./personal-info/PersonalInfo";
 import Entry from "./entry/Entry";
-import Menu from "./Menu";
-import EditDailyGoal from "./edit-daily-goal/EditDailyGoal";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
 import SuccessModal from "./success/SuccessModal";
@@ -23,7 +17,6 @@ import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
 import Search from "./search/Search";
 import { RootScreenProps } from "@types";
-import CalendarSheet from "./home-main/CalendarSheet";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
@@ -32,17 +25,6 @@ const RootStack = (props: RootScreenProps<"Home">) => {
 
   const { name } = useAppSelector((state) => state.user);
   const [currentDay, setCurrentDay] = useState(dayjs());
-
-  const androidHeaderOptions = {
-    headerTintColor: theme.colors.primaryText,
-    headerTransparent: true,
-    headerBackButtonDisplayMode: "minimal",
-    headerTitleStyle: {
-      color: theme.colors.primaryText,
-      fontFamily: "Inter-Regular",
-    },
-    title: "",
-  } as const;
 
   // Make sure to update the day when it changes based on the
   // device clock
@@ -81,61 +63,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
       <Stack.Screen
         name="Main"
         component={HomeMainScreen}
-        options={{
-          title: "",
-          headerShown: true,
-          headerShadowVisible: false,
-          headerStyle: {
-            backgroundColor: theme.colors.mainBackground,
-          },
-          // headerTitle: () => {
-          //   return (
-          //     <Box
-          //       paddingTop="xs"
-          //       paddingHorizontal="xs"
-          //       gap="xs"
-          //       alignItems="center"
-          //     >
-          //       <Text>Welcome, {name}</Text>
-          //       <Text color="tertiaryText">
-          //         {currentDay.format("MMM D, YYYY")}
-          //       </Text>
-          //     </Box>
-          //   );
-          // },
-          headerLeft: () => {
-            return (
-              // <Button
-              //   marginTop="xs"
-              //   onPress={() => props.navigation.openDrawer()}
-              // >
-              //   <Icon
-              //     icon={Menu2}
-              //     strokeWidth={2}
-              //     size={22}
-              //   />
-              // </Button>
-              <Box
-                paddingTop="xs"
-                paddingHorizontal="s"
-                gap="xs"
-                alignItems="flex-start"
-              >
-                <Text fontSize={18} variant="bold">
-                  Welcome, {name}
-                </Text>
-                <Text color="tertiaryText">
-                  {currentDay.format("MMM D, YYYY")}
-                </Text>
-              </Box>
-            );
-          },
-          headerRight: () => (
-            <Box paddingTop="xs" marginRight="xs">
-              <Menu />
-            </Box>
-          ),
-        }}
+        options={{ headerShown: false }}
       />
 
       {/* Bottom Sheet Modals */}
@@ -146,21 +74,17 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           statusBarBackgroundColor: theme.colors.modalAndroidStatusBackground,
         }}
       >
-        <Stack.Screen name="Appearance" component={Appearance} />
-        <Stack.Screen name="EditDailyGoal" component={EditDailyGoal} />
         <Stack.Screen
           name="SuccessModal"
           component={SuccessModal}
           options={{ animation: "fade" }}
         />
-        <Stack.Screen name="Purchase" component={Purchase} />
-        <Stack.Screen name="Calendar" component={CalendarSheet} />
-        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="PurchaseModal" component={Purchase} />
       </Stack.Group>
 
       {/* Other Modals */}
       <Stack.Screen
-        name="Entry"
+        name="EntryModal"
         component={Entry}
         options={{
           animation: "fade_from_bottom",
@@ -169,7 +93,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         }}
       />
       <Stack.Screen
-        name="NewTag"
+        name="NewTagModal"
         component={NewTag}
         options={{
           animation: "fade_from_bottom",
@@ -178,7 +102,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         }}
       />
       <Stack.Screen
-        name="MyFoods"
+        name="MyFoodsModal"
         component={MyFoods}
         options={{
           animation: "fade_from_bottom",
@@ -187,21 +111,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         }}
       />
       <Stack.Screen
-        options={{
-          presentation: "modal",
-          headerShown: false,
-          headerTitle: "Personal Info",
-          headerBackground: () => (
-            <Box backgroundColor="mainBackground" flex={1} />
-          ),
-          headerTintColor: theme.colors.primaryText,
-          statusBarBackgroundColor: theme.colors.mainBackground,
-        }}
-        name="PersonalInfo"
-        component={PersonalInfo}
-      />
-      <Stack.Screen
-        name="AddFood"
+        name="AddFoodModal"
         component={AddFood}
         options={{
           headerShown: false,

@@ -28,7 +28,7 @@ type FormData = z.infer<typeof schema>;
 
 const COLORS = ["blue", "green", "yellow", "orange", "red", "purple"] as const;
 
-const NewTag = (props: HomeScreenProps<"NewTag">) => {
+const NewTag = (props: HomeScreenProps<"NewTagModal">) => {
   const theme = useTheme<Theme>();
   const dispatch = useAppDispatch();
 

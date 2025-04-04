@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
+const SelectedFoods = (props: HomeScreenProps<"MyFoodsModal">) => {
   const dispatch = useAppDispatch();
   const { selectedFoods, setSelectedFoods, day } = useMyFoods();
 
@@ -59,11 +59,7 @@ const SelectedFoods = (props: HomeScreenProps<"MyFoods">) => {
             marginTop="m"
             borderTopColor="borderColor"
             borderTopWidth={1}
-            backgroundColor={
-              Appearance.getColorScheme() === "dark"
-                ? "mainBackground"
-                : "modalBackground"
-            }
+            backgroundColor={"modalBackground"}
             flex={1}
             flexGrow={1}
             paddingBottom="xl"

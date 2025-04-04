@@ -18,9 +18,9 @@ import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
 
 import lightTheme, { darkTheme } from "@theme";
-import RootStack from "./src/screens/RootDrawer";
 import { Box } from "@components";
 import { store, persistor } from "./src/store";
+import RootStack from "./src/screens/RootTabs";
 import { baseIap, premiumIap } from "@constants/iaps";
 import { useMobileAttest } from "./src/hooks/useMobileAttest";
 

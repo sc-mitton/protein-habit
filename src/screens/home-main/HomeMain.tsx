@@ -1,82 +1,58 @@
 import { useEffect } from "react";
-import SlotNumbers from "react-native-slot-numbers";
-import ReAnimated, { LinearTransition } from "react-native-reanimated";
-import { useTheme } from "@shopify/restyle";
+import { Platform, ScrollView, StyleSheet, Dimensions } from "react-native";
 import dayjs from "dayjs";
 
-import styles from "./styles/home-screen";
-import fontStyles from "@styles/fonts";
-import { Box, Text } from "@components";
-import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
+import { Box } from "@components";
 import { useAppSelector } from "@store/hooks";
 import { HomeScreenProps } from "@types";
-import { dayFormat } from "@constants/formats";
-import { selectFont } from "@store/slices/uiSlice";
 import {
   selectUserPurchaseStatus,
   selectUserInception,
 } from "@store/slices/userSlice";
 import { baseIap } from "@constants/iaps";
+import { HomeMainProvider } from "./tabsContext";
 import Tabs from "./Tabs";
-import PlusMenu from "./PlusMenu";
+import DailyTotal from "./DailyTotal";
+import WelcomeMessage from "./WelcomeMessage";
+import TabButtons from "./TabButtons";
+
+const styles = StyleSheet.create({
+  scroll: {
+    flexGrow: 1,
+  },
+});
 
 const HomeMain = (props: HomeScreenProps<"Main">) => {
-  const theme = useTheme();
   const purchaseStatus = useAppSelector(selectUserPurchaseStatus);
   const inceptionDate = useAppSelector(selectUserInception);
-  const font = useAppSelector(selectFont);
-  const totalProteinForDay = useAppSelector((state) =>
-    selectTotalProteinForDay(state, dayjs().format(dayFormat)),
-  );
 
   useEffect(() => {
     if (
       purchaseStatus === null &&
       dayjs().diff(dayjs(inceptionDate), "day") > 0
     ) {
-      props.navigation.navigate("Purchase", { iap: baseIap });
+      props.navigation.navigate("PurchaseModal", { iap: baseIap });
     }
   }, [purchaseStatus]);
 
   return (
-    <Box flex={1} backgroundColor="mainBackground">
+    <HomeMainProvider>
       <Box
-        paddingHorizontal="m"
-        marginTop="xl"
-        marginBottom="m"
-        flexDirection="row"
-        alignItems="center"
-        gap="xl"
-        justifyContent="flex-start"
+        flex={1}
+        backgroundColor="mainBackground"
+        paddingTop={Platform.OS === "ios" ? "statusBar" : "l"}
       >
-        <Box flexDirection="row" alignItems={"baseline"} gap="s">
-          <SlotNumbers
-            spring
-            animateIntermediateValues
-            value={Number(totalProteinForDay.toString().replace(".", ""))}
-            precision={totalProteinForDay.toString().split(".")[1]?.length || 0}
-            fontStyle={[
-              styles.bigSlotNumbersStyle,
-              { color: theme.colors.primaryText },
-              fontStyles[font],
-            ]}
-          />
-          <Text
-            variant="bold"
-            marginTop="xs"
-            marginLeft="ns"
-            fontSize={24}
-            style={fontStyles[font]}
-          >
-            g
-          </Text>
-        </Box>
-        <ReAnimated.View layout={LinearTransition} style={styles.buttons}>
-          <PlusMenu />
-        </ReAnimated.View>
+        <ScrollView
+          contentContainerStyle={styles.scroll}
+          showsVerticalScrollIndicator={false}
+        >
+          <WelcomeMessage />
+          <DailyTotal {...props} />
+          <TabButtons />
+          <Tabs />
+        </ScrollView>
       </Box>
-      <Tabs />
-    </Box>
+    </HomeMainProvider>
   );
 };
 

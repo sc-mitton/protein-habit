@@ -13,9 +13,9 @@ import {
 } from "@store/slices/uiSlice";
 import { fontOptions } from "@constants/fonts";
 import { accentOptions } from "@constants/accents";
-import { HomeScreenProps } from "@types";
+import { ProfileScreenProps } from "@types";
 
-const Appearance = (props: HomeScreenProps<"Appearance">) => {
+const Appearance = (props: ProfileScreenProps<"AppearanceModal">) => {
   const theme = useTheme();
   const selectedFont = useAppSelector(selectFont);
   const selectedAccent = useAppSelector(selectAccent);

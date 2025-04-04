@@ -69,6 +69,7 @@ const SuccessModal = () => {
           variant="primary"
           width={300}
           padding="m"
+          marginTop="l"
           borderRadius="m"
         >
           <Text color="primaryText" accent>

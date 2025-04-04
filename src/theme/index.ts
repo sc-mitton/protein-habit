@@ -1,6 +1,5 @@
 import { createTheme } from "@shopify/restyle";
 import { StatusBar, Platform } from "react-native";
-import convert from "color-convert";
 import { convertHex2Hsl } from "@utils";
 
 const palette = {
@@ -31,6 +30,7 @@ const lightTheme = createTheme({
     foodItemBackground: palette.gray50,
     cardBackground: palette.gray50,
     secondaryCardBackground: palette.gray200,
+    tabBarBackground: palette.gray50,
     primaryText: palette.gray900,
     secondaryText: palette.gray600,
     placeholderText: palette.gray500,
@@ -39,6 +39,7 @@ const lightTheme = createTheme({
     borderColor: palette.gray200,
     borderColorBold: palette.gray400,
     transparent: "transparent",
+    transparentRGB: "rgba(255, 255, 255, 0)",
     error: "#ef4343",
     errorSecondary: "#ef4343",
     selected: "#007fff",
@@ -52,11 +53,14 @@ const lightTheme = createTheme({
     primaryButton: palette.gray200,
     inputBackground: palette.gray0,
     defaultShadow:
-      Platform.OS === "android" ? palette.gray1000 : palette.gray800,
+      Platform.OS === "android" ? palette.gray500 : palette.gray500,
     foodItemShadow:
       Platform.OS === "android" ? palette.gray500 : palette.gray700,
     buttonShadow: palette.gray500,
+    sectionShadow:
+      Platform.OS === "android" ? palette.gray1100 : palette.gray300,
     modalAndroidStatusBackground: "#858585",
+    tabBarShadow: Platform.OS === "android" ? palette.gray800 : palette.gray500,
     white: "white",
 
     // Accent colors
@@ -182,6 +186,23 @@ const lightTheme = createTheme({
       fontFamily: "Inter-Regular",
       color: "primaryText",
       fontSize: 16,
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    squareCardButton: {
+      flexDirection: "column",
+      backgroundColor: "secondaryBackground",
+      alignItems: "flex-start",
+      justifyContent: "center",
+      borderRadius: "l",
+      padding: "m",
+      gap: "s",
+      shadowColor: "defaultShadow",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      elevation: 5,
+      marginVertical: "s",
     },
   },
   textVariants: {
@@ -229,7 +250,7 @@ const lightTheme = createTheme({
     },
     defaults: {
       fontFamily: "Inter-Regular",
-      fontSize: Platform.OS === "android" ? 17 : 16,
+      fontSize: Platform.OS === "android" ? 16 : 16,
       lineHeight: Platform.OS === "android" ? 25 : 24,
       color: "primaryText",
     },
@@ -272,8 +293,10 @@ export const darkTheme: Theme = {
         (match) => `${Math.max(0, parseInt(match) - 3)}%, 1)`,
       )
       .toString(),
+    transparentRGB: "rgba(34, 33, 32, 0)",
     secondaryBackground: palette.gray900,
     cardBackground: palette.gray850,
+    tabBarBackground: Platform.OS === "ios" ? palette.gray900 : palette.gray850,
     secondaryCardBackground: palette.gray700,
     primaryText: palette.gray50,
     secondaryText: palette.gray500,
@@ -287,8 +310,12 @@ export const darkTheme: Theme = {
     radioCardSelected: palette.gray200,
     radioCardUnselected: palette.gray100,
     defaultShadow: palette.gray1100,
+    tabBarShadow:
+      Platform.OS === "android" ? palette.gray1100 : palette.gray1100,
     foodItemShadow:
       Platform.OS === "android" ? palette.gray1000 : palette.gray1100,
+    sectionShadow:
+      Platform.OS === "android" ? palette.gray1100 : palette.gray1000,
     buttonShadow: palette.gray700,
     primaryButton: palette.gray850,
     inputBackground: palette.gray900,

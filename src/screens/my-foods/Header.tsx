@@ -105,6 +105,8 @@ const Actions = () => {
               {Platform.OS === "android" && (
                 <Button
                   onPress={() => navigation.goBack()}
+                  fontSize={18}
+                  gap="s"
                   icon={
                     <Icon
                       icon={ArrowLeft}
@@ -113,29 +115,35 @@ const Actions = () => {
                       color="primaryText"
                     />
                   }
-                />
+                >
+                  <Text variant="header" paddingLeft="xs">
+                    My Foods
+                  </Text>
+                </Button>
               )}
-              <Text variant="header" paddingLeft="xs">
-                {navigation.getState().routes[1].params
-                  ? "Update"
-                  : selectedFoods.length > 0
-                    ? "Add Protein"
-                    : "My Foods"}
-              </Text>
+              {Platform.OS === "ios" && (
+                <Text variant="header" paddingLeft="xs">
+                  {navigation.getState().routes[1].params
+                    ? "Update"
+                    : selectedFoods.length > 0
+                      ? "Add Protein"
+                      : "My Foods"}
+                </Text>
+              )}
               {selectedFoods.length > 0 && (
                 <Button
-                  marginTop="nxs"
                   onPress={() => {
                     setShowDatePicker(!showDatePicker);
                   }}
+                  marginLeft="nxs"
                   textColor="secondaryText"
-                  paddingLeft="xs"
                   labelPlacement="left"
                   label={
                     dayjs(day).isSame(dayjs(), "day")
                       ? "Today"
                       : dayjs(day).format("MMM D, YYYY")
                   }
+                  gap="s"
                   icon={
                     <Icon
                       icon={ChevronDown}
@@ -172,7 +180,7 @@ const Actions = () => {
                   padding="s"
                   fontSize={15}
                   onPress={() => {
-                    navigation.navigate("AddFood");
+                    navigation.navigate("AddFoodModal");
                   }}
                   textColor="primaryText"
                   icon={

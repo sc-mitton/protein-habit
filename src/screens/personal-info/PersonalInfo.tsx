@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Platform, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { X } from "geist-native-icons";
+import { ArrowLeft, X } from "geist-native-icons";
 import { z } from "zod";
 import LottieView from "lottie-react-native";
 
@@ -23,7 +23,7 @@ import {
   getRecommendedTarget,
   setDailyTarget,
 } from "@store/slices/proteinSlice";
-import type { HomeScreenProps } from "@types";
+import type { ProfileScreenProps } from "@types";
 import { useTheme } from "@shopify/restyle";
 import successLottie from "@lotties/success.json";
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 
 type FormData = z.infer<typeof schema>;
 
-const Form = (props: HomeScreenProps<"PersonalInfo">) => {
+const Form = (props: ProfileScreenProps<"PersonalInfoModal">) => {
   const user = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();
   const theme = useTheme();
@@ -118,6 +118,33 @@ const Form = (props: HomeScreenProps<"PersonalInfo">) => {
         />
       )}
       <Box flex={1}>
+        {Platform.OS === "android" && (
+          <Box
+            borderBottomWidth={1.5}
+            borderBottomColor="borderColor"
+            paddingBottom="s"
+          >
+            <Button
+              marginTop="xl"
+              marginLeft="ns"
+              onPress={() => props.navigation.goBack()}
+              fontSize={18}
+              gap="s"
+              icon={
+                <Icon
+                  icon={ArrowLeft}
+                  size={24}
+                  strokeWidth={2.5}
+                  color="primaryText"
+                />
+              }
+            >
+              <Text variant="header" paddingLeft="xs">
+                Personal Info
+              </Text>
+            </Button>
+          </Box>
+        )}
         {Platform.OS === "ios" && (
           <Box
             paddingTop="l"

@@ -1,6 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import type { CompositeScreenProps } from "@react-navigation/native";
-import { DrawerScreenProps } from "@react-navigation/drawer";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { baseIap, premiumIap } from "@constants/iaps";
@@ -8,28 +8,37 @@ import { baseIap, premiumIap } from "@constants/iaps";
 export type HomeStackParamList = {
   Welcome: undefined;
   WeightInput: undefined;
-  Appearance: undefined;
-  Main: undefined;
-  PersonalInfo: undefined;
-  Entry: undefined | { entry: ProteinEntry };
-  EditDailyGoal: undefined;
-  MyFoods: undefined | { entry: ProteinEntry };
-  AddFood: undefined | { food: Food };
-  SuccessModal: undefined;
   StatsInfo: undefined;
-  Purchase: { iap: typeof baseIap | typeof premiumIap };
-  Calendar: undefined;
-  NewTag: undefined;
-  Search: { entry: ProteinEntry };
+  Main: undefined;
+  EntryModal: undefined | { entry: ProteinEntry };
+  MyFoodsModal: undefined | { entry: ProteinEntry };
+  AddFoodModal: undefined | { food: Food };
+  SuccessModal: undefined;
+  PurchaseModal: { iap: typeof baseIap | typeof premiumIap };
+  NewTagModal: undefined;
+};
+
+export type ProfileStackParamList = {
+  ProfileNavList: undefined;
+  AppearanceModal: undefined;
+  PersonalInfoModal: undefined;
+  EditDailyGoalModal: undefined;
 };
 
 export type RootStackParamList = {
   Home: HomeStackParamList;
   Recipes: undefined;
+  Profile: ProfileStackParamList;
 };
 
+export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<ProfileStackParamList, T>,
+    StackScreenProps<RootStackParamList>
+  >;
+
 export type RootScreenProps<T extends keyof RootStackParamList> =
-  DrawerScreenProps<RootStackParamList, T>;
+  BottomTabScreenProps<RootStackParamList, T>;
 
 export type HomeScreenProps<T extends keyof HomeStackParamList> =
   CompositeScreenProps<
