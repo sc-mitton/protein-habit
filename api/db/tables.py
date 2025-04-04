@@ -18,7 +18,7 @@ from utils.get_secret import get_secret
 
 # Get the directory of this file
 DIR = os.path.dirname(os.path.abspath(__file__))
-DATABASE_URL = f"sqlite:///{os.path.join(DIR, 'Attest.db')}"
+DATABASE_URL = f"sqlite:///{os.path.join(DIR, 'Database.db')}"
 ENV = os.getenv("ENVIRONMENT", "dev")
 
 # Get encryption parameters from environment variables
@@ -37,8 +37,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-class AttestKey(Base):
-    __tablename__ = "attest_keys"
+class Key(Base):
+    __tablename__ = "keys"
 
     id = Column(String, primary_key=True)
     public_key = Column(String, nullable=False)
@@ -47,26 +47,26 @@ class AttestKey(Base):
 
     # One-to-one relationship with AttestChallenge
     challenge = relationship(
-        "AttestChallenge",
-        back_populates="attest_key",
+        "Challenge",
+        back_populates="key",
         uselist=False,  # This makes it one-to-one
         cascade="all, delete"
     )
 
 
-class AttestChallenge(Base):
-    __tablename__ = "attest_challenges"
+class Challenge(Base):
+    __tablename__ = "challenges"
 
     id = Column(String, primary_key=True)
     value = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now(timezone.utc))
     # Foreign Key to AttestKey
-    attest_key_id = Column(String, ForeignKey(
+    key_id = Column(String, ForeignKey(
         # Added unique constraint
-        "attest_keys.id", ondelete="CASCADE"), nullable=True, unique=True)
+        "keys.id", ondelete="CASCADE"), nullable=True, unique=True)
 
-    attest_key = relationship(
-        "AttestKey", back_populates="challenge")  # Changed to singular
+    key = relationship(
+        "Key", back_populates="challenge")  # Changed to singular
 
     @staticmethod
     def generate_challenge() -> tuple[str, str]:

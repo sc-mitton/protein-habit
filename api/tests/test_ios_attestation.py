@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from unittest.mock import patch
 
 from main import app
-from db.attest_db import get_db, AttestChallenge, AttestKey
+from db.tables import get_db, Challenge, Key
 from tests.ios_variables import (
     TEST_ATTESTATION,
     TEST_KEY_ID,
@@ -27,13 +27,13 @@ def setup_test_db():
         db = next(get_db())
 
         # Clean up any existing test data
-        db.query(AttestKey).filter(AttestKey.id == TEST_KEY_ID).delete()
-        db.query(AttestChallenge).delete()
+        db.query(Key).filter(Key.id == TEST_KEY_ID).delete()
+        db.query(Challenge).delete()
         db.commit()
 
         # Create a test challenge
         challenge_id = "test_challenge_id"
-        test_challenge = AttestChallenge(
+        test_challenge = Challenge(
             id=challenge_id,
             value=TEST_CHALLENGE_VALUE
         )
@@ -41,7 +41,7 @@ def setup_test_db():
         db.commit()
 
         # Create a test key record
-        test_key = AttestKey(
+        test_key = Key(
             id=TEST_KEY_ID,
             public_key=public_key_b64,
             counter=0,
@@ -57,8 +57,8 @@ def setup_test_db():
         yield db
 
         # Cleanup after tests
-        db.query(AttestKey).filter(AttestKey.id == TEST_KEY_ID).delete()
-        db.query(AttestChallenge).delete()
+        db.query(Key).filter(Key.id == TEST_KEY_ID).delete()
+        db.query(Challenge).delete()
         db.commit()
 
 

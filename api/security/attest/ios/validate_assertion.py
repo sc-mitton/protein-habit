@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session, subqueryload
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import ec
 
-from db.attest_db import AttestKey
+from db.tables import Key
 
 
 def _verify_nonce(assertion: dict, client_data: dict, public_key: str) -> bool:
@@ -59,9 +59,9 @@ def validate_assertion(
     """Main validation method that orchestrates all validation steps"""
     try:
         # Get the stored public key, and eager load the challenge
-        key_record = db.query(AttestKey).filter(AttestKey.id == key_id).\
+        key_record = db.query(Key).filter(Key.id == key_id).\
             options(
-            subqueryload(AttestKey.challenge)
+            subqueryload(Key.challenge)
         ).one_or_none()
 
         last_challenge = key_record.challenge.value \

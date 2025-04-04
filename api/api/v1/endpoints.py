@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from fastapi_types import TextInput
 
 from db.database import get_db
-from db.attest_db import get_db as get_attest_db, AttestKey, AttestChallenge
+from db.tables import get_db as get_attest_db, Key, Challenge
 from rags.protein_amount import chain
 from utils.get_secret import get_secret
 from security.attest.ios import validate_attestation, get_public_key
@@ -41,18 +41,18 @@ async def attest_challenge(
     attest_db: Session = Depends(get_attest_db),
     x_key: str = Header(None)
 ):
-    challenge_id, challenge = AttestChallenge.generate_challenge()
+    challenge_id, challenge = Challenge.generate_challenge()
 
     # If key provided, delete all challenges for this key
     if x_key:
-        attest_db.query(AttestChallenge).filter(
-            AttestChallenge.attest_key_id == x_key
+        attest_db.query(Challenge).filter(
+            Challenge.key_id == x_key
         ).delete()
 
-    new_challenge = AttestChallenge(
+    new_challenge = Challenge(
         id=challenge_id,
         value=challenge,
-        attest_key_id=x_key
+        key_id=x_key
     )
 
     attest_db.add(new_challenge)
@@ -92,8 +92,8 @@ async def attest(
             )
 
         # Check if key already exists
-        existing_key = attest_db.query(AttestKey).filter(
-            AttestKey.id == request.keyId
+        existing_key = attest_db.query(Key).filter(
+            Key.id == request.keyId
         ).first()
 
         if existing_key:
@@ -102,15 +102,15 @@ async def attest(
         else:
             # Create new key record
             public_key = get_public_key(decoded_attestation)
-            new_key = AttestKey(
+            new_key = Key(
                 id=request.keyId,
                 public_key=public_key
             )
             attest_db.add(new_key)
 
         # Delete challenge provided in request
-        attest_db.query(AttestChallenge).filter(
-            AttestChallenge.id == request.challenge.split(':')[0]
+        attest_db.query(Challenge).filter(
+            Challenge.id == request.challenge.split(':')[0]
         ).delete()
 
         attest_db.commit()
