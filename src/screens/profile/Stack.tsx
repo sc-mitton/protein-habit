@@ -4,9 +4,9 @@ import { Platform } from "react-native";
 
 import { ProfileStackParamList, RootScreenProps } from "@types";
 import ProfileNavList from "./ProfileNavList";
-import AppearanceScreen from "../appearance/Appearance";
-import PersonalInfoScreen from "../personal-info/PersonalInfo";
-import EditDailyGoalScreen from "../edit-daily-goal/EditDailyGoal";
+import AppearanceScreen from "./appearance/Appearance";
+import PersonalInfoScreen from "./personal-info/PersonalInfo";
+import EditDailyGoalScreen from "./edit-daily-goal/EditDailyGoal";
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 

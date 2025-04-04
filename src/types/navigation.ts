@@ -4,6 +4,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { baseIap, premiumIap } from "@constants/iaps";
+import { Recipe } from "@store/slices/recipesSlice";
 
 export type HomeStackParamList = {
   Welcome: undefined;
@@ -26,15 +27,27 @@ export type ProfileStackParamList = {
   EditDailyGoalModal: undefined;
 };
 
+export type RecipesStackParamList = {
+  Explore: undefined;
+  Bookmarked: undefined;
+  Detail: { recipe: Recipe };
+};
+
 export type RootStackParamList = {
   Home: HomeStackParamList;
-  Recipes: undefined;
+  Recipes: RecipesStackParamList;
   Profile: ProfileStackParamList;
 };
 
 export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
   CompositeScreenProps<
     StackScreenProps<ProfileStackParamList, T>,
+    StackScreenProps<RootStackParamList>
+  >;
+
+export type RecipesScreenProps<T extends keyof RecipesStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<RecipesStackParamList, T>,
     StackScreenProps<RootStackParamList>
   >;
 

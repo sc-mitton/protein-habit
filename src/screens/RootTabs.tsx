@@ -15,9 +15,9 @@ import Animated, {
 } from "react-native-reanimated";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
 
-import AndroidHomeStack from "./AndroidHomeStack";
-import IOSHomeStack from "./IOSHomeStack";
-import RecipesScreen from "./recipes/RecipesScreen";
+import AndroidHomeStack from "./home/AndroidHomeStack";
+import IOSHomeStack from "./home/IOSHomeStack";
+import RecipesScreen from "./recipes/Stack";
 import ProfileStack from "./profile/Stack";
 import { Box, Text } from "@components";
 import { RootStackParamList } from "@types";

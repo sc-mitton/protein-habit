@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AppState } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
 import { useAppSelector } from "@store/hooks";
-import WelcomeScreen from "./welcome/WelcomeScreen";
-import HomeMainScreen from "./home-main/HomeMain";
+import WelcomeScreen from "./add-food/welcome/WelcomeScreen";
+import HomeMainScreen from "./main/Screen";
 import { HomeStackParamList } from "@types";
-import WeightInput from "./welcome/WeightInput";
+import WeightInput from "./add-food/welcome/WeightInput";
 import Entry from "./entry/Entry";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
@@ -16,6 +16,7 @@ import SuccessModal from "./success/SuccessModal";
 import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
 import Search from "./search/Search";
+import { useEffect } from "react";
 import { RootScreenProps } from "@types";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
@@ -25,6 +26,20 @@ const RootStack = (props: RootScreenProps<"Home">) => {
 
   const { name } = useAppSelector((state) => state.user);
   const [currentDay, setCurrentDay] = useState(dayjs());
+
+  const androidHeaderOptions = {
+    headerTintColor: theme.colors.primaryText,
+    headerBackButtonDisplayMode: "default",
+    headerStyle: {
+      backgroundColor: theme.colors.mainBackground,
+    },
+    headerShadowVisible: false,
+    headerTitleStyle: {
+      color: theme.colors.primaryText,
+      fontFamily: "Inter-Bold",
+    },
+    title: "Add Protein",
+  } as const;
 
   // Make sure to update the day when it changes based on the
   // device clock
@@ -50,73 +65,71 @@ const RootStack = (props: RootScreenProps<"Home">) => {
 
   return (
     <Stack.Navigator initialRouteName={name ? "Main" : "Welcome"}>
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="WeightInput"
-        component={WeightInput}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Main"
-        component={HomeMainScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Group>
+        <Stack.Screen
+          name="Welcome"
+          component={WelcomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="WeightInput"
+          component={WeightInput}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Main"
+          component={HomeMainScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Group>
 
       {/* Bottom Sheet Modals */}
       <Stack.Group
         screenOptions={{
           presentation: "transparentModal",
+          animation: "slide_from_bottom",
           headerShown: false,
-          statusBarBackgroundColor: theme.colors.modalAndroidStatusBackground,
         }}
       >
         <Stack.Screen
           name="SuccessModal"
           component={SuccessModal}
-          options={{ animation: "fade" }}
+          options={{ animation: "slide_from_bottom" }}
         />
+        <Stack.Screen name="SearchModal" component={Search} />
         <Stack.Screen name="PurchaseModal" component={Purchase} />
       </Stack.Group>
 
       {/* Other Modals */}
       <Stack.Screen
-        name="SearchModal"
-        component={Search}
-        options={{
-          animation: "fade",
-          presentation: "transparentModal",
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="EntryModal"
         component={Entry}
         options={{
-          animation: "fade_from_bottom",
+          animation: "slide_from_bottom",
           presentation: "modal",
           headerShown: false,
+          ...androidHeaderOptions,
         }}
       />
       <Stack.Screen
         name="NewTagModal"
         component={NewTag}
         options={{
-          animation: "fade_from_bottom",
+          animation: "slide_from_bottom",
           presentation: "modal",
           headerShown: false,
+          ...androidHeaderOptions,
+          title: "",
         }}
       />
       <Stack.Screen
         name="MyFoodsModal"
         component={MyFoods}
         options={{
-          animation: "fade_from_bottom",
+          animation: "slide_from_bottom",
           presentation: "modal",
           headerShown: false,
+          ...androidHeaderOptions,
         }}
       />
       <Stack.Screen
@@ -126,9 +139,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
           headerShown: false,
           presentation: "modal",
           animation: "fade_from_bottom",
-          headerShadowVisible: false,
-          statusBarTranslucent: true,
-          statusBarBackgroundColor: theme.colors.mainBackground,
+          ...androidHeaderOptions,
         }}
       />
     </Stack.Navigator>
