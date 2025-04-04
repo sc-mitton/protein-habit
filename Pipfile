@@ -20,6 +20,7 @@ asn1crypto = "*"
 alembic = "*"
 pytest = "*"
 python-jose = "*"
+fastapi-pagination = "*"
 
 [dev-packages]
 ipykernel = "*"
