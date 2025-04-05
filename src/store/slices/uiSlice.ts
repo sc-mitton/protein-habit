@@ -13,6 +13,7 @@ interface UIState {
   hasShownSuccessModal: boolean;
   day: string;
   seenScreens: (keyof HomeStackParamList)[];
+  hideBottomBar: boolean;
 }
 
 const initialState: UIState = {
@@ -21,6 +22,7 @@ const initialState: UIState = {
   hasShownSuccessModal: false,
   day: dayjs().format(dayFormat),
   seenScreens: [],
+  hideBottomBar: false,
 };
 
 const uiSlice = createSlice({
@@ -39,11 +41,19 @@ const uiSlice = createSlice({
     seeScreen: (state, action: PayloadAction<keyof HomeStackParamList>) => {
       state.seenScreens.push(action.payload);
     },
+    showBottomBar: (state, action: PayloadAction<boolean>) => {
+      state.hideBottomBar = !action.payload;
+    },
   },
 });
 
-export const { setFont, setAccent, setHasShownSuccessModal, seeScreen } =
-  uiSlice.actions;
+export const {
+  setFont,
+  setAccent,
+  setHasShownSuccessModal,
+  seeScreen,
+  showBottomBar,
+} = uiSlice.actions;
 export default uiSlice.reducer;
 
 export const selectFont = (state: RootState) => state.ui.font;
@@ -53,3 +63,4 @@ export const selectInceptionDate = (state: RootState) =>
 export const selectHasShownSuccessModal = (state: RootState) =>
   state.ui.hasShownSuccessModal;
 export const selectSeenScreens = (state: RootState) => state.ui.seenScreens;
+export const selectHideBottomBar = (state: RootState) => state.ui.hideBottomBar;

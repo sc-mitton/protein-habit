@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Image, useColorScheme, Platform } from "react-native";
 
-import logo from "../../../assets/icon.png";
+import logo from "@assets/icon.png";
 import { Box, Text, Button, TextInput } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import {

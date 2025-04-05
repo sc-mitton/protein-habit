@@ -25,11 +25,17 @@ const migrations = {
       ui: { ...state.ui, seenScreens: [] },
     };
   },
+  35: (state: RootState) => {
+    return {
+      ...state,
+      ui: { ...state.ui, hideBottomBar: false },
+    };
+  },
 } as any;
 
 const persistConfig = {
   key: "root",
-  version: 33,
+  version: 35,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],

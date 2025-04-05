@@ -102,7 +102,7 @@ export default function Purchase(props: HomeScreenProps<"PurchaseModal">) {
       } else {
         props.navigation.navigate("Home", {
           screen: "Main",
-        } as any);
+        });
       }
     } else if (isProductIos(purchasable)) {
       requestPurchase({

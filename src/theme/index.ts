@@ -26,6 +26,7 @@ const lightTheme = createTheme({
   colors: {
     modalBackground: palette.gray50,
     mainBackground: palette.gray100,
+    matchBlurBackground: palette.gray50,
     secondaryBackground: palette.gray50,
     foodItemBackground: palette.gray50,
     cardBackground: palette.gray50,
@@ -87,6 +88,7 @@ const lightTheme = createTheme({
     none: 0,
     xxs: 2,
     xs: 4,
+    xss: 6,
     s: 8,
     sm: 12,
     m: 16,
@@ -293,11 +295,17 @@ export const darkTheme: Theme = {
         (match) => `${Math.max(0, parseInt(match) - 3)}%, 1)`,
       )
       .toString(),
+    matchBlurBackground: convertHex2Hsl(palette.gray900)
+      .replace(
+        /(\d+)%,\s\d\)/,
+        (match) => `${Math.max(0, parseInt(match) - 2)}%, 1)`,
+      )
+      .toString(),
     transparentRGB: "rgba(34, 33, 32, 0)",
     secondaryBackground: palette.gray900,
     cardBackground: palette.gray850,
     tabBarBackground: Platform.OS === "ios" ? palette.gray900 : palette.gray850,
-    secondaryCardBackground: palette.gray700,
+    secondaryCardBackground: palette.gray850,
     primaryText: palette.gray50,
     secondaryText: palette.gray500,
     tertiaryText: palette.gray600,

@@ -1,27 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
 import { RecipesScreenProps } from "../../../types/navigation";
+import { Box, Text } from "@components";
 
-type Props = RecipesScreenProps<"Bookmarked">;
+type Props = RecipesScreenProps<"Bookmarks">;
 
-const BookmarkedScreen: React.FC<Props> = () => {
+const BookmarkedScreen: React.FC<Props> = (props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bookmarked Recipes</Text>
-    </View>
+    <Box flex={1} backgroundColor="matchBlurBackground" padding="m">
+      <Text>Here</Text>
+    </Box>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#f5f5f5",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-});
 
 export default BookmarkedScreen;

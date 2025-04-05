@@ -1,5 +1,8 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import type { CompositeScreenProps } from "@react-navigation/native";
+import type {
+  CompositeScreenProps,
+  NavigatorScreenParams,
+} from "@react-navigation/native";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
@@ -29,26 +32,26 @@ export type ProfileStackParamList = {
 
 export type RecipesStackParamList = {
   Explore: undefined;
-  Bookmarked: undefined;
+  Bookmarks: undefined;
   Detail: { recipe: Recipe };
 };
 
 export type RootStackParamList = {
-  Home: HomeStackParamList;
-  Recipes: RecipesStackParamList;
-  Profile: ProfileStackParamList;
+  Home: NavigatorScreenParams<HomeStackParamList>;
+  Recipes: NavigatorScreenParams<RecipesStackParamList>;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
   CompositeScreenProps<
     StackScreenProps<ProfileStackParamList, T>,
-    StackScreenProps<RootStackParamList>
+    BottomTabScreenProps<RootStackParamList>
   >;
 
 export type RecipesScreenProps<T extends keyof RecipesStackParamList> =
   CompositeScreenProps<
     StackScreenProps<RecipesStackParamList, T>,
-    StackScreenProps<RootStackParamList>
+    BottomTabScreenProps<RootStackParamList>
   >;
 
 export type RootScreenProps<T extends keyof RootStackParamList> =
@@ -57,5 +60,5 @@ export type RootScreenProps<T extends keyof RootStackParamList> =
 export type HomeScreenProps<T extends keyof HomeStackParamList> =
   CompositeScreenProps<
     StackScreenProps<HomeStackParamList, T>,
-    StackScreenProps<RootStackParamList>
+    BottomTabScreenProps<RootStackParamList>
   >;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Image, useColorScheme } from "react-native";
 
-import logo from "../../../assets/icon.png";
+import logo from "@assets/icon.png";
 import {
   Box,
   Text,

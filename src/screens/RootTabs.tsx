@@ -10,6 +10,8 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Animated, {
   FadeOut,
+  interpolate,
+  useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
@@ -19,8 +21,10 @@ import AndroidHomeStack from "./home/AndroidHomeStack";
 import IOSHomeStack from "./home/IOSHomeStack";
 import RecipesScreen from "./recipes/Stack";
 import ProfileStack from "./profile/Stack";
-import { Box, Text } from "@components";
+import { Box } from "@components";
 import { RootStackParamList } from "@types";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -47,16 +51,18 @@ const CustomTabBar = ({
   descriptors,
   navigation,
 }: BottomTabBarProps) => {
+  const dispatch = useAppDispatch();
   const theme = useTheme();
   const nav = useNavigation();
   const navOpacity = useSharedValue(1);
   const [showGradient, setShowGradient] = useState(false);
   const routes = useNavigationState((state) => state?.routes || []);
+  const hideBottomBar = useAppSelector(selectHideBottomBar);
 
   useEffect(() => {
     nav.addListener("state", () => {
       const index = navigation.getState().index;
-      setShowGradient(index === 0);
+      setShowGradient(index !== 2);
     });
   }, [navigation]);
 
@@ -71,16 +77,30 @@ const CustomTabBar = ({
     navOpacity.value = isModalVisible ? 0 : withTiming(1);
   }, [routes]);
 
+  useEffect(() => {
+    dispatch(showBottomBar(true));
+  }, []);
+
+  useEffect(() => {
+    if (hideBottomBar && navOpacity.value === 1) {
+      navOpacity.value = withTiming(0);
+    } else if (!hideBottomBar && navOpacity.value === 0) {
+      navOpacity.value = withTiming(1);
+    }
+  }, [hideBottomBar]);
+
+  const animation = useAnimatedStyle(() => {
+    return {
+      opacity: navOpacity.value,
+      transform: [
+        { translateY: interpolate(navOpacity.value, [0, 1], [100, 0]) },
+      ],
+      pointerEvents: navOpacity.value === 0 ? "none" : "auto",
+    };
+  });
+
   return (
-    <Animated.View
-      style={[
-        styles.tabBar,
-        {
-          opacity: navOpacity,
-          pointerEvents: navOpacity.value === 0 ? "none" : "auto",
-        },
-      ]}
-    >
+    <Animated.View style={[styles.tabBar, animation]}>
       {showGradient && (
         <Animated.View
           exiting={FadeOut.duration(100)}
@@ -174,7 +194,6 @@ const RootTabs = () => {
     >
       <Tab.Screen
         options={{
-          tabBarLabel: "Home",
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <SymbolView
@@ -201,18 +220,7 @@ const RootTabs = () => {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: "Recipes",
-          headerBackground: () => (
-            <Box backgroundColor="mainBackground" flex={1} />
-          ),
-          title: "",
-          headerLeft: () => (
-            <Box paddingLeft="l">
-              <Text variant="bold" fontSize={24}>
-                Recipes
-              </Text>
-            </Box>
-          ),
+          headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <SymbolView
               name="book.pages.fill"
@@ -238,7 +246,6 @@ const RootTabs = () => {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: "Profile",
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <SymbolView
