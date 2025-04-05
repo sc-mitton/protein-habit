@@ -52,8 +52,8 @@ const TabButtons = () => {
     indicatorX.value = withTiming(
       TAB_INDICATOR_OFFSET + (index === 0 ? 0 : tabHeaderWidths.current[index]),
     );
-    tab0Opacity.value = withTiming(index === 0 ? 1 : 0.5);
-    tab1Opacity.value = withTiming(index === 0 ? 0.5 : 1);
+    tab0Opacity.value = withTiming(index === 0 ? 1 : 0.3);
+    tab1Opacity.value = withTiming(index === 0 ? 0.3 : 1);
   };
 
   const handleTabPress = (index: number) => {

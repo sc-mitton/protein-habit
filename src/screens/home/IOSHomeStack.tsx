@@ -5,10 +5,8 @@ import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
 import { useAppSelector } from "@store/hooks";
-import WelcomeScreen from "./add-food/welcome/WelcomeScreen";
 import HomeMainScreen from "./main/Screen";
 import { HomeStackParamList } from "@types";
-import WeightInput from "./add-food/welcome/WeightInput";
 import Entry from "./entry/Entry";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
@@ -16,14 +14,13 @@ import SuccessModal from "./success/SuccessModal";
 import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
 import Search from "./search/Search";
-import { RootScreenProps } from "@types";
+import { BottomTabsScreenProps } from "@types";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
-const RootStack = (props: RootScreenProps<"Home">) => {
+const RootStack = (props: BottomTabsScreenProps<"Home">) => {
   const theme = useTheme();
 
-  const { name } = useAppSelector((state) => state.user);
   const [currentDay, setCurrentDay] = useState(dayjs());
 
   // Make sure to update the day when it changes based on the
@@ -49,17 +46,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
   }, [currentDay]);
 
   return (
-    <Stack.Navigator initialRouteName={name ? "Main" : "Welcome"}>
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="WeightInput"
-        component={WeightInput}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator>
       <Stack.Screen
         name="Main"
         component={HomeMainScreen}
@@ -87,7 +74,7 @@ const RootStack = (props: RootScreenProps<"Home">) => {
         name="SearchModal"
         component={Search}
         options={{
-          animation: "fade",
+          animation: "fade_from_bottom",
           presentation: "transparentModal",
           headerShown: false,
         }}

@@ -1,13 +1,10 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { RecipesStackParamList } from "@types";
+import { BottomTabsScreenProps, RecipesStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
 
-import ExploreScreen from "./explore/ExploreScreen";
-import BookmarkedScreen from "./bookmarked/BookmarkedScreen";
-import DetailScreen from "./detail/DetailScreen";
+import ExploreScreen from "./RecipesScreen";
 import { Button, Icon } from "@components";
-import { RootScreenProps } from "@types";
 import { Bookmark } from "geist-native-icons";
 import { selectAccent } from "@store/slices/uiSlice";
 import { useAppSelector } from "@store/hooks";
@@ -16,7 +13,7 @@ import { useColorScheme } from "react-native";
 
 const Stack = createNativeStackNavigator<RecipesStackParamList>();
 
-const RecipesStack = (props: RootScreenProps<"Recipes">) => {
+const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
   const theme = useTheme<Theme>();
   const accentColor = useAppSelector(selectAccent);
   const colorScheme = useColorScheme();
@@ -66,7 +63,7 @@ const RecipesStack = (props: RootScreenProps<"Recipes">) => {
               padding="xss"
               backgroundColor="primaryButton"
               onPress={() => {
-                props.navigation.navigate("Recipes", { screen: "Bookmarks" });
+                props.navigation.navigate("BookmarkedRecipes");
               }}
             >
               <Icon
@@ -78,26 +75,6 @@ const RecipesStack = (props: RootScreenProps<"Recipes">) => {
             </Button>
           ),
         }}
-      />
-      <Stack.Screen
-        name="Bookmarks"
-        component={BookmarkedScreen}
-        options={{
-          headerTitleStyle: {
-            fontSize: 20,
-            fontWeight: "bold",
-            fontFamily: "InterSemiBold",
-            color: theme.colors.primaryText,
-          },
-        }}
-      />
-      <Stack.Screen
-        name="Detail"
-        component={DetailScreen}
-        options={({ route }) => ({
-          headerShown: false,
-          title: route?.params?.recipe?.description || "Detail",
-        })}
       />
     </Stack.Navigator>
   );

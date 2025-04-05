@@ -10,8 +10,6 @@ import { baseIap, premiumIap } from "@constants/iaps";
 import { Recipe } from "@store/slices/recipesSlice";
 
 export type HomeStackParamList = {
-  Welcome: undefined;
-  WeightInput: undefined;
   StatsInfo: undefined;
   Main: undefined;
   EntryModal: undefined | { entry: ProteinEntry };
@@ -32,33 +30,54 @@ export type ProfileStackParamList = {
 
 export type RecipesStackParamList = {
   Explore: undefined;
-  Bookmarks: undefined;
-  Detail: { recipe: Recipe };
 };
 
-export type RootStackParamList = {
+export type BottomTabsParamList = {
   Home: NavigatorScreenParams<HomeStackParamList>;
   Recipes: NavigatorScreenParams<RecipesStackParamList>;
   Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
-export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
+export type RootStackParamList = {
+  Welcome: undefined;
+  WeightInput: undefined;
+  BottomTabs: NavigatorScreenParams<BottomTabsParamList>;
+  RecipeDetail: { recipe: Recipe };
+  BookmarkedRecipes: undefined;
+};
+
+export type RootScreenProps<T extends keyof RootStackParamList> =
+  StackScreenProps<RootStackParamList, T>;
+
+export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
   CompositeScreenProps<
-    StackScreenProps<ProfileStackParamList, T>,
-    BottomTabScreenProps<RootStackParamList>
+    BottomTabScreenProps<BottomTabsParamList, T>,
+    RootScreenProps<keyof RootStackParamList>
+  >;
+
+export type HomeScreenProps<T extends keyof HomeStackParamList> =
+  CompositeScreenProps<
+    StackScreenProps<HomeStackParamList, T>,
+    CompositeScreenProps<
+      BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
+      RootScreenProps<keyof RootStackParamList>
+    >
   >;
 
 export type RecipesScreenProps<T extends keyof RecipesStackParamList> =
   CompositeScreenProps<
     StackScreenProps<RecipesStackParamList, T>,
-    BottomTabScreenProps<RootStackParamList>
+    CompositeScreenProps<
+      BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
+      RootScreenProps<keyof RootStackParamList>
+    >
   >;
 
-export type RootScreenProps<T extends keyof RootStackParamList> =
-  BottomTabScreenProps<RootStackParamList, T>;
-
-export type HomeScreenProps<T extends keyof HomeStackParamList> =
+export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
   CompositeScreenProps<
-    StackScreenProps<HomeStackParamList, T>,
-    BottomTabScreenProps<RootStackParamList>
+    StackScreenProps<ProfileStackParamList, T>,
+    CompositeScreenProps<
+      BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
+      RootScreenProps<keyof RootStackParamList>
+    >
   >;

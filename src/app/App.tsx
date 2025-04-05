@@ -1,27 +1,17 @@
 import { useEffect, useCallback } from "react";
 import { StatusBar, Platform } from "react-native";
 import { useColorScheme } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ThemeProvider } from "@shopify/restyle";
-import { Provider } from "react-redux";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { PersistGate } from "redux-persist/integration/react";
 import { NavigationContainer } from "@react-navigation/native";
-import { PaperProvider } from "react-native-paper";
 import { useFonts } from "expo-font";
-import { EventProvider } from "react-native-outside-press";
-import { KeyboardProvider } from "react-native-keyboard-controller";
 import * as Linking from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
 
-import lightTheme, { darkTheme } from "@theme";
 import { Box } from "@components";
-import { store, persistor } from "./src/store";
-import RootStack from "./src/screens/RootStack";
+import RootStack from "../screens/RootStack";
 import { baseIap, premiumIap } from "@constants/iaps";
-import { useNavigationTheme } from "./src/hooks";
+import { useNavigationTheme } from "@hooks";
+import Providers from "./Providers";
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
@@ -104,31 +94,10 @@ function MainApp() {
   );
 }
 
-function App() {
-  const colorScheme = useColorScheme();
-  const restyledTheme = colorScheme === "dark" ? darkTheme : lightTheme;
-
+export default function App() {
   return (
-    <Provider store={store}>
-      <KeyboardProvider>
-        <ThemeProvider theme={restyledTheme}>
-          <PaperProvider>
-            <EventProvider>
-              <BottomSheetModalProvider>
-                <SafeAreaProvider>
-                  <GestureHandlerRootView>
-                    <PersistGate loading={null} persistor={persistor}>
-                      <MainApp />
-                    </PersistGate>
-                  </GestureHandlerRootView>
-                </SafeAreaProvider>
-              </BottomSheetModalProvider>
-            </EventProvider>
-          </PaperProvider>
-        </ThemeProvider>
-      </KeyboardProvider>
-    </Provider>
+    <Providers>
+      <MainApp />
+    </Providers>
   );
 }
-
-export default App;

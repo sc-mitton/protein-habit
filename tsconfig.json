@@ -7,6 +7,7 @@
       "@components": ["src/components"],
       "@hooks": ["src/hooks"],
       "@store/*": ["src/store/*"],
+      "@store": ["src/store"],
       "@theme": ["src/theme/index.ts"],
       "@theme/*": ["src/theme/*"],
       "@types": ["src/types"],

@@ -1,8 +1,8 @@
 import React from "react";
-import { RecipesScreenProps } from "../../../types/navigation";
+import { RootScreenProps } from "@types";
 import { Box, Text } from "@components";
 
-type Props = RecipesScreenProps<"Bookmarks">;
+type Props = RootScreenProps<"BookmarkedRecipes">;
 
 const BookmarkedScreen: React.FC<Props> = (props) => {
   return (

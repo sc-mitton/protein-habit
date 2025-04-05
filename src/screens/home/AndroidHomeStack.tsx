@@ -4,11 +4,8 @@ import { AppState } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { useAppSelector } from "@store/hooks";
-import WelcomeScreen from "./add-food/welcome/WelcomeScreen";
 import HomeMainScreen from "./main/Screen";
 import { HomeStackParamList } from "@types";
-import WeightInput from "./add-food/welcome/WeightInput";
 import Entry from "./entry/Entry";
 import MyFoods from "./my-foods/MyFoods";
 import AddFood from "./add-food/AddFood";
@@ -17,14 +14,13 @@ import NewTag from "./new-tag/NewTag";
 import Purchase from "./purchase/Purchase";
 import Search from "./search/Search";
 import { useEffect } from "react";
-import { RootScreenProps } from "@types";
+import { BottomTabsScreenProps } from "@types";
 
 const Stack = createNativeStackNavigator<HomeStackParamList>();
 
-const RootStack = (props: RootScreenProps<"Home">) => {
+const RootStack = (props: BottomTabsScreenProps<"Home">) => {
   const theme = useTheme();
 
-  const { name } = useAppSelector((state) => state.user);
   const [currentDay, setCurrentDay] = useState(dayjs());
 
   const androidHeaderOptions = {
@@ -64,18 +60,8 @@ const RootStack = (props: RootScreenProps<"Home">) => {
   }, [currentDay]);
 
   return (
-    <Stack.Navigator initialRouteName={name ? "Main" : "Welcome"}>
+    <Stack.Navigator>
       <Stack.Group>
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="WeightInput"
-          component={WeightInput}
-          options={{ headerShown: false }}
-        />
         <Stack.Screen
           name="Main"
           component={HomeMainScreen}

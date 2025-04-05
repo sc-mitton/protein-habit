@@ -13,11 +13,11 @@ import Foundation from "@expo/vector-icons/Foundation";
 import Entypo from "@expo/vector-icons/Entypo";
 
 import { Icon, Box, Text } from "@components";
-import { HomeStackParamList } from "@types";
+import { BottomTabsParamList } from "@types";
 import { useNavigation } from "@react-navigation/native";
 
 function Menu() {
-  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
+  const navigation = useNavigation<NavigationProp<BottomTabsParamList>>();
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
 
@@ -31,7 +31,9 @@ function Menu() {
           <DropdownMenu.Content>
             <DropdownMenu.Item
               key="menu-1"
-              onSelect={() => navigation.navigate("PersonalInfo")}
+              onSelect={() =>
+                navigation.navigate("Profile", { screen: "PersonalInfoModal" })
+              }
             >
               <DropdownMenu.ItemTitle>Personal Info</DropdownMenu.ItemTitle>
               <DropdownMenu.ItemIcon
@@ -44,7 +46,9 @@ function Menu() {
             </DropdownMenu.Item>
             <DropdownMenu.Item
               key="menu-2"
-              onSelect={() => navigation.navigate("Appearance")}
+              onSelect={() =>
+                navigation.navigate("Profile", { screen: "AppearanceModal" })
+              }
             >
               <DropdownMenu.ItemTitle>Appearance</DropdownMenu.ItemTitle>
               <DropdownMenu.ItemIcon
@@ -58,7 +62,11 @@ function Menu() {
             <DropdownMenu.Group>
               <DropdownMenu.Item
                 key="menu-3"
-                onSelect={() => navigation.navigate("EditDailyGoal")}
+                onSelect={() =>
+                  navigation.navigate("Profile", {
+                    screen: "EditDailyGoalModal",
+                  })
+                }
               >
                 <DropdownMenu.ItemTitle>Edit Daily Goal</DropdownMenu.ItemTitle>
                 <DropdownMenu.ItemIcon
@@ -111,7 +119,9 @@ function Menu() {
           >
             <MMenuItem
               onPress={() => {
-                navigation.navigate("PersonalInfo");
+                navigation.navigate("Profile", {
+                  screen: "PersonalInfoModal",
+                });
                 setIsOpen(false);
               }}
               pressColor={theme.colors.quaternaryText}
@@ -129,7 +139,9 @@ function Menu() {
             </MMenuItem>
             <MMenuItem
               onPress={() => {
-                navigation.navigate("Appearance");
+                navigation.navigate("Profile", {
+                  screen: "AppearanceModal",
+                });
                 setIsOpen(false);
               }}
               pressColor={theme.colors.quaternaryText}
@@ -147,7 +159,9 @@ function Menu() {
             </MMenuItem>
             <MMenuItem
               onPress={() => {
-                navigation.navigate("EditDailyGoal");
+                navigation.navigate("Profile", {
+                  screen: "EditDailyGoalModal",
+                });
                 setIsOpen(false);
               }}
               pressColor={theme.colors.quaternaryText}

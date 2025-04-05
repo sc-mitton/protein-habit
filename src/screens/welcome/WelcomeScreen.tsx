@@ -11,9 +11,9 @@ import {
 } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import { setName } from "@store/slices/userSlice";
-import type { HomeScreenProps } from "@types";
+import type { RootScreenProps } from "@types";
 
-const WelcomeScreen = ({ navigation }: HomeScreenProps<"Welcome">) => {
+const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
   const [inputName, setInputName] = useState("");
   const dispatch = useAppDispatch();
   const scheme = useColorScheme();

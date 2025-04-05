@@ -11,9 +11,9 @@ import {
 import { setWeight } from "@store/slices/userSlice";
 import { Slider } from "@components";
 import { useTheme } from "@shopify/restyle";
-import type { HomeScreenProps } from "@types";
+import type { RootScreenProps } from "@types";
 
-const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
+const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
   const [weight, setWeightValue] = useState<number>();
   const [weightUnit, setWeightUnit] = useState<"lbs" | "kg">("lbs");
   const dispatch = useAppDispatch();
@@ -26,7 +26,10 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
       dispatch(
         setDailyTarget(getRecommendedTarget(Number(weight), weightUnit)),
       );
-      navigation.replace("Main");
+      navigation.replace("BottomTabs", {
+        screen: "Home",
+        params: { screen: "Main" },
+      });
     }
   };
 

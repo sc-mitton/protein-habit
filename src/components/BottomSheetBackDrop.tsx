@@ -6,7 +6,11 @@ import { BlurView } from "expo-blur";
 export const BackDrop = ({ blurIntensity = 20 }) => {
   const scheme = useColorScheme();
   return Platform.OS === "ios" ? (
-    <Animated.View exiting={FadeOut} entering={FadeIn} style={styles.overlay}>
+    <Animated.View
+      exiting={FadeOut}
+      entering={FadeIn.duration(400)}
+      style={styles.overlay}
+    >
       <BlurView
         pointerEvents="none"
         style={[StyleSheet.absoluteFillObject, { zIndex: 0 }]}
@@ -26,7 +30,7 @@ export const BackDrop = ({ blurIntensity = 20 }) => {
   ) : (
     <Animated.View
       exiting={FadeOut}
-      entering={FadeIn.delay(300)}
+      entering={FadeIn.delay(500)}
       style={styles.overlay}
     >
       <Box
@@ -43,9 +47,9 @@ export const BackDrop = ({ blurIntensity = 20 }) => {
 const styles = StyleSheet.create({
   overlay: {
     position: "absolute",
-    top: -Dimensions.get("window").width,
+    top: -Dimensions.get("window").width * 2,
     left: 0,
     right: 0,
-    bottom: -Dimensions.get("window").width,
+    bottom: -Dimensions.get("window").width * 2,
   },
 });

@@ -27,7 +27,7 @@ const lightTheme = createTheme({
     modalBackground: palette.gray50,
     mainBackground: palette.gray100,
     matchBlurBackground: palette.gray50,
-    secondaryBackground: palette.gray50,
+    secondaryBackground: palette.gray0,
     foodItemBackground: palette.gray50,
     cardBackground: palette.gray50,
     secondaryCardBackground: palette.gray200,

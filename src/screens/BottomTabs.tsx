@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@shopify/restyle";
-import { Platform, StyleSheet, Dimensions } from "react-native";
+import { Platform, StyleSheet, Dimensions, View } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { SymbolView } from "expo-symbols";
 import { LinearGradient } from "expo-linear-gradient";
@@ -22,11 +22,11 @@ import IOSHomeStack from "./home/IOSHomeStack";
 import RecipesScreen from "./recipes/Stack";
 import ProfileStack from "./profile/Stack";
 import { Box } from "@components";
-import { RootStackParamList } from "@types";
+import { BottomTabsParamList } from "@types";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
 
-const Tab = createBottomTabNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -37,12 +37,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  tabBarBigShadow: {
+  gradientContainer: {
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: -60,
-    height: Dimensions.get("window").height * 0.17,
+    bottom: -40,
+    height: 80,
+  },
+  gradient: {
+    width: "100%",
+    height: 60,
   },
 });
 
@@ -104,7 +108,7 @@ const CustomTabBar = ({
       {showGradient && (
         <Animated.View
           exiting={FadeOut.duration(100)}
-          style={styles.tabBarBigShadow}
+          style={styles.gradientContainer}
         >
           <LinearGradient
             colors={[
@@ -112,9 +116,10 @@ const CustomTabBar = ({
               theme.colors.secondaryBackground,
             ]}
             start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 0.4 }}
-            style={StyleSheet.absoluteFill}
+            end={{ x: 0, y: 1 }}
+            style={styles.gradient}
           />
+          <Box backgroundColor="secondaryBackground" height={60} />
         </Animated.View>
       )}
       <Box
