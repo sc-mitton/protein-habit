@@ -44,6 +44,7 @@ export type RootStackParamList = {
   BottomTabs: NavigatorScreenParams<BottomTabsParamList>;
   RecipeDetail: { recipe: Recipe };
   BookmarkedRecipes: undefined;
+  GroceryList: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

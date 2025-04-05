@@ -84,7 +84,7 @@ class CuisineEnum(PyEnum):
     MEXICAN = "Mexican"
     INDIAN = "Indian"
     ASIAN = "Asian"
-    MEDITERRANEAN = "Mediterranean"
+    MEDITERRANEAN_AND_MIDDLE_EASTERN = "Mediterranean and Middle Eastern"
 
 
 class MealTypeEnum(PyEnum):
@@ -101,7 +101,6 @@ class ProteinEnum(PyEnum):
     SHRIMP = "Shrimp"
     STEAK = "Steak"
     CHICKEN = "Chicken"
-    PORK = "Pork"
     TOFU = "Tofu"
     FISH = "Fish"
 
@@ -110,6 +109,13 @@ class DietTypeEnum(PyEnum):
     LOW_CARB = "Low Carb"
     LOW_FAT = "Low Fat"
     VEGETARIAN = "Vegetarian"
+
+
+class DishTypeEnum(PyEnum):
+    SALAD = "Salad"
+    SOUP = "Soup"
+    SANDWICH = "Sandwich"
+    BOWL = "Bowl"
 
 
 # Association Tables (Many-to-many relationships)
@@ -175,6 +181,15 @@ class DietType(Base):
         'Recipe', secondary='recipe_diet_type_association', back_populates='diet_types')
 
 
+class DishType(Base):
+    __tablename__ = 'dish_types'
+    id = Column(Integer, primary_key=True)
+    name = Column(Enum(DishTypeEnum), unique=True, nullable=False)
+
+    # One-to-one relationship with Recipe
+    recipe = relationship('Recipe', back_populates='dish_type', uselist=False)
+
+
 class Recipe(Base):
     __tablename__ = 'recipes'
     id = Column(Integer, primary_key=True)
@@ -182,6 +197,8 @@ class Recipe(Base):
     ingredients = Column(Text, nullable=True)
     instructions = Column(Text, nullable=True)
     thumbnail = Column(String(255), nullable=True)
+    # Foreign key for one-to-one relationship with DishType
+    dish_type_id = Column(Integer, ForeignKey('dish_types.id'), nullable=True)
 
     # Many-to-many relationships
     cuisines = relationship(
@@ -192,6 +209,8 @@ class Recipe(Base):
         'Protein', secondary='recipe_protein_association', back_populates='recipes')
     diet_types = relationship(
         'DietType', secondary='recipe_diet_type_association', back_populates='recipes')
+    # One-to-one relationship with DishType
+    dish_type = relationship('DishType', back_populates='recipe')
 
 
 # Create tables

@@ -1,12 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
-import { useColorScheme, Platform } from "react-native";
+import { useColorScheme } from "react-native";
 
 import WelcomeScreen from "./welcome/WelcomeScreen";
 import WeightInput from "./welcome/WeightInput";
 import BottomTabs from "./BottomTabs";
 import RecipesDetailScreen from "./recipes-detail/RecipesDetailScreen";
+import GroceryListScreen from "./grocery-list/GroceryListScreen";
 import BookmarkedRecipesScreen from "./bookmarked-recipes/BookmarkedRecipesScreen";
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
@@ -35,7 +36,6 @@ const RootStack = () => {
           headerTransparent: true,
           headerBlurEffect: colorScheme === "dark" ? "dark" : "light",
           headerBackTitle: "Back",
-          title: "Bookmarks",
           headerTintColor: accentColor
             ? theme.colors[accentColor]
             : theme.colors.primaryText,
@@ -57,10 +57,22 @@ const RootStack = () => {
           },
         }}
       >
-        <Stack.Screen name="RecipeDetail" component={RecipesDetailScreen} />
+        <Stack.Screen
+          name="RecipeDetail"
+          options={({ route }) => ({
+            title: route.params.recipe.description ?? "Recipe",
+          })}
+          component={RecipesDetailScreen}
+        />
         <Stack.Screen
           name="BookmarkedRecipes"
+          options={{ title: "Bookmarks" }}
           component={BookmarkedRecipesScreen}
+        />
+        <Stack.Screen
+          name="GroceryList"
+          options={{ title: "Grocery List" }}
+          component={GroceryListScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

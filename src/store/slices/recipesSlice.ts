@@ -7,7 +7,7 @@ export enum CuisineType {
   MEXICAN = "Mexican",
   INDIAN = "Indian",
   ASIAN = "Asian",
-  MEDITERRANEAN = "Mediterranean",
+  MEDITERRANEAN_AND_MIDDLE_EASTERN = "Mediterranean and Middle Eastern",
 }
 
 export enum MealType {
@@ -35,6 +35,13 @@ export enum DietType {
   VEGETARIAN = "Vegetarian",
 }
 
+export enum DishType {
+  SALAD = "Salad",
+  SOUP = "Soup",
+  SANDWICH = "Sandwich",
+  BOWL = "Bowl",
+}
+
 // Types
 export interface Recipe {
   id: number;
@@ -46,6 +53,7 @@ export interface Recipe {
   meal_types: MealType[];
   proteins: ProteinType[];
   diet_types: DietType[];
+  dish_type?: DishType;
 }
 
 export interface RecipeFilters {

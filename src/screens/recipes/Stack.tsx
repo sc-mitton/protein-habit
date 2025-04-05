@@ -2,9 +2,11 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabsScreenProps, RecipesStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
+import { SymbolView } from "expo-symbols";
+import Fontisto from "@expo/vector-icons/Fontisto";
 
 import ExploreScreen from "./RecipesScreen";
-import { Button, Icon } from "@components";
+import { Box, Button, Icon } from "@components";
 import { Bookmark } from "geist-native-icons";
 import { selectAccent } from "@store/slices/uiSlice";
 import { useAppSelector } from "@store/hooks";
@@ -56,23 +58,46 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
           headerSearchBarOptions: {
             placeholder: "Search",
             hideWhenScrolling: true,
-            barTintColor: theme.colors.secondaryBackground,
+            barTintColor: theme.colors.cardBackground,
           },
           headerRight: () => (
-            <Button
-              padding="xss"
-              backgroundColor="primaryButton"
-              onPress={() => {
-                props.navigation.navigate("BookmarkedRecipes");
-              }}
-            >
-              <Icon
-                icon={Bookmark}
-                size={16}
-                color="secondaryText"
-                borderColor="secondaryText"
+            <Box flexDirection="row" gap="s">
+              <Button
+                padding="xss"
+                backgroundColor="primaryButton"
+                onPress={() => {
+                  props.navigation.navigate("GroceryList");
+                }}
+                icon={
+                  <SymbolView
+                    name="basket.fill"
+                    size={18}
+                    tintColor={theme.colors.secondaryText}
+                    fallback={
+                      <Fontisto
+                        name="shopping-basket"
+                        size={18}
+                        color={theme.colors.secondaryText}
+                      />
+                    }
+                  />
+                }
               />
-            </Button>
+              <Button
+                padding="xss"
+                backgroundColor="primaryButton"
+                onPress={() => {
+                  props.navigation.navigate("BookmarkedRecipes");
+                }}
+              >
+                <Icon
+                  icon={Bookmark}
+                  size={18}
+                  color="secondaryText"
+                  borderColor="secondaryText"
+                />
+              </Button>
+            </Box>
           ),
         }}
       />

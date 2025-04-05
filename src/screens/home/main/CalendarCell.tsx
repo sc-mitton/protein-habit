@@ -67,14 +67,14 @@ const CalendarCell = ({
           <Icon
             icon={targetMet && !isBookend ? Check : X}
             size={10}
-            strokeWidth={4}
+            strokeWidth={3}
             color={
               targetMet && !isBookend
                 ? "primaryText"
                 : targetMet === false &&
                     !isBookend &&
                     dayInJS.isBefore(dayjs(), "day")
-                  ? "error"
+                  ? "primaryText"
                   : "transparent"
             }
           />
