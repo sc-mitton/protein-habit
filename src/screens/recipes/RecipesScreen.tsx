@@ -32,8 +32,12 @@ const styles = StyleSheet.create({
   masonTyle: {
     flex: 1,
   },
-  container: {
+  containerAndroid: {
     paddingTop: 80,
+    flex: 1,
+  },
+  containerIOS: {
+    transform: [{ translateY: -8 }],
     flex: 1,
   },
   contentContainer: {
@@ -146,9 +150,11 @@ const ExploreScreen: React.FC<Props> = (props) => {
 
 export default function (props: Props) {
   return Platform.OS === "ios" ? (
-    <ExploreScreen {...props} />
+    <View style={styles.containerIOS}>
+      <ExploreScreen {...props} />
+    </View>
   ) : (
-    <View style={styles.container}>
+    <View style={styles.containerAndroid}>
       <ExploreScreen {...props} />
     </View>
   );
