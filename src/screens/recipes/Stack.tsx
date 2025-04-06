@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabsScreenProps, RecipesStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
-
+import { Platform } from "react-native";
 import ExploreScreen from "./RecipesScreen";
 import { selectAccent } from "@store/slices/uiSlice";
 import { useAppSelector } from "@store/hooks";
@@ -34,7 +34,7 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
           : theme.colors.primaryText,
         headerLargeTitle: true,
         headerTitleStyle: {
-          fontSize: 18,
+          fontSize: Platform.OS === "ios" ? 18 : 24,
           fontFamily: "Inter-Bold",
           color:
             Object.keys(selectedFilters).length > 0
@@ -51,6 +51,11 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
           fontSize: 16,
           fontFamily: "Inter-SemiBold",
         },
+        ...(Platform.OS === "android" && {
+          headerStyle: {
+            backgroundColor: theme.colors.matchBlurBackground,
+          },
+        }),
       }}
     >
       <Stack.Screen
@@ -65,6 +70,7 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
             },
             placeholder: "Search",
             hideWhenScrolling: true,
+            headerIconColor: theme.colors.primaryText,
             barTintColor: theme.colors.cardBackground,
           },
           headerRight: () => <HeaderRight />,

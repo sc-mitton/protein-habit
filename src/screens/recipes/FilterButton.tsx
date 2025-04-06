@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
   },
   gradient: {
     zIndex: -1,
@@ -80,7 +79,6 @@ const FilterButton = ({ filter }: { filter: string }) => {
             shadowOffset={{ width: 0, height: 2 }}
             shadowOpacity={0.25}
             shadowRadius={1}
-            elevation={1}
             style={styles.box}
             padding="s"
           >

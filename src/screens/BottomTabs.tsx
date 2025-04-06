@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@shopify/restyle";
-import { Platform, StyleSheet, Dimensions, View } from "react-native";
+import { Platform, StyleSheet } from "react-native";
+import { User } from "geist-native-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { SymbolView } from "expo-symbols";
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: 60,
+    bottom: Platform.OS === "ios" ? 60 : 40,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -41,12 +42,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: -40,
-    height: 80,
+    bottom: Platform.OS === "ios" ? -40 : -20,
+    height: Platform.OS === "ios" ? 80 : 60,
   },
   gradient: {
     width: "100%",
-    height: 60,
+    height: Platform.OS === "ios" ? 80 : 60,
   },
 });
 
@@ -260,9 +261,9 @@ const RootTabs = () => {
                 focused ? theme.colors.primaryText : theme.colors.tertiaryText
               }
               fallback={
-                <FontAwesome6
-                  name="user-large"
-                  size={20}
+                <FontAwesome5
+                  name="user-alt"
+                  size={18}
                   color={
                     focused
                       ? theme.colors.primaryText

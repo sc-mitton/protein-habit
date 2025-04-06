@@ -5,6 +5,7 @@ import { convertHex2Hsl } from "@utils";
 const palette = {
   gray0: "#ffffff",
   gray50: "#fafafa",
+  gray75: "#f5f5f5",
   gray100: "#f3f2f2",
   gray150: "#ebebea",
   gray200: "#e6e6e5",
@@ -26,7 +27,7 @@ const lightTheme = createTheme({
   colors: {
     modalBackground: palette.gray50,
     mainBackground: palette.gray100,
-    matchBlurBackground: palette.gray50,
+    matchBlurBackground: Platform.OS === "ios" ? palette.gray75 : palette.gray0,
     secondaryBackground: palette.gray0,
     foodItemBackground: palette.gray50,
     cardBackground: palette.gray50,
@@ -40,7 +41,7 @@ const lightTheme = createTheme({
     borderColor: palette.gray200,
     borderColorBold: palette.gray400,
     transparent: "transparent",
-    transparentRGB: "rgba(255, 255, 255, 0)",
+    transparentRGB: "rgba(256, 256, 256 , 0)",
     error: "#ef4343",
     errorSecondary: "#ef4343",
     selected: "#007fff",

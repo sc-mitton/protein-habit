@@ -2,8 +2,6 @@ import React, { createContext, useContext, ReactNode, useState } from "react";
 import { allFilters } from "@store/slices/recipesSlice";
 
 interface RecipesScreenContextType {
-  selectedFilterTab: keyof typeof allFilters;
-  setSelectedFilterTab: (tab: keyof typeof allFilters) => void;
   selectedFilters: {
     [key in keyof typeof allFilters]?: (typeof allFilters)[key][number];
   };
@@ -37,8 +35,6 @@ interface RecipesScreenContextProviderProps {
 export const RecipesScreenContextProvider: React.FC<
   RecipesScreenContextProviderProps
 > = ({ children }) => {
-  const [selectedFilterTab, setSelectedFilterTab] =
-    useState<keyof typeof allFilters>("protein");
   const [selectedFilters, setSelectedFilters] = useState<{
     [key in keyof typeof allFilters]?: (typeof allFilters)[key][number];
   }>({});
@@ -47,8 +43,6 @@ export const RecipesScreenContextProvider: React.FC<
   return (
     <RecipesScreenContext.Provider
       value={{
-        selectedFilterTab,
-        setSelectedFilterTab,
         selectedFilters,
         setSelectedFilters,
         searchQuery,

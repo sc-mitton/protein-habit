@@ -11,6 +11,7 @@ web-build/
 expo-env.d.ts
 /ios
 /android
+**/android/build
 .gradle/
 
 # Native

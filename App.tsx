@@ -2,7 +2,7 @@ import { useEffect, useCallback } from "react";
 import { StatusBar, Platform } from "react-native";
 import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ThemeProvider } from "@shopify/restyle";
+import { ThemeProvider, useTheme } from "@shopify/restyle";
 import { Provider } from "react-redux";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -56,6 +56,7 @@ function MainApp() {
   // useAppIntegrity();
 
   const colorScheme = useColorScheme();
+  const theme = useTheme();
   const navigationTheme = useNavigationTheme();
 
   const [fontsLoaded] = useFonts({
@@ -79,7 +80,7 @@ function MainApp() {
     if (Platform.OS !== "android") return;
     setTimeout(() => {
       NavigationBar.setPositionAsync("absolute");
-      NavigationBar.setBackgroundColorAsync("#ffffff01");
+      NavigationBar.setBackgroundColorAsync(theme.colors.secondaryBackground);
       NavigationBar.setButtonStyleAsync(
         colorScheme === "dark" ? "light" : "dark",
       );
