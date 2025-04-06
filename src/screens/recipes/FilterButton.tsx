@@ -1,5 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { Image, StyleSheet, TouchableHighlight } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+  Dimensions,
+} from "react-native";
 import { useTheme } from "@shopify/restyle";
 import _ from "lodash";
 import { Box, Text } from "@components";
@@ -8,6 +13,7 @@ import { useAppSelector } from "@store/hooks";
 import { allFilters } from "@store/slices/recipesSlice";
 import { selectAccent } from "@store/slices/uiSlice";
 import images from "./images";
+
 const styles = StyleSheet.create({
   tagImage: {
     width: 38,
@@ -23,8 +29,15 @@ const styles = StyleSheet.create({
     zIndex: -1,
     borderRadius: 12,
   },
+  touchableContainer: {
+    width: Dimensions.get("window").width / 6.5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   touchable: {
     borderRadius: 13,
+    justifyContent: "center",
+    alignItems: "center",
   },
   box: {
     borderRadius: 12,
@@ -55,33 +68,39 @@ const FilterButton = ({ filter }: { filter: string }) => {
 
   return (
     <Box alignItems="center" gap="xxs">
-      <TouchableHighlight
-        underlayColor={theme.colors.primaryText}
-        activeOpacity={0.97}
-        style={styles.touchable}
-        onPress={() => {
-          setSelectedFilters((prev) => {
-            return {
-              ...prev,
-              [filterType]: isSelected ? undefined : filter,
-            };
-          });
-        }}
-      >
-        <Box
-          backgroundColor={"mainBackground"}
-          borderColor={isSelected ? accent || "secondaryText" : "primaryButton"}
-          borderWidth={1.5}
-          shadowColor={isSelected ? accent || "quaternaryText" : "transparent"}
-          shadowOffset={{ width: 0, height: 2 }}
-          shadowOpacity={0.25}
-          shadowRadius={1}
-          style={styles.box}
-          padding="s"
+      <Box style={styles.touchableContainer}>
+        <TouchableHighlight
+          underlayColor={theme.colors.primaryText}
+          activeOpacity={0.97}
+          style={styles.touchable}
+          onPress={() => {
+            setSelectedFilters((prev) => {
+              return {
+                ...prev,
+                [filterType]: isSelected ? undefined : filter,
+              };
+            });
+          }}
         >
-          <Image source={images[filter]} style={styles.tagImage} />
-        </Box>
-      </TouchableHighlight>
+          <Box
+            backgroundColor={"mainBackground"}
+            borderColor={
+              isSelected ? accent || "secondaryText" : "primaryButton"
+            }
+            borderWidth={1.5}
+            shadowColor={
+              isSelected ? accent || "quaternaryText" : "transparent"
+            }
+            shadowOffset={{ width: 0, height: 2 }}
+            shadowOpacity={0.25}
+            shadowRadius={1}
+            style={styles.box}
+            padding="s"
+          >
+            <Image source={images[filter]} style={styles.tagImage} />
+          </Box>
+        </TouchableHighlight>
+      </Box>
       <Text fontSize={12} color="secondaryText" style={styles.filterText}>
         {_.capitalize(filter.replace("_", " "))}
       </Text>
