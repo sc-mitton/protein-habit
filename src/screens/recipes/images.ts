@@ -22,6 +22,7 @@ const images = {
   fish: require("../../../assets/tags/fish.png"),
   ground_beef: require("../../../assets/tags/ground_beef.png"),
   lamb: require("../../../assets/tags/lamb.png"),
+  pork: require("../../../assets/tags/pork.png"),
 } as Record<string, any>;
 
 export default images;

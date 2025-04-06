@@ -4,14 +4,14 @@ import React, {
   useRef,
   useMemo,
   useCallback,
+  forwardRef,
+  useImperativeHandle,
 } from "react";
 import { StyleSheet } from "react-native";
 import Reanimated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
-  runOnJS,
 } from "react-native-reanimated";
 import _ from "lodash";
 
@@ -37,26 +37,20 @@ const Label = React.memo(
   },
 );
 
-// Define proper types for the component props
-type TagsTabButtonsProps = {
+interface Props {
   value: number;
-  onChange: (index: number) => void;
-};
+  onChange: (value: number) => void;
+}
 
-const TagsTabButtons = ({ value, onChange }: TagsTabButtonsProps) => {
+const TagsTabButtons = (props: Props) => {
   const { selectedFilters, setSelectedFilters } = useRecipesScreenContext();
 
-  const [index, setIndex] = useState(value);
-
-  // Use a more efficient way to track tab widths
   const tabHeaderWidths = useRef<number[]>([]);
   const indicatorX = useSharedValue(OFFSET_LEFT);
   const indicatorWidth = useSharedValue(0);
 
-  // Memoize the filter keys to prevent recalculation
   const filterKeys = useMemo(() => Object.keys(allFilters), []);
 
-  // Animated styles for the indicator
   const indicatorAnimation = useAnimatedStyle(() => {
     return {
       position: "absolute",
@@ -83,24 +77,20 @@ const TagsTabButtons = ({ value, onChange }: TagsTabButtonsProps) => {
     };
   }, []);
 
-  // Update indicator position when index changes
-  useEffect(() => {
+  const handleClear = () => {
+    setSelectedFilters({});
+  };
+
+  const handleTabPress = (index: number) => {
+    props.onChange(index);
     const { x, width } = calculatePosition(index);
+    indicatorWidth.value = withTiming(width, { duration: 300 });
+    indicatorX.value = withTiming(x, { duration: 300 });
+  };
 
-    // Use spring animation for smoother transitions
-    indicatorWidth.value = withTiming(width, { duration: 500 });
-    indicatorX.value = withTiming(x, { duration: 500 });
-  }, [index, calculatePosition]);
-
-  // Notify parent component of index change
   useEffect(() => {
-    onChange(index);
-  }, [index, onChange]);
-
-  // Handle tab press with memoized callback
-  const handleTabPress = useCallback((i: number) => {
-    setIndex(i);
-  }, []);
+    handleTabPress(props.value);
+  }, [props.value]);
 
   return (
     <Box
@@ -119,7 +109,7 @@ const TagsTabButtons = ({ value, onChange }: TagsTabButtonsProps) => {
               tabHeaderWidths.current[i] = width;
 
               // Update indicator width if this is the selected tab
-              if (index === i) {
+              if (props.value === i) {
                 indicatorWidth.value = width;
               }
             }
@@ -130,16 +120,16 @@ const TagsTabButtons = ({ value, onChange }: TagsTabButtonsProps) => {
             paddingHorizontal="xs"
             activeOpacity={1}
           >
-            <Label label={_.capitalize(key)} isSelected={index === i} />
+            <Label label={_.capitalize(key)} isSelected={props.value === i} />
           </Button>
         </Reanimated.View>
       ))}
 
       {Object.keys(selectedFilters).length > 0 && (
-        <Box flex={1} alignItems="flex-end" marginRight="xs">
+        <Box flex={1} alignItems="flex-end" marginRight="m" paddingRight="xxs">
           <Box>
             <Button
-              onPress={() => setSelectedFilters({})}
+              onPress={handleClear}
               fontSize={14}
               paddingHorizontal="s"
               paddingVertical="none"

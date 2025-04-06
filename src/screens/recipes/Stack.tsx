@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabsScreenProps, RecipesStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
-import { Platform } from "react-native";
+import { Platform, useColorScheme } from "react-native";
 import ExploreScreen from "./RecipesScreen";
 import { selectAccent } from "@store/slices/uiSlice";
 import { useAppSelector } from "@store/hooks";
 import { Theme } from "@theme";
-import { useColorScheme } from "react-native";
+
 import {
   RecipesScreenContextProvider,
   useRecipesScreenContext,
@@ -34,8 +34,8 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
           : theme.colors.primaryText,
         headerLargeTitle: true,
         headerTitleStyle: {
-          fontSize: Platform.OS === "ios" ? 18 : 24,
-          fontFamily: "Inter-Bold",
+          fontSize: Platform.OS === "ios" ? 16 : 24,
+          fontFamily: "Inter-SemiBold",
           color:
             Object.keys(selectedFilters).length > 0
               ? "transparent"

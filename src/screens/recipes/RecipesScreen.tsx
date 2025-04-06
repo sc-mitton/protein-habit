@@ -8,7 +8,7 @@ import {
   Platform,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
-import Animated, { FadeIn, LinearTransition } from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { Box } from "@components";
 import { RecipesScreenProps } from "@types";
@@ -46,6 +46,11 @@ const DATA = Array.from({ length: 10 }, (_, index) => ({
   id: index,
   height: Math.floor(Math.random() * 60) + 160,
 }));
+
+const ListHeaderComponent = () => {
+  const { searchQuery } = useRecipesScreenContext();
+  return !searchQuery ? <Filters /> : null;
+};
 
 const ExploreScreen: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
@@ -134,30 +139,6 @@ const ExploreScreen: React.FC<Props> = (props) => {
     lastOffsetY.current = currentOffsetY;
   };
 
-  const renderItem = ({ item }: { item: (typeof DATA)[number] }) => (
-    <Animated.View layout={LinearTransition} style={styles.masonTyle}>
-      <Box
-        borderRadius="l"
-        height={item.height}
-        margin={"s"}
-        backgroundColor="primaryButton"
-      >
-        <Box flex={1}></Box>
-      </Box>
-    </Animated.View>
-  );
-
-  const ListHeaderComponent = () =>
-    !searchQuery ? (
-      <View
-        onLayout={(e) => {
-          filtersHeight.current = e.nativeEvent.layout.height;
-        }}
-      >
-        <Filters />
-      </View>
-    ) : null;
-
   return (
     <MasonryFlashList
       style={{ backgroundColor: theme.colors.matchBlurBackground }}
@@ -168,7 +149,17 @@ const ExploreScreen: React.FC<Props> = (props) => {
       }}
       contentInsetAdjustmentBehavior="automatic"
       data={DATA}
-      renderItem={renderItem}
+      renderItem={({ item }) => (
+        <Box
+          style={styles.masonTyle}
+          borderRadius="l"
+          height={item.height}
+          margin={"s"}
+          backgroundColor="primaryButton"
+        >
+          <Box flex={1}></Box>
+        </Box>
+      )}
       keyExtractor={(_, index) => `recipe-${index}`}
       ListHeaderComponent={ListHeaderComponent}
       onScrollBeginDrag={handleScrollBeginDrag}

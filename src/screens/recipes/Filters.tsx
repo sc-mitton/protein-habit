@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Box } from "@components";
@@ -10,14 +10,37 @@ import { Theme } from "@theme";
 import TabButtons from "./TabButtons";
 
 const Filters = () => {
-  const [selectedFilterTab, setSelectedFilterTab] = useState(0);
-  const [selectedFilter, setSelectedFilter] = useState<keyof typeof allFilters>(
-    Object.keys(allFilters)[0] as any,
-  );
   const theme = useTheme<Theme>();
+  const ref = useRef<FlatList>(null);
+  const currentSectionIndex = useRef(0);
+  const isDragging = useRef(false);
+  const [selectedFilterTab, setSelectedFilterTab] = useState(0);
+
+  // The indices in the flatlist of the first item of each tag type section
+  const sectionIndexes = useMemo(() => {
+    return Object.keys(allFilters).reduce(
+      (acc, key, i) => {
+        acc.push(
+          allFilters[key as keyof typeof allFilters].length +
+            acc[acc.length - 1] || 0,
+        );
+        return acc;
+      },
+      [0] as number[],
+    );
+  }, []);
 
   useEffect(() => {
-    setSelectedFilter(Object.keys(allFilters)[selectedFilterTab] as any);
+    isDragging.current = false;
+  }, []);
+
+  useEffect(() => {
+    if (isDragging.current) return;
+    ref.current?.scrollToIndex({
+      index: sectionIndexes[selectedFilterTab],
+      animated: true,
+      viewOffset: 20,
+    });
   }, [selectedFilterTab]);
 
   return (
@@ -42,15 +65,38 @@ const Filters = () => {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
         />
-        <ScrollView
+        <FlatList
+          ref={ref}
           horizontal
           showsHorizontalScrollIndicator={false}
+          onScrollToIndexFailed={() => {}}
+          onScrollBeginDrag={() => {
+            isDragging.current = true;
+          }}
+          onMomentumScrollEnd={() => {
+            isDragging.current = false;
+          }}
+          onViewableItemsChanged={({ viewableItems }) => {
+            if (!isDragging.current) return;
+            const firstItemIndex = viewableItems[0].index || 0;
+            const sectionIndex =
+              sectionIndexes.findIndex(
+                (s, i) =>
+                  (firstItemIndex >= s &&
+                    firstItemIndex < sectionIndexes[i + 1]) ??
+                  Infinity,
+              ) || 0;
+            if (sectionIndex !== currentSectionIndex.current) {
+              currentSectionIndex.current = sectionIndex;
+              setSelectedFilterTab(sectionIndex);
+            }
+          }}
+          data={Object.keys(allFilters).reduce((acc, key) => {
+            return [...acc, ...allFilters[key as keyof typeof allFilters]];
+          }, [] as string[])}
           contentContainerStyle={styles.filters}
-        >
-          {allFilters[selectedFilter].map((filter) => (
-            <FilterButton key={filter} filter={filter} />
-          ))}
-        </ScrollView>
+          renderItem={({ item }) => <FilterButton filter={item} />}
+        />
       </View>
     </Box>
   );

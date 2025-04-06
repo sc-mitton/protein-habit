@@ -25,6 +25,7 @@ export const proteins = [
   "tofu",
   "fish",
   "lamb",
+  "pork",
 ] as const;
 
 export const dishes = [
