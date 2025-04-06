@@ -42,13 +42,13 @@ const RootStack = () => {
           headerLargeTitle: true,
           headerTitleStyle: {
             fontSize: 18,
-            fontFamily: "Inter-SemiBold",
+            fontFamily: "Inter-Bold",
             color: theme.colors.primaryText,
           },
           headerLargeTitleStyle: {
             fontSize: 30,
             fontWeight: "bold",
-            fontFamily: "Inter-SemiBold",
+            fontFamily: "Inter-Bold",
             color: theme.colors.primaryText,
           },
           headerBackTitleStyle: {

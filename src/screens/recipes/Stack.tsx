@@ -1,17 +1,17 @@
-import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabsScreenProps, RecipesStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
-import { SymbolView } from "expo-symbols";
-import Fontisto from "@expo/vector-icons/Fontisto";
 
 import ExploreScreen from "./RecipesScreen";
-import { Box, Button, Icon } from "@components";
-import { Bookmark } from "geist-native-icons";
 import { selectAccent } from "@store/slices/uiSlice";
 import { useAppSelector } from "@store/hooks";
 import { Theme } from "@theme";
 import { useColorScheme } from "react-native";
+import {
+  RecipesScreenContextProvider,
+  useRecipesScreenContext,
+} from "./Context";
+import HeaderRight from "./HeaderRight";
 
 const Stack = createNativeStackNavigator<RecipesStackParamList>();
 
@@ -19,6 +19,8 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
   const theme = useTheme<Theme>();
   const accentColor = useAppSelector(selectAccent);
   const colorScheme = useColorScheme();
+  const { selectedFilters, setSearchQuery, searchQuery, setSelectedFilters } =
+    useRecipesScreenContext();
 
   return (
     <Stack.Navigator
@@ -27,20 +29,22 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
         headerTransparent: true,
         headerBlurEffect: colorScheme === "dark" ? "dark" : "light",
         headerBackTitle: "Back",
-        title: "Bookmarks",
         headerTintColor: accentColor
           ? theme.colors[accentColor]
           : theme.colors.primaryText,
         headerLargeTitle: true,
         headerTitleStyle: {
           fontSize: 18,
-          fontFamily: "Inter-SemiBold",
-          color: theme.colors.primaryText,
+          fontFamily: "Inter-Bold",
+          color:
+            Object.keys(selectedFilters).length > 0
+              ? "transparent"
+              : theme.colors.primaryText,
         },
         headerLargeTitleStyle: {
           fontSize: 30,
           fontWeight: "bold",
-          fontFamily: "Inter-SemiBold",
+          fontFamily: "Inter-Bold",
           color: theme.colors.primaryText,
         },
         headerBackTitleStyle: {
@@ -54,55 +58,28 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
         component={ExploreScreen}
         options={{
           headerTitleAlign: "left",
-          title: "Recipes",
           headerSearchBarOptions: {
+            onChangeText: (text) => {
+              setSelectedFilters({});
+              setSearchQuery(text.nativeEvent.text);
+            },
             placeholder: "Search",
             hideWhenScrolling: true,
             barTintColor: theme.colors.cardBackground,
           },
-          headerRight: () => (
-            <Box flexDirection="row" gap="s">
-              <Button
-                padding="xss"
-                backgroundColor="primaryButton"
-                onPress={() => {
-                  props.navigation.navigate("GroceryList");
-                }}
-                icon={
-                  <SymbolView
-                    name="basket.fill"
-                    size={18}
-                    tintColor={theme.colors.secondaryText}
-                    fallback={
-                      <Fontisto
-                        name="shopping-basket"
-                        size={18}
-                        color={theme.colors.secondaryText}
-                      />
-                    }
-                  />
-                }
-              />
-              <Button
-                padding="xss"
-                backgroundColor="primaryButton"
-                onPress={() => {
-                  props.navigation.navigate("BookmarkedRecipes");
-                }}
-              >
-                <Icon
-                  icon={Bookmark}
-                  size={18}
-                  color="secondaryText"
-                  borderColor="secondaryText"
-                />
-              </Button>
-            </Box>
-          ),
+          headerRight: () => <HeaderRight />,
         }}
       />
     </Stack.Navigator>
   );
 };
 
-export default RecipesStack;
+export default function RecipesStackWrapper(
+  props: BottomTabsScreenProps<"Recipes">,
+) {
+  return (
+    <RecipesScreenContextProvider>
+      <RecipesStack {...props} />
+    </RecipesScreenContextProvider>
+  );
+}

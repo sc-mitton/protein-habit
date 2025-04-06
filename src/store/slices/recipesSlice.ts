@@ -1,46 +1,46 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Enum types for tags
-export enum CuisineType {
-  ITALIAN = "Italian",
-  MEXICAN = "Mexican",
-  INDIAN = "Indian",
-  ASIAN = "Asian",
-  MEDITERRANEAN_AND_MIDDLE_EASTERN = "Mediterranean and Middle Eastern",
-}
+export const cuisines = [
+  "italian",
+  "mexican",
+  "indian",
+  "asian",
+  "mediterranean",
+] as const;
 
-export enum MealType {
-  BREAKFAST = "Breakfast",
-  LUNCH = "Lunch",
-  DINNER = "Dinner",
-  SNACK = "Snack",
-  DESSERT = "Dessert",
-  DRINK = "Drink",
-  SHAKE_SMOOTHIE = "Shake/Smoothie",
-}
+export const meals = [
+  "breakfast",
+  "lunch",
+  "dinner",
+  "snack",
+  "dessert",
+] as const;
 
-export enum ProteinType {
-  SHRIMP = "Shrimp",
-  STEAK = "Steak",
-  CHICKEN = "Chicken",
-  PORK = "Pork",
-  TOFU = "Tofu",
-  FISH = "Fish",
-}
+export const proteins = [
+  "chicken",
+  "steak",
+  "ground_beef",
+  "shrimp",
+  "tofu",
+  "fish",
+  "lamb",
+] as const;
 
-export enum DietType {
-  LOW_CARB = "Low Carb",
-  LOW_FAT = "Low Fat",
-  VEGETARIAN = "Vegetarian",
-}
+export const dishes = [
+  "salad",
+  "soup",
+  "sandwich",
+  "bowl",
+  "smoothie",
+] as const;
 
-export enum DishType {
-  SALAD = "Salad",
-  SOUP = "Soup",
-  SANDWICH = "Sandwich",
-  BOWL = "Bowl",
-}
+export const allFilters = {
+  protein: proteins,
+  dish: dishes,
+  meal: meals,
+  cuisine: cuisines,
+};
 
 // Types
 export interface Recipe {
@@ -49,18 +49,17 @@ export interface Recipe {
   ingredients: string | null;
   instructions: string | null;
   thumbnail: string | null;
-  cuisines: CuisineType[];
-  meal_types: MealType[];
-  proteins: ProteinType[];
-  diet_types: DietType[];
-  dish_type?: DishType;
+  cuisine: (typeof cuisines)[number];
+  meal: (typeof meals)[number];
+  protein: (typeof proteins)[number];
+  dish?: (typeof dishes)[number];
 }
 
 export interface RecipeFilters {
-  cuisine?: CuisineType;
-  meal_type?: MealType;
-  protein?: ProteinType;
-  diet_type?: DietType;
+  cuisine?: (typeof cuisines)[number];
+  meal?: (typeof meals)[number];
+  protein?: (typeof proteins)[number];
+  dish?: (typeof dishes)[number];
   search?: string;
 }
 
@@ -119,9 +118,8 @@ export const fetchRecipes = createAsyncThunk(
 
       // Add filter params if they exist
       if (filters.cuisine) params.append("cuisine", filters.cuisine);
-      if (filters.meal_type) params.append("meal_type", filters.meal_type);
+      if (filters.meal) params.append("meal", filters.meal);
       if (filters.protein) params.append("protein", filters.protein);
-      if (filters.diet_type) params.append("diet_type", filters.diet_type);
       if (filters.search) params.append("search", filters.search);
 
       const response = await axios.get<PaginatedResponse<Recipe>>(

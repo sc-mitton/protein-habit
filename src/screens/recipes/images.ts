@@ -1,0 +1,27 @@
+const images = {
+  italian: require("../../../assets/tags/italian.png"),
+  mexican: require("../../../assets/tags/mexican.png"),
+  indian: require("../../../assets/tags/indian.png"),
+  asian: require("../../../assets/tags/asian.png"),
+  mediterranean: require("../../../assets/tags/mediterranean.png"),
+  breakfast: require("../../../assets/tags/breakfast.png"),
+  lunch: require("../../../assets/tags/lunch.png"),
+  dinner: require("../../../assets/tags/dinner.png"),
+  snack: require("../../../assets/tags/snack.png"),
+  dessert: require("../../../assets/tags/dessert.png"),
+  salad: require("../../../assets/tags/salad.png"),
+  soup: require("../../../assets/tags/soup.png"),
+  sandwich: require("../../../assets/tags/sandwich.png"),
+  bowl: require("../../../assets/tags/bowl.png"),
+  smoothie: require("../../../assets/tags/smoothie.png"),
+  drink: require("../../../assets/tags/drink.png"),
+  steak: require("../../../assets/tags/steak.png"),
+  shrimp: require("../../../assets/tags/shrimp.png"),
+  chicken: require("../../../assets/tags/chicken.png"),
+  tofu: require("../../../assets/tags/tofu.png"),
+  fish: require("../../../assets/tags/fish.png"),
+  ground_beef: require("../../../assets/tags/ground_beef.png"),
+  lamb: require("../../../assets/tags/lamb.png"),
+} as Record<string, any>;
+
+export default images;
