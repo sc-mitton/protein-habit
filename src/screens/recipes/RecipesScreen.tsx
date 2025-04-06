@@ -16,7 +16,7 @@ import { useAppDispatch } from "@store/hooks";
 import { showBottomBar } from "@store/slices/uiSlice";
 import Filters from "./Filters";
 import { useRecipesScreenContext } from "./Context";
-import images from "./images";
+import TitleVariant from "./TitleVariant";
 
 type Props = RecipesScreenProps<"Explore">;
 
@@ -70,37 +70,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
   useEffect(() => {
     if (showFiltersHeader) {
       props.navigation.setOptions({
-        headerTitle: () => (
-          <Animated.View entering={FadeIn}>
-            <Box
-              flexDirection="row"
-              gap="nl"
-              marginRight="nm"
-              marginBottom="m"
-              marginLeft={Platform.OS == "android" ? "s" : undefined}
-            >
-              {Object.keys(selectedFilters).map((filter) => (
-                <Box
-                  key={filter}
-                  alignItems="center"
-                  justifyContent="center"
-                  borderRadius="full"
-                  marginLeft={"nm"}
-                  marginBottom={Platform.OS === "android" ? "nm" : undefined}
-                  backgroundColor="primaryButton"
-                  borderColor="matchBlurBackground"
-                  borderWidth={1.5}
-                  padding="xxs"
-                >
-                  <Image
-                    source={images[(selectedFilters as any)[filter]]}
-                    style={styles.image}
-                  />
-                </Box>
-              ))}
-            </Box>
-          </Animated.View>
-        ),
+        headerTitle: () => <TitleVariant />,
       });
     } else {
       props.navigation.setOptions({

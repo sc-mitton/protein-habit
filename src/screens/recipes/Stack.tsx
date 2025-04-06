@@ -19,7 +19,7 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
   const theme = useTheme<Theme>();
   const accentColor = useAppSelector(selectAccent);
   const colorScheme = useColorScheme();
-  const { selectedFilters, setSearchQuery, searchQuery, setSelectedFilters } =
+  const { selectedFilters, setSearchQuery, setSelectedFilters } =
     useRecipesScreenContext();
 
   return (

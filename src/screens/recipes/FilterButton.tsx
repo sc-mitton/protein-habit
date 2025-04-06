@@ -17,13 +17,14 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    opacity: 0.85,
   },
   gradient: {
     zIndex: -1,
     borderRadius: 12,
   },
   touchable: {
-    borderRadius: 12,
+    borderRadius: 13,
   },
   box: {
     borderRadius: 12,
