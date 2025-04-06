@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Platform, Image, StyleSheet, View } from "react-native";
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition,
-} from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
 import _ from "lodash";
 
 import { Box, Button, Text } from "@components";
@@ -33,10 +29,12 @@ const TitleVariant = () => {
           >
             <Text fontSize={14} color="secondaryText">
               {Object.keys(selectedFilters)
+                .map((f) => selectedFilters[f as keyof typeof selectedFilters])
                 .map((f) =>
-                  _.capitalize(
-                    selectedFilters[f as keyof typeof selectedFilters],
-                  ),
+                  f
+                    ?.split("_")
+                    .map((word) => _.capitalize(word))
+                    .join(" "),
                 )
                 .join(", ")}
             </Text>
@@ -53,9 +51,8 @@ const TitleVariant = () => {
           marginLeft={Platform.OS == "android" ? "s" : undefined}
         >
           {Object.keys(selectedFilters).map((filter) => (
-            <Animated.View entering={FadeIn}>
+            <Animated.View entering={FadeIn} key={filter}>
               <Box
-                key={filter}
                 alignItems="center"
                 justifyContent="center"
                 borderRadius="full"

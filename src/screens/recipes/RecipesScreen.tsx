@@ -111,7 +111,9 @@ const ExploreScreen: React.FC<Props> = (props) => {
 
   return (
     <MasonryFlashList
-      style={{ backgroundColor: theme.colors.matchBlurBackground }}
+      style={{
+        backgroundColor: theme.colors.matchBlurBackground,
+      }}
       contentContainerStyle={{
         backgroundColor: theme.colors.matchBlurBackground,
         paddingHorizontal: 8,
