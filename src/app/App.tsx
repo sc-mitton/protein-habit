@@ -3,6 +3,7 @@ import { StatusBar, Platform } from "react-native";
 import { useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { useTheme } from "@shopify/restyle";
 import * as Linking from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
@@ -13,6 +14,7 @@ import { baseIap, premiumIap } from "@constants/iaps";
 import { useNavigationTheme } from "@hooks";
 import Providers from "./Providers";
 import { useAppIntegrity } from "@hooks";
+import { Theme } from "@theme";
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
@@ -46,6 +48,7 @@ SplashScreen.preventAutoHideAsync();
 function MainApp() {
   useAppIntegrity();
 
+  const theme = useTheme<Theme>();
   const colorScheme = useColorScheme();
   const navigationTheme = useNavigationTheme();
 
@@ -70,7 +73,7 @@ function MainApp() {
     if (Platform.OS !== "android") return;
     setTimeout(() => {
       NavigationBar.setPositionAsync("absolute");
-      NavigationBar.setBackgroundColorAsync("#ffffff01");
+      NavigationBar.setBackgroundColorAsync(theme.colors.secondaryBackground);
       NavigationBar.setButtonStyleAsync(
         colorScheme === "dark" ? "light" : "dark",
       );

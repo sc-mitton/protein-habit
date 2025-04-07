@@ -87,3 +87,15 @@ export const recipeProteinAssociation = sqliteTable(
       .references(() => proteinTypesTable.id),
   },
 );
+
+export const recipeDishTypeAssociation = sqliteTable(
+  "recipe_dish_type_association",
+  {
+    recipeId: integer("recipe_id")
+      .notNull()
+      .references(() => recipesTable.id),
+    dishTypeId: integer("dish_type_id")
+      .notNull()
+      .references(() => dishTypesTable.id),
+  },
+);
