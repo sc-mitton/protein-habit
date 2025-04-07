@@ -51,7 +51,7 @@ const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
             />
           )}
         </Box>
-        <Box marginLeft="xs">
+        <Box marginLeft="xs" gap="s" marginBottom="l">
           <Text variant="header" marginBottom="s">
             Welcome to Protein Count
           </Text>

@@ -59,7 +59,7 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
             />
           )}
         </Box>
-        <Box>
+        <Box gap="s" marginBottom="l" marginTop="s">
           <Text variant="header" marginBottom="s">
             What's your weight?
           </Text>
