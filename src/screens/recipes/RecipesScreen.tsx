@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { MasonryFlashList } from "@shopify/flash-list";
-import { Box } from "@components";
+
 import { RecipesScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { showBottomBar } from "@store/slices/uiSlice";
@@ -18,29 +18,6 @@ import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
 
 type Props = RecipesScreenProps<"Explore">;
-
-const styles = StyleSheet.create({
-  image: {
-    width: 32,
-    height: 32,
-  },
-  recipeBox: {
-    flex: 1,
-    margin: 8,
-  },
-  containerAndroid: {
-    paddingTop: 80,
-    flex: 1,
-  },
-  containerIOS: {
-    transform: [{ translateY: -8 }],
-    flex: 1,
-  },
-  contentContainer: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
-});
 
 const ListHeaderComponent = () => {
   const { searchQuery } = useRecipesScreenContext();
@@ -106,9 +83,6 @@ const ExploreScreen: React.FC<Props> = (props) => {
 
   return (
     <MasonryFlashList
-      style={{
-        backgroundColor: theme.colors.matchBlurBackground,
-      }}
       contentContainerStyle={{
         backgroundColor: theme.colors.matchBlurBackground,
         paddingHorizontal: 8,
@@ -116,7 +90,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
       }}
       contentInsetAdjustmentBehavior="automatic"
       data={}
-      renderItem={({ item }) => <RecipeCard recipe={item} />}
+      renderItem={({ item }) => <RecipeCard recipe={item} isLoading={true} />}
       keyExtractor={(_, index) => `recipe-${index}`}
       ListHeaderComponent={ListHeaderComponent}
       onScrollBeginDrag={handleScrollBeginDrag}
@@ -140,3 +114,26 @@ export default function (props: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 32,
+    height: 32,
+  },
+  recipeBox: {
+    flex: 1,
+    margin: 8,
+  },
+  containerAndroid: {
+    paddingTop: 80,
+    flex: 1,
+  },
+  containerIOS: {
+    transform: [{ translateY: -8 }],
+    flex: 1,
+  },
+  contentContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+});

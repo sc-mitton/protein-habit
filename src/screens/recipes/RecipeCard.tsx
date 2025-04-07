@@ -4,9 +4,14 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import { TouchableHighlight, StyleSheet } from "react-native";
 import { Image } from "expo-image";
+import Animated, {
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+} from "react-native-reanimated";
 
 import { bookmark } from "@assets/lotties";
-import { Box, BumpButton, Text } from "@components";
+import { Box, BumpButton, Text, PulseText } from "@components";
 import { Recipe } from "@db/schema/types";
 import { Theme } from "@theme";
 import { RootStackParamList } from "@types";
@@ -37,7 +42,6 @@ const styles = StyleSheet.create({
   },
   masonTyle: {
     flex: 1,
-    height: 160 + Math.random() * 60,
   },
 });
 
@@ -45,6 +49,7 @@ interface Props {
   recipe: Recipe & {
     proteinPerServing: number;
   };
+  isLoading?: boolean;
 }
 
 const RecipeCard = (props: Props) => {
@@ -61,6 +66,12 @@ const RecipeCard = (props: Props) => {
   const handlePress = () => {
     navigation.navigate("RecipeDetail", { recipe: props.recipe });
   };
+
+  const skeletonAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: props.isLoading ? withRepeat(withTiming(1), -1, true) : 1,
+    };
+  });
 
   useEffect(() => {
     if (firstRender) return;
@@ -84,40 +95,64 @@ const RecipeCard = (props: Props) => {
   useEffect(() => setFirstRender(false), []);
 
   return (
-    <Box style={styles.masonTyle} margin={"s"}>
+    <Box
+      style={styles.masonTyle}
+      margin={"s"}
+      height={160 + Math.random() * 60}
+    >
       <TouchableHighlight
         style={styles.touchable}
         onPress={handlePress}
         activeOpacity={0.97}
         underlayColor={theme.colors.primaryText}
       >
-        <BumpButton style={styles.bookmarkButton} onPress={handleBookmark}>
-          <LottieView
-            source={bookmark}
-            autoPlay={false}
-            loop={false}
-            ref={bookmarkAnimation}
-            speed={firstRender && isBookmarked ? 1000 : 1}
-            colorFilters={[
-              {
-                keypath: "bookmark",
-                color: theme.colors.white,
-              },
-              {
-                keypath: "bookmark fill",
-                color: theme.colors.white,
-              },
-            ]}
-            style={styles.lottie}
-          />
-        </BumpButton>
-        <Image
-          source={props.recipe.thumbnail}
-          contentFit="cover"
-          transition={100}
-        />
-        <Box style={styles.titleContainer}>
-          <Text color="white">{props.recipe.title}</Text>
+        <Box flex={1}>
+          <BumpButton style={styles.bookmarkButton} onPress={handleBookmark}>
+            <LottieView
+              source={bookmark}
+              autoPlay={false}
+              loop={false}
+              ref={bookmarkAnimation}
+              speed={firstRender && isBookmarked ? 1000 : 1}
+              colorFilters={[
+                {
+                  keypath: "bookmark",
+                  color: theme.colors.white,
+                },
+                {
+                  keypath: "bookmark fill",
+                  color: theme.colors.white,
+                },
+              ]}
+              style={styles.lottie}
+            />
+          </BumpButton>
+          {/* <Image
+            source={props.recipe.thumbnail}
+            contentFit="cover"
+            transition={200}
+            placeholder={
+              <Animated.View
+                style={[skeletonAnimation, StyleSheet.absoluteFill]}
+              >
+                <Box style={[styles.cardBox]} backgroundColor="primaryButton" />
+              </Animated.View>
+            }
+          /> */}
+          <Box style={[styles.cardBox]} backgroundColor="primaryButton" />
+          <Box style={styles.titleContainer}>
+            <PulseText pulsing={props.isLoading}>
+              <Text fontSize={15} color="white">
+                {props.recipe?.title || "Recipe Title"}
+              </Text>
+            </PulseText>
+            <PulseText opacity={0.8} pulsing={props.isLoading}>
+              <Text
+                color="white"
+                fontSize={13}
+              >{`${props.recipe?.proteinPerServing || 32} g / serving`}</Text>
+            </PulseText>
+          </Box>
         </Box>
       </TouchableHighlight>
     </Box>
