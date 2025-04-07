@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import * as Haptics from "expo-haptics";
 
 import { Box } from "@components";
 import { allFilters } from "@db/schema/enums";
@@ -8,6 +9,7 @@ import FilterButton from "./FilterButton";
 import { useTheme } from "@shopify/restyle";
 import { Theme } from "@theme";
 import TabButtons from "./TabButtons";
+import { WIDTH } from "./FilterButton";
 
 const Filters = () => {
   const theme = useTheme<Theme>();
@@ -76,7 +78,10 @@ const Filters = () => {
           onMomentumScrollEnd={() => {
             isDragging.current = false;
           }}
-          onViewableItemsChanged={({ viewableItems }) => {
+          snapToInterval={WIDTH}
+          snapToAlignment="start"
+          decelerationRate="fast"
+          onViewableItemsChanged={({ viewableItems, changed }) => {
             if (!isDragging.current) return;
             const firstItemIndex = viewableItems[0].index || 0;
             const sectionIndex =
@@ -89,6 +94,9 @@ const Filters = () => {
             if (sectionIndex !== currentSectionIndex.current) {
               currentSectionIndex.current = sectionIndex;
               setSelectedFilterTab(sectionIndex);
+            }
+            if (changed) {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }
           }}
           data={Object.keys(allFilters).reduce((acc, key) => {
@@ -104,9 +112,8 @@ const Filters = () => {
 
 const styles = StyleSheet.create({
   filters: {
-    gap: 16,
     paddingVertical: 10,
-    paddingHorizontal: 22,
+    paddingHorizontal: 10,
   },
   tagImage: {
     width: 64,

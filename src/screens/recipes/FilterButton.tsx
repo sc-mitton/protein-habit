@@ -14,6 +14,8 @@ import { allFilters } from "@db/schema/enums";
 import { selectAccent } from "@store/slices/uiSlice";
 import images from "./images";
 
+export const WIDTH = Dimensions.get("window").width / 4.875;
+
 const styles = StyleSheet.create({
   tagImage: {
     width: 38,
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   touchableContainer: {
-    width: Dimensions.get("window").width / 6.5,
+    width: WIDTH,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -67,7 +69,7 @@ const FilterButton = ({ filter }: { filter: string }) => {
   }, [selectedFilters, filter, filterType]);
 
   return (
-    <Box alignItems="center" gap="xxs">
+    <Box alignItems="center">
       <Box style={styles.touchableContainer}>
         <TouchableHighlight
           underlayColor={theme.colors.primaryText}
@@ -102,7 +104,11 @@ const FilterButton = ({ filter }: { filter: string }) => {
         </TouchableHighlight>
       </Box>
       <Text fontSize={12} color="secondaryText" style={styles.filterText}>
-        {_.capitalize(filter.replace("_", " "))}
+        {/* {_.capitalize(filter.replace("_", " "))} */}
+        {filter
+          .split("_")
+          .map((word) => _.capitalize(word))
+          .join(" ")}
       </Text>
     </Box>
   );
