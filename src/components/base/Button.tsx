@@ -26,7 +26,7 @@ import {
   position,
 } from "@shopify/restyle";
 
-import { Text } from ".";
+import { Text } from "./Text";
 import { Theme } from "@theme";
 
 export type RestyleProps = SpacingProps<Theme> &

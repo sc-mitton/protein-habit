@@ -11,8 +11,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
-import { Box } from "@components";
-import { Button } from "@components";
+import { Box } from "./base/Box";
+import { Button } from "./base/Button";
 import OutsidePressHandler from "react-native-outside-press";
 
 const ACTIONS_WIDTH = 105;

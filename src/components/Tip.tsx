@@ -4,7 +4,8 @@ import { View, StyleSheet, TouchableOpacity, Insets } from "react-native";
 import Animated, { FadeInUp, FadeOut } from "react-native-reanimated";
 import OutsidePressHandler from "react-native-outside-press";
 
-import { Text, Box } from "@components";
+import { Text } from "./base/Text";
+import { Box } from "./base/Box";
 
 export const Tip = ({
   children,
