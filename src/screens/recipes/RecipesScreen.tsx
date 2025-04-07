@@ -3,12 +3,10 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   StyleSheet,
-  Image,
   View,
   Platform,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
-import Animated, { FadeIn } from "react-native-reanimated";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { Box } from "@components";
 import { RecipesScreenProps } from "@types";

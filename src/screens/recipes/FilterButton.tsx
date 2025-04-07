@@ -10,7 +10,7 @@ import _ from "lodash";
 import { Box, Text } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import { useAppSelector } from "@store/hooks";
-import { allFilters } from "@store/slices/recipesSlice";
+import { allFilters } from "@db/schema/enums";
 import { selectAccent } from "@store/slices/uiSlice";
 import images from "./images";
 

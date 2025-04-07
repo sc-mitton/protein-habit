@@ -1,8 +1,8 @@
-"""migrate
+"""redo db
 
-Revision ID: 41e1f0fb1e39
+Revision ID: e944d44206bb
 Revises: 
-Create Date: 2025-04-05 21:23:30.480469
+Create Date: 2025-04-06 17:26:43.459227
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '41e1f0fb1e39'
+revision: str = 'e944d44206bb'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None

@@ -7,7 +7,7 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { baseIap, premiumIap } from "@constants/iaps";
-import { Recipe } from "@store/slices/recipesSlice";
+import { Recipe } from "./db";
 
 export type HomeStackParamList = {
   StatsInfo: undefined;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
-import { allFilters } from "@store/slices/recipesSlice";
+import { allFilters } from "@db/schema/enums";
 
 interface RecipesScreenContextType {
   selectedFilters: {

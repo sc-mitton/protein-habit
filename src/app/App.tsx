@@ -12,6 +12,7 @@ import RootStack from "../screens/RootStack";
 import { baseIap, premiumIap } from "@constants/iaps";
 import { useNavigationTheme } from "@hooks";
 import Providers from "./Providers";
+import { useAppIntegrity } from "@hooks";
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
@@ -39,23 +40,23 @@ export const linking = {
   },
 };
 
-// Keep the splash screen visible while we fetch resources
+// Keep the splash s  creen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
-  // useAppIntegrity();
+  useAppIntegrity();
 
   const colorScheme = useColorScheme();
   const navigationTheme = useNavigationTheme();
 
   const [fontsLoaded] = useFonts({
-    "Inter-Light": require("./assets/fonts/Inter_18pt-Light.ttf"),
-    "Inter-Regular": require("./assets/fonts/Inter_18pt-Regular.ttf"),
-    "Inter-Medium": require("./assets/fonts/Inter_18pt-Medium.ttf"),
-    "Inter-SemiBold": require("./assets/fonts/Inter_18pt-SemiBold.ttf"),
-    "Inter-Bold": require("./assets/fonts/Inter_18pt-Bold.ttf"),
-    "NewYork-Heavy": require("./assets/fonts/NewYork-Heavy.otf"),
-    "SFPro-SemiboldStencil": require("./assets/fonts/SFPro-SemiboldStencil.otf"),
+    "Inter-Light": require("@assets/fonts/Inter_18pt-Light.ttf"),
+    "Inter-Regular": require("@assets/fonts/Inter_18pt-Regular.ttf"),
+    "Inter-Medium": require("@assets/fonts/Inter_18pt-Medium.ttf"),
+    "Inter-SemiBold": require("@assets/fonts/Inter_18pt-SemiBold.ttf"),
+    "Inter-Bold": require("@assets/fonts/Inter_18pt-Bold.ttf"),
+    "NewYork-Heavy": require("@assets/fonts/NewYork-Heavy.otf"),
+    "SFPro-SemiboldStencil": require("@assets/fonts/SFPro-SemiboldStencil.otf"),
   });
 
   const onLayoutRootView = useCallback(async () => {

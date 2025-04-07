@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { Box } from "@components";
-import { allFilters } from "@store/slices/recipesSlice";
+import { allFilters } from "@db/schema/enums";
 import FilterButton from "./FilterButton";
 import { useTheme } from "@shopify/restyle";
 import { Theme } from "@theme";

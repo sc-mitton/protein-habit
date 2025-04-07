@@ -1,12 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useMemo,
-  useCallback,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import React, { useEffect, useRef, useMemo, useCallback } from "react";
 import { StyleSheet } from "react-native";
 import Reanimated, {
   useAnimatedStyle,
@@ -16,7 +8,7 @@ import Reanimated, {
 import _ from "lodash";
 
 import { Box, Button, Text } from "@components";
-import { allFilters } from "@store/slices/recipesSlice";
+import { allFilters } from "@db/schema/enums";
 import { useRecipesScreenContext } from "./Context";
 
 const OFFSET_LEFT = 20;

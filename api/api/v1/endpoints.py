@@ -6,20 +6,16 @@ from fastapi import APIRouter, HTTPException, Depends, Request, Header
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from fastapi_types import TextInput
-from typing import Optional
-from fastapi_pagination import Page, paginate, Params
 
 from db.comp_food_database import get_db
 from db.database import (
-    get_db as get_attest_db, Key, Challenge, Recipe,
-    Cuisine, MealType, Protein, DietType
+    get_db as get_attest_db, Key, Challenge
 )
 from rags.protein_amount import chain
 from utils.get_secret import get_secret
 from security.attest.ios import validate_attestation, get_public_key
 from conf import IOS_APP_ID, IOS_BUNDLE_ID
 from security.permissions import assertion_pass, test_only
-from api.v1.schemas import RecipeResponse
 
 router = APIRouter()
 SECRET_KEY = get_secret("SECRET_KEY")
@@ -145,46 +141,3 @@ async def root():
 @router.get("/health")
 async def health():
     return {"status": "ok"}
-
-
-@router.get("/recipes", response_model=Page[RecipeResponse])
-async def get_recipes(
-    db: Session = Depends(get_db),
-    params: Params = Depends(),
-    cuisine: Optional[str] = None,
-    meal_type: Optional[str] = None,
-    protein: Optional[str] = None,
-    diet_type: Optional[str] = None,
-    search: Optional[str] = None
-):
-    """
-    Get recipes with filtering and pagination.
-
-    Args:
-        cuisine: Filter by cuisine type
-        meal_type: Filter by meal type
-        protein: Filter by protein type
-        diet_type: Filter by diet type
-        search: Search term to filter recipes by description
-    """
-    # Start with base query
-    query = db.query(Recipe)
-
-    # Apply filters using a dictionary to avoid repetitive code
-    filter_map = {
-        'cuisine': (Recipe.cuisines, Cuisine.name),
-        'meal_type': (Recipe.meal_types, MealType.name),
-        'protein': (Recipe.proteins, Protein.name),
-        'diet_type': (Recipe.diet_types, DietType.name)
-    }
-
-    for filter_name, (relationship, name_field) in filter_map.items():
-        filter_value = locals().get(filter_name)
-        if filter_value:
-            query = query.join(relationship).filter(name_field == filter_value)
-
-    if search:
-        query = query.filter(Recipe.description.ilike(f"%{search}%"))
-
-    # Use fastapi_pagination to paginate the results
-    return paginate(query, params)
