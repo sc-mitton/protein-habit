@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { inArray, sql } from "drizzle-orm";
 
 import {
   Cuisine,
@@ -8,6 +9,7 @@ import {
   RecipeWithAssociations,
 } from "@db/schema/types";
 import { useDrizzleDb } from "./useDrizzleDb";
+import type { RecipeFts } from "@db/schema/types";
 
 interface UseRecipesOptions {
   pageSize?: number;
@@ -28,6 +30,16 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
   const [recipes, setRecipes] = useState<RecipeWithAssociations[]>([]);
 
   const query = async () => {
+    let searchIds: number[] = [];
+    if (options.filters?.searchQuery) {
+      const results = (await db.get(sql`
+        SELECT id FROM recipes_fts
+        WHERE recipes_fts MATCH '${options.filters.searchQuery}'
+        limit ${10}
+      `)) as RecipeFts[];
+      searchIds = results.map((result) => result.id);
+    }
+
     const results = await db.query.recipesTable.findMany({
       columns: {
         id: true,
@@ -49,6 +61,9 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
         const conditions = [eq(recipe.seen, false)];
         if (cursorId.current) {
           conditions.push(gt(recipe.id, cursorId.current));
+        }
+        if (searchIds.length > 0) {
+          conditions.push(inArray(recipe.id, searchIds));
         }
         return and(...conditions);
       },
