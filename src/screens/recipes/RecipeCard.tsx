@@ -9,10 +9,11 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
+import seedrandom from "seedrandom";
 
 import { bookmark } from "@assets/lotties";
 import { Box, BumpButton, Text, PulseText } from "@components";
-import { Recipe } from "@db/schema/types";
+import { RecipeWithAssociations } from "@db/schema/types";
 import { Theme } from "@theme";
 import { RootStackParamList } from "@types";
 
@@ -46,9 +47,7 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  recipe: Recipe & {
-    proteinPerServing: number;
-  };
+  recipe: RecipeWithAssociations;
   isLoading?: boolean;
 }
 
@@ -64,6 +63,7 @@ const RecipeCard = (props: Props) => {
   };
 
   const handlePress = () => {
+    if (!props.recipe) return;
     navigation.navigate("RecipeDetail", { recipe: props.recipe });
   };
 
@@ -98,7 +98,7 @@ const RecipeCard = (props: Props) => {
     <Box
       style={styles.masonTyle}
       margin={"s"}
-      height={160 + Math.random() * 60}
+      height={160 + Number(seedrandom(props.recipe.id.toString())) * 60}
     >
       <TouchableHighlight
         style={styles.touchable}
@@ -127,7 +127,7 @@ const RecipeCard = (props: Props) => {
               style={styles.lottie}
             />
           </BumpButton>
-          {/* <Image
+          <Image
             source={props.recipe.thumbnail}
             contentFit="cover"
             transition={200}
@@ -138,8 +138,7 @@ const RecipeCard = (props: Props) => {
                 <Box style={[styles.cardBox]} backgroundColor="primaryButton" />
               </Animated.View>
             }
-          /> */}
-          <Box style={[styles.cardBox]} backgroundColor="primaryButton" />
+          />
           <Box style={styles.titleContainer}>
             <PulseText pulsing={props.isLoading}>
               <Text fontSize={15} color="white">
@@ -150,7 +149,7 @@ const RecipeCard = (props: Props) => {
               <Text
                 color="white"
                 fontSize={13}
-              >{`${props.recipe?.proteinPerServing || 32} g / serving`}</Text>
+              >{`${props.recipe?.serving?.proteinPerServing} g / serving`}</Text>
             </PulseText>
           </Box>
         </Box>

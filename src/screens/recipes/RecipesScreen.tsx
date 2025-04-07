@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -8,14 +9,18 @@ import {
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { MasonryFlashList } from "@shopify/flash-list";
+import { inArray } from "drizzle-orm";
 
 import { RecipesScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
+import { useRecipes } from "@hooks";
 import { showBottomBar } from "@store/slices/uiSlice";
 import Filters from "./Filters";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
+import { recipesTable } from "@db/schema/schema";
+import { useDrizzleDb } from "@hooks";
 
 type Props = RecipesScreenProps<"Explore">;
 
@@ -32,7 +37,10 @@ const ExploreScreen: React.FC<Props> = (props) => {
   const filtersHeight = useRef(0);
   const { selectedFilters, searchQuery } = useRecipesScreenContext();
   const [showFiltersHeader, setShowFiltersHeader] = useState(false);
-
+  const { recipes, fetchMore } = useRecipes({
+    filters: { searchQuery, ...selectedFilters },
+  });
+  const { db } = useDrizzleDb();
   useEffect(() => {
     return () => {
       dispatch(showBottomBar(true));
@@ -81,6 +89,10 @@ const ExploreScreen: React.FC<Props> = (props) => {
     lastOffsetY.current = currentOffsetY;
   };
 
+  const handleEndReached = () => {
+    fetchMore();
+  };
+
   return (
     <MasonryFlashList
       contentContainerStyle={{
@@ -89,13 +101,26 @@ const ExploreScreen: React.FC<Props> = (props) => {
         paddingTop: 16,
       }}
       contentInsetAdjustmentBehavior="automatic"
-      data={}
+      data={recipes}
       renderItem={({ item }) => <RecipeCard recipe={item} isLoading={true} />}
+      onViewableItemsChanged={({ changed }) => {
+        // Mark recipes as seen when they leave the view
+        db.update(recipesTable)
+          .set({ seen: true })
+          .where(
+            inArray(
+              recipesTable.id,
+              changed.filter((c) => !c.isViewable).map((c) => c.item.id),
+            ),
+          );
+      }}
       keyExtractor={(_, index) => `recipe-${index}`}
       ListHeaderComponent={ListHeaderComponent}
       onScrollBeginDrag={handleScrollBeginDrag}
       onScrollEndDrag={handleScrollEndDrag}
       onScroll={handleScroll}
+      onEndReached={handleEndReached}
+      onEndReachedThreshold={0.5}
       numColumns={2}
       estimatedItemSize={200}
       scrollEventThrottle={16}
@@ -114,7 +139,6 @@ export default function (props: Props) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   image: {
     width: 32,

@@ -26,6 +26,7 @@
     "@shopify/restyle": "^2.4.4",
     "@types/big.js": "^6.2.2",
     "@types/lodash-es": "^4.17.12",
+    "@types/seedrandom": "^3.0.8",
     "app-integrity": "file:./modules/app-integrity",
     "axios": "^1.8.4",
     "big.js": "^6.2.2",
@@ -79,6 +80,7 @@
     "react-redux": "^9.2.0",
     "redux-devtools-expo-dev-plugin": "^1.0.0",
     "redux-persist": "^6.0.0",
+    "seedrandom": "^3.0.5",
     "zeego": "^2.0.4",
     "zod": "^3.24.2"
   },

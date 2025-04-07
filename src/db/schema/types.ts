@@ -1,13 +1,15 @@
-import { InferSelectModel, InferInsertModel } from "drizzle-orm";
+import { InferSelectModel } from "drizzle-orm";
 import {
   cuisinesTable,
   mealTypesTable,
   proteinTypesTable,
   dishTypesTable,
   recipesTable,
-  recipeCuisineAssociation,
-  recipeMealTypeAssociation,
-  recipeProteinAssociation,
+  recipesToCuisines,
+  recipesToMealTypes,
+  recipesToProteins,
+  recipesToDishTypes,
+  servingsTable,
 } from "@db/schema/schema";
 
 // Define types for each table (for selecting/reading)
@@ -16,28 +18,24 @@ export type MealType = InferSelectModel<typeof mealTypesTable>;
 export type Protein = InferSelectModel<typeof proteinTypesTable>;
 export type DishType = InferSelectModel<typeof dishTypesTable>;
 export type Recipe = InferSelectModel<typeof recipesTable>;
+export type Serving = InferSelectModel<typeof servingsTable>;
 export type RecipeCuisineAssociation = InferSelectModel<
-  typeof recipeCuisineAssociation
+  typeof recipesToCuisines
 >;
 export type RecipeMealTypeAssociation = InferSelectModel<
-  typeof recipeMealTypeAssociation
+  typeof recipesToMealTypes
 >;
 export type RecipeProteinAssociation = InferSelectModel<
-  typeof recipeProteinAssociation
+  typeof recipesToProteins
+>;
+export type RecipeDishTypeAssociation = InferSelectModel<
+  typeof recipesToDishTypes
 >;
 
-// Define types for inserting new records (without auto-generated fields)
-export type NewCuisine = InferInsertModel<typeof cuisinesTable>;
-export type NewMealType = InferInsertModel<typeof mealTypesTable>;
-export type NewProtein = InferInsertModel<typeof proteinTypesTable>;
-export type NewDishType = InferInsertModel<typeof dishTypesTable>;
-export type NewRecipe = InferInsertModel<typeof recipesTable>;
-export type NewRecipeCuisineAssociation = InferInsertModel<
-  typeof recipeCuisineAssociation
->;
-export type NewRecipeMealTypeAssociation = InferInsertModel<
-  typeof recipeMealTypeAssociation
->;
-export type NewRecipeProteinAssociation = InferInsertModel<
-  typeof recipeProteinAssociation
->;
+export type RecipeWithAssociations = Recipe & {
+  proteins: Protein[];
+  dishTypes: DishType[];
+  mealTypes: MealType[];
+  cuisines: Cuisine[];
+  serving: Serving;
+};

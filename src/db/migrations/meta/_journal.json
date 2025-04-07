@@ -22,6 +22,13 @@
       "when": 1744041695650,
       "tag": "0002_furry_chimera",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1744060379433,
+      "tag": "0003_fine_anita_blake",
+      "breakpoints": true
     }
   ]
 }
