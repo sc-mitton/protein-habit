@@ -13,7 +13,7 @@ import fontStyles from "@styles/fonts";
 import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import { selectAccent, selectFont } from "@store/slices/uiSlice";
-import success from "@lotties/success.json";
+import { success as successLottie } from "@assets/lotties";
 
 const styles = StyleSheet.create({
   entry: {
@@ -100,7 +100,7 @@ const Value = ({
           autoPlay={false}
           style={{ width: 48, height: 48 }}
           speed={1.4}
-          source={success}
+          source={successLottie}
           colorFilters={[
             {
               keypath: "check",

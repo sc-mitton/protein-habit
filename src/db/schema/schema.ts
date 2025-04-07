@@ -44,11 +44,11 @@ export const dishTypesTable = sqliteTable("dish_types", {
 // Recipe table
 export const recipesTable = sqliteTable("recipes", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
   description: text("description"),
   ingredients: text("ingredients"),
   instructions: text("instructions"),
   thumbnail: text("thumbnail"),
-  dishTypeId: integer("dish_type_id").references(() => dishTypesTable.id),
 });
 
 // Association tables for many-to-many relationships

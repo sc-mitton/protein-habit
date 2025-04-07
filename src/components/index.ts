@@ -15,3 +15,4 @@ export * from "./loaders/PulseBox";
 export * from "./ProgressCircle";
 export * from "./SwipeOptions";
 export * from "./IncrementDecrement";
+export * from "./BumpButton";

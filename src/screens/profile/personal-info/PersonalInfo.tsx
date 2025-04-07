@@ -25,7 +25,7 @@ import {
 } from "@store/slices/proteinSlice";
 import type { ProfileScreenProps } from "@types";
 import { useTheme } from "@shopify/restyle";
-import successLottie from "@lotties/success.json";
+import { success as successLottie } from "@assets/lotties";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),

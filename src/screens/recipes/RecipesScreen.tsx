@@ -15,6 +15,7 @@ import { showBottomBar } from "@store/slices/uiSlice";
 import Filters from "./Filters";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
+import RecipeCard from "./RecipeCard";
 
 type Props = RecipesScreenProps<"Explore">;
 
@@ -26,9 +27,6 @@ const styles = StyleSheet.create({
   recipeBox: {
     flex: 1,
     margin: 8,
-  },
-  masonTyle: {
-    flex: 1,
   },
   containerAndroid: {
     paddingTop: 80,
@@ -43,11 +41,6 @@ const styles = StyleSheet.create({
     paddingTop: 16,
   },
 });
-
-const DATA = Array.from({ length: 10 }, (_, index) => ({
-  id: index,
-  height: Math.floor(Math.random() * 60) + 160,
-}));
 
 const ListHeaderComponent = () => {
   const { searchQuery } = useRecipesScreenContext();
@@ -122,18 +115,8 @@ const ExploreScreen: React.FC<Props> = (props) => {
         paddingTop: 16,
       }}
       contentInsetAdjustmentBehavior="automatic"
-      data={DATA}
-      renderItem={({ item }) => (
-        <Box
-          style={styles.masonTyle}
-          borderRadius="l"
-          height={item.height}
-          margin={"s"}
-          backgroundColor="primaryButton"
-        >
-          <Box flex={1}></Box>
-        </Box>
-      )}
+      data={}
+      renderItem={({ item }) => <RecipeCard recipe={item} />}
       keyExtractor={(_, index) => `recipe-${index}`}
       ListHeaderComponent={ListHeaderComponent}
       onScrollBeginDrag={handleScrollBeginDrag}

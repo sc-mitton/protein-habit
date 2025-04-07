@@ -9,7 +9,7 @@ import Animated, {
   withSequence,
 } from "react-native-reanimated";
 import { Box, Text } from "./base";
-import checkMark from "@lotties/checkmark.json";
+import { checkmark } from "@assets/lotties";
 import { useAppSelector } from "@store/hooks";
 import { selectAccent } from "@store/slices/uiSlice";
 
@@ -90,7 +90,7 @@ export function Checkbox(props: CheckboxProps) {
           >
             <LottieView
               ref={animation}
-              source={checkMark}
+              source={checkmark}
               autoPlay={false}
               speed={3}
               loop={false}

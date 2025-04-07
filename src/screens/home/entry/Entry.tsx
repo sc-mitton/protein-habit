@@ -56,7 +56,7 @@ const Entry = (props: HomeScreenProps<"EntryModal">) => {
         );
       }
       props.navigation.goBack();
-    }, 700);
+    }, 900);
   };
 
   return (

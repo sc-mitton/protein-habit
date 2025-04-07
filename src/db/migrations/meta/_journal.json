@@ -15,6 +15,13 @@
       "when": 1744036781572,
       "tag": "0001_uneven_the_hunter",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1744041695650,
+      "tag": "0002_furry_chimera",
+      "breakpoints": true
     }
   ]
 }
