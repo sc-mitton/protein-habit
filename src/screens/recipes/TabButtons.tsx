@@ -12,7 +12,7 @@ import { allFilters } from "@db/schema/enums";
 import { useRecipesScreenContext } from "./Context";
 
 const OFFSET_LEFT = 20;
-const TAB_GAP = 16;
+const TAB_GAP = 20;
 
 // Memoized Label component to prevent unnecessary re-renders
 const Label = React.memo(

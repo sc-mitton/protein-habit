@@ -24,7 +24,7 @@ const HeaderRight = () => {
         borderColor={scheme == "dark" ? "matchBlurBackground" : "transparent"}
         borderWidth={1.5}
         gap="m"
-        marginBottom={Platform.OS === "ios" ? "s" : "none"}
+        marginBottom={Platform.OS === "ios" ? "s" : "xxs"}
         onPress={() => {
           navigation.navigate("BookmarkedRecipes");
         }}

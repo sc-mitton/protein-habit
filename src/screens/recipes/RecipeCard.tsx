@@ -148,8 +148,8 @@ const RecipeCard = (props: Props) => {
             <PulseText opacity={0.8} pulsing={props.isLoading}>
               <Text
                 color="white"
-                fontSize={13}
-              >{`${props.recipe?.serving?.proteinPerServing} g / serving`}</Text>
+                fontSize={10}
+              >{`${props.recipe?.serving?.proteinPerServing} g protein / serving`}</Text>
             </PulseText>
           </Box>
         </Box>
