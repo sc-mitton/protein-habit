@@ -1,6 +1,7 @@
 export const cuisines = [
   "italian",
-  "mexican",
+  "american",
+  "latin",
   "indian",
   "asian",
   "mediterranean",
@@ -17,12 +18,13 @@ export const meals = [
 export const proteins = [
   "chicken",
   "steak",
-  "ground_beef",
+  "beef",
   "shrimp",
   "tofu",
   "fish",
   "lamb",
   "pork",
+  "turkey",
 ] as const;
 
 export const dishes = [

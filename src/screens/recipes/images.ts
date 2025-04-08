@@ -1,6 +1,6 @@
 const images = {
   italian: require("../../../assets/tags/italian.png"),
-  mexican: require("../../../assets/tags/mexican.png"),
+  latin: require("../../../assets/tags/latin.png"),
   indian: require("../../../assets/tags/indian.png"),
   asian: require("../../../assets/tags/asian.png"),
   mediterranean: require("../../../assets/tags/mediterranean.png"),
@@ -20,9 +20,11 @@ const images = {
   chicken: require("../../../assets/tags/chicken.png"),
   tofu: require("../../../assets/tags/tofu.png"),
   fish: require("../../../assets/tags/fish.png"),
-  ground_beef: require("../../../assets/tags/ground_beef.png"),
+  beef: require("../../../assets/tags/beef.png"),
   lamb: require("../../../assets/tags/lamb.png"),
   pork: require("../../../assets/tags/pork.png"),
+  turkey: require("../../../assets/tags/turkey.png"),
+  american: require("../../../assets/tags/american.png"),
 } as Record<string, any>;
 
 export default images;
