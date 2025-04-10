@@ -44,21 +44,20 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
       columns: {
         id: true,
         title: true,
-        description: true,
         ingredients: true,
         instructions: true,
         thumbnail: true,
-        seen: true,
+        lastSeen: true,
       },
       with: {
         recipeCuisines: { with: { cuisine: true } },
         recipeMealTypes: { with: { mealType: true } },
         recipeProteins: { with: { protein: true } },
         recipeDishTypes: { with: { dishType: true } },
-        serving: true,
+        meta: true,
       },
       where: (recipe, { eq, and, gt }) => {
-        const conditions = [eq(recipe.seen, false)];
+        const conditions = [];
         if (cursorId.current) {
           conditions.push(gt(recipe.id, cursorId.current));
         }

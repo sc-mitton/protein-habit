@@ -60,7 +60,7 @@ const RootStack = () => {
         <Stack.Screen
           name="RecipeDetail"
           options={({ route }) => ({
-            title: route.params.recipe.description ?? "Recipe",
+            title: route.params.recipe.title ?? "Recipe",
           })}
           component={RecipesDetailScreen}
         />

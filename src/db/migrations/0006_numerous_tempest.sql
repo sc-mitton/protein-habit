@@ -1,0 +1,1 @@
+ALTER TABLE `meta` RENAME COLUMN "cooking_time" TO "cook_time";

@@ -19,6 +19,7 @@
       "@utils": ["src/utils"],
       "@db/*": ["src/db/*"],
       "@db": ["src/db"]
-    }
+    },
+    "types": ["bun-types"]
   }
 }

@@ -7,11 +7,10 @@ import { CuisineEnum, MealTypeEnum, ProteinEnum, DishTypeEnum } from "./enums";
 export const recipesTable = sqliteTable("recipes", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
-  description: text("description").notNull(),
-  ingredients: text("ingredients").notNull(),
-  instructions: text("instructions").notNull(),
+  ingredients: text("ingredients", { mode: "json" }).notNull(),
+  instructions: text("instructions", { mode: "json" }).notNull(),
   thumbnail: text("thumbnail").notNull(),
-  seen: integer("seen", { mode: "boolean" }).notNull().default(false),
+  lastSeen: text("last_seen"),
 });
 
 export const cuisinesTable = sqliteTable("cuisines", {
@@ -52,16 +51,17 @@ export const dishTypesTable = sqliteTable("dish_types", {
 
 /* ------------------------ Nutrition Meta Data Table ----------------------- */
 
-export const servingsTable = sqliteTable("servings", {
+export const metaTable = sqliteTable("meta", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   recipeId: integer("recipe_id")
     .notNull()
     .unique()
-    .references(() => recipesTable.id),
-  size: real("size").notNull(),
-  sizeUnit: text("size_unit").notNull(),
+    .references(() => recipesTable.id, { onDelete: "cascade" }),
+  numberOfServings: integer("number_of_servings").notNull(),
   proteinPerServing: real("protein_per_serving").notNull(),
-  caloriesPerServing: real("calories_per_serving").notNull(),
+  caloriesPerServing: real("calories_per_serving"),
+  prepTime: integer("prep_time").notNull(),
+  cookTime: integer("cook_time"),
 });
 
 /* ----------------------------- Through Tables ----------------------------- */
@@ -69,7 +69,7 @@ export const servingsTable = sqliteTable("servings", {
 export const recipesToCuisines = sqliteTable("recipe_cuisine_association", {
   recipeId: integer("recipe_id")
     .notNull()
-    .references(() => recipesTable.id),
+    .references(() => recipesTable.id, { onDelete: "cascade" }),
   cuisineId: integer("cuisine_id")
     .notNull()
     .references(() => cuisinesTable.id),
@@ -78,7 +78,7 @@ export const recipesToCuisines = sqliteTable("recipe_cuisine_association", {
 export const recipesToMealTypes = sqliteTable("recipe_meal_type_association", {
   recipeId: integer("recipe_id")
     .notNull()
-    .references(() => recipesTable.id),
+    .references(() => recipesTable.id, { onDelete: "cascade" }),
   mealTypeId: integer("meal_type_id")
     .notNull()
     .references(() => mealTypesTable.id),
@@ -87,7 +87,7 @@ export const recipesToMealTypes = sqliteTable("recipe_meal_type_association", {
 export const recipesToProteins = sqliteTable("recipe_protein_association", {
   recipeId: integer("recipe_id")
     .notNull()
-    .references(() => recipesTable.id),
+    .references(() => recipesTable.id, { onDelete: "cascade" }),
   proteinId: integer("protein_id")
     .notNull()
     .references(() => proteinTypesTable.id),
@@ -96,7 +96,7 @@ export const recipesToProteins = sqliteTable("recipe_protein_association", {
 export const recipesToDishTypes = sqliteTable("recipe_dish_type_association", {
   recipeId: integer("recipe_id")
     .notNull()
-    .references(() => recipesTable.id),
+    .references(() => recipesTable.id, { onDelete: "cascade" }),
   dishTypeId: integer("dish_type_id")
     .notNull()
     .references(() => dishTypesTable.id),
@@ -109,7 +109,7 @@ export const recipesRelations = relations(recipesTable, ({ many, one }) => ({
   recipeMealTypes: many(recipesToMealTypes),
   recipeProteins: many(recipesToProteins),
   recipeDishTypes: many(recipesToDishTypes),
-  serving: one(servingsTable),
+  meta: one(metaTable),
 }));
 
 export const recipesCuisinesRelations = relations(
@@ -184,9 +184,9 @@ export const dishTypeRelations = relations(dishTypesTable, ({ many }) => ({
   recipes: many(recipesToDishTypes),
 }));
 
-export const servingRelations = relations(servingsTable, ({ one }) => ({
+export const metaRelations = relations(metaTable, ({ one }) => ({
   recipe: one(recipesTable, {
-    fields: [servingsTable.recipeId],
+    fields: [metaTable.recipeId],
     references: [recipesTable.id],
   }),
 }));

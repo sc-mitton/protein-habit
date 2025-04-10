@@ -1,0 +1,1 @@
+ALTER TABLE `meta` ADD `cooking_time` integer;
