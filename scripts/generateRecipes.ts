@@ -18,16 +18,10 @@ import { Database } from "bun:sqlite";
 import { eq } from "drizzle-orm";
 import { OpenAI } from "openai";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
-import { prompt, role } from "./prompts";
-import readline from "readline";
+import { prompt, role } from "./recipe-gen-promps";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-});
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
 });
 
 // Initialize database connection
@@ -348,6 +342,7 @@ async function main() {
     }
     console.log(`✅ Successfully processed`);
   }
+  sqlite.close();
 }
 
 main().catch(console.error);

@@ -128,7 +128,10 @@ const RecipeCard = (props: Props) => {
             />
           </BumpButton>
           <Image
-            source={props.recipe.thumbnail}
+            // source={{uri: props.recipe.thumbnail}}
+            source={{
+              uri: "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.png",
+            }}
             contentFit="cover"
             transition={200}
             placeholder={
@@ -149,7 +152,7 @@ const RecipeCard = (props: Props) => {
               <Text
                 color="white"
                 fontSize={10}
-              >{`${props.recipe?.serving?.proteinPerServing} g protein / serving`}</Text>
+              >{`${props.recipe.meta.proteinPerServing} g protein / serving`}</Text>
             </PulseText>
           </Box>
         </Box>

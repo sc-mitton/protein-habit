@@ -1,8 +1,8 @@
 {
+  "id": "92151926-023e-4e4a-9222-665d96f3954e",
+  "prevId": "5a70f532-0cf7-43d0-bd16-967317a5f43a",
   "version": "6",
   "dialect": "sqlite",
-  "id": "e83a9fee-ed3f-4fe0-8328-d3f5a69190b0",
-  "prevId": "2a5f61d0-aace-4ea5-8d67-2bacced343d5",
   "tables": {
     "cuisines": {
       "name": "cuisines",
@@ -100,6 +100,87 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "meta": {
+      "name": "meta",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "number_of_servings": {
+          "name": "number_of_servings",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "protein_per_serving": {
+          "name": "protein_per_serving",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "calories_per_serving": {
+          "name": "calories_per_serving",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "prep_time": {
+          "name": "prep_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cook_time": {
+          "name": "cook_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "meta_recipe_id_unique": {
+          "name": "meta_recipe_id_unique",
+          "columns": [
+            "recipe_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "meta_recipe_id_recipes_id_fk": {
+          "name": "meta_recipe_id_recipes_id_fk",
+          "tableFrom": "meta",
+          "columnsFrom": [
+            "recipe_id"
+          ],
+          "tableTo": "recipes",
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "proteins": {
       "name": "proteins",
       "columns": {
@@ -132,6 +213,58 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
+    "recipes": {
+      "name": "recipes",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ingredients": {
+          "name": "ingredients",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "instructions": {
+          "name": "instructions",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "thumbnail": {
+          "name": "thumbnail",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "last_seen": {
+          "name": "last_seen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "recipe_cuisine_association": {
       "name": "recipe_cuisine_association",
       "columns": {
@@ -155,28 +288,28 @@
         "recipe_cuisine_association_recipe_id_recipes_id_fk": {
           "name": "recipe_cuisine_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_cuisine_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_cuisine_association_cuisine_id_cuisines_id_fk": {
           "name": "recipe_cuisine_association_cuisine_id_cuisines_id_fk",
           "tableFrom": "recipe_cuisine_association",
-          "tableTo": "cuisines",
           "columnsFrom": [
             "cuisine_id"
           ],
+          "tableTo": "cuisines",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -206,28 +339,28 @@
         "recipe_dish_type_association_recipe_id_recipes_id_fk": {
           "name": "recipe_dish_type_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_dish_type_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_dish_type_association_dish_type_id_dish_types_id_fk": {
           "name": "recipe_dish_type_association_dish_type_id_dish_types_id_fk",
           "tableFrom": "recipe_dish_type_association",
-          "tableTo": "dish_types",
           "columnsFrom": [
             "dish_type_id"
           ],
+          "tableTo": "dish_types",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -257,28 +390,28 @@
         "recipe_meal_type_association_recipe_id_recipes_id_fk": {
           "name": "recipe_meal_type_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_meal_type_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_meal_type_association_meal_type_id_meal_types_id_fk": {
           "name": "recipe_meal_type_association_meal_type_id_meal_types_id_fk",
           "tableFrom": "recipe_meal_type_association",
-          "tableTo": "meal_types",
           "columnsFrom": [
             "meal_type_id"
           ],
+          "tableTo": "meal_types",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -308,82 +441,30 @@
         "recipe_protein_association_recipe_id_recipes_id_fk": {
           "name": "recipe_protein_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_protein_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_protein_association_protein_id_proteins_id_fk": {
           "name": "recipe_protein_association_protein_id_proteins_id_fk",
           "tableFrom": "recipe_protein_association",
-          "tableTo": "proteins",
           "columnsFrom": [
             "protein_id"
           ],
+          "tableTo": "proteins",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "recipes": {
-      "name": "recipes",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "ingredients": {
-          "name": "ingredients",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "instructions": {
-          "name": "instructions",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "thumbnail": {
-          "name": "thumbnail",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -392,9 +473,9 @@
   "views": {},
   "enums": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   },
   "internal": {
     "indexes": {}

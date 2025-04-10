@@ -101,13 +101,12 @@ const ExploreScreen: React.FC<Props> = (props) => {
         paddingTop: 16,
       }}
       contentInsetAdjustmentBehavior="automatic"
-      // data={recipes}
-      data={Array.from({ length: 100 }, (_, i) => i)}
-      renderItem={({ item }) => <RecipeCard isLoading={true} />}
+      data={recipes}
+      renderItem={({ item }) => <RecipeCard recipe={item} isLoading={true} />}
       onViewableItemsChanged={({ changed }) => {
         // Mark recipes as seen when they leave the view
         db.update(recipesTable)
-          .set({ seen: true })
+          .set({ lastSeen: new Date().toISOString() })
           .where(
             inArray(
               recipesTable.id,

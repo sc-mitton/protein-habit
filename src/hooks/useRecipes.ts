@@ -56,7 +56,8 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
         recipeDishTypes: { with: { dishType: true } },
         meta: true,
       },
-      where: (recipe, { eq, and, gt }) => {
+      orderBy: (recipe, { desc }) => [desc(recipe.lastSeen)],
+      where: (recipe, { and, gt }) => {
         const conditions = [];
         if (cursorId.current) {
           conditions.push(gt(recipe.id, cursorId.current));
