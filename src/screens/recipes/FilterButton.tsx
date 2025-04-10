@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    opacity: 0.85,
   },
   gradient: {
     zIndex: -1,

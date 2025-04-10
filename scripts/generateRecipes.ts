@@ -127,7 +127,7 @@ async function storeRecipeInDb(recipe: GeneratedRecipe): Promise<void> {
       title: recipe.name,
       ingredients: ingredientsMarkdown,
       instructions: instructionsMarkdown,
-      thumbnail: "default_thumbnail.jpg",
+      thumbnail: "",
     })
     .returning();
 
@@ -330,18 +330,18 @@ async function main() {
   const dishes = readDishesCsv(dishesPath);
   console.log(`Found ${dishes.length} dishes in CSV`);
 
-  // Process each dish
-  for (let i = 0; i < dishes.length; i++) {
-    const dish = dishes[i];
-    console.log(`Processing dish ${i + 1}/${dishes.length}: ${dish.name}`);
-    try {
-      await processDish(dish);
-    } catch (error) {
-      console.error(`❌ Error processing dish`, error);
-      continue;
-    }
-    console.log(`✅ Successfully processed`);
-  }
+  // // Process each dish
+  // for (let i = 0; i < dishes.length; i++) {
+  //   const dish = dishes[i];
+  //   console.log(`Processing dish ${i + 1}/${dishes.length}: ${dish.name}`);
+  //   try {
+  //     await processDish(dish);
+  //   } catch (error) {
+  //     console.error(`❌ Error processing dish`, error);
+  //     continue;
+  //   }
+  //   console.log(`✅ Successfully processed`);
+  // }
   sqlite.close();
 }
 

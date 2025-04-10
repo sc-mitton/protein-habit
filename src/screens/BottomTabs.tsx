@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@shopify/restyle";
 import { Platform, StyleSheet } from "react-native";
-import { User } from "geist-native-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { SymbolView } from "expo-symbols";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Animated, {
   FadeOut,
   interpolate,
@@ -29,12 +27,15 @@ import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
+const HEIGHT = Platform.OS === "ios" ? 120 : 80;
+const BOTTOM_POS = Platform.OS === "ios" ? 50 : 40;
+
 const styles = StyleSheet.create({
   tabBar: {
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: Platform.OS === "ios" ? 60 : 40,
+    bottom: BOTTOM_POS,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -42,12 +43,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: Platform.OS === "ios" ? -40 : -20,
-    height: Platform.OS === "ios" ? 80 : 60,
+    bottom: -BOTTOM_POS,
+    height: HEIGHT,
   },
   gradient: {
     width: "100%",
-    height: Platform.OS === "ios" ? 80 : 60,
+    height: HEIGHT,
   },
 });
 
@@ -120,7 +121,6 @@ const CustomTabBar = ({
             end={{ x: 0, y: 1 }}
             style={styles.gradient}
           />
-          <Box backgroundColor="secondaryBackground" height={60} />
         </Animated.View>
       )}
       <Box

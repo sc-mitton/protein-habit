@@ -1,20 +1,26 @@
 import { text, integer, sqliteTable, real } from "drizzle-orm/sqlite-core";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { CuisineEnum, MealTypeEnum, ProteinEnum, DishTypeEnum } from "./enums";
+import { v4 as uuidv4 } from "uuid";
 
 /* --------------------------------- Tables --------------------------------- */
 
 export const recipesTable = sqliteTable("recipes", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
   title: text("title").notNull(),
   ingredients: text("ingredients", { mode: "json" }).notNull(),
   instructions: text("instructions", { mode: "json" }).notNull(),
   thumbnail: text("thumbnail").notNull(),
   lastSeen: text("last_seen"),
+  createdOn: text("created_on").default(sql`CURRENT_TIMESTAMP`),
 });
 
 export const cuisinesTable = sqliteTable("cuisines", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(CuisineEnum) as [string, ...string[]],
   })
@@ -23,7 +29,9 @@ export const cuisinesTable = sqliteTable("cuisines", {
 });
 
 export const mealTypesTable = sqliteTable("meal_types", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(MealTypeEnum) as [string, ...string[]],
   })
@@ -32,7 +40,9 @@ export const mealTypesTable = sqliteTable("meal_types", {
 });
 
 export const proteinTypesTable = sqliteTable("proteins", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(ProteinEnum) as [string, ...string[]],
   })
@@ -41,7 +51,9 @@ export const proteinTypesTable = sqliteTable("proteins", {
 });
 
 export const dishTypesTable = sqliteTable("dish_types", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(DishTypeEnum) as [string, ...string[]],
   })
@@ -52,8 +64,10 @@ export const dishTypesTable = sqliteTable("dish_types", {
 /* ------------------------ Nutrition Meta Data Table ----------------------- */
 
 export const metaTable = sqliteTable("meta", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  recipeId: integer("recipe_id")
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
+  recipeId: text("recipe_id")
     .notNull()
     .unique()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
@@ -67,37 +81,37 @@ export const metaTable = sqliteTable("meta", {
 /* ----------------------------- Through Tables ----------------------------- */
 
 export const recipesToCuisines = sqliteTable("recipe_cuisine_association", {
-  recipeId: integer("recipe_id")
+  recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  cuisineId: integer("cuisine_id")
+  cuisineId: text("cuisine_id")
     .notNull()
     .references(() => cuisinesTable.id),
 });
 
 export const recipesToMealTypes = sqliteTable("recipe_meal_type_association", {
-  recipeId: integer("recipe_id")
+  recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  mealTypeId: integer("meal_type_id")
+  mealTypeId: text("meal_type_id")
     .notNull()
     .references(() => mealTypesTable.id),
 });
 
 export const recipesToProteins = sqliteTable("recipe_protein_association", {
-  recipeId: integer("recipe_id")
+  recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  proteinId: integer("protein_id")
+  proteinId: text("protein_id")
     .notNull()
     .references(() => proteinTypesTable.id),
 });
 
 export const recipesToDishTypes = sqliteTable("recipe_dish_type_association", {
-  recipeId: integer("recipe_id")
+  recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  dishTypeId: integer("dish_type_id")
+  dishTypeId: text("dish_type_id")
     .notNull()
     .references(() => dishTypesTable.id),
 });

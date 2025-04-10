@@ -24,13 +24,13 @@ interface UseRecipesOptions {
 
 export const useRecipes = (options: UseRecipesOptions = {}) => {
   const { db } = useDrizzleDb();
-  const cursorId = useRef<number | null>(null);
+  const cursorId = useRef<string | null>(null);
   const endOfResults = useRef(false);
   const pageSize = options.pageSize || 10;
   const [recipes, setRecipes] = useState<RecipeWithAssociations[]>([]);
 
   const query = async () => {
-    let searchIds: number[] = [];
+    let searchIds: string[] = [];
     if (options.filters?.searchQuery) {
       const results = (await db.get(sql`
         SELECT id FROM recipes_fts
@@ -48,6 +48,7 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
         instructions: true,
         thumbnail: true,
         lastSeen: true,
+        createdOn: true,
       },
       with: {
         recipeCuisines: { with: { cuisine: true } },
@@ -71,7 +72,7 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
     });
 
     // Update cursorId to the last recipe id
-    cursorId.current = recipes[recipes.length - 1].id;
+    cursorId.current = results[results.length - 1].id;
 
     // Flatten the joined tables into the recipe object
     return results.map((recipe) => ({
@@ -96,7 +97,7 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
 
   useEffect(() => {
     fetch();
-  }, [options.filters]);
+  }, []);
 
   return { fetchMore: fetch, recipes };
 };

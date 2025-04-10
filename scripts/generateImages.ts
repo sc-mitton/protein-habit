@@ -47,7 +47,7 @@ async function generateAndSaveImage(recipe: Recipe): Promise<string> {
 
     // Generate UUID for the image
     const imageId = uuidv4();
-    const fileName = `${imageId}.png`;
+    const fileName = `${imageId}.jpg`;
     const filePath = join(THUMBNAILS_DIR, fileName);
 
     // Ensure the thumbnails directory exists

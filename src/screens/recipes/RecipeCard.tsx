@@ -4,29 +4,35 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import { TouchableHighlight, StyleSheet } from "react-native";
 import { Image } from "expo-image";
-import Animated, {
+import Reanimated, {
+  FadeIn,
+  FadeOut,
   useAnimatedStyle,
   withRepeat,
+  withSequence,
   withTiming,
 } from "react-native-reanimated";
-import seedrandom from "seedrandom";
 
+import seedrandom from "seedrandom";
+import _ from "lodash";
 import { bookmark } from "@assets/lotties";
 import { Box, BumpButton, Text, PulseText } from "@components";
 import { RecipeWithAssociations } from "@db/schema/types";
 import { Theme } from "@theme";
 import { RootStackParamList } from "@types";
+import { capitalize } from "@utils";
 
 const styles = StyleSheet.create({
   bookmarkButton: {
     position: "absolute",
-    top: 10,
-    right: 10,
+    top: 8,
+    right: 8,
     zIndex: 1,
   },
   touchable: {
     flex: 1,
     borderRadius: 12,
+    overflow: "hidden",
   },
   cardBox: {
     flex: 1,
@@ -36,19 +42,28 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
   },
+  lottieBackground: {
+    width: 26,
+    height: 26,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    opacity: 0.05,
+  },
   titleContainer: {
     position: "absolute",
     bottom: 10,
     left: 10,
   },
-  masonTyle: {
-    flex: 1,
+  image: {
+    width: "100%",
+    height: "100%",
   },
 });
 
 interface Props {
-  recipe: RecipeWithAssociations;
-  isLoading?: boolean;
+  recipe?: RecipeWithAssociations;
+  index: number;
 }
 
 const RecipeCard = (props: Props) => {
@@ -57,6 +72,8 @@ const RecipeCard = (props: Props) => {
   const [firstRender, setFirstRender] = useState(true);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const bookmarkAnimation = useRef<LottieView>(null);
+  const [height, setHeight] = useState<number>();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleBookmark = () => {
     setIsBookmarked((prev) => !prev);
@@ -67,11 +84,16 @@ const RecipeCard = (props: Props) => {
     navigation.navigate("RecipeDetail", { recipe: props.recipe });
   };
 
-  const skeletonAnimation = useAnimatedStyle(() => {
-    return {
-      opacity: props.isLoading ? withRepeat(withTiming(1), -1, true) : 1,
-    };
-  });
+  const skeletonAnimation = useAnimatedStyle(() => ({
+    opacity: withRepeat(
+      withSequence(
+        withTiming(1, { duration: 1000 }),
+        withTiming(0.25, { duration: 1000 }),
+      ),
+      -1,
+      true,
+    ),
+  }));
 
   useEffect(() => {
     if (firstRender) return;
@@ -94,12 +116,13 @@ const RecipeCard = (props: Props) => {
 
   useEffect(() => setFirstRender(false), []);
 
+  useEffect(() => {
+    const generator = seedrandom(props.index.toString());
+    setHeight(200 + Number(generator()) * 60);
+  }, []);
+
   return (
-    <Box
-      style={styles.masonTyle}
-      margin={"s"}
-      height={160 + Number(seedrandom(props.recipe.id.toString())) * 60}
-    >
+    <Box margin={"s"} height={height}>
       <TouchableHighlight
         style={styles.touchable}
         onPress={handlePress}
@@ -107,56 +130,88 @@ const RecipeCard = (props: Props) => {
         underlayColor={theme.colors.primaryText}
       >
         <Box flex={1}>
-          <BumpButton style={styles.bookmarkButton} onPress={handleBookmark}>
-            <LottieView
-              source={bookmark}
-              autoPlay={false}
-              loop={false}
-              ref={bookmarkAnimation}
-              speed={firstRender && isBookmarked ? 1000 : 1}
-              colorFilters={[
-                {
-                  keypath: "bookmark",
-                  color: theme.colors.white,
-                },
-                {
-                  keypath: "bookmark fill",
-                  color: theme.colors.white,
-                },
-              ]}
-              style={styles.lottie}
-            />
-          </BumpButton>
+          {isLoaded && (
+            <Reanimated.View style={styles.bookmarkButton} entering={FadeIn}>
+              <BumpButton onPress={handleBookmark}>
+                <LottieView
+                  source={bookmark}
+                  autoPlay={false}
+                  loop={false}
+                  ref={bookmarkAnimation}
+                  speed={firstRender && isBookmarked ? 1000 : 1}
+                  colorFilters={[
+                    {
+                      keypath: "bookmark",
+                      color: theme.colors.white,
+                    },
+                    {
+                      keypath: "bookmark fill",
+                      color: theme.colors.white,
+                    },
+                  ]}
+                  style={styles.lottie}
+                />
+                <LottieView
+                  source={bookmark}
+                  autoPlay={true}
+                  loop={false}
+                  speed={1000}
+                  colorFilters={[
+                    {
+                      keypath: "bookmark",
+                      color: theme.colors.white,
+                    },
+                    {
+                      keypath: "bookmark fill",
+                      color: theme.colors.mainBackground,
+                    },
+                  ]}
+                  style={styles.lottieBackground}
+                />
+              </BumpButton>
+            </Reanimated.View>
+          )}
+          {!isLoaded && (
+            <Reanimated.View
+              style={[StyleSheet.absoluteFill, skeletonAnimation]}
+              exiting={FadeOut}
+            >
+              <Box flex={1} backgroundColor="primaryButton" />
+            </Reanimated.View>
+          )}
           <Image
-            // source={{uri: props.recipe.thumbnail}}
             source={{
-              uri: "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.png",
+              uri: props.recipe
+                ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
+                : "",
             }}
+            onLoadEnd={() => props.recipe && setIsLoaded(true)}
+            style={styles.image}
             contentFit="cover"
-            transition={200}
-            placeholder={
-              <Animated.View
-                style={[skeletonAnimation, StyleSheet.absoluteFill]}
-              >
-                <Box style={[styles.cardBox]} backgroundColor="primaryButton" />
-              </Animated.View>
-            }
+            transition={100}
           />
-          <Box style={styles.titleContainer}>
-            <PulseText pulsing={props.isLoading}>
-              <Text fontSize={15} color="white">
-                {props.recipe?.title || "Recipe Title"}
-              </Text>
-            </PulseText>
-            <PulseText opacity={0.8} pulsing={props.isLoading}>
-              <Text
-                color="white"
-                fontSize={10}
-              >{`${props.recipe.meta.proteinPerServing} g protein / serving`}</Text>
-            </PulseText>
-          </Box>
         </Box>
       </TouchableHighlight>
+      <Box marginTop="s" gap="s">
+        <PulseText pulsing={!isLoaded}>
+          <Text fontSize={13} lineHeight={13} variant="bold">
+            {_.truncate(
+              props.recipe?.title
+                .split(" ")
+                .map((word) => capitalize(word))
+                .join(" "),
+              {
+                length: 25,
+              },
+            )}
+          </Text>
+        </PulseText>
+        <PulseText pulsing={!isLoaded} width={100}>
+          <Text fontSize={13} lineHeight={13} color="secondaryText">
+            {`${props.recipe?.meta.proteinPerServing}g protein`}
+          </Text>
+        </PulseText>
+      </Box>
     </Box>
   );
 };

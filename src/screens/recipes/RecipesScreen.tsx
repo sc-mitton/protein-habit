@@ -37,10 +37,11 @@ const ExploreScreen: React.FC<Props> = (props) => {
   const filtersHeight = useRef(0);
   const { selectedFilters, searchQuery } = useRecipesScreenContext();
   const [showFiltersHeader, setShowFiltersHeader] = useState(false);
-  const { recipes, fetchMore } = useRecipes({
+  const { recipes } = useRecipes({
     filters: { searchQuery, ...selectedFilters },
   });
   const { db } = useDrizzleDb();
+
   useEffect(() => {
     return () => {
       dispatch(showBottomBar(true));
@@ -89,10 +90,6 @@ const ExploreScreen: React.FC<Props> = (props) => {
     lastOffsetY.current = currentOffsetY;
   };
 
-  const handleEndReached = () => {
-    fetchMore();
-  };
-
   return (
     <MasonryFlashList
       contentContainerStyle={{
@@ -101,8 +98,10 @@ const ExploreScreen: React.FC<Props> = (props) => {
         paddingTop: 16,
       }}
       contentInsetAdjustmentBehavior="automatic"
-      data={recipes}
-      renderItem={({ item }) => <RecipeCard recipe={item} isLoading={true} />}
+      data={recipes.length > 0 ? recipes : Array(10).fill(null)}
+      renderItem={({ item, index }) => (
+        <RecipeCard recipe={item === null ? undefined : item} index={index} />
+      )}
       onViewableItemsChanged={({ changed }) => {
         // Mark recipes as seen when they leave the view
         db.update(recipesTable)
@@ -110,7 +109,10 @@ const ExploreScreen: React.FC<Props> = (props) => {
           .where(
             inArray(
               recipesTable.id,
-              changed.filter((c) => !c.isViewable).map((c) => c.item.id),
+              changed
+                .filter((c) => c.item !== null)
+                .filter((c) => !c.isViewable)
+                .map((c) => c.item.id),
             ),
           );
       }}
@@ -119,7 +121,6 @@ const ExploreScreen: React.FC<Props> = (props) => {
       onScrollBeginDrag={handleScrollBeginDrag}
       onScrollEndDrag={handleScrollEndDrag}
       onScroll={handleScroll}
-      onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
       numColumns={2}
       estimatedItemSize={200}
@@ -139,6 +140,7 @@ export default function (props: Props) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   image: {
     width: 32,
@@ -153,7 +155,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerIOS: {
-    transform: [{ translateY: -8 }],
     flex: 1,
   },
   contentContainer: {
