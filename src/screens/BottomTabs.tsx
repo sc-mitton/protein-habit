@@ -27,7 +27,7 @@ import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
-const HEIGHT = Platform.OS === "ios" ? 120 : 80;
+const HEIGHT = Platform.OS === "ios" ? 80 : 60;
 const BOTTOM_POS = Platform.OS === "ios" ? 50 : 40;
 
 const styles = StyleSheet.create({
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: -BOTTOM_POS,
     height: HEIGHT,
+    opacity: 0.95,
   },
   gradient: {
     width: "100%",
@@ -115,6 +116,7 @@ const CustomTabBar = ({
           <LinearGradient
             colors={[
               theme.colors.transparentRGB,
+              theme.colors.secondaryBackground,
               theme.colors.secondaryBackground,
             ]}
             start={{ x: 0, y: 0 }}
