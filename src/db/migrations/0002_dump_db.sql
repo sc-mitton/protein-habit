@@ -2368,255 +2368,4072 @@ INSERT INTO recipes VALUES('604','No-Bake Protein Energy Balls','"## Main Ingred
 --> statement-breakpoint
 INSERT INTO recipes VALUES('605','Vodka Sauce Pasta with Grilled Chicken','"## Pasta and Sauce\n- 8 oz rotini pasta (reserve 1 cup pasta water)\n- 2 tbsp olive oil\n- 1 small onion, diced\n- 1 tbsp minced garlic\n- 1 tsp red pepper flakes\n- 1 tbsp tomato paste\n- 1 tbsp butter\n- 1 tbsp vodka\n- 1/2 cup heavy cream\n- 1/2 cup shredded Parmesan cheese\n- Salt and pepper to taste\n- Fresh basil for garnish\n\n## Chicken\n- 1 large chicken breast\n- 1 tsp garlic powder\n- 1 tsp onion powder\n- 1 tsp paprika\n- Salt and pepper, to taste\n- 2 tbsp olive oil\n- 1 tbsp butter"','"## Prepare the Chicken\n- Season both sides of the chicken breast with garlic powder, onion powder, paprika, salt, and pepper.\n- Heat a cast iron skillet over medium-high heat and add olive oil and butter.\n- Cook the chicken breast for about 5-7 minutes on each side, or until the internal temperature reaches 165°F (74°C).\n- Remove the chicken from the skillet and let it rest for a few minutes before slicing.\n\n## Prepare the Pasta and Sauce\n- Cook the rotini pasta according to package instructions. Reserve 1 cup of pasta water, then drain the pasta and set aside.\n- In a large skillet, heat olive oil over medium-high heat. Add diced onion, red pepper flakes, and minced garlic, sautéing until they become fragrant and the onion becomes translucent.\n- Stir in the tomato paste, butter, vodka, and heavy cream. Cook continuously for 2-3 minutes, stirring, and adjust the heat if needed to prevent burning.\n- Gradually incorporate the shredded Parmesan, stirring until melted. If the sauce is too thick, slowly add reserved pasta water until the desired consistency is reached.\n- Reduce heat to low-medium and simmer for 5 minutes to allow the flavors to meld, adding salt and pepper to taste.\n- Add the cooked pasta to the sauce and toss to coat evenly.\n\n## Serve\n- Plate the pasta and top with sliced chicken breast.\n- Garnish with fresh basil and additional Parmesan cheese, if desired."','default_thumbnail.jpg',NULL,'created_on');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('1','2');
+INSERT INTO recipe_cuisine_association VALUES('1','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('2','2');
+INSERT INTO recipe_cuisine_association VALUES('2','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('3','2');
+INSERT INTO recipe_cuisine_association VALUES('3','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('4','2');
+INSERT INTO recipe_cuisine_association VALUES('4','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('5','2');
+INSERT INTO recipe_cuisine_association VALUES('5','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('6','2');
+INSERT INTO recipe_cuisine_association VALUES('6','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('7','2');
+INSERT INTO recipe_cuisine_association VALUES('7','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('8','2');
+INSERT INTO recipe_cuisine_association VALUES('7','latin');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('9','2');
+INSERT INTO recipe_cuisine_association VALUES('8','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('10','6');
+INSERT INTO recipe_cuisine_association VALUES('9','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('11','2');
+INSERT INTO recipe_cuisine_association VALUES('10','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('12','2');
+INSERT INTO recipe_cuisine_association VALUES('11','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('13','2');
+INSERT INTO recipe_cuisine_association VALUES('12','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('14','1');
+INSERT INTO recipe_cuisine_association VALUES('13','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('15','2');
+INSERT INTO recipe_cuisine_association VALUES('14','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('16','5');
+INSERT INTO recipe_cuisine_association VALUES('14','italian');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('17','6');
+INSERT INTO recipe_cuisine_association VALUES('15','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('18','2');
+INSERT INTO recipe_cuisine_association VALUES('16','asian');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('19','2');
+INSERT INTO recipe_cuisine_association VALUES('17','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('20','1');
+INSERT INTO recipe_cuisine_association VALUES('18','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('21','6');
+INSERT INTO recipe_cuisine_association VALUES('19','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('22','2');
+INSERT INTO recipe_cuisine_association VALUES('20','italian');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('23','2');
+INSERT INTO recipe_cuisine_association VALUES('20','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('24','3');
+INSERT INTO recipe_cuisine_association VALUES('21','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('25','2');
+INSERT INTO recipe_cuisine_association VALUES('22','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('26','2');
+INSERT INTO recipe_cuisine_association VALUES('23','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('27','5');
+INSERT INTO recipe_cuisine_association VALUES('24','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('28','2');
+INSERT INTO recipe_cuisine_association VALUES('25','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('29','3');
+INSERT INTO recipe_cuisine_association VALUES('26','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('30','2');
+INSERT INTO recipe_cuisine_association VALUES('27','asian');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('31','2');
+INSERT INTO recipe_cuisine_association VALUES('28','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('32','3');
+INSERT INTO recipe_cuisine_association VALUES('29','latin');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('33','2');
+INSERT INTO recipe_cuisine_association VALUES('30','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('34','2');
+INSERT INTO recipe_cuisine_association VALUES('31','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('35','3');
+INSERT INTO recipe_cuisine_association VALUES('32','latin');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('36','3');
+INSERT INTO recipe_cuisine_association VALUES('33','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('37','5');
+INSERT INTO recipe_cuisine_association VALUES('34','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('38','2');
+INSERT INTO recipe_cuisine_association VALUES('35','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('39','2');
+INSERT INTO recipe_cuisine_association VALUES('36','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('40','5');
+INSERT INTO recipe_cuisine_association VALUES('36','latin');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('41','2');
+INSERT INTO recipe_cuisine_association VALUES('37','asian');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('42','2');
+INSERT INTO recipe_cuisine_association VALUES('38','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('43','2');
+INSERT INTO recipe_cuisine_association VALUES('39','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('44','3');
+INSERT INTO recipe_cuisine_association VALUES('40','asian');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('45','2');
+INSERT INTO recipe_cuisine_association VALUES('41','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('46','2');
+INSERT INTO recipe_cuisine_association VALUES('42','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('47','2');
+INSERT INTO recipe_cuisine_association VALUES('43','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('48','2');
+INSERT INTO recipe_cuisine_association VALUES('44','latin');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('49','2');
+INSERT INTO recipe_cuisine_association VALUES('45','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('50','2');
+INSERT INTO recipe_cuisine_association VALUES('47','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('51','2');
+INSERT INTO recipe_cuisine_association VALUES('48','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('52','6');
+INSERT INTO recipe_cuisine_association VALUES('49','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('53','4');
+INSERT INTO recipe_cuisine_association VALUES('50','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('54','2');
+INSERT INTO recipe_cuisine_association VALUES('51','american');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('55','5');
+INSERT INTO recipe_cuisine_association VALUES('52','mediterranean');
 --> statement-breakpoint
-INSERT INTO recipe_cuisine_association VALUES('56','2');
+INSERT INTO recipe_cuisine_association VALUES('53','american');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('1','4');
+INSERT INTO recipe_cuisine_association VALUES('54','american');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('7','2');
+INSERT INTO recipe_cuisine_association VALUES('55','asian');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('16','4');
+INSERT INTO recipe_cuisine_association VALUES('56','american');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('24','4');
+INSERT INTO recipe_cuisine_association VALUES('56','mediterranean');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('29','1');
+INSERT INTO recipe_cuisine_association VALUES('82','american');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('50','2');
+INSERT INTO recipe_cuisine_association VALUES('83','american');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('54','4');
+INSERT INTO recipe_cuisine_association VALUES('84','american');
 --> statement-breakpoint
-INSERT INTO recipe_dish_type_association VALUES('56','3');
+INSERT INTO recipe_cuisine_association VALUES('85','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('1','1');
+INSERT INTO recipe_cuisine_association VALUES('86','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('2','1');
+INSERT INTO recipe_cuisine_association VALUES('86','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('3','2');
+INSERT INTO recipe_cuisine_association VALUES('87','indian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('4','1');
+INSERT INTO recipe_cuisine_association VALUES('88','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('5','5');
+INSERT INTO recipe_cuisine_association VALUES('88','latin');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('6','4');
+INSERT INTO recipe_cuisine_association VALUES('89','mediterranean');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('7','3');
+INSERT INTO recipe_cuisine_association VALUES('90','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('8','5');
+INSERT INTO recipe_cuisine_association VALUES('91','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('9','4');
+INSERT INTO recipe_cuisine_association VALUES('92','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('10','5');
+INSERT INTO recipe_cuisine_association VALUES('93','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('11','3');
+INSERT INTO recipe_cuisine_association VALUES('93','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('12','1');
+INSERT INTO recipe_cuisine_association VALUES('94','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('14','3');
+INSERT INTO recipe_cuisine_association VALUES('94','latin');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('15','1');
+INSERT INTO recipe_cuisine_association VALUES('95','italian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('16','3');
+INSERT INTO recipe_cuisine_association VALUES('96','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('17','1');
+INSERT INTO recipe_cuisine_association VALUES('97','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('18','5');
+INSERT INTO recipe_cuisine_association VALUES('98','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('19','5');
+INSERT INTO recipe_cuisine_association VALUES('99','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('20','3');
+INSERT INTO recipe_cuisine_association VALUES('100','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('22','3');
+INSERT INTO recipe_cuisine_association VALUES('101','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('25','1');
+INSERT INTO recipe_cuisine_association VALUES('101','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('27','1');
+INSERT INTO recipe_cuisine_association VALUES('102','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('28','3');
+INSERT INTO recipe_cuisine_association VALUES('103','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('29','3');
+INSERT INTO recipe_cuisine_association VALUES('104','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('30','1');
+INSERT INTO recipe_cuisine_association VALUES('105','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('31','3');
+INSERT INTO recipe_cuisine_association VALUES('106','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('32','3');
+INSERT INTO recipe_cuisine_association VALUES('107','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('33','1');
+INSERT INTO recipe_cuisine_association VALUES('108','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('34','1');
+INSERT INTO recipe_cuisine_association VALUES('109','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('35','3');
+INSERT INTO recipe_cuisine_association VALUES('109','italian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('36','3');
+INSERT INTO recipe_cuisine_association VALUES('110','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('37','3');
+INSERT INTO recipe_cuisine_association VALUES('111','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('40','3');
+INSERT INTO recipe_cuisine_association VALUES('112','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('43','4');
+INSERT INTO recipe_cuisine_association VALUES('113','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('44','3');
+INSERT INTO recipe_cuisine_association VALUES('114','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('46','1');
+INSERT INTO recipe_cuisine_association VALUES('115','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('50','3');
+INSERT INTO recipe_cuisine_association VALUES('116','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('51','4');
+INSERT INTO recipe_cuisine_association VALUES('117','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('52','3');
+INSERT INTO recipe_cuisine_association VALUES('118','american');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('53','3');
+INSERT INTO recipe_cuisine_association VALUES('119','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('54','2');
+INSERT INTO recipe_cuisine_association VALUES('120','mediterranean');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('55','2');
+INSERT INTO recipe_cuisine_association VALUES('121','asian');
 --> statement-breakpoint
-INSERT INTO recipe_meal_type_association VALUES('56','2');
+INSERT INTO recipe_cuisine_association VALUES('122','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('7','3');
+INSERT INTO recipe_cuisine_association VALUES('123','italian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('11','2');
+INSERT INTO recipe_cuisine_association VALUES('124','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('14','3');
+INSERT INTO recipe_cuisine_association VALUES('125','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('20','3');
+INSERT INTO recipe_cuisine_association VALUES('126','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('22','3');
+INSERT INTO recipe_cuisine_association VALUES('127','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('28','3');
+INSERT INTO recipe_cuisine_association VALUES('128','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('29','8');
+INSERT INTO recipe_cuisine_association VALUES('128','italian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('31','1');
+INSERT INTO recipe_cuisine_association VALUES('129','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('32','6');
+INSERT INTO recipe_cuisine_association VALUES('130','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('35','4');
+INSERT INTO recipe_cuisine_association VALUES('131','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('36','3');
+INSERT INTO recipe_cuisine_association VALUES('132','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('37','1');
+INSERT INTO recipe_cuisine_association VALUES('133','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('40','1');
+INSERT INTO recipe_cuisine_association VALUES('133','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('44','8');
+INSERT INTO recipe_cuisine_association VALUES('134','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('50','3');
+INSERT INTO recipe_cuisine_association VALUES('135','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('53','5');
+INSERT INTO recipe_cuisine_association VALUES('136','american');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('54','3');
+INSERT INTO recipe_cuisine_association VALUES('137','asian');
 --> statement-breakpoint
-INSERT INTO recipe_protein_association VALUES('56','1');
+INSERT INTO recipe_cuisine_association VALUES('138','american');
 --> statement-breakpoint
-DELETE FROM sqlite_sequence;
-
+INSERT INTO recipe_cuisine_association VALUES('139','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('140','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('141','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('142','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('143','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('144','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('145','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('146','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('147','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('148','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('149','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('150','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('151','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('152','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('153','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('154','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('155','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('156','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('157','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('158','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('159','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('160','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('161','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('162','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('163','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('164','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('165','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('166','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('167','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('168','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('169','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('169','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('170','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('171','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('172','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('173','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('174','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('175','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('176','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('177','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('178','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('179','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('179','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('180','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('181','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('182','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('183','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('184','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('185','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('186','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('187','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('188','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('189','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('190','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('191','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('192','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('193','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('194','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('195','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('195','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('196','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('197','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('198','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('199','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('200','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('201','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('202','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('203','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('204','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('205','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('206','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('207','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('208','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('209','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('210','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('211','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('212','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('212','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('213','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('214','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('215','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('216','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('217','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('218','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('219','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('220','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('220','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('221','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('222','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('223','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('224','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('225','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('226','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('227','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('228','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('229','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('230','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('231','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('232','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('233','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('234','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('235','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('236','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('238','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('240','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('241','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('242','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('242','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('243','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('243','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('244','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('245','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('246','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('247','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('248','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('249','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('250','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('251','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('252','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('253','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('254','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('255','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('256','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('257','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('258','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('259','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('260','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('262','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('264','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('265','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('266','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('267','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('268','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('269','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('270','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('271','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('272','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('273','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('274','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('275','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('276','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('277','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('278','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('279','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('280','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('281','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('282','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('283','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('284','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('285','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('286','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('287','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('288','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('289','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('290','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('291','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('292','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('293','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('294','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('295','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('296','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('297','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('298','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('299','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('300','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('301','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('302','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('303','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('304','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('305','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('306','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('307','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('308','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('309','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('310','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('311','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('312','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('313','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('314','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('315','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('316','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('317','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('318','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('319','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('320','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('321','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('322','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('323','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('324','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('325','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('326','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('327','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('328','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('329','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('330','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('331','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('332','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('333','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('334','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('335','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('335','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('336','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('337','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('338','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('339','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('340','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('341','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('341','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('342','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('342','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('343','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('344','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('345','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('346','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('347','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('348','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('349','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('350','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('351','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('352','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('353','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('354','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('355','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('356','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('357','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('357','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('358','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('359','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('360','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('361','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('362','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('363','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('364','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('365','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('366','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('367','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('368','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('369','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('370','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('371','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('372','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('372','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('373','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('374','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('375','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('376','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('377','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('378','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('378','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('379','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('380','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('381','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('382','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('383','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('383','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('384','italian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('385','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('386','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('387','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('388','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('389','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('390','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('391','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('392','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('393','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('394','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('395','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('396','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('397','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('398','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('399','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('400','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('401','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('402','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('403','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('404','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('405','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('406','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('407','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('408','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('409','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('410','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('411','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('412','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('413','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('414','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('415','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('416','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('417','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('418','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('419','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('420','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('421','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('422','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('423','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('424','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('425','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('426','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('427','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('428','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('429','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('430','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('431','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('432','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('433','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('434','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('435','latin');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('436','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('437','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('438','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('438','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('439','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('440','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('441','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('442','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('443','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('444','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('445','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('446','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('447','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('448','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('449','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('450','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('451','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('452','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('453','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('454','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('455','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('456','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('457','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('458','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('459','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('460','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('462','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('463','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('464','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('465','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('465','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('466','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('467','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('468','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('469','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('470','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('471','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('472','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('473','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('474','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('475','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('476','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('477','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('478','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('479','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('480','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('481','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('482','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('483','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('483','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('484','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('484','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('485','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('486','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('487','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('488','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('489','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('490','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('491','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('492','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('493','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('494','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('495','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('496','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('497','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('498','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('499','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('500','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('501','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('502','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('503','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('504','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('505','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('506','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('507','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('508','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('509','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('510','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('511','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('512','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('513','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('514','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('515','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('516','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('517','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('518','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('519','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('520','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('521','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('522','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('523','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('524','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('525','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('526','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('527','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('528','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('529','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('530','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('531','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('532','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('533','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('534','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('535','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('536','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('537','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('538','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('539','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('540','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('541','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('542','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('543','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('544','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('545','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('546','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('548','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('549','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('550','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('551','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('552','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('553','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('554','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('555','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('556','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('557','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('558','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('559','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('560','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('561','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('562','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('563','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('564','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('565','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('566','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('567','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('568','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('569','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('570','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('571','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('573','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('574','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('575','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('576','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('577','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('579','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('580','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('581','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('582','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('583','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('584','indian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('585','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('586','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('587','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('588','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('589','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('590','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('591','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('592','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('593','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('594','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('595','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('596','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('597','mediterranean');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('598','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('599','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('600','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('601','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('602','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('603','asian');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('604','american');
+--> statement-breakpoint
+INSERT INTO recipe_cuisine_association VALUES('605','italian');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('1','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('7','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('13','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('15','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('16','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('23','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('24','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('29','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('32','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('33','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('38','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('40','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('41','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('42','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('46','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('48','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('49','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('50','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('53','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('54','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('56','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('93','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('94','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('100','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('101','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('101','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('106','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('107','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('108','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('109','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('111','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('113','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('114','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('115','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('116','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('120','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('125','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('130','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('135','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('137','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('138','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('140','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('142','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('144','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('146','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('147','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('161','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('165','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('172','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('174','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('176','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('182','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('183','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('184','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('187','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('188','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('189','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('190','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('190','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('191','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('192','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('193','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('194','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('195','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('196','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('197','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('198','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('199','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('200','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('201','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('202','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('203','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('204','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('206','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('207','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('208','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('210','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('212','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('213','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('214','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('215','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('216','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('217','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('218','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('219','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('220','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('221','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('222','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('223','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('224','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('226','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('227','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('228','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('229','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('232','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('233','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('236','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('240','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('241','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('244','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('245','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('249','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('250','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('251','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('252','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('257','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('263','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('265','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('268','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('275','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('278','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('280','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('282','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('283','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('286','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('291','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('297','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('301','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('304','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('319','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('322','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('329','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('332','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('338','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('339','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('342','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('343','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('344','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('347','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('348','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('356','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('359','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('362','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('368','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('370','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('374','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('376','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('384','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('390','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('392','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('401','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('402','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('403','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('404','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('405','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('407','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('414','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('415','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('416','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('418','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('427','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('431','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('434','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('442','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('447','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('448','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('449','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('454','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('455','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('458','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('462','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('464','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('466','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('466','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('467','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('468','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('470','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('471','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('473','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('474','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('475','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('476','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('477','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('478','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('479','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('481','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('483','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('485','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('486','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('487','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('489','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('493','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('494','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('496','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('497','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('498','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('499','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('501','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('502','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('504','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('505','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('506','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('511','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('512','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('514','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('515','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('516','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('519','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('521','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('522','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('523','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('525','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('526','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('527','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('532','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('534','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('535','smoothie');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('587','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('588','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('589','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('590','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('591','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('592','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('593','bowl');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('594','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('595','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('596','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('597','sandwich');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('598','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('599','salad');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('600','soup');
+--> statement-breakpoint
+INSERT INTO recipe_dish_type_association VALUES('601','soup');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('1','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('2','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('3','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('4','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('4','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('5','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('6','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('7','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('8','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('9','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('10','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('11','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('12','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('12','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('13','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('14','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('15','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('16','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('16','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('17','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('18','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('19','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('20','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('21','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('21','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('22','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('23','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('24','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('24','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('25','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('26','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('26','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('27','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('27','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('28','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('28','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('29','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('30','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('30','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('31','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('32','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('32','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('33','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('34','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('34','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('34','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('35','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('36','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('37','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('38','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('39','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('39','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('40','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('40','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('41','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('42','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('43','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('43','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('44','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('45','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('45','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('46','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('47','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('47','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('48','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('48','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('49','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('49','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('50','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('51','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('52','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('52','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('53','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('53','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('54','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('54','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('55','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('55','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('56','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('56','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('82','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('83','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('84','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('84','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('85','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('86','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('87','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('88','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('89','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('89','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('90','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('91','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('92','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('93','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('94','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('94','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('95','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('96','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('97','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('98','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('99','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('100','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('101','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('102','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('103','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('104','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('105','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('106','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('107','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('107','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('108','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('109','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('110','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('111','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('111','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('112','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('113','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('114','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('114','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('115','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('116','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('117','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('118','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('119','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('119','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('120','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('121','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('122','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('123','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('124','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('125','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('126','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('126','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('127','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('127','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('128','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('129','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('130','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('130','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('131','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('132','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('133','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('134','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('135','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('136','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('137','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('138','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('139','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('140','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('140','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('141','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('142','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('143','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('144','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('144','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('145','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('146','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('146','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('147','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('147','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('148','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('149','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('150','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('151','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('152','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('153','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('154','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('155','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('156','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('156','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('157','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('158','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('159','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('160','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('161','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('161','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('162','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('163','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('164','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('165','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('166','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('167','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('167','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('168','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('169','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('170','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('170','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('171','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('172','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('172','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('172','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('173','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('173','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('174','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('175','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('176','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('177','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('177','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('178','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('179','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('179','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('180','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('180','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('181','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('182','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('182','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('183','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('184','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('184','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('185','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('186','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('187','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('187','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('188','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('189','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('190','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('190','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('191','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('191','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('192','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('192','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('193','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('193','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('194','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('194','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('195','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('195','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('196','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('196','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('197','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('198','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('198','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('199','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('199','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('200','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('200','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('201','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('201','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('202','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('202','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('203','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('203','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('204','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('204','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('205','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('206','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('207','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('207','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('208','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('208','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('209','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('210','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('210','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('211','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('211','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('212','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('212','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('213','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('214','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('214','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('215','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('215','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('216','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('217','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('217','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('218','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('219','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('219','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('220','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('220','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('221','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('221','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('222','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('223','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('223','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('224','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('225','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('226','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('226','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('227','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('227','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('228','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('228','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('229','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('229','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('230','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('231','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('232','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('232','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('233','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('234','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('235','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('236','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('236','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('237','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('238','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('239','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('239','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('240','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('240','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('241','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('241','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('242','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('243','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('244','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('244','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('245','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('245','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('246','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('247','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('248','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('249','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('250','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('251','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('252','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('253','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('254','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('255','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('256','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('256','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('257','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('257','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('258','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('259','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('260','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('261','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('262','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('263','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('263','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('264','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('265','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('265','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('266','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('267','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('268','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('268','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('269','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('269','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('270','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('271','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('272','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('273','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('274','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('275','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('276','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('277','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('279','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('280','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('281','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('282','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('282','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('283','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('284','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('285','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('285','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('286','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('286','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('287','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('288','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('289','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('290','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('290','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('291','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('291','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('292','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('293','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('294','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('294','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('295','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('296','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('297','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('298','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('299','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('300','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('300','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('300','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('301','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('301','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('302','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('303','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('304','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('304','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('305','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('306','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('307','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('307','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('308','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('309','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('309','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('310','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('310','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('311','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('312','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('313','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('314','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('314','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('315','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('315','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('316','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('317','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('317','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('318','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('319','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('320','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('321','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('321','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('322','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('323','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('323','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('324','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('325','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('325','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('326','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('327','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('328','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('328','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('329','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('330','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('331','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('332','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('332','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('333','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('333','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('334','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('335','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('336','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('336','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('337','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('338','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('339','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('339','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('340','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('340','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('341','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('342','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('342','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('343','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('344','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('344','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('345','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('346','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('347','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('348','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('348','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('349','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('350','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('351','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('352','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('353','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('354','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('355','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('356','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('356','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('357','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('357','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('358','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('359','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('359','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('360','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('361','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('362','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('363','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('363','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('364','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('365','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('366','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('367','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('368','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('369','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('370','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('371','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('372','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('372','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('373','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('374','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('374','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('375','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('376','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('377','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('378','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('379','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('379','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('380','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('381','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('382','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('383','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('384','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('385','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('385','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('386','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('387','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('388','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('389','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('390','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('390','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('391','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('392','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('392','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('393','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('394','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('395','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('396','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('397','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('398','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('399','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('400','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('400','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('401','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('401','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('402','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('402','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('403','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('404','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('404','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('405','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('405','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('406','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('407','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('407','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('408','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('409','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('409','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('410','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('411','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('412','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('413','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('414','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('414','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('415','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('415','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('416','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('417','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('417','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('418','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('419','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('420','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('421','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('421','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('422','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('423','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('424','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('425','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('426','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('427','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('427','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('428','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('428','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('429','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('430','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('431','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('431','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('432','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('432','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('432','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('433','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('434','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('434','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('435','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('436','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('437','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('438','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('439','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('440','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('441','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('442','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('442','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('443','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('444','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('444','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('445','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('446','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('447','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('447','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('448','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('448','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('449','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('449','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('450','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('451','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('451','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('452','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('452','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('453','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('454','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('454','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('455','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('455','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('456','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('457','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('458','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('459','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('459','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('460','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('461','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('462','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('462','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('463','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('464','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('464','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('465','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('466','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('466','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('467','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('467','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('468','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('468','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('469','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('469','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('470','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('470','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('471','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('471','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('472','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('473','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('474','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('474','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('475','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('475','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('476','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('476','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('477','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('477','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('478','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('478','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('479','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('479','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('480','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('481','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('481','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('482','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('483','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('483','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('484','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('485','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('485','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('486','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('486','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('486','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('487','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('487','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('487','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('488','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('489','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('490','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('491','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('492','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('493','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('493','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('494','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('495','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('496','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('497','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('497','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('498','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('499','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('499','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('500','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('501','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('501','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('502','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('503','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('504','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('504','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('505','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('506','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('507','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('507','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('507','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('508','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('509','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('509','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('510','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('511','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('512','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('512','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('513','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('514','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('515','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('516','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('516','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('517','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('517','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('518','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('518','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('519','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('519','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('520','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('521','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('521','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('522','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('522','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('523','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('523','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('524','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('525','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('526','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('526','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('527','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('527','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('527','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('528','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('529','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('529','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('530','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('531','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('532','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('532','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('533','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('533','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('534','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('534','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('535','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('535','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('536','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('537','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('538','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('539','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('540','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('541','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('541','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('542','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('543','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('543','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('544','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('544','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('545','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('546','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('547','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('548','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('548','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('549','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('550','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('551','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('552','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('553','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('553','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('554','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('554','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('555','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('556','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('557','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('557','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('558','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('559','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('559','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('560','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('560','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('561','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('561','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('562','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('563','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('563','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('563','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('564','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('564','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('565','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('565','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('566','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('566','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('567','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('567','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('568','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('569','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('570','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('570','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('571','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('571','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('572','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('573','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('574','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('575','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('575','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('576','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('576','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('577','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('578','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('578','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('579','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('580','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('581','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('581','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('582','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('583','breakfast');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('584','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('584','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('585','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('586','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('586','dessert');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('587','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('588','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('588','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('589','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('589','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('590','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('591','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('591','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('592','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('592','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('593','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('593','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('594','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('594','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('595','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('595','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('596','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('596','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('597','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('597','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('598','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('598','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('599','lunch');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('599','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('600','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('601','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('602','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('603','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('604','snack');
+--> statement-breakpoint
+INSERT INTO recipe_meal_type_association VALUES('605','dinner');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('7','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('11','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('12','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('14','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('14','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('14','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('16','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('16','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('16','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('16','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('20','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('20','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('22','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('22','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('28','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('28','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('29','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('31','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('32','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('35','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('35','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('35','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('36','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('37','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('40','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('44','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('50','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('53','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('54','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('56','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('83','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('84','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('85','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('86','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('87','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('88','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('89','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('90','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('91','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('92','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('93','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('94','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('95','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('96','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('97','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('98','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('99','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('100','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('101','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('102','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('103','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('104','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('105','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('106','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('107','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('108','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('109','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('110','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('111','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('112','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('113','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('115','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('116','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('117','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('118','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('119','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('120','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('121','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('122','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('123','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('124','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('125','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('126','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('127','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('128','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('129','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('129','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('130','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('131','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('132','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('132','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('133','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('134','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('135','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('137','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('138','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('141','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('143','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('144','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('147','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('147','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('149','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('151','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('152','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('153','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('154','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('155','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('156','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('159','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('161','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('164','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('166','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('169','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('170','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('171','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('172','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('174','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('174','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('178','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('179','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('181','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('182','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('183','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('185','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('186','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('188','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('189','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('191','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('192','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('193','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('194','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('195','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('196','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('197','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('198','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('199','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('199','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('200','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('202','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('204','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('205','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('206','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('209','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('210','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('211','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('212','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('213','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('214','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('216','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('217','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('218','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('219','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('221','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('222','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('223','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('224','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('225','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('227','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('227','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('228','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('229','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('230','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('231','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('231','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('232','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('233','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('234','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('234','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('235','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('236','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('236','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('237','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('238','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('239','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('239','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('243','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('247','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('248','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('253','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('254','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('255','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('256','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('257','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('258','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('259','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('260','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('261','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('262','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('263','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('264','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('265','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('266','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('267','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('268','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('269','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('270','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('271','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('272','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('273','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('274','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('275','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('275','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('276','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('277','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('278','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('279','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('280','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('281','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('282','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('283','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('283','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('284','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('287','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('288','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('288','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('292','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('293','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('295','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('298','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('302','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('303','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('305','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('306','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('312','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('315','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('316','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('318','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('324','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('326','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('327','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('330','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('334','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('335','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('336','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('337','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('338','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('339','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('341','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('342','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('343','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('345','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('347','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('348','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('349','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('350','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('351','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('352','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('353','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('354','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('355','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('356','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('357','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('358','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('360','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('361','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('362','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('364','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('364','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('365','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('367','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('368','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('369','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('370','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('372','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('375','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('376','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('377','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('378','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('380','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('381','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('382','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('383','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('384','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('384','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('385','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('386','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('387','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('389','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('390','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('391','pork');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('392','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('393','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('394','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('395','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('397','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('398','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('399','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('400','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('401','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('402','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('404','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('404','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('405','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('406','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('407','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('408','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('408','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('409','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('410','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('411','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('412','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('413','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('414','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('415','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('417','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('418','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('419','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('420','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('421','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('422','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('423','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('424','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('425','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('426','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('428','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('429','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('430','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('431','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('433','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('434','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('435','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('436','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('437','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('438','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('439','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('441','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('442','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('444','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('446','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('447','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('450','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('451','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('453','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('454','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('455','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('456','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('457','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('458','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('459','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('460','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('462','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('463','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('465','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('466','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('467','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('468','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('469','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('470','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('471','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('472','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('474','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('475','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('476','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('478','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('481','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('482','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('483','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('484','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('485','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('486','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('488','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('490','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('491','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('492','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('493','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('494','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('496','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('499','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('501','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('503','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('504','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('506','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('507','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('510','shrimp');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('512','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('513','lamb');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('516','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('517','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('520','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('523','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('524','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('530','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('531','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('532','turkey');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('534','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('546','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('577','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('587','steak');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('588','tofu');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('589','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('590','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('591','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('593','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('595','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('596','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('597','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('598','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('599','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('600','chicken');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('601','beef');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('602','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('603','fish');
+--> statement-breakpoint
+INSERT INTO recipe_protein_association VALUES('605','chicken');

@@ -18,47 +18,35 @@ export const recipesTable = sqliteTable("recipes", {
 });
 
 export const cuisinesTable = sqliteTable("cuisines", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(CuisineEnum) as [string, ...string[]],
   })
-    .notNull()
-    .unique(),
+    .primaryKey()
+    .notNull(),
 });
 
 export const mealTypesTable = sqliteTable("meal_types", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(MealTypeEnum) as [string, ...string[]],
   })
-    .notNull()
-    .unique(),
+    .primaryKey()
+    .notNull(),
 });
 
 export const proteinTypesTable = sqliteTable("proteins", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(ProteinEnum) as [string, ...string[]],
   })
-    .notNull()
-    .unique(),
+    .primaryKey()
+    .notNull(),
 });
 
 export const dishTypesTable = sqliteTable("dish_types", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
   name: text("name", {
     enum: Object.values(DishTypeEnum) as [string, ...string[]],
   })
-    .notNull()
-    .unique(),
+    .primaryKey()
+    .notNull(),
 });
 
 /* ------------------------ Nutrition Meta Data Table ----------------------- */
@@ -84,36 +72,36 @@ export const recipesToCuisines = sqliteTable("recipe_cuisine_association", {
   recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  cuisineId: text("cuisine_id")
+  cuisine: text("cuisine")
     .notNull()
-    .references(() => cuisinesTable.id),
+    .references(() => cuisinesTable.name),
 });
 
 export const recipesToMealTypes = sqliteTable("recipe_meal_type_association", {
   recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  mealTypeId: text("meal_type_id")
+  mealType: text("meal_type")
     .notNull()
-    .references(() => mealTypesTable.id),
+    .references(() => mealTypesTable.name),
 });
 
 export const recipesToProteins = sqliteTable("recipe_protein_association", {
   recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  proteinId: text("protein_id")
+  protein: text("protein")
     .notNull()
-    .references(() => proteinTypesTable.id),
+    .references(() => proteinTypesTable.name),
 });
 
 export const recipesToDishTypes = sqliteTable("recipe_dish_type_association", {
   recipeId: text("recipe_id")
     .notNull()
     .references(() => recipesTable.id, { onDelete: "cascade" }),
-  dishTypeId: text("dish_type_id")
+  dishType: text("dish_type")
     .notNull()
-    .references(() => dishTypesTable.id),
+    .references(() => dishTypesTable.name),
 });
 
 /* -------------------------------- Relations ------------------------------- */
@@ -134,8 +122,8 @@ export const recipesCuisinesRelations = relations(
       references: [recipesTable.id],
     }),
     cuisine: one(cuisinesTable, {
-      fields: [recipesToCuisines.cuisineId],
-      references: [cuisinesTable.id],
+      fields: [recipesToCuisines.cuisine],
+      references: [cuisinesTable.name],
     }),
   }),
 );
@@ -148,8 +136,8 @@ export const recipeMealTypesRelations = relations(
       references: [recipesTable.id],
     }),
     mealType: one(mealTypesTable, {
-      fields: [recipesToMealTypes.mealTypeId],
-      references: [mealTypesTable.id],
+      fields: [recipesToMealTypes.mealType],
+      references: [mealTypesTable.name],
     }),
   }),
 );
@@ -162,8 +150,8 @@ export const recipeProteinRelations = relations(
       references: [recipesTable.id],
     }),
     protein: one(proteinTypesTable, {
-      fields: [recipesToProteins.proteinId],
-      references: [proteinTypesTable.id],
+      fields: [recipesToProteins.protein],
+      references: [proteinTypesTable.name],
     }),
   }),
 );
@@ -176,8 +164,8 @@ export const recipeDishTypesRelations = relations(
       references: [recipesTable.id],
     }),
     dishType: one(dishTypesTable, {
-      fields: [recipesToDishTypes.dishTypeId],
-      references: [dishTypesTable.id],
+      fields: [recipesToDishTypes.dishType],
+      references: [dishTypesTable.name],
     }),
   }),
 );

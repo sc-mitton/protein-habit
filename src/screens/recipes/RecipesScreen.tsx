@@ -21,6 +21,7 @@ import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
 import { recipesTable } from "@db/schema/schema";
 import { useDrizzleDb } from "@hooks";
+import { Box } from "@components";
 
 type Props = RecipesScreenProps<"Explore">;
 
@@ -37,8 +38,9 @@ const ExploreScreen: React.FC<Props> = (props) => {
   const filtersHeight = useRef(0);
   const { selectedFilters, searchQuery } = useRecipesScreenContext();
   const [showFiltersHeader, setShowFiltersHeader] = useState(false);
-  const { recipes } = useRecipes({
-    filters: { searchQuery, ...selectedFilters },
+  const { recipes, fetchMore } = useRecipes({
+    filters: { searchQuery, tags: selectedFilters },
+    pageSize: 20,
   });
   const { db } = useDrizzleDb();
 
@@ -91,41 +93,50 @@ const ExploreScreen: React.FC<Props> = (props) => {
   };
 
   return (
-    <MasonryFlashList
-      contentContainerStyle={{
-        backgroundColor: theme.colors.matchBlurBackground,
-        paddingHorizontal: 8,
-        paddingTop: 16,
-      }}
-      contentInsetAdjustmentBehavior="automatic"
-      data={recipes.length > 0 ? recipes : Array(10).fill(null)}
-      renderItem={({ item, index }) => (
-        <RecipeCard recipe={item === null ? undefined : item} index={index} />
-      )}
-      onViewableItemsChanged={({ changed }) => {
-        // Mark recipes as seen when they leave the view
-        db.update(recipesTable)
-          .set({ lastSeen: new Date().toISOString() })
-          .where(
-            inArray(
-              recipesTable.id,
-              changed
-                .filter((c) => c.item !== null)
-                .filter((c) => !c.isViewable)
-                .map((c) => c.item.id),
-            ),
-          );
-      }}
-      keyExtractor={(_, index) => `recipe-${index}`}
-      ListHeaderComponent={ListHeaderComponent}
-      onScrollBeginDrag={handleScrollBeginDrag}
-      onScrollEndDrag={handleScrollEndDrag}
-      onScroll={handleScroll}
-      onEndReachedThreshold={0.5}
-      numColumns={2}
-      estimatedItemSize={200}
-      scrollEventThrottle={16}
-    />
+    <View style={{ flex: 1 }}>
+      <Box
+        style={StyleSheet.absoluteFill}
+        backgroundColor="matchBlurBackground"
+      />
+      <MasonryFlashList
+        contentContainerStyle={{
+          backgroundColor: theme.colors.matchBlurBackground,
+          paddingHorizontal: 8,
+          paddingTop: 16,
+        }}
+        contentInsetAdjustmentBehavior="automatic"
+        data={recipes.length > 0 ? recipes : Array(10).fill(null)}
+        renderItem={({ item, index }) => (
+          <RecipeCard recipe={item === null ? undefined : item} index={index} />
+        )}
+        onViewableItemsChanged={({ changed }) => {
+          // Mark recipes as seen when they leave the view
+          db.update(recipesTable)
+            .set({ lastSeen: new Date().toISOString() })
+            .where(
+              inArray(
+                recipesTable.id,
+                changed
+                  .filter((c) => c.item !== null)
+                  .filter((c) => !c.isViewable)
+                  .map((c) => c.item.id),
+              ),
+            );
+        }}
+        onEndReached={() => {
+          fetchMore();
+        }}
+        keyExtractor={(_, index) => `recipe-${index}`}
+        ListHeaderComponent={ListHeaderComponent}
+        onScrollBeginDrag={handleScrollBeginDrag}
+        onScrollEndDrag={handleScrollEndDrag}
+        onScroll={handleScroll}
+        onEndReachedThreshold={0.5}
+        numColumns={2}
+        estimatedItemSize={200}
+        scrollEventThrottle={16}
+      />
+    </View>
   );
 };
 

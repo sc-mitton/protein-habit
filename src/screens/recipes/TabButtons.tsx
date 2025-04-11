@@ -8,7 +8,6 @@ import Reanimated, {
 import _ from "lodash";
 
 import { Box, Button, Text } from "@components";
-import { allFilters } from "@db/schema/enums";
 import { useRecipesScreenContext } from "./Context";
 
 const OFFSET_LEFT = 20;
@@ -35,13 +34,14 @@ interface Props {
 }
 
 const TagsTabButtons = (props: Props) => {
-  const { selectedFilters, setSelectedFilters } = useRecipesScreenContext();
+  const { selectedFilters, setSelectedFilters, filterOptions } =
+    useRecipesScreenContext();
 
   const tabHeaderWidths = useRef<number[]>([]);
   const indicatorX = useSharedValue(OFFSET_LEFT);
   const indicatorWidth = useSharedValue(0);
 
-  const filterKeys = useMemo(() => Object.keys(allFilters), []);
+  const filterKeys = useMemo(() => Object.keys(filterOptions), [filterOptions]);
 
   const indicatorAnimation = useAnimatedStyle(() => {
     return {
@@ -93,7 +93,7 @@ const TagsTabButtons = (props: Props) => {
     >
       {filterKeys.map((key, i) => (
         <Reanimated.View
-          key={key}
+          key={`${key}-${i}`}
           onLayout={(e) => {
             // Only update if width has changed
             const width = e.nativeEvent.layout.width;

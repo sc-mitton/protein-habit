@@ -1,36 +1,21 @@
 {
-  "id": "92151926-023e-4e4a-9222-665d96f3954e",
-  "prevId": "5a70f532-0cf7-43d0-bd16-967317a5f43a",
+  "id": "f2f64c68-923e-417a-a01e-cc6d9aebc677",
+  "prevId": "dbe72378-8098-44f6-b2ed-dfb351bdbc3c",
   "version": "6",
   "dialect": "sqlite",
   "tables": {
     "cuisines": {
       "name": "cuisines",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
         "name": {
           "name": "name",
           "type": "text",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         }
       },
-      "indexes": {
-        "cuisines_name_unique": {
-          "name": "cuisines_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -39,30 +24,15 @@
     "dish_types": {
       "name": "dish_types",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
         "name": {
           "name": "name",
           "type": "text",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         }
       },
-      "indexes": {
-        "dish_types_name_unique": {
-          "name": "dish_types_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -71,30 +41,15 @@
     "meal_types": {
       "name": "meal_types",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
         "name": {
           "name": "name",
           "type": "text",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         }
       },
-      "indexes": {
-        "meal_types_name_unique": {
-          "name": "meal_types_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -105,14 +60,14 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": true
+          "autoincrement": false
         },
         "recipe_id": {
           "name": "recipe_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -184,30 +139,15 @@
     "proteins": {
       "name": "proteins",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": true
-        },
         "name": {
           "name": "name",
           "type": "text",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         }
       },
-      "indexes": {
-        "proteins_name_unique": {
-          "name": "proteins_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -218,10 +158,10 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": true
+          "autoincrement": false
         },
         "title": {
           "name": "title",
@@ -257,6 +197,14 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "created_on": {
+          "name": "created_on",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
         }
       },
       "indexes": {},
@@ -270,14 +218,14 @@
       "columns": {
         "recipe_id": {
           "name": "recipe_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "cuisine_id": {
-          "name": "cuisine_id",
-          "type": "integer",
+        "cuisine": {
+          "name": "cuisine",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -298,15 +246,15 @@
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
-        "recipe_cuisine_association_cuisine_id_cuisines_id_fk": {
-          "name": "recipe_cuisine_association_cuisine_id_cuisines_id_fk",
+        "recipe_cuisine_association_cuisine_cuisines_name_fk": {
+          "name": "recipe_cuisine_association_cuisine_cuisines_name_fk",
           "tableFrom": "recipe_cuisine_association",
           "columnsFrom": [
-            "cuisine_id"
+            "cuisine"
           ],
           "tableTo": "cuisines",
           "columnsTo": [
-            "id"
+            "name"
           ],
           "onUpdate": "no action",
           "onDelete": "no action"
@@ -321,14 +269,14 @@
       "columns": {
         "recipe_id": {
           "name": "recipe_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "dish_type_id": {
-          "name": "dish_type_id",
-          "type": "integer",
+        "dish_type": {
+          "name": "dish_type",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -349,15 +297,15 @@
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
-        "recipe_dish_type_association_dish_type_id_dish_types_id_fk": {
-          "name": "recipe_dish_type_association_dish_type_id_dish_types_id_fk",
+        "recipe_dish_type_association_dish_type_dish_types_name_fk": {
+          "name": "recipe_dish_type_association_dish_type_dish_types_name_fk",
           "tableFrom": "recipe_dish_type_association",
           "columnsFrom": [
-            "dish_type_id"
+            "dish_type"
           ],
           "tableTo": "dish_types",
           "columnsTo": [
-            "id"
+            "name"
           ],
           "onUpdate": "no action",
           "onDelete": "no action"
@@ -372,14 +320,14 @@
       "columns": {
         "recipe_id": {
           "name": "recipe_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "meal_type_id": {
-          "name": "meal_type_id",
-          "type": "integer",
+        "meal_type": {
+          "name": "meal_type",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -400,15 +348,15 @@
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
-        "recipe_meal_type_association_meal_type_id_meal_types_id_fk": {
-          "name": "recipe_meal_type_association_meal_type_id_meal_types_id_fk",
+        "recipe_meal_type_association_meal_type_meal_types_name_fk": {
+          "name": "recipe_meal_type_association_meal_type_meal_types_name_fk",
           "tableFrom": "recipe_meal_type_association",
           "columnsFrom": [
-            "meal_type_id"
+            "meal_type"
           ],
           "tableTo": "meal_types",
           "columnsTo": [
-            "id"
+            "name"
           ],
           "onUpdate": "no action",
           "onDelete": "no action"
@@ -423,14 +371,14 @@
       "columns": {
         "recipe_id": {
           "name": "recipe_id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "protein_id": {
-          "name": "protein_id",
-          "type": "integer",
+        "protein": {
+          "name": "protein",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -451,15 +399,15 @@
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
-        "recipe_protein_association_protein_id_proteins_id_fk": {
-          "name": "recipe_protein_association_protein_id_proteins_id_fk",
+        "recipe_protein_association_protein_proteins_name_fk": {
+          "name": "recipe_protein_association_protein_proteins_name_fk",
           "tableFrom": "recipe_protein_association",
           "columnsFrom": [
-            "protein_id"
+            "protein"
           ],
           "tableTo": "proteins",
           "columnsTo": [
-            "id"
+            "name"
           ],
           "onUpdate": "no action",
           "onDelete": "no action"

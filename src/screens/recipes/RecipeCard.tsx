@@ -72,7 +72,7 @@ const RecipeCard = (props: Props) => {
   const [firstRender, setFirstRender] = useState(true);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const bookmarkAnimation = useRef<LottieView>(null);
-  const [height, setHeight] = useState<number>();
+  const generator = seedrandom(props.index.toString());
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleBookmark = () => {
@@ -116,17 +116,12 @@ const RecipeCard = (props: Props) => {
 
   useEffect(() => setFirstRender(false), []);
 
-  useEffect(() => {
-    const generator = seedrandom(props.index.toString());
-    setHeight(200 + Number(generator()) * 60);
-  }, []);
-
   return (
-    <Box margin={"s"} height={height}>
+    <Box margin={"s"} height={220 + Number(generator()) * 60}>
       <TouchableHighlight
         style={styles.touchable}
         onPress={handlePress}
-        activeOpacity={0.97}
+        activeOpacity={0.9}
         underlayColor={theme.colors.primaryText}
       >
         <Box flex={1}>

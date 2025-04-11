@@ -35,13 +35,6 @@ export const dishes = [
   "smoothie",
 ] as const;
 
-export const allFilters = {
-  protein: proteins,
-  dish: dishes,
-  meal: meals,
-  cuisine: cuisines,
-};
-
 export const CuisineEnum = Object.fromEntries(
   cuisines.map((cuisine) => [cuisine.toUpperCase(), cuisine]),
 ) as { [K in Uppercase<(typeof cuisines)[number]>]: (typeof cuisines)[number] };

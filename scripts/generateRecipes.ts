@@ -1,21 +1,9 @@
 import { readFileSync } from "fs";
 import { parse } from "csv-parse/sync";
 import { join } from "path";
-import {
-  recipesTable,
-  cuisinesTable,
-  mealTypesTable,
-  proteinTypesTable,
-  dishTypesTable,
-  recipesToCuisines,
-  recipesToMealTypes,
-  recipesToProteins,
-  recipesToDishTypes,
-  metaTable,
-} from "@db/schema/schema";
+import { recipesTable, metaTable } from "@db/schema/schema";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
-import { eq } from "drizzle-orm";
 import { OpenAI } from "openai";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { prompt, role } from "./recipe-gen-promps";
@@ -139,67 +127,6 @@ async function storeRecipeInDb(recipe: GeneratedRecipe): Promise<void> {
     prepTime: prepTimeInMinutes,
     cookTime: cookTimeInMinutes,
   });
-
-  // Insert associations if available
-  if (recipe.cuisine) {
-    const cuisineName = recipe.cuisine.toLowerCase();
-    const [cuisine] = await db
-      .select({ id: cuisinesTable.id })
-      .from(cuisinesTable)
-      .where(eq(cuisinesTable.name, cuisineName));
-
-    if (cuisine) {
-      await db.insert(recipesToCuisines).values({
-        recipeId: insertedRecipe.id,
-        cuisineId: cuisine.id,
-      });
-    }
-  }
-
-  if (recipe.meal) {
-    const mealName = recipe.meal.toLowerCase();
-    const [mealType] = await db
-      .select({ id: mealTypesTable.id })
-      .from(mealTypesTable)
-      .where(eq(mealTypesTable.name, mealName));
-
-    if (mealType) {
-      await db.insert(recipesToMealTypes).values({
-        recipeId: insertedRecipe.id,
-        mealTypeId: mealType.id,
-      });
-    }
-  }
-
-  if (recipe.protein) {
-    const proteinName = recipe.protein.toLowerCase();
-    const [protein] = await db
-      .select({ id: proteinTypesTable.id })
-      .from(proteinTypesTable)
-      .where(eq(proteinTypesTable.name, proteinName));
-
-    if (protein) {
-      await db.insert(recipesToProteins).values({
-        recipeId: insertedRecipe.id,
-        proteinId: protein.id,
-      });
-    }
-  }
-
-  if (recipe.dish) {
-    const dishName = recipe.dish.toLowerCase();
-    const [dishType] = await db
-      .select({ id: dishTypesTable.id })
-      .from(dishTypesTable)
-      .where(eq(dishTypesTable.name, dishName));
-
-    if (dishType) {
-      await db.insert(recipesToDishTypes).values({
-        recipeId: insertedRecipe.id,
-        dishTypeId: dishType.id,
-      });
-    }
-  }
 }
 
 function convertPrepTimeToMinutes(prepTime: string): number {
@@ -330,18 +257,19 @@ async function main() {
   const dishes = readDishesCsv(dishesPath);
   console.log(`Found ${dishes.length} dishes in CSV`);
 
-  // // Process each dish
-  // for (let i = 0; i < dishes.length; i++) {
-  //   const dish = dishes[i];
-  //   console.log(`Processing dish ${i + 1}/${dishes.length}: ${dish.name}`);
-  //   try {
-  //     await processDish(dish);
-  //   } catch (error) {
-  //     console.error(`❌ Error processing dish`, error);
-  //     continue;
-  //   }
-  //   console.log(`✅ Successfully processed`);
-  // }
+  // Process each dish
+  for (let i = 0; i < dishes.length; i++) {
+    const dish = dishes[i];
+    console.log(`Processing dish ${i + 1}/${dishes.length}: ${dish.name}`);
+    try {
+      await processDish(dish);
+    } catch (error) {
+      console.error(`❌ Error processing dish`, error);
+      continue;
+    }
+    console.log(`✅ Successfully processed`);
+  }
+
   sqlite.close();
 }
 

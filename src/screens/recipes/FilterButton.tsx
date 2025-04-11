@@ -10,7 +10,6 @@ import _ from "lodash";
 import { Box, Text } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import { useAppSelector } from "@store/hooks";
-import { allFilters } from "@db/schema/enums";
 import { selectAccent } from "@store/slices/uiSlice";
 import images from "./images";
 
@@ -52,20 +51,21 @@ const styles = StyleSheet.create({
 const FilterButton = ({ filter }: { filter: string }) => {
   const theme = useTheme();
   const accent = useAppSelector(selectAccent);
-  const { selectedFilters, setSelectedFilters } = useRecipesScreenContext();
+  const { selectedFilters, setSelectedFilters, filterOptions } =
+    useRecipesScreenContext();
   const filterType = useMemo(() => {
-    return Object.keys(allFilters).find((key: any) =>
-      (allFilters as any)[key].includes(filter),
-    ) as keyof typeof allFilters;
-  }, [filter]);
+    return Object.keys(filterOptions).find((key: any) =>
+      (filterOptions as any)[key].includes(filter),
+    ) as keyof typeof filterOptions;
+  }, [filter, filterOptions]);
 
   const [isSelected, setIsSelected] = useState<boolean>(
-    selectedFilters?.[filterType] === filter,
+    Object.values(selectedFilters).flat().includes(filter),
   );
 
   useEffect(() => {
-    setIsSelected(selectedFilters?.[filterType] === filter);
-  }, [selectedFilters, filter, filterType]);
+    setIsSelected(Object.values(selectedFilters).flat().includes(filter));
+  }, [selectedFilters, filter]);
 
   return (
     <Box alignItems="center">
@@ -75,12 +75,7 @@ const FilterButton = ({ filter }: { filter: string }) => {
           activeOpacity={0.97}
           style={styles.touchable}
           onPress={() => {
-            setSelectedFilters((prev) => {
-              return {
-                ...prev,
-                [filterType]: isSelected ? undefined : filter,
-              };
-            });
+            setSelectedFilters((prev) => ({ ...prev, [filterType]: filter }));
           }}
         >
           <Box
@@ -103,7 +98,6 @@ const FilterButton = ({ filter }: { filter: string }) => {
         </TouchableHighlight>
       </Box>
       <Text fontSize={12} color="secondaryText" style={styles.filterText}>
-        {/* {_.capitalize(filter.replace("_", " "))} */}
         {filter
           .split("_")
           .map((word) => _.capitalize(word))

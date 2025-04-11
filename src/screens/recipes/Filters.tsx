@@ -4,12 +4,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as Haptics from "expo-haptics";
 
 import { Box } from "@components";
-import { allFilters } from "@db/schema/enums";
 import FilterButton from "./FilterButton";
 import { useTheme } from "@shopify/restyle";
 import { Theme } from "@theme";
 import TabButtons from "./TabButtons";
 import { WIDTH } from "./FilterButton";
+import { useRecipesScreenContext } from "./Context";
 
 const Filters = () => {
   const theme = useTheme<Theme>();
@@ -17,20 +17,21 @@ const Filters = () => {
   const currentSectionIndex = useRef(0);
   const isDragging = useRef(false);
   const [selectedFilterTab, setSelectedFilterTab] = useState(0);
+  const { filterOptions } = useRecipesScreenContext();
 
   // The indices in the flatlist of the first item of each tag type section
   const sectionIndexes = useMemo(() => {
-    return Object.keys(allFilters).reduce(
+    return Object.keys(filterOptions).reduce(
       (acc, key, i) => {
         acc.push(
-          allFilters[key as keyof typeof allFilters].length +
+          filterOptions[key as keyof typeof filterOptions].length +
             acc[acc.length - 1] || 0,
         );
         return acc;
       },
       [0] as number[],
     );
-  }, []);
+  }, [filterOptions]);
 
   useEffect(() => {
     isDragging.current = false;
@@ -38,10 +39,10 @@ const Filters = () => {
 
   useEffect(() => {
     if (isDragging.current) return;
+    if (Object.keys(filterOptions).length === 0) return;
     ref.current?.scrollToIndex({
       index: sectionIndexes[selectedFilterTab],
       animated: true,
-      viewOffset: 20,
     });
   }, [selectedFilterTab]);
 
@@ -99,9 +100,8 @@ const Filters = () => {
               Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             }
           }}
-          data={Object.keys(allFilters).reduce((acc, key) => {
-            return [...acc, ...allFilters[key as keyof typeof allFilters]];
-          }, [] as string[])}
+          keyExtractor={(item) => item}
+          data={Object.values(filterOptions).flat()}
           contentContainerStyle={styles.filters}
           renderItem={({ item }) => <FilterButton filter={item} />}
         />

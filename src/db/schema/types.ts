@@ -36,6 +36,10 @@ export type RecipeWithAssociations = Recipe & {
   meta: Meta;
 };
 
+export type RecipeWithMeta = Recipe & {
+  meta: Meta;
+};
+
 export type RecipeFts = Pick<
   typeof recipesTable.$inferSelect,
   "id" | "title" | "instructions"

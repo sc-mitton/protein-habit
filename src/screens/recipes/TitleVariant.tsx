@@ -6,6 +6,7 @@ import _ from "lodash";
 import { Box, Button, Text } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import images from "./images";
+import { capitalize } from "@utils";
 
 const styles = StyleSheet.create({
   image: {
@@ -28,14 +29,9 @@ const TitleVariant = () => {
             padding="none"
           >
             <Text fontSize={14} color="secondaryText">
-              {Object.keys(selectedFilters)
-                .map((f) => selectedFilters[f as keyof typeof selectedFilters])
-                .map((f) =>
-                  f
-                    ?.split("_")
-                    .map((word) => _.capitalize(word))
-                    .join(" "),
-                )
+              {Object.values(selectedFilters)
+                .flat()
+                .map((filter) => capitalize(filter))
                 .join(", ")}
             </Text>
           </Button>

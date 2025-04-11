@@ -1,36 +1,21 @@
 {
+  "id": "ad17845e-987d-417a-8f35-4cabc7978fc7",
+  "prevId": "f2f64c68-923e-417a-a01e-cc6d9aebc677",
   "version": "6",
   "dialect": "sqlite",
-  "id": "35c9d7ed-23a6-4ce7-9a7a-347533d7d8a6",
-  "prevId": "92151926-023e-4e4a-9222-665d96f3954e",
   "tables": {
     "cuisines": {
       "name": "cuisines",
       "columns": {
-        "id": {
-          "name": "id",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         }
       },
-      "indexes": {
-        "cuisines_name_unique": {
-          "name": "cuisines_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -39,30 +24,15 @@
     "dish_types": {
       "name": "dish_types",
       "columns": {
-        "id": {
-          "name": "id",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         }
       },
-      "indexes": {
-        "dish_types_name_unique": {
-          "name": "dish_types_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -71,30 +41,15 @@
     "meal_types": {
       "name": "meal_types",
       "columns": {
-        "id": {
-          "name": "id",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         }
       },
-      "indexes": {
-        "meal_types_name_unique": {
-          "name": "meal_types_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -166,15 +121,15 @@
         "meta_recipe_id_recipes_id_fk": {
           "name": "meta_recipe_id_recipes_id_fk",
           "tableFrom": "meta",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -184,30 +139,15 @@
     "proteins": {
       "name": "proteins",
       "columns": {
-        "id": {
-          "name": "id",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
         }
       },
-      "indexes": {
-        "proteins_name_unique": {
-          "name": "proteins_name_unique",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -283,8 +223,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "cuisine_id": {
-          "name": "cuisine_id",
+        "cuisine": {
+          "name": "cuisine",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -296,28 +236,28 @@
         "recipe_cuisine_association_recipe_id_recipes_id_fk": {
           "name": "recipe_cuisine_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_cuisine_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
-        "recipe_cuisine_association_cuisine_id_cuisines_id_fk": {
-          "name": "recipe_cuisine_association_cuisine_id_cuisines_id_fk",
+        "recipe_cuisine_association_cuisine_cuisines_name_fk": {
+          "name": "recipe_cuisine_association_cuisine_cuisines_name_fk",
           "tableFrom": "recipe_cuisine_association",
-          "tableTo": "cuisines",
           "columnsFrom": [
-            "cuisine_id"
+            "cuisine"
           ],
+          "tableTo": "cuisines",
           "columnsTo": [
-            "id"
+            "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -334,8 +274,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "dish_type_id": {
-          "name": "dish_type_id",
+        "dish_type": {
+          "name": "dish_type",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -347,28 +287,28 @@
         "recipe_dish_type_association_recipe_id_recipes_id_fk": {
           "name": "recipe_dish_type_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_dish_type_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
-        "recipe_dish_type_association_dish_type_id_dish_types_id_fk": {
-          "name": "recipe_dish_type_association_dish_type_id_dish_types_id_fk",
+        "recipe_dish_type_association_dish_type_dish_types_name_fk": {
+          "name": "recipe_dish_type_association_dish_type_dish_types_name_fk",
           "tableFrom": "recipe_dish_type_association",
-          "tableTo": "dish_types",
           "columnsFrom": [
-            "dish_type_id"
+            "dish_type"
           ],
+          "tableTo": "dish_types",
           "columnsTo": [
-            "id"
+            "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -385,8 +325,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "meal_type_id": {
-          "name": "meal_type_id",
+        "meal_type": {
+          "name": "meal_type",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -398,28 +338,28 @@
         "recipe_meal_type_association_recipe_id_recipes_id_fk": {
           "name": "recipe_meal_type_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_meal_type_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
-        "recipe_meal_type_association_meal_type_id_meal_types_id_fk": {
-          "name": "recipe_meal_type_association_meal_type_id_meal_types_id_fk",
+        "recipe_meal_type_association_meal_type_meal_types_name_fk": {
+          "name": "recipe_meal_type_association_meal_type_meal_types_name_fk",
           "tableFrom": "recipe_meal_type_association",
-          "tableTo": "meal_types",
           "columnsFrom": [
-            "meal_type_id"
+            "meal_type"
           ],
+          "tableTo": "meal_types",
           "columnsTo": [
-            "id"
+            "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -436,8 +376,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "protein_id": {
-          "name": "protein_id",
+        "protein": {
+          "name": "protein",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -449,28 +389,28 @@
         "recipe_protein_association_recipe_id_recipes_id_fk": {
           "name": "recipe_protein_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_protein_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
-        "recipe_protein_association_protein_id_proteins_id_fk": {
-          "name": "recipe_protein_association_protein_id_proteins_id_fk",
+        "recipe_protein_association_protein_proteins_name_fk": {
+          "name": "recipe_protein_association_protein_proteins_name_fk",
           "tableFrom": "recipe_protein_association",
-          "tableTo": "proteins",
           "columnsFrom": [
-            "protein_id"
+            "protein"
           ],
+          "tableTo": "proteins",
           "columnsTo": [
-            "id"
+            "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -481,9 +421,9 @@
   "views": {},
   "enums": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   },
   "internal": {
     "indexes": {}

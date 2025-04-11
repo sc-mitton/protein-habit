@@ -1,17 +1,20 @@
-import React, { createContext, useContext, ReactNode, useState } from "react";
-import { allFilters } from "@db/schema/enums";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
+import { useFilterOptions } from "@hooks";
 
 interface RecipesScreenContextType {
-  selectedFilters: {
-    [key in keyof typeof allFilters]?: (typeof allFilters)[key][number];
-  };
+  selectedFilters: { [key: string]: string };
   setSelectedFilters: React.Dispatch<
-    React.SetStateAction<{
-      [key in keyof typeof allFilters]?: (typeof allFilters)[key][number];
-    }>
+    React.SetStateAction<{ [key: string]: string }>
   >;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  filterOptions: { [key: string]: string[] };
 }
 
 const RecipesScreenContext = createContext<
@@ -36,9 +39,17 @@ export const RecipesScreenContextProvider: React.FC<
   RecipesScreenContextProviderProps
 > = ({ children }) => {
   const [selectedFilters, setSelectedFilters] = useState<{
-    [key in keyof typeof allFilters]?: (typeof allFilters)[key][number];
+    [key: string]: string;
   }>({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [filterOptions, setFilterOptions] = useState<{
+    [key: string]: string[];
+  }>({});
+  const queriedFilterOptions = useFilterOptions();
+
+  useEffect(() => {
+    setFilterOptions(queriedFilterOptions);
+  }, [queriedFilterOptions]);
 
   return (
     <RecipesScreenContext.Provider
@@ -47,6 +58,7 @@ export const RecipesScreenContextProvider: React.FC<
         setSelectedFilters,
         searchQuery,
         setSearchQuery,
+        filterOptions,
       }}
     >
       {children}
