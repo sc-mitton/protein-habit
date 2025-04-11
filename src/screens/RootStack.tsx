@@ -62,6 +62,7 @@ const RootStack = () => {
           name="RecipeDetail"
           options={({ route }) => ({
             title: capitalize(route.params.recipe.title ?? "Recipe"),
+            animation: "fade",
           })}
           component={RecipesDetailScreen}
         />
