@@ -4,7 +4,7 @@ import { Box, Text } from "@components";
 
 type Props = RootScreenProps<"BookmarkedRecipes">;
 
-const BookmarkedScreen: React.FC<Props> = (props) => {
+const BookmarkedScreen = (props: Props) => {
   return <Box flex={1} backgroundColor="matchBlurBackground" padding="m"></Box>;
 };
 

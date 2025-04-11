@@ -4,7 +4,7 @@ import { Box } from "@components";
 
 type Props = RootScreenProps<"GroceryList">;
 
-const ShoppingListScreen: React.FC<Props> = (props) => {
+const ShoppingListScreen = (props: Props) => {
   return <Box flex={1} backgroundColor="matchBlurBackground" padding="m"></Box>;
 };
 

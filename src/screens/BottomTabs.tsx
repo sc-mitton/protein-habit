@@ -27,7 +27,7 @@ import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
-const HEIGHT = Platform.OS === "ios" ? 80 : 60;
+const HEIGHT = Platform.OS === "ios" ? 100 : 80;
 const BOTTOM_POS = Platform.OS === "ios" ? 50 : 40;
 
 const styles = StyleSheet.create({
@@ -117,10 +117,9 @@ const CustomTabBar = ({
             colors={[
               theme.colors.transparentRGB,
               theme.colors.secondaryBackground,
-              theme.colors.secondaryBackground,
             ]}
             start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
+            end={{ x: 0, y: 0.8 }}
             style={styles.gradient}
           />
         </Animated.View>
