@@ -12,7 +12,8 @@ import BookmarkedRecipesScreen from "./bookmarked-recipes/BookmarkedRecipesScree
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { selectAccent } from "@store/slices/uiSlice";
-
+import { capitalize } from "@utils";
+import { Box, Text } from "@components";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootStack = () => {
@@ -60,7 +61,7 @@ const RootStack = () => {
         <Stack.Screen
           name="RecipeDetail"
           options={({ route }) => ({
-            title: route.params.recipe.title ?? "Recipe",
+            title: capitalize(route.params.recipe.title ?? "Recipe"),
           })}
           component={RecipesDetailScreen}
         />

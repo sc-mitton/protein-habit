@@ -11,7 +11,7 @@ export const useNavigationTheme = () => {
     dark: colorScheme === "dark",
     colors: {
       primary: theme.colors.primaryText,
-      background: theme.colors.mainBackground,
+      background: theme.colors.matchBlurBackground,
       card: theme.colors.mainBackground,
       text: theme.colors.primaryText,
       border: theme.colors.mainBackground,

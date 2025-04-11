@@ -1,4 +1,4 @@
-import { StackScreenProps } from "@react-navigation/stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type {
   CompositeScreenProps,
   NavigatorScreenParams,
@@ -48,7 +48,7 @@ export type RootStackParamList = {
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =
-  StackScreenProps<RootStackParamList, T>;
+  NativeStackScreenProps<RootStackParamList, T>;
 
 export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
   CompositeScreenProps<
@@ -58,7 +58,7 @@ export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
 
 export type HomeScreenProps<T extends keyof HomeStackParamList> =
   CompositeScreenProps<
-    StackScreenProps<HomeStackParamList, T>,
+    NativeStackScreenProps<HomeStackParamList, T>,
     CompositeScreenProps<
       BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
       RootScreenProps<keyof RootStackParamList>
@@ -67,7 +67,7 @@ export type HomeScreenProps<T extends keyof HomeStackParamList> =
 
 export type RecipesScreenProps<T extends keyof RecipesStackParamList> =
   CompositeScreenProps<
-    StackScreenProps<RecipesStackParamList, T>,
+    NativeStackScreenProps<RecipesStackParamList, T>,
     CompositeScreenProps<
       BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
       RootScreenProps<keyof RootStackParamList>
@@ -76,7 +76,7 @@ export type RecipesScreenProps<T extends keyof RecipesStackParamList> =
 
 export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
   CompositeScreenProps<
-    StackScreenProps<ProfileStackParamList, T>,
+    NativeStackScreenProps<ProfileStackParamList, T>,
     CompositeScreenProps<
       BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
       RootScreenProps<keyof RootStackParamList>
