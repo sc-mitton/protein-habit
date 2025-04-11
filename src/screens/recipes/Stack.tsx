@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabsScreenProps, RecipesStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
 import { Platform, useColorScheme } from "react-native";
-import ExploreScreen from "./RecipesScreen";
+import RecipeList from "./RecipesList";
 import { selectAccent } from "@store/slices/uiSlice";
 import { useAppSelector } from "@store/hooks";
 import { Theme } from "@theme";
@@ -59,8 +59,8 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
       }}
     >
       <Stack.Screen
-        name="Explore"
-        component={ExploreScreen}
+        name="List"
+        component={RecipeList}
         options={{
           headerTitleAlign: "left",
           headerSearchBarOptions: {

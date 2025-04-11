@@ -29,7 +29,7 @@ export type ProfileStackParamList = {
 };
 
 export type RecipesStackParamList = {
-  Explore: undefined;
+  List: undefined;
 };
 
 export type BottomTabsParamList = {

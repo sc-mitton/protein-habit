@@ -22,7 +22,7 @@ import RecipeCard from "./RecipeCard";
 import { recipesTable } from "@db/schema/schema";
 import { useDrizzleDb } from "@hooks";
 
-type Props = RecipesScreenProps<"Explore">;
+type Props = RecipesScreenProps<"List">;
 
 const ListHeaderComponent = () => {
   const { searchQuery } = useRecipesScreenContext();
