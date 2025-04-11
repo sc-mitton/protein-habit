@@ -5,3 +5,4 @@ export { TextInput } from "./TextInput";
 export * from "./TextInput";
 export * from "./Text";
 export { default as Tag } from "../Tag";
+export * from "./Markdown";

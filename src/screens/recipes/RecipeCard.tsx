@@ -22,8 +22,6 @@ import { Theme } from "@theme";
 import { RootStackParamList } from "@types";
 import { capitalize } from "@utils";
 
-const AnimatedImage = Reanimated.createAnimatedComponent(Image);
-
 const styles = StyleSheet.create({
   bookmarkButton: {
     position: "absolute",
@@ -176,8 +174,7 @@ const RecipeCard = (props: Props) => {
               <Box flex={1} backgroundColor="primaryButton" />
             </Reanimated.View>
           )}
-          <AnimatedImage
-            sharedTransitionTag={`thumbnail-${props.recipe?.id}`}
+          <Image
             source={{
               uri: props.recipe
                 ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
@@ -185,7 +182,6 @@ const RecipeCard = (props: Props) => {
             }}
             onLoadEnd={() => props.recipe && setIsLoaded(true)}
             style={styles.image}
-            contentFit="cover"
             transition={100}
           />
         </Box>

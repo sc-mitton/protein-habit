@@ -10,8 +10,8 @@ export const recipesTable = sqliteTable("recipes", {
     .primaryKey()
     .$defaultFn(() => uuidv4()),
   title: text("title").notNull(),
-  ingredients: text("ingredients", { mode: "json" }).notNull(),
-  instructions: text("instructions", { mode: "json" }).notNull(),
+  ingredients: text("ingredients", { mode: "text" }).notNull(),
+  instructions: text("instructions", { mode: "text" }).notNull(),
   thumbnail: text("thumbnail").notNull(),
   lastSeen: text("last_seen"),
   createdOn: text("created_on").default(sql`CURRENT_TIMESTAMP`),

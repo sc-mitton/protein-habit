@@ -13,7 +13,7 @@ import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { selectAccent } from "@store/slices/uiSlice";
 import { capitalize } from "@utils";
-import { Box, Text } from "@components";
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootStack = () => {
@@ -30,6 +30,26 @@ const RootStack = () => {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="WeightInput" component={WeightInput} />
       <Stack.Screen name="BottomTabs" component={BottomTabs} />
+      <Stack.Screen
+        name="RecipeDetail"
+        options={({ route }) => ({
+          headerShown: true,
+          headerBackTitle: "Back",
+          headerShadowVisible: false,
+          headerTransparent: true,
+          headerBlurEffect: colorScheme === "dark" ? "dark" : "light",
+          headerTintColor: accentColor
+            ? theme.colors[accentColor]
+            : theme.colors.primaryText,
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: "Inter-Regular",
+            color: theme.colors.primaryText,
+          },
+          title: capitalize(route.params.recipe.title ?? "Recipe"),
+        })}
+        component={RecipesDetailScreen}
+      />
       <Stack.Group
         screenOptions={{
           headerShown: true,
@@ -58,14 +78,6 @@ const RootStack = () => {
           },
         }}
       >
-        <Stack.Screen
-          name="RecipeDetail"
-          options={({ route }) => ({
-            title: capitalize(route.params.recipe.title ?? "Recipe"),
-            animation: "fade",
-          })}
-          component={RecipesDetailScreen}
-        />
         <Stack.Screen
           name="BookmarkedRecipes"
           options={{ title: "Bookmarks" }}

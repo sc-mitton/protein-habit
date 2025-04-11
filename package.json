@@ -67,6 +67,7 @@
     "react-native-easing-gradient": "^1.1.1",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-keyboard-controller": "^1.16.8",
+    "react-native-markdown-display": "^7.0.2",
     "react-native-masked-view": "^0.2.0",
     "react-native-material-menu": "^2.0.0",
     "react-native-outside-press": "^1.2.2",
