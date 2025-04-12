@@ -10,6 +10,8 @@ import {
   color,
   typography,
   TypographyProps,
+  spacing,
+  SpacingProps,
 } from "@shopify/restyle";
 
 import { Theme } from "@theme";
@@ -22,12 +24,14 @@ export type RestyledColorProps = ColorProps<Theme> &
   RestyledTextProps<Theme> &
   VariantProps<Theme, "textVariants"> &
   ColorProps<Theme> &
-  TypographyProps<Theme>;
+  TypographyProps<Theme> &
+  SpacingProps<Theme>;
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyledColorProps>([
   variant,
   color,
   typography,
+  spacing,
 ]);
 
 export type TextProps = RestyledColorProps & {

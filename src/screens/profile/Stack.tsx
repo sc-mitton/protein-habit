@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useTheme } from "@shopify/restyle";
 import { Platform } from "react-native";
 
-import { ProfileStackParamList, RootScreenProps } from "@types";
+import { ProfileStackParamList, BottomTabsScreenProps } from "@types";
 import ProfileNavList from "./ProfileNavList";
 import AppearanceScreen from "./appearance/Appearance";
 import PersonalInfoScreen from "./personal-info/PersonalInfo";
@@ -10,7 +10,7 @@ import EditDailyGoalScreen from "./edit-daily-goal/EditDailyGoal";
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
 
-const ProfileStack = (props: RootScreenProps<"Profile">) => {
+const ProfileStack = (props: BottomTabsScreenProps<"Profile">) => {
   const theme = useTheme();
 
   return (
@@ -24,10 +24,7 @@ const ProfileStack = (props: RootScreenProps<"Profile">) => {
         screenOptions={{
           presentation: "transparentModal",
           headerShown: false,
-          animation:
-            Platform.OS === "android"
-              ? "slide_from_bottom"
-              : "fade_from_bottom",
+          animation: Platform.OS === "android" ? "slide_from_bottom" : "fade",
           statusBarBackgroundColor: theme.colors.modalAndroidStatusBackground,
         }}
       >

@@ -42,9 +42,11 @@ export type RootStackParamList = {
   Welcome: undefined;
   WeightInput: undefined;
   BottomTabs: NavigatorScreenParams<BottomTabsParamList>;
-  RecipeDetail: { recipe: Recipe };
+  RecipeDetail: { recipe: string };
   BookmarkedRecipes: undefined;
   GroceryList: undefined;
+  BookmarkModal: { recipe: string };
+  AddBookmarkCategoryModal: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

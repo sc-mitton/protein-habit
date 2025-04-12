@@ -7,6 +7,7 @@ import foodsReducer from "./slices/foodsSlice";
 import userReducer from "./slices/userSlice";
 import proteinReducer from "./slices/proteinSlice";
 import uiReducer from "./slices/uiSlice";
+import bookmarksReducer from "./slices/bookmarksSlice";
 import apiSlice from "./slices/apiSlice";
 
 const migrations = {
@@ -31,11 +32,39 @@ const migrations = {
       ui: { ...state.ui, hideBottomBar: false },
     };
   },
+  36: (state: RootState) => {
+    return {
+      ...state,
+      bookmarks: {
+        categories: [
+          {
+            id: "favorites",
+            name: "Favorites",
+            recipe: [],
+          },
+        ],
+      },
+    };
+  },
+  37: (state: RootState) => {
+    return {
+      ...state,
+      bookmarks: {
+        categories: [
+          {
+            id: "favorites",
+            name: "Favorites",
+            recipeIds: [],
+          },
+        ],
+      },
+    };
+  },
 } as any;
 
 const persistConfig = {
   key: "root",
-  version: 35,
+  version: 37,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],
@@ -46,6 +75,7 @@ const rootReducer = combineReducers({
   protein: proteinReducer,
   ui: uiReducer,
   foods: foodsReducer,
+  bookmarks: bookmarksReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

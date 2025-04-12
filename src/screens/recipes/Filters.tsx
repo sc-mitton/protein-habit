@@ -39,6 +39,7 @@ const Filters = () => {
     ref.current?.scrollToIndex({
       index: sectionIndexes[selectedFilterTab],
       animated: true,
+      viewOffset: 12,
     });
   }, [selectedFilterTab]);
 

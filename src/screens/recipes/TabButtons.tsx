@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import Reanimated, {
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withTiming,
 } from "react-native-reanimated";
 import _ from "lodash";
@@ -76,8 +77,8 @@ const TagsTabButtons = (props: Props) => {
   const handleTabPress = (index: number) => {
     props.onChange(index);
     const { x, width } = calculatePosition(index);
-    indicatorWidth.value = withTiming(width, { duration: 300 });
-    indicatorX.value = withTiming(x, { duration: 300 });
+    indicatorWidth.value = withSpring(width, { damping: 17, stiffness: 100 });
+    indicatorX.value = withSpring(x, { damping: 17, stiffness: 100 });
   };
 
   useEffect(() => {

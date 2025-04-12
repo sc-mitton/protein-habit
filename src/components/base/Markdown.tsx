@@ -7,7 +7,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const Markdown = ({ children }: Props) => {
+export const Markdown = ({ children = "" }: Props) => {
   const theme = useTheme<Theme>();
   return (
     <Mark

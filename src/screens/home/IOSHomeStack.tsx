@@ -4,7 +4,6 @@ import { AppState } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
 
-import { useAppSelector } from "@store/hooks";
 import HomeMainScreen from "./main/Screen";
 import { HomeStackParamList } from "@types";
 import Entry from "./entry/Entry";
@@ -61,11 +60,7 @@ const RootStack = (props: BottomTabsScreenProps<"Home">) => {
           statusBarBackgroundColor: theme.colors.modalAndroidStatusBackground,
         }}
       >
-        <Stack.Screen
-          name="SuccessModal"
-          component={SuccessModal}
-          options={{ animation: "fade" }}
-        />
+        <Stack.Screen name="SuccessModal" component={SuccessModal} />
         <Stack.Screen name="PurchaseModal" component={Purchase} />
       </Stack.Group>
 
@@ -74,7 +69,7 @@ const RootStack = (props: BottomTabsScreenProps<"Home">) => {
         name="SearchModal"
         component={Search}
         options={{
-          animation: "fade_from_bottom",
+          animation: "fade",
           presentation: "transparentModal",
           headerShown: false,
         }}

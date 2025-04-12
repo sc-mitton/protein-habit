@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Image } from "expo-image";
 import {
   Dimensions,
@@ -15,6 +15,9 @@ import Animated, {
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@shopify/restyle";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { SymbolView } from "expo-symbols";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Feather from "@expo/vector-icons/Feather";
 
 import { RootScreenProps } from "@types";
 import {
@@ -23,14 +26,15 @@ import {
   Text,
   tagImages,
   LinearGradientEdges,
+  BookmarkButton,
 } from "@components";
 import { Theme } from "@theme";
 import { capitalize } from "@utils";
 import { useSelectRecipe } from "@hooks";
+import { removeRecipe, selectIsBookmarked } from "@store/slices/bookmarksSlice";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 
-type Props = RootScreenProps<"RecipeDetail">;
-
-const IMAGE_HEIGHT = Dimensions.get("window").height * 0.25;
+const IMAGE_HEIGHT = Dimensions.get("window").height * 0.3;
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -53,6 +57,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     zIndex: 1,
+    marginTop: -24,
   },
   scrollContent: {
     paddingBottom: 64,
@@ -80,17 +85,61 @@ const styles = StyleSheet.create({
   sectionHeader: {
     paddingTop: 16,
   },
+  bookmarkButton: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+    zIndex: 2,
+  },
 });
 
 const TAG_TYPES = ["proteins", "cuisines", "mealTypes", "dishTypes"] as const;
 
-const DetailScreen: React.FC<Props> = (props) => {
+const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
+  const dispatch = useAppDispatch();
+  const isBookmarked = useAppSelector((state) =>
+    selectIsBookmarked(state, props.route.params.recipe),
+  );
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
   const theme = useTheme<Theme>();
-  const recipeData = useSelectRecipe(props.route.params.recipe?.id);
+  const recipeData = useSelectRecipe(props.route.params.recipe);
   const [currentSection, setCurrentSection] = useState<string>("");
   const sectionRefs = useRef<{ [key: string]: number }>({});
   const headerHeight = useHeaderHeight();
   const scrollY = useSharedValue(0);
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => (
+        <BookmarkButton
+          bookmarked={bookmarked}
+          onPress={handleBookmark}
+          size={32}
+        />
+      ),
+    });
+  }, [isBookmarked, bookmarked]);
+
+  useEffect(() => {
+    props.navigation.addListener("focus", () => {
+      setBookmarked(isBookmarked);
+    });
+  }, []);
+
+  const handleBookmark = () => {
+    setBookmarked(!bookmarked);
+    if (isBookmarked) {
+      dispatch(
+        removeRecipe({
+          recipeId: props.route.params.recipe,
+        }),
+      );
+    } else {
+      props.navigation.navigate("BookmarkModal", {
+        recipe: props.route.params.recipe,
+      });
+    }
+  };
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
@@ -141,26 +190,23 @@ const DetailScreen: React.FC<Props> = (props) => {
 
   const renderSectionHeader = (title: string) => (
     <Box
-      borderBottomWidth={1.5}
-      borderBottomColor="borderColor"
-      paddingBottom="m"
       paddingTop="xxl"
       paddingHorizontal="l"
       backgroundColor="matchBlurBackground"
       onLayout={onLayout(title.toLowerCase())}
     >
-      <Text variant="header">{title}</Text>
+      <Box
+        borderBottomWidth={1}
+        borderBottomColor="borderColor"
+        paddingBottom="m"
+      >
+        <Text variant="header">{title}</Text>
+      </Box>
     </Box>
   );
 
-  const renderMetaInfo = (icon: string, text: string) => (
-    <Text variant="body" style={styles.metaText}>
-      {icon} {text}
-    </Text>
-  );
-
   return (
-    <Box flex={1} backgroundColor="matchBlurBackground">
+    <Box flex={1} borderTopLeftRadius="xl" borderTopRightRadius="xl">
       <AnimatedImage
         source={{
           uri: props.route.params.recipe
@@ -182,6 +228,9 @@ const DetailScreen: React.FC<Props> = (props) => {
         contentFit="cover"
         transition={100}
       />
+      <Box style={styles.bookmarkButton}>
+        <BookmarkButton onPress={handleBookmark} bookmarked={isBookmarked} />
+      </Box>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[
@@ -194,17 +243,35 @@ const DetailScreen: React.FC<Props> = (props) => {
       >
         <Box
           paddingHorizontal="l"
-          paddingTop="l"
-          paddingBottom="m"
+          paddingVertical="l"
           backgroundColor="matchBlurBackground"
-          borderBottomWidth={1.5}
+          borderTopLeftRadius="xxl"
+          borderTopRightRadius="xxl"
+          borderBottomWidth={1}
           borderBottomColor="borderColor"
+          gap="s"
+          shadowColor="black"
+          shadowOffset={{ width: 0, height: -1 }}
+          shadowOpacity={1}
+          shadowRadius={36}
+          elevation={36}
+          alignItems="center"
         >
-          <Text variant="largeHeader">
-            {capitalize(props.route.params.recipe?.title)}
+          <Text variant="largeHeader" textAlign="center">
+            {capitalize(recipeData.recipe?.title ?? "")}
           </Text>
+          <Box flexDirection="row" gap="s">
+            <Text variant="paragraph" color="secondaryText">
+              {recipeData.recipe?.meta.proteinPerServing}g protein
+            </Text>
+            {recipeData.recipe?.meta.caloriesPerServing && (
+              <Text variant="paragraph" color="secondaryText">
+                &bull;&nbsp;{recipeData.recipe?.meta.caloriesPerServing} kcal
+              </Text>
+            )}
+          </Box>
         </Box>
-        <Box backgroundColor="matchBlurBackground" paddingTop="s">
+        <Box backgroundColor="matchBlurBackground" paddingTop="xs">
           <LinearGradientEdges height={60} />
           <ScrollView
             horizontal
@@ -219,42 +286,67 @@ const DetailScreen: React.FC<Props> = (props) => {
         <Box
           paddingHorizontal="l"
           paddingTop="xl"
-          paddingBottom="m"
           backgroundColor="matchBlurBackground"
+          gap="m"
         >
-          <Box flexDirection="row" gap="s" width="100%">
-            <Box flex={0.75} gap="s">
-              {renderMetaInfo(
-                "🍽️",
-                `${recipeData.recipe?.meta.numberOfServings} servings`,
+          <Box flexDirection="row" alignItems="center">
+            <SymbolView
+              name="clock.circle"
+              tintColor={theme.colors.primaryText}
+              size={20}
+              fallback={
+                <Ionicons
+                  name="timer-outline"
+                  size={24}
+                  color={theme.colors.primaryText}
+                />
+              }
+            />
+            {recipeData.recipe?.meta.prepTime && (
+              <Text variant="paragraph" marginLeft="m">
+                {recipeData.recipe?.meta.prepTime} min prep
+              </Text>
+            )}
+            {recipeData.recipe?.meta.prepTime &&
+              recipeData.recipe?.meta.cookTime && (
+                <Text fontSize={12} marginHorizontal="s">
+                  &bull;
+                </Text>
               )}
-              {renderMetaInfo(
-                "⏱️",
-                `${recipeData.recipe?.meta.prepTime} prep time`,
-              )}
-            </Box>
-            <Box flex={1} gap="s">
-              {renderMetaInfo(
-                "🥩",
-                `${recipeData.recipe?.meta.proteinPerServing}g protein / serving`,
-              )}
-              {renderMetaInfo(
-                "⏱️",
-                `${recipeData.recipe?.meta.cookTime} cooking time`,
-              )}
-            </Box>
+            {recipeData.recipe?.meta.prepTime && (
+              <Text variant="paragraph">
+                {recipeData.recipe?.meta.cookTime} min cook
+              </Text>
+            )}
+          </Box>
+          <Box flexDirection="row" alignItems="center">
+            <SymbolView
+              name="fork.knife"
+              tintColor={theme.colors.primaryText}
+              size={20}
+              fallback={
+                <Feather
+                  name="pie-chart"
+                  size={20}
+                  color={theme.colors.primaryText}
+                />
+              }
+            />
+            <Text marginLeft="m">
+              {recipeData.recipe?.meta.numberOfServings} servings
+            </Text>
           </Box>
         </Box>
         {renderSectionHeader("Ingredients")}
         <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
           <Markdown>
-            {props.route.params.recipe?.ingredients.replace(/\\n/g, "\n")}
+            {recipeData.recipe?.ingredients.replace(/\\n/g, "\n")}
           </Markdown>
         </Box>
         {renderSectionHeader("Instructions")}
         <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
           <Markdown>
-            {props.route.params.recipe?.instructions.replace(/\\n/g, "\n")}
+            {recipeData.recipe?.instructions.replace(/\\n/g, "\n")}
           </Markdown>
         </Box>
       </ScrollView>

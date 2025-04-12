@@ -21,6 +21,8 @@ import { RecipeWithAssociations } from "@db/schema/types";
 import { Theme } from "@theme";
 import { RootStackParamList } from "@types";
 import { capitalize } from "@utils";
+import { useAppSelector, useAppDispatch } from "@store/hooks";
+import { selectIsBookmarked, removeRecipe } from "@store/slices/bookmarksSlice";
 
 const styles = StyleSheet.create({
   bookmarkButton: {
@@ -57,19 +59,38 @@ interface Props {
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const RecipeCard = (props: Props) => {
+  const dispatch = useAppDispatch();
+  const isBookmarked = useAppSelector((state) =>
+    selectIsBookmarked(state, props.recipe?.id),
+  );
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const theme = useTheme<Theme>();
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const generator = seedrandom(props.index.toString());
   const [isLoaded, setIsLoaded] = useState(false);
 
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+      setBookmarked(isBookmarked);
+    });
+  }, [navigation]);
+
   const handleBookmark = () => {
-    setIsBookmarked((prev) => !prev);
+    setBookmarked(!bookmarked);
+    if (isBookmarked && props.recipe) {
+      dispatch(
+        removeRecipe({
+          recipeId: props.recipe!.id,
+        }),
+      );
+    } else if (props.recipe) {
+      navigation.navigate("BookmarkModal", { recipe: props.recipe.id });
+    }
   };
 
   const handlePress = () => {
     if (!props.recipe) return;
-    navigation.navigate("RecipeDetail", { recipe: props.recipe });
+    navigation.navigate("RecipeDetail", { recipe: props.recipe.id });
   };
 
   const skeletonAnimation = useAnimatedStyle(() => ({
@@ -96,7 +117,7 @@ const RecipeCard = (props: Props) => {
             <Box style={styles.bookmarkButton}>
               <BookmarkButton
                 onPress={handleBookmark}
-                bookmarked={isBookmarked}
+                bookmarked={bookmarked}
               />
             </Box>
           )}
