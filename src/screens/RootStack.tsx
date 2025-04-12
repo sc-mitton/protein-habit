@@ -48,7 +48,7 @@ const RootStack = () => {
           },
           title: "",
           headerRight: () => (
-            <BookmarkButton bookmarked={false} onPress={() => {}} size={28} />
+            <BookmarkButton bookmarked={false} onPress={() => {}} size={32} />
           ),
           animation:
             Platform.OS === "ios" ? "ios_from_right" : "slide_from_bottom",
