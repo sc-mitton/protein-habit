@@ -73,7 +73,7 @@ function convertToMarkdown(
         .map((section) => {
           return `## ${section.section_title}\n${section.items.map((item) => `- ${item}`).join("\n")}`;
         })
-        .join("\n\n");
+        .join("\n");
     }
     // Simple array of strings
     return (data as string[]).map((item) => `- ${item}`).join("\n");
@@ -89,7 +89,7 @@ function convertToMarkdown(
         return "";
       })
       .filter(Boolean)
-      .join("\n\n");
+      .join("\n");
   }
   return "";
 }

@@ -1,16 +1,15 @@
-import journal from './meta/_journal.json';
-import m0000 from './0000_harsh_moon_knight.sql';
-import m0001 from './0001_seed_enums.sql';
-import m0002 from './0002_dump_db.sql';
-import m0003 from './0003_fts_search.sql';
+import journal from "./meta/_journal.json";
+import m0000 from "./0000_chilly_black_cat.sql";
+import m0001 from "./0001_seed_enums.sql";
+import m0002 from "./0002_db_dump.sql";
+import m0003 from "./0003_fts_search.sql";
 
-  export default {
-    journal,
-    migrations: {
-      m0000,
-m0001,
-m0002,
-m0003
-    }
-  }
-  
+export default {
+  journal,
+  migrations: {
+    m0000,
+    m0001,
+    m0002,
+    m0003,
+  },
+};

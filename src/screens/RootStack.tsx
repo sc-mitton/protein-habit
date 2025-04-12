@@ -35,8 +35,6 @@ const RootStack = () => {
         options={({ route }) => ({
           headerShown: true,
           headerBackTitle: "Back",
-          headerShadowVisible: false,
-          headerTransparent: true,
           headerBlurEffect: colorScheme === "dark" ? "dark" : "light",
           headerTintColor: accentColor
             ? theme.colors[accentColor]
@@ -46,7 +44,7 @@ const RootStack = () => {
             fontFamily: "Inter-Regular",
             color: theme.colors.primaryText,
           },
-          title: capitalize(route.params.recipe.title ?? "Recipe"),
+          title: "",
         })}
         component={RecipesDetailScreen}
       />

@@ -1,32 +1,32 @@
 {
-  "version": "7",
+  "version": "3",
   "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "6",
-      "when": 1744342088888,
-      "tag": "0000_harsh_moon_knight",
+      "version": "3",
+      "when": 1744415008883,
+      "tag": "0000_chilly_black_cat",
       "breakpoints": true
     },
     {
       "idx": 1,
-      "version": "6",
-      "when": 1744342107247,
+      "version": "3",
+      "when": 1744415015911,
       "tag": "0001_seed_enums",
       "breakpoints": true
     },
     {
       "idx": 2,
-      "version": "6",
-      "when": 1744342130437,
-      "tag": "0002_dump_db",
+      "version": "3",
+      "when": 1744415032874,
+      "tag": "0002_db_dump",
       "breakpoints": true
     },
     {
       "idx": 3,
-      "version": "6",
-      "when": 1744342164338,
+      "version": "3",
+      "when": 1744415080127,
       "tag": "0003_fts_search",
       "breakpoints": true
     }

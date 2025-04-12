@@ -4,6 +4,7 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import { TouchableHighlight, StyleSheet } from "react-native";
 import { Image } from "expo-image";
+import Animated from "react-native-reanimated";
 import Reanimated, {
   FadeIn,
   FadeOut,
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
   touchable: {
     flex: 1,
     borderRadius: 12,
-    overflow: "hidden",
   },
   cardBox: {
     flex: 1,
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    borderRadius: 12,
   },
 });
 
@@ -65,6 +66,8 @@ interface Props {
   recipe?: RecipeWithAssociations;
   index: number;
 }
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const RecipeCard = (props: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -171,10 +174,15 @@ const RecipeCard = (props: Props) => {
               style={[StyleSheet.absoluteFill, skeletonAnimation]}
               exiting={FadeOut}
             >
-              <Box flex={1} backgroundColor="primaryButton" />
+              <Box
+                flex={1}
+                backgroundColor="primaryButton"
+                borderRadius={"l"}
+              />
             </Reanimated.View>
           )}
-          <Image
+          <AnimatedImage
+            sharedTransitionTag={`image${props.recipe?.id}`}
             source={{
               uri: props.recipe
                 ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"

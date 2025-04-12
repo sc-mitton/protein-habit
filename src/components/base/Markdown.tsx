@@ -42,7 +42,7 @@ export const Markdown = forwardRef<Mark, Props>(
     const accentColor = useAppSelector(selectAccent);
     const updatedProps = {
       ...rest,
-      color: accent && accentColor ? accentColor : rest.color,
+      color: accent && accentColor ? accentColor : rest.color || "primaryText",
     } as any;
     const props = useRestyle(restyleFunctions, updatedProps);
 
