@@ -29,10 +29,10 @@ export type CreateDishType = typeof dishTypesTable.$inferInsert;
 export type CreateCuisine = typeof cuisinesTable.$inferInsert;
 
 export type RecipeWithAssociations = Recipe & {
-  proteins: Protein[];
-  dishTypes: DishType[];
-  mealTypes: MealType[];
-  cuisines: Cuisine[];
+  proteins?: Protein[];
+  dishTypes?: DishType[];
+  mealTypes?: MealType[];
+  cuisines?: Cuisine[];
   meta: Meta;
 };
 

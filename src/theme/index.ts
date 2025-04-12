@@ -109,6 +109,16 @@ const lightTheme = createTheme({
       alignItems: "center",
       justifyContent: "center",
     },
+    smallPill: {
+      borderRadius: "full",
+      paddingHorizontal: "m",
+      paddingVertical: "none",
+      fontFamily: "Inter-Regular",
+      alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "center",
+      gap: "xs",
+    },
     defaults: {},
   },
   borderRadii: {
@@ -209,6 +219,12 @@ const lightTheme = createTheme({
     },
   },
   textVariants: {
+    largeHeader: {
+      fontFamily: "Inter-Bold",
+      fontSize: 24,
+      lineHeight: 32,
+      color: "primaryText",
+    },
     header: {
       fontFamily: "Inter-Bold",
       fontSize: 20,

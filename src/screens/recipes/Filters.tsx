@@ -1,18 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import * as Haptics from "expo-haptics";
 
-import { Box } from "@components";
+import { Box, LinearGradientEdges } from "@components";
 import FilterButton from "./FilterButton";
-import { useTheme } from "@shopify/restyle";
-import { Theme } from "@theme";
 import TabButtons from "./TabButtons";
 import { WIDTH } from "./FilterButton";
 import { useRecipesScreenContext } from "./Context";
 
 const Filters = () => {
-  const theme = useTheme<Theme>();
   const ref = useRef<FlatList>(null);
   const currentSectionIndex = useRef(0);
   const isDragging = useRef(false);
@@ -50,24 +46,7 @@ const Filters = () => {
     <Box marginHorizontal="nm">
       <TabButtons value={selectedFilterTab} onChange={setSelectedFilterTab} />
       <View>
-        <LinearGradient
-          colors={[
-            theme.colors.matchBlurBackground,
-            theme.colors.transparentRGB,
-          ]}
-          style={[styles.gradient, styles.leftGradient]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-        />
-        <LinearGradient
-          colors={[
-            theme.colors.transparentRGB,
-            theme.colors.matchBlurBackground,
-          ]}
-          style={[styles.gradient, styles.rightGradient]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-        />
+        <LinearGradientEdges height={80} />
         <FlatList
           ref={ref}
           horizontal
@@ -118,19 +97,6 @@ const styles = StyleSheet.create({
   tagImage: {
     width: 64,
     height: 64,
-  },
-  gradient: {
-    top: 0,
-    bottom: 0,
-    width: 28,
-    position: "absolute",
-    zIndex: 1,
-  },
-  leftGradient: {
-    left: 0,
-  },
-  rightGradient: {
-    right: 0,
   },
 });
 export default Filters;

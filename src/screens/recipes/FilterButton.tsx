@@ -11,7 +11,7 @@ import { Box, Text } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import { useAppSelector } from "@store/hooks";
 import { selectAccent } from "@store/slices/uiSlice";
-import images from "./images";
+import { tagImages } from "@components";
 
 export const WIDTH = Dimensions.get("window").width / 4.875;
 
@@ -93,7 +93,7 @@ const FilterButton = ({ filter }: { filter: string }) => {
             style={styles.box}
             padding="s"
           >
-            <Image source={images[filter]} style={styles.tagImage} />
+            <Image source={tagImages[filter]} style={styles.tagImage} />
           </Box>
         </TouchableHighlight>
       </Box>

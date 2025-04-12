@@ -9,10 +9,10 @@ import BottomTabs from "./BottomTabs";
 import RecipesDetailScreen from "./recipes-detail/RecipesDetailScreen";
 import GroceryListScreen from "./grocery-list/GroceryListScreen";
 import BookmarkedRecipesScreen from "./bookmarked-recipes/BookmarkedRecipesScreen";
+import { BookmarkButton } from "@components";
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { selectAccent } from "@store/slices/uiSlice";
-import { capitalize } from "@utils";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -34,6 +34,8 @@ const RootStack = () => {
         name="RecipeDetail"
         options={({ route }) => ({
           headerShown: true,
+          headerShadowVisible: false,
+          headerTransparent: true,
           headerBackTitle: "Back",
           headerBlurEffect: colorScheme === "dark" ? "dark" : "light",
           headerTintColor: accentColor
@@ -41,10 +43,13 @@ const RootStack = () => {
             : theme.colors.primaryText,
           headerTitleStyle: {
             fontSize: 16,
-            fontFamily: "Inter-Regular",
+            fontFamily: "Inter-SemiBold",
             color: theme.colors.primaryText,
           },
           title: "",
+          headerRight: () => (
+            <BookmarkButton bookmarked={false} onPress={() => {}} size={28} />
+          ),
         })}
         component={RecipesDetailScreen}
       />

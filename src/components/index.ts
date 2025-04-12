@@ -16,3 +16,6 @@ export * from "./ProgressCircle";
 export * from "./SwipeOptions";
 export * from "./IncrementDecrement";
 export * from "./BumpButton";
+export * from "./tagImages";
+export * from "./BookmarkButton";
+export * from "./LinearGradientEdges";

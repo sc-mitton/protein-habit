@@ -5,7 +5,7 @@ import _ from "lodash";
 
 import { Box, Button, Text } from "@components";
 import { useRecipesScreenContext } from "./Context";
-import images from "./images";
+import images from "../../components/tagImages";
 import { capitalize } from "@utils";
 
 const styles = StyleSheet.create({
