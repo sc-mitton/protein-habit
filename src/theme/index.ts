@@ -64,6 +64,7 @@ const lightTheme = createTheme({
     modalAndroidStatusBackground: "#858585",
     tabBarShadow: Platform.OS === "android" ? palette.gray800 : palette.gray500,
     white: "white",
+    black: "black",
 
     // Accent colors
     yellow: "#c09d34",
@@ -73,7 +74,7 @@ const lightTheme = createTheme({
     green: "#127e5f",
     greenText: "#0e654c",
     blue: "#637eea",
-    blueText: "#4f65bb",
+    blueText: "#4b62d1",
     purple: "#af69de",
     purpleText: "#8c54b2",
     pink: "#db6ca3",

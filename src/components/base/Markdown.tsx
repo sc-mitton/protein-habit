@@ -15,7 +15,7 @@ export const Markdown = ({ children }: Props) => {
         body: {
           ...theme.textVariants.body,
           fontSize: 15,
-          lineHeight: 24,
+          lineHeight: 28,
           color: theme.colors.primaryText,
         },
         heading2: {
@@ -23,7 +23,7 @@ export const Markdown = ({ children }: Props) => {
         },
         heading3: {
           ...theme.textVariants.body,
-          marginTop: 12,
+          marginTop: 16,
           marginBottom: 8,
           color: theme.colors.secondaryText,
         },

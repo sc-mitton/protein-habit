@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Platform } from "react-native";
 
 import WelcomeScreen from "./welcome/WelcomeScreen";
 import WeightInput from "./welcome/WeightInput";
@@ -50,6 +50,8 @@ const RootStack = () => {
           headerRight: () => (
             <BookmarkButton bookmarked={false} onPress={() => {}} size={28} />
           ),
+          animation:
+            Platform.OS === "ios" ? "ios_from_right" : "slide_from_bottom",
         })}
         component={RecipesDetailScreen}
       />

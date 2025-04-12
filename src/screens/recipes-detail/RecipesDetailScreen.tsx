@@ -7,7 +7,11 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
 } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  interpolate,
+} from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@shopify/restyle";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -26,16 +30,32 @@ import { useSelectRecipe } from "@hooks";
 
 type Props = RootScreenProps<"RecipeDetail">;
 
+const IMAGE_HEIGHT = Dimensions.get("window").height * 0.25;
+
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const styles = StyleSheet.create({
   image: {
     width: "100%",
-    height: Dimensions.get("window").height * 0.2,
+    height: IMAGE_HEIGHT,
     borderRadius: 0,
+    zIndex: -1,
+    position: "absolute",
+    top: 0,
+  },
+  blurredImage: {
+    width: "100%",
+    height: IMAGE_HEIGHT,
+    borderRadius: 0,
+    position: "absolute",
+    top: 0,
+    zIndex: -1,
+  },
+  scrollView: {
+    zIndex: 1,
   },
   scrollContent: {
-    paddingBottom: 32,
+    paddingBottom: 64,
   },
   gradient: {
     position: "absolute",
@@ -62,70 +82,116 @@ const styles = StyleSheet.create({
   },
 });
 
+const TAG_TYPES = ["proteins", "cuisines", "mealTypes", "dishTypes"] as const;
+
 const DetailScreen: React.FC<Props> = (props) => {
   const theme = useTheme<Theme>();
   const recipeData = useSelectRecipe(props.route.params.recipe?.id);
   const [currentSection, setCurrentSection] = useState<string>("");
   const sectionRefs = useRef<{ [key: string]: number }>({});
   const headerHeight = useHeaderHeight();
+  const scrollY = useSharedValue(0);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const scrollY = event.nativeEvent.contentOffset.y;
+    const currentScrollY = event.nativeEvent.contentOffset.y;
+    scrollY.value = currentScrollY;
 
-    // If we're near the top, clear the title to show the recipe title
-    if (scrollY < 100) {
+    if (currentScrollY < 100) {
       if (currentSection !== "") {
         setCurrentSection("");
-        props.navigation.setOptions({
-          title: "",
-        });
+        props.navigation.setOptions({ title: "" });
       }
       return;
     }
 
-    // Find the current section based on scroll position
     const sections = Object.entries(sectionRefs.current);
     for (let i = sections.length - 1; i >= 0; i--) {
       const [section, position] = sections[i];
-      if (scrollY >= position - 100) {
-        // Offset to trigger slightly before reaching the section
+      if (currentScrollY >= position - 100) {
         if (currentSection !== section) {
           setCurrentSection(section);
-          props.navigation.setOptions({
-            title: capitalize(section),
-          });
+          props.navigation.setOptions({ title: capitalize(section) });
         }
         break;
       }
     }
   };
 
+  const imageAnimation = useAnimatedStyle(() => {
+    const scale = interpolate(scrollY.value, [-100, 0, 1000000], [1.05, 1, 1]);
+    return {
+      transform: [{ scale }, { translateY: headerHeight }],
+    };
+  });
+
   const onLayout = (section: string) => (event: any) => {
-    const { y } = event.nativeEvent.layout;
-    sectionRefs.current[section] = y;
+    sectionRefs.current[section] = event.nativeEvent.layout.y;
   };
+
+  const renderTag = (type: string, item: { name: string }) => (
+    <Box
+      key={`${type}-${item.name}`}
+      variant="smallPill"
+      backgroundColor="primaryButton"
+    >
+      <Image source={tagImages[item.name]} style={styles.tagImage} />
+      <Text variant="body">{capitalize(item.name)}</Text>
+    </Box>
+  );
+
+  const renderSectionHeader = (title: string) => (
+    <Box
+      borderBottomWidth={1.5}
+      borderBottomColor="borderColor"
+      paddingBottom="m"
+      paddingTop="xxl"
+      paddingHorizontal="l"
+      backgroundColor="matchBlurBackground"
+      onLayout={onLayout(title.toLowerCase())}
+    >
+      <Text variant="header">{title}</Text>
+    </Box>
+  );
+
+  const renderMetaInfo = (icon: string, text: string) => (
+    <Text variant="body" style={styles.metaText}>
+      {icon} {text}
+    </Text>
+  );
 
   return (
     <Box flex={1} backgroundColor="matchBlurBackground">
+      <AnimatedImage
+        source={{
+          uri: props.route.params.recipe
+            ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
+            : "",
+        }}
+        style={[styles.blurredImage]}
+        contentFit="cover"
+        transition={100}
+      />
+      <AnimatedImage
+        // sharedTransitionTag={`image${props.route.params.recipe?.id}`}
+        source={{
+          uri: props.route.params.recipe
+            ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
+            : "",
+        }}
+        style={[styles.image, imageAnimation]}
+        contentFit="cover"
+        transition={100}
+      />
       <ScrollView
+        style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: headerHeight },
+          { paddingTop: headerHeight + IMAGE_HEIGHT },
         ]}
         onScroll={handleScroll}
         scrollEventThrottle={16}
+        scrollIndicatorInsets={{ top: IMAGE_HEIGHT }}
       >
-        <AnimatedImage
-          // sharedTransitionTag={`image${props.route.params.recipe?.id}`}
-          source={{
-            uri: props.route.params.recipe
-              ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
-              : "",
-          }}
-          style={styles.image}
-          contentFit={"cover"}
-          transition={100}
-        />
         <Box
           paddingHorizontal="l"
           paddingTop="l"
@@ -138,116 +204,55 @@ const DetailScreen: React.FC<Props> = (props) => {
             {capitalize(props.route.params.recipe?.title)}
           </Text>
         </Box>
-        <Box>
+        <Box backgroundColor="matchBlurBackground" paddingTop="s">
           <LinearGradientEdges height={60} />
           <ScrollView
             horizontal
             contentContainerStyle={styles.tags}
             showsHorizontalScrollIndicator={false}
           >
-            {recipeData.recipe?.proteins?.map((protein) => (
-              <Box
-                key={`protein-${protein.name}`}
-                variant="smallPill"
-                backgroundColor="primaryButton"
-              >
-                <Image
-                  source={tagImages[protein.name]}
-                  style={styles.tagImage}
-                />
-                <Text variant="body">{capitalize(protein.name)}</Text>
-              </Box>
-            ))}
-            {recipeData.recipe?.cuisines?.map((cuisine) => (
-              <Box
-                key={`cuisine-${cuisine.name}`}
-                variant="smallPill"
-                backgroundColor="primaryButton"
-              >
-                <Image
-                  source={tagImages[cuisine.name]}
-                  style={styles.tagImage}
-                />
-                <Text variant="body">{capitalize(cuisine.name)}</Text>
-              </Box>
-            ))}
-            {recipeData.recipe?.mealTypes?.map((mealType) => (
-              <Box
-                key={`mealType-${mealType.name}`}
-                variant="smallPill"
-                backgroundColor="primaryButton"
-              >
-                <Image
-                  source={tagImages[mealType.name]}
-                  style={styles.tagImage}
-                />
-                <Text variant="body">{capitalize(mealType.name)}</Text>
-              </Box>
-            ))}
-            {recipeData.recipe?.dishTypes?.map((dishType) => (
-              <Box
-                key={`dishType-${dishType.name}`}
-                variant="smallPill"
-                backgroundColor="primaryButton"
-              >
-                <Image
-                  source={tagImages[dishType.name]}
-                  style={styles.tagImage}
-                />
-                <Text variant="body">{capitalize(dishType.name)}</Text>
-              </Box>
-            ))}
+            {TAG_TYPES.map((type) =>
+              recipeData.recipe?.[type]?.map((item) => renderTag(type, item)),
+            )}
           </ScrollView>
         </Box>
-        <Box paddingHorizontal="l" paddingTop="xl" paddingBottom="xl">
+        <Box
+          paddingHorizontal="l"
+          paddingTop="xl"
+          paddingBottom="m"
+          backgroundColor="matchBlurBackground"
+        >
           <Box flexDirection="row" gap="s" width="100%">
             <Box flex={0.75} gap="s">
-              <Text variant="body" style={styles.metaText}>
-                🍽️ {recipeData.recipe?.meta.numberOfServings} servings
-              </Text>
-              <Text variant="body" style={styles.metaText}>
-                ⏱️ {recipeData.recipe?.meta.prepTime} prep time
-              </Text>
+              {renderMetaInfo(
+                "🍽️",
+                `${recipeData.recipe?.meta.numberOfServings} servings`,
+              )}
+              {renderMetaInfo(
+                "⏱️",
+                `${recipeData.recipe?.meta.prepTime} prep time`,
+              )}
             </Box>
             <Box flex={1} gap="s">
-              <Text variant="body" style={styles.metaText}>
-                🥩 {recipeData.recipe?.meta.proteinPerServing}g protein /
-                serving
-              </Text>
-              <Text variant="body" style={styles.metaText}>
-                ⏱️ {recipeData.recipe?.meta.cookTime} cooking time
-              </Text>
+              {renderMetaInfo(
+                "🥩",
+                `${recipeData.recipe?.meta.proteinPerServing}g protein / serving`,
+              )}
+              {renderMetaInfo(
+                "⏱️",
+                `${recipeData.recipe?.meta.cookTime} cooking time`,
+              )}
             </Box>
           </Box>
         </Box>
-        <Box
-          borderBottomWidth={1.5}
-          borderBottomColor="borderColor"
-          paddingBottom="m"
-          paddingTop="l"
-          paddingHorizontal="l"
-          backgroundColor="matchBlurBackground"
-          onLayout={onLayout("ingredients")}
-        >
-          <Text variant="header">Ingredients</Text>
-        </Box>
-        <Box paddingHorizontal="l">
+        {renderSectionHeader("Ingredients")}
+        <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
           <Markdown>
             {props.route.params.recipe?.ingredients.replace(/\\n/g, "\n")}
           </Markdown>
         </Box>
-        <Box
-          borderBottomWidth={1.5}
-          borderBottomColor="borderColor"
-          paddingBottom="m"
-          paddingTop="l"
-          paddingHorizontal="l"
-          backgroundColor="matchBlurBackground"
-          onLayout={onLayout("instructions")}
-        >
-          <Text variant="header">Instructions</Text>
-        </Box>
-        <Box paddingHorizontal="l">
+        {renderSectionHeader("Instructions")}
+        <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
           <Markdown>
             {props.route.params.recipe?.instructions.replace(/\\n/g, "\n")}
           </Markdown>
