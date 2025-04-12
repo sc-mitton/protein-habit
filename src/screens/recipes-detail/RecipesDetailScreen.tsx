@@ -10,6 +10,7 @@ import {
 import Animated from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@shopify/restyle";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 import { RootScreenProps } from "@types";
 import {
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   scrollContent: {
-    paddingTop: 100,
     paddingBottom: 32,
   },
   gradient: {
@@ -67,6 +67,7 @@ const DetailScreen: React.FC<Props> = (props) => {
   const recipeData = useSelectRecipe(props.route.params.recipe?.id);
   const [currentSection, setCurrentSection] = useState<string>("");
   const sectionRefs = useRef<{ [key: string]: number }>({});
+  const headerHeight = useHeaderHeight();
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const scrollY = event.nativeEvent.contentOffset.y;
@@ -107,7 +108,10 @@ const DetailScreen: React.FC<Props> = (props) => {
   return (
     <Box flex={1} backgroundColor="matchBlurBackground">
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: headerHeight },
+        ]}
         onScroll={handleScroll}
         scrollEventThrottle={16}
       >
@@ -141,6 +145,19 @@ const DetailScreen: React.FC<Props> = (props) => {
             contentContainerStyle={styles.tags}
             showsHorizontalScrollIndicator={false}
           >
+            {recipeData.recipe?.proteins?.map((protein) => (
+              <Box
+                key={`protein-${protein.name}`}
+                variant="smallPill"
+                backgroundColor="primaryButton"
+              >
+                <Image
+                  source={tagImages[protein.name]}
+                  style={styles.tagImage}
+                />
+                <Text variant="body">{capitalize(protein.name)}</Text>
+              </Box>
+            ))}
             {recipeData.recipe?.cuisines?.map((cuisine) => (
               <Box
                 key={`cuisine-${cuisine.name}`}
@@ -167,19 +184,6 @@ const DetailScreen: React.FC<Props> = (props) => {
                 <Text variant="body">{capitalize(mealType.name)}</Text>
               </Box>
             ))}
-            {recipeData.recipe?.proteins?.map((protein) => (
-              <Box
-                key={`protein-${protein.name}`}
-                variant="smallPill"
-                backgroundColor="primaryButton"
-              >
-                <Image
-                  source={tagImages[protein.name]}
-                  style={styles.tagImage}
-                />
-                <Text variant="body">{capitalize(protein.name)}</Text>
-              </Box>
-            ))}
             {recipeData.recipe?.dishTypes?.map((dishType) => (
               <Box
                 key={`dishType-${dishType.name}`}
@@ -195,7 +199,7 @@ const DetailScreen: React.FC<Props> = (props) => {
             ))}
           </ScrollView>
         </Box>
-        <Box paddingHorizontal="l" paddingTop="xl" paddingBottom="m">
+        <Box paddingHorizontal="l" paddingTop="xl" paddingBottom="xl">
           <Box flexDirection="row" gap="s" width="100%">
             <Box flex={0.75} gap="s">
               <Text variant="body" style={styles.metaText}>
