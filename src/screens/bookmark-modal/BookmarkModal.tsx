@@ -47,16 +47,17 @@ const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
       backgroundColor="modalBackground"
       borderRadius="l"
       padding="l"
+      paddingTop="s"
       paddingBottom="xxxl"
     >
       <Box
         borderBottomColor="borderColor"
         borderBottomWidth={1.5}
-        paddingBottom="s"
+        paddingBottom="xs"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-        marginBottom="xl"
+        marginBottom="l"
       >
         {createNew ? (
           <Animated.View exiting={FadeOut} entering={FadeIn}>
@@ -101,10 +102,17 @@ export default function (props: RootScreenProps<"BookmarkModal">) {
       backgroundStyle={{
         backgroundColor: theme.colors.modalBackground,
       }}
+      containerStyle={{
+        shadowColor: theme.colors.defaultShadow,
+        shadowOffset: { width: 0, height: 12 },
+        shadowOpacity: 1,
+        shadowRadius: 24,
+        elevation: 12,
+      }}
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}
-      backdropComponent={() => <BackDrop blurIntensity={10} />}
+      backdropComponent={() => <BackDrop blurIntensity={30} />}
     >
       <BottomSheetView>
         <BookmarkModal {...props} />

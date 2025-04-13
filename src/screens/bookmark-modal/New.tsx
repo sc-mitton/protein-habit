@@ -28,7 +28,7 @@ const New = ({ onBlur }: { onBlur: () => void }) => {
   };
 
   return (
-    <KeyboardAvoidingView2 offset={72}>
+    <KeyboardAvoidingView2 offset={32}>
       <TextInput
         placeholder="Name"
         value={folderName}

@@ -1,5 +1,10 @@
 import React, { useState, memo } from "react";
-import { View, TouchableHighlight, StyleSheet } from "react-native";
+import {
+  View,
+  TouchableHighlight,
+  StyleSheet,
+  useColorScheme,
+} from "react-native";
 
 import { Box, Text, BookmarksFolderCover } from "@components";
 import { ITEM_PADDING, ITEM_WIDTH } from "./constants";
@@ -12,7 +17,7 @@ const styles = StyleSheet.create({
     padding: ITEM_PADDING,
   },
   touchable: {
-    borderRadius: 12,
+    borderRadius: 16,
   },
   contentContainer: {
     paddingBottom: 20,
@@ -22,13 +27,14 @@ const styles = StyleSheet.create({
 const Card = ({ item }: { item: BookmarkCategory }) => {
   const navigation = useNavigation<any>();
   const [isLongPressed, setIsLongPressed] = useState(false);
+  const scheme = useColorScheme();
 
   return (
     <Box>
       <TouchableHighlight
         style={styles.touchable}
         underlayColor={theme.colors.primaryText}
-        activeOpacity={0.5}
+        activeOpacity={scheme === "dark" ? 0.5 : 0.95}
         onLongPress={() => {
           setIsLongPressed(true);
         }}
@@ -44,23 +50,23 @@ const Card = ({ item }: { item: BookmarkCategory }) => {
       >
         <Box
           shadowColor="foodItemShadow"
-          shadowOpacity={0.1}
           shadowOffset={{ width: 0, height: 2 }}
-          shadowRadius={2}
-          elevation={5}
+          shadowOpacity={0.1}
+          shadowRadius={8}
+          elevation={12}
         >
           <Box
-            backgroundColor="matchBlurBackground"
+            backgroundColor="foodItemBackground"
             borderColor="borderColor"
             borderWidth={1.5}
             borderRadius="xl"
             flexDirection="column"
             alignItems="flex-start"
             shadowColor="foodItemShadow"
-            shadowOffset={{ width: 0, height: 2 }}
             shadowOpacity={0.1}
-            shadowRadius={8}
-            elevation={12}
+            shadowOffset={{ width: 0, height: 2 }}
+            shadowRadius={2}
+            elevation={2}
             padding="none"
           >
             <View style={styles.item}>
