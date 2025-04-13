@@ -6,12 +6,18 @@ import { useTheme } from "@shopify/restyle";
 import { Theme } from "@theme";
 
 import { RecipeThumbnail } from "./RecipeThumbnail";
+import { BoxProps } from "./base/Box";
 
 export const BookmarksFolderCover = ({
   categoryId,
+  width = 75,
+  gap = "xs",
+  borderRadius = "s",
+  ...props
 }: {
   categoryId: string;
-}) => {
+  width?: number;
+} & BoxProps) => {
   const theme = useTheme<Theme>();
   const category = useSelector((state: RootState) =>
     state.bookmarks.categories.find((cat) => cat.id === categoryId),
@@ -26,10 +32,10 @@ export const BookmarksFolderCover = ({
   return (
     <Box
       flexDirection="row"
-      height={55}
-      width={75}
-      gap="xxs"
-      borderRadius="s"
+      height={0.75 * width}
+      width={width}
+      gap={gap}
+      borderRadius={borderRadius}
       overflow="hidden"
     >
       <Box flex={1}>
@@ -46,11 +52,12 @@ export const BookmarksFolderCover = ({
           <Box
             flex={1}
             backgroundColor="secondaryCardBackground"
-            borderRadius="s"
+            borderRadius={borderRadius}
+            {...props}
           />
         )}
       </Box>
-      <Box flex={1} gap="xxs">
+      <Box flex={1} gap={gap}>
         <Box flex={1}>
           {recipes[1] && recipes[1].thumbnail ? (
             <RecipeThumbnail
@@ -65,7 +72,8 @@ export const BookmarksFolderCover = ({
             <Box
               flex={1}
               backgroundColor="secondaryCardBackground"
-              borderRadius="s"
+              borderRadius={borderRadius}
+              {...props}
             />
           )}
         </Box>
@@ -83,7 +91,8 @@ export const BookmarksFolderCover = ({
             <Box
               flex={1}
               backgroundColor="secondaryCardBackground"
-              borderRadius="s"
+              borderRadius={borderRadius}
+              {...props}
             />
           )}
         </Box>

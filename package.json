@@ -65,6 +65,7 @@
     "react-native-color-matrix-image-filters": "^7.0.2",
     "react-native-confetti-cannon": "^1.5.2",
     "react-native-date-picker": "5.0.7",
+    "react-native-draggable-flatlist": "^4.0.2",
     "react-native-easing-gradient": "^1.1.1",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-keyboard-controller": "^1.16.8",

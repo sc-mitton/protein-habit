@@ -8,6 +8,7 @@ import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { baseIap, premiumIap } from "@constants/iaps";
 import { Recipe } from "@db/schema/types";
+import { BookmarkCategory } from "@store/slices/bookmarksSlice";
 
 export type HomeStackParamList = {
   StatsInfo: undefined;
@@ -44,6 +45,7 @@ export type RootStackParamList = {
   BottomTabs: NavigatorScreenParams<BottomTabsParamList>;
   RecipeDetail: { recipe: string };
   BookmarkedRecipes: undefined;
+  BookmarkCategory: { category: BookmarkCategory };
   GroceryList: undefined;
   BookmarkModal: { recipe: string };
 };

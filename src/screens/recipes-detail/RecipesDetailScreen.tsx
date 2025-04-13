@@ -29,14 +29,12 @@ import {
   Text,
   tagImages,
   LinearGradientEdges,
-  BookmarkButton,
   RecipeThumbnail,
 } from "@components";
 import { Theme } from "@theme";
 import { capitalize } from "@utils";
 import { useSelectRecipe } from "@hooks";
-import { removeRecipe, selectIsBookmarked } from "@store/slices/bookmarksSlice";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+import HeaderRight from "./HeaderRight";
 
 const IMAGE_HEIGHT = Dimensions.get("window").height * 0.3;
 
@@ -90,26 +88,17 @@ const styles = StyleSheet.create({
   sectionHeader: {
     paddingTop: 16,
   },
-  bookmarkButton: {
-    position: "absolute",
-    top: 16,
-    right: 16,
-    zIndex: 2,
-  },
 });
 
 const TAG_TYPES = ["proteins", "cuisines", "mealTypes", "dishTypes"] as const;
 
 const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   useKeepAwake();
-  const dispatch = useAppDispatch();
-  const isBookmarked = useAppSelector((state) =>
-    selectIsBookmarked(state, props.route.params.recipe),
-  );
-  const [bookmarked, setBookmarked] = useState(isBookmarked);
+
+  const [currentSection, setCurrentSection] = useState<string>("");
+
   const theme = useTheme<Theme>();
   const recipeData = useSelectRecipe(props.route.params.recipe);
-  const [currentSection, setCurrentSection] = useState<string>("");
   const sectionRefs = useRef<{ [key: string]: number }>({});
   const headerHeight = useHeaderHeight();
   const scrollY = useSharedValue(0);
@@ -117,43 +106,9 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerRight: () => (
-        <Box marginRight="ns">
-          <BookmarkButton
-            bookmarked={bookmarked}
-            onPress={handleBookmark}
-            size={32}
-            useAccent={true}
-          />
-        </Box>
-      ),
-    });
-  }, [isBookmarked, bookmarked]);
-
-  useEffect(() => {
-    setBookmarked(isBookmarked);
-  }, [isBookmarked]);
-
-  useEffect(() => {
-    props.navigation.addListener("focus", () => {
-      setBookmarked(isBookmarked);
+      headerRight: () => <HeaderRight {...props} />,
     });
   }, []);
-
-  const handleBookmark = () => {
-    setBookmarked(!bookmarked);
-    if (isBookmarked) {
-      dispatch(
-        removeRecipe({
-          recipeId: props.route.params.recipe,
-        }),
-      );
-    } else {
-      props.navigation.navigate("BookmarkModal", {
-        recipe: props.route.params.recipe,
-      });
-    }
-  };
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
@@ -256,6 +211,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       borderTopLeftRadius="xl"
       borderTopRightRadius="xl"
       backgroundColor="matchBlurBackground"
+      overflow="hidden"
     >
       <AnimatedRecipeThumbnail
         source={{ uri: recipeData.recipe?.thumbnail }}
@@ -268,9 +224,6 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
         style={[styles.image, imageAnimation]}
         transition={100}
       />
-      <Box style={styles.bookmarkButton}>
-        <BookmarkButton onPress={handleBookmark} bookmarked={isBookmarked} />
-      </Box>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[

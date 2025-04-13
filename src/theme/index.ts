@@ -203,6 +203,7 @@ const lightTheme = createTheme({
       flexDirection: "row",
       alignItems: "center",
     },
+    bare: {},
     squareCardButton: {
       flexDirection: "column",
       backgroundColor: "secondaryBackground",

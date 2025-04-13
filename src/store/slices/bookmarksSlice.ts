@@ -74,6 +74,17 @@ const bookmarksSlice = createSlice({
     clearBookmarks: (state) => {
       state.categories = initialState.categories;
     },
+    reorderCategories: (
+      state,
+      action: PayloadAction<{ order: { [key: string]: number } }>,
+    ) => {
+      // Sort categories based on the order mapping
+      state.categories.sort((a, b) => {
+        const orderA = action.payload.order[a.id] ?? Number.MAX_SAFE_INTEGER;
+        const orderB = action.payload.order[b.id] ?? Number.MAX_SAFE_INTEGER;
+        return orderA - orderB;
+      });
+    },
   },
 });
 
@@ -83,6 +94,7 @@ export const {
   addRecipeToCategory,
   removeRecipe,
   clearBookmarks,
+  reorderCategories,
 } = bookmarksSlice.actions;
 
 export const selectIsBookmarked = createSelector(
@@ -103,5 +115,9 @@ export const selectCategory = createSelector(
     return categories.find((category) => category.id === categoryId);
   },
 );
+
+// Since we're now using the categories array order directly, we can just export it
+export const selectOrderedCategories = (state: RootState) =>
+  state.bookmarks.categories;
 
 export default bookmarksSlice.reducer;

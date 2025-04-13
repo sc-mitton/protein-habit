@@ -21,3 +21,4 @@ export * from "./BookmarkButton";
 export * from "./LinearGradientEdges";
 export * from "./BookmarksFolderCover";
 export * from "./RecipeThumbnail";
+export * from "./grid-sortable-list/GridSortableList";

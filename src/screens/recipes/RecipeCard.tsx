@@ -21,6 +21,7 @@ import {
   Text,
   PulseText,
   BookmarkButton,
+  BookmarkButtonRef,
   RecipeThumbnail,
 } from "@components";
 import { RecipeWithAssociations } from "@db/schema/types";
@@ -70,24 +71,21 @@ const RecipeCard = (props: Props) => {
   const isBookmarked = useAppSelector((state) =>
     selectIsBookmarked(state, props.recipe?.id),
   );
-  const [bookmarked, setBookmarked] = useState(isBookmarked);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const theme = useTheme<Theme>();
   const generator = seedrandom(props.index.toString());
   const [isLoaded, setIsLoaded] = useState(false);
+  const bookmarkAnimationRef = useRef<BookmarkButtonRef>(null);
 
   useEffect(() => {
-    navigation.addListener("focus", () => {
-      setBookmarked(isBookmarked);
-    });
-  }, [navigation]);
-
-  useEffect(() => {
-    setBookmarked(isBookmarked);
+    if (isBookmarked) {
+      bookmarkAnimationRef.current?.playForward();
+    } else {
+      bookmarkAnimationRef.current?.playBackward();
+    }
   }, [isBookmarked]);
 
   const handleBookmark = () => {
-    setBookmarked(!bookmarked);
     if (isBookmarked && props.recipe) {
       dispatch(
         removeRecipe({
@@ -128,7 +126,8 @@ const RecipeCard = (props: Props) => {
             <Box style={styles.bookmarkButton}>
               <BookmarkButton
                 onPress={handleBookmark}
-                bookmarked={bookmarked}
+                bookmarked={isBookmarked}
+                ref={bookmarkAnimationRef}
               />
             </Box>
           )}

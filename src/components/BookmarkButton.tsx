@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import LottieView from "lottie-react-native";
 import { StyleSheet } from "react-native";
 import Reanimated, { FadeIn } from "react-native-reanimated";
@@ -17,6 +23,12 @@ interface Props {
   useAccent?: boolean;
 }
 
+export interface BookmarkButtonRef {
+  playForward: () => void;
+  playBackward: () => void;
+  reset: () => void;
+}
+
 const styles = StyleSheet.create({
   lottieBackground: {
     position: "absolute",
@@ -27,88 +39,86 @@ const styles = StyleSheet.create({
   lottie: {},
 });
 
-export const BookmarkButton = ({
-  size = 26,
-  useAccent = false,
-  ...rest
-}: Props) => {
-  const [bookmarked, setBookmarked] = useState(false);
-  const bookmarkAnimation = useRef<LottieView>(null);
-  const [firstRender, setFirstRender] = useState(true);
-  const theme = useTheme<Theme>();
-  const accent = useAppSelector(selectAccent);
-  const primaryColor =
-    useAccent && accent ? theme.colors[`${accent}Text`] : theme.colors.white;
+export const BookmarkButton = forwardRef<BookmarkButtonRef, Props>(
+  ({ size = 26, useAccent = false, ...rest }, ref) => {
+    const [bookmarked, setBookmarked] = useState(rest.bookmarked);
+    const bookmarkAnimation = useRef<LottieView>(null);
+    const theme = useTheme<Theme>();
+    const accent = useAppSelector(selectAccent);
+    const primaryColor =
+      useAccent && accent ? theme.colors[`${accent}Text`] : theme.colors.white;
 
-  useEffect(() => {
-    setBookmarked(rest.bookmarked);
-  }, [rest.bookmarked]);
+    // Expose imperative API methods
+    useImperativeHandle(ref, () => ({
+      playForward: () => {
+        bookmarkAnimation.current?.play();
+      },
+      playBackward: () => {
+        bookmarkAnimation.current?.play(0, 0);
+      },
+      reset: () => {
+        bookmarkAnimation.current?.reset();
+      },
+    }));
 
-  useEffect(() => {
-    if (firstRender) return;
+    // Stage in right position
+    useEffect(() => {
+      if (rest.bookmarked) {
+        bookmarkAnimation.current?.play();
+      } else {
+        bookmarkAnimation.current?.play(0, 0);
+      }
+    }, []);
 
-    if (bookmarked) {
-      bookmarkAnimation.current?.play();
-    } else {
-      bookmarkAnimation.current?.play(30, 0);
-    }
-  }, [bookmarked]);
+    const handleBookmark = () => {
+      setBookmarked(!bookmarked);
+      if (bookmarked) {
+        bookmarkAnimation.current?.play(30, 0);
+      } else {
+        bookmarkAnimation.current?.play();
+      }
+      rest.onPress();
+    };
 
-  // Make sure the animation is staged at the right frame
-  useEffect(() => {
-    if (!bookmarked) {
-      bookmarkAnimation.current?.reset();
-    } else {
-      bookmarkAnimation.current?.play();
-    }
-  }, []);
-
-  useEffect(() => setFirstRender(false), []);
-
-  const handleBookmark = () => {
-    setBookmarked(!bookmarked);
-    rest.onPress();
-  };
-
-  return (
-    <Reanimated.View entering={FadeIn}>
-      <BumpButton onPress={handleBookmark}>
-        <LottieView
-          source={bookmark}
-          autoPlay={false}
-          loop={false}
-          ref={bookmarkAnimation}
-          speed={firstRender && bookmarked ? 1000 : 1}
-          colorFilters={[
-            {
-              keypath: "bookmark",
-              color: primaryColor,
-            },
-            {
-              keypath: "bookmark fill",
-              color: primaryColor,
-            },
-          ]}
-          style={[styles.lottie, { width: size, height: size }]}
-        />
-        <LottieView
-          source={bookmark}
-          autoPlay={true}
-          loop={false}
-          speed={1000}
-          colorFilters={[
-            {
-              keypath: "bookmark",
-              color: "transparent",
-            },
-            {
-              keypath: "bookmark fill",
-              color: primaryColor,
-            },
-          ]}
-          style={[styles.lottieBackground, { width: size, height: size }]}
-        />
-      </BumpButton>
-    </Reanimated.View>
-  );
-};
+    return (
+      <Reanimated.View entering={FadeIn}>
+        <BumpButton onPress={handleBookmark}>
+          <LottieView
+            source={bookmark}
+            autoPlay={false}
+            loop={false}
+            ref={bookmarkAnimation}
+            colorFilters={[
+              {
+                keypath: "bookmark",
+                color: primaryColor,
+              },
+              {
+                keypath: "bookmark fill",
+                color: primaryColor,
+              },
+            ]}
+            style={[styles.lottie, { width: size, height: size }]}
+          />
+          <LottieView
+            source={bookmark}
+            autoPlay={true}
+            loop={false}
+            speed={1000}
+            colorFilters={[
+              {
+                keypath: "bookmark",
+                color: "transparent",
+              },
+              {
+                keypath: "bookmark fill",
+                color: primaryColor,
+              },
+            ]}
+            style={[styles.lottieBackground, { width: size, height: size }]}
+          />
+        </BumpButton>
+      </Reanimated.View>
+    );
+  },
+);
