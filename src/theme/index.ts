@@ -112,7 +112,7 @@ const lightTheme = createTheme({
     },
     smallPill: {
       borderRadius: "full",
-      paddingHorizontal: "m",
+      paddingHorizontal: "sm",
       paddingVertical: "none",
       fontFamily: "Inter-Regular",
       alignItems: "center",

@@ -50,7 +50,8 @@ const RootStack = () => {
         name="RecipeDetail"
         options={({ route }) => ({
           headerShown: true,
-          headerShadowVisible: false,
+          headerLargeTitleShadowVisible: true,
+          headerShadowVisible: true,
           headerTransparent: true,
           headerBackTitle: "Back",
           headerBlurEffect: colorScheme === "dark" ? "dark" : "light",

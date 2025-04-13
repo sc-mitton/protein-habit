@@ -37,7 +37,7 @@ const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}
-      backdropComponent={() => <BackDrop blurIntensity={0} />}
+      backdropComponent={() => <BackDrop blurIntensity={20} />}
     >
       <BottomSheetView>
         <Box

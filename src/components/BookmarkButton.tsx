@@ -7,11 +7,14 @@ import { useTheme } from "@shopify/restyle";
 import { Theme } from "@theme";
 import { bookmark } from "@assets/lotties";
 import { BumpButton } from "@components";
+import { useAppSelector } from "@store/hooks";
+import { selectAccent } from "@store/slices/uiSlice";
 
 interface Props {
   bookmarked: boolean;
   onPress: () => void;
   size?: number;
+  useAccent?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -19,16 +22,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    opacity: 0.05,
+    opacity: 0.1,
   },
   lottie: {},
 });
 
-export const BookmarkButton = ({ size = 26, ...rest }: Props) => {
+export const BookmarkButton = ({
+  size = 26,
+  useAccent = false,
+  ...rest
+}: Props) => {
   const [bookmarked, setBookmarked] = useState(false);
   const bookmarkAnimation = useRef<LottieView>(null);
   const [firstRender, setFirstRender] = useState(true);
   const theme = useTheme<Theme>();
+  const accent = useAppSelector(selectAccent);
+  const primaryColor =
+    useAccent && accent ? theme.colors[`${accent}Text`] : theme.colors.white;
 
   useEffect(() => {
     setBookmarked(rest.bookmarked);
@@ -72,11 +82,11 @@ export const BookmarkButton = ({ size = 26, ...rest }: Props) => {
           colorFilters={[
             {
               keypath: "bookmark",
-              color: theme.colors.white,
+              color: primaryColor,
             },
             {
               keypath: "bookmark fill",
-              color: theme.colors.white,
+              color: primaryColor,
             },
           ]}
           style={[styles.lottie, { width: size, height: size }]}
@@ -89,11 +99,11 @@ export const BookmarkButton = ({ size = 26, ...rest }: Props) => {
           colorFilters={[
             {
               keypath: "bookmark",
-              color: theme.colors.white,
+              color: "transparent",
             },
             {
               keypath: "bookmark fill",
-              color: theme.colors.mainBackground,
+              color: primaryColor,
             },
           ]}
           style={[styles.lottieBackground, { width: size, height: size }]}

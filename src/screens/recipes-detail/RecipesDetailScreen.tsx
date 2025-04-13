@@ -6,6 +6,8 @@ import {
   StyleSheet,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  View,
+  useColorScheme,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -18,6 +20,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { SymbolView } from "expo-symbols";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
+import { useKeepAwake } from "expo-keep-awake";
 
 import { RootScreenProps } from "@types";
 import {
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   scrollView: {
-    zIndex: 1,
+    zIndex: 2,
     marginTop: -24,
   },
   scrollContent: {
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
 const TAG_TYPES = ["proteins", "cuisines", "mealTypes", "dishTypes"] as const;
 
 const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
+  useKeepAwake();
   const dispatch = useAppDispatch();
   const isBookmarked = useAppSelector((state) =>
     selectIsBookmarked(state, props.route.params.recipe),
@@ -107,15 +111,19 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   const sectionRefs = useRef<{ [key: string]: number }>({});
   const headerHeight = useHeaderHeight();
   const scrollY = useSharedValue(0);
+  const scheme = useColorScheme();
 
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => (
-        <BookmarkButton
-          bookmarked={bookmarked}
-          onPress={handleBookmark}
-          size={32}
-        />
+        <Box marginRight="ns">
+          <BookmarkButton
+            bookmarked={bookmarked}
+            onPress={handleBookmark}
+            size={32}
+            useAccent={true}
+          />
+        </Box>
       ),
     });
   }, [isBookmarked, bookmarked]);
@@ -167,9 +175,40 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   };
 
   const imageAnimation = useAnimatedStyle(() => {
-    const scale = interpolate(scrollY.value, [-100, 0, 1000000], [1.05, 1, 1]);
+    const scale = interpolate(scrollY.value, [-100, 0, 200], [1.1, 1.05, 1]);
+    const opacity = interpolate(scrollY.value, [0, IMAGE_HEIGHT / 1.1], [1, 0]);
     return {
       transform: [{ scale }, { translateY: headerHeight }],
+      opacity,
+    };
+  });
+
+  const blurredImageAnimation = useAnimatedStyle(() => {
+    const scale = interpolate(scrollY.value, [-100, 0, 200], [1.1, 1.05, 1]);
+    const opacity = interpolate(
+      scrollY.value,
+      [0, IMAGE_HEIGHT / 1.1],
+      [1, 0.2],
+    );
+    return {
+      transform: [{ scale }, { translateY: -IMAGE_HEIGHT + headerHeight }],
+      opacity,
+    };
+  });
+
+  const scrollContentAnimation = useAnimatedStyle(() => {
+    const shadowOpacity = interpolate(
+      scrollY.value,
+      [-24, 0, IMAGE_HEIGHT],
+      [0, 0.5, 0.2],
+    );
+    return {
+      shadowOpacity: shadowOpacity,
+      shadowColor:
+        scheme == "dark" ? theme.colors.defaultShadow : theme.colors.black,
+      shadowOffset: { width: 0, height: -48 },
+      shadowRadius: 24,
+      elevation: 24,
     };
   });
 
@@ -206,16 +245,20 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   );
 
   return (
-    <Box flex={1} borderTopLeftRadius="xl" borderTopRightRadius="xl">
+    <Box
+      flex={1}
+      borderTopLeftRadius="xl"
+      borderTopRightRadius="xl"
+      backgroundColor="matchBlurBackground"
+    >
       <AnimatedImage
         source={{
           uri: props.route.params.recipe
             ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
             : "",
         }}
-        style={[styles.blurredImage]}
+        style={[styles.blurredImage, blurredImageAnimation]}
         contentFit="cover"
-        transition={100}
       />
       <AnimatedImage
         // sharedTransitionTag={`image${props.route.params.recipe?.id}`}
@@ -225,7 +268,6 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
             : "",
         }}
         style={[styles.image, imageAnimation]}
-        contentFit="cover"
         transition={100}
       />
       <Box style={styles.bookmarkButton}>
@@ -241,114 +283,111 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
         scrollEventThrottle={16}
         scrollIndicatorInsets={{ top: IMAGE_HEIGHT }}
       >
-        <Box
-          paddingHorizontal="l"
-          paddingVertical="l"
-          backgroundColor="matchBlurBackground"
-          borderTopLeftRadius="xxl"
-          borderTopRightRadius="xxl"
-          borderBottomWidth={1}
-          borderBottomColor="borderColor"
-          gap="s"
-          shadowColor="black"
-          shadowOffset={{ width: 0, height: -1 }}
-          shadowOpacity={1}
-          shadowRadius={36}
-          elevation={36}
-          alignItems="center"
-        >
-          <Text variant="largeHeader" textAlign="center">
-            {capitalize(recipeData.recipe?.title ?? "")}
-          </Text>
-          <Box flexDirection="row" gap="s">
-            <Text variant="paragraph" color="secondaryText">
-              {recipeData.recipe?.meta.proteinPerServing}g protein
-            </Text>
-            {recipeData.recipe?.meta.caloriesPerServing && (
-              <Text variant="paragraph" color="secondaryText">
-                &bull;&nbsp;{recipeData.recipe?.meta.caloriesPerServing} kcal
-              </Text>
-            )}
-          </Box>
-        </Box>
-        <Box backgroundColor="matchBlurBackground" paddingTop="xs">
-          <LinearGradientEdges height={60} />
-          <ScrollView
-            horizontal
-            contentContainerStyle={styles.tags}
-            showsHorizontalScrollIndicator={false}
+        <Animated.View style={scrollContentAnimation}>
+          <Box
+            paddingHorizontal="l"
+            paddingVertical="l"
+            backgroundColor="matchBlurBackground"
+            borderTopLeftRadius="xxl"
+            borderTopRightRadius="xxl"
+            borderBottomWidth={1}
+            borderBottomColor="borderColor"
+            gap="s"
+            alignItems="center"
           >
-            {TAG_TYPES.map((type) =>
-              recipeData.recipe?.[type]?.map((item) => renderTag(type, item)),
-            )}
-          </ScrollView>
-        </Box>
-        <Box
-          paddingHorizontal="l"
-          paddingTop="xl"
-          backgroundColor="matchBlurBackground"
-          gap="m"
-        >
-          <Box flexDirection="row" alignItems="center">
-            <SymbolView
-              name="clock.circle"
-              tintColor={theme.colors.primaryText}
-              size={20}
-              fallback={
-                <Ionicons
-                  name="timer-outline"
-                  size={24}
-                  color={theme.colors.primaryText}
-                />
-              }
-            />
-            {recipeData.recipe?.meta.prepTime && (
-              <Text variant="paragraph" marginLeft="m">
-                {recipeData.recipe?.meta.prepTime} min prep
+            <Text variant="largeHeader" textAlign="center">
+              {capitalize(recipeData.recipe?.title ?? "")}
+            </Text>
+            <Box flexDirection="row" gap="s">
+              <Text variant="paragraph" color="secondaryText">
+                {recipeData.recipe?.meta.proteinPerServing}g protein
               </Text>
-            )}
-            {recipeData.recipe?.meta.prepTime &&
-              recipeData.recipe?.meta.cookTime && (
-                <Text fontSize={12} marginHorizontal="s">
-                  &bull;
+              {recipeData.recipe?.meta.caloriesPerServing && (
+                <Text variant="paragraph" color="secondaryText">
+                  &bull;&nbsp;{recipeData.recipe?.meta.caloriesPerServing} kcal
                 </Text>
               )}
-            {recipeData.recipe?.meta.prepTime && (
-              <Text variant="paragraph">
-                {recipeData.recipe?.meta.cookTime} min cook
+            </Box>
+          </Box>
+          <Box backgroundColor="matchBlurBackground" paddingTop="xs">
+            <LinearGradientEdges height={60} />
+            <ScrollView
+              horizontal
+              contentContainerStyle={styles.tags}
+              showsHorizontalScrollIndicator={false}
+            >
+              {TAG_TYPES.map((type) =>
+                recipeData.recipe?.[type]?.map((item) => renderTag(type, item)),
+              )}
+            </ScrollView>
+          </Box>
+          <Box
+            paddingHorizontal="l"
+            paddingTop="xl"
+            backgroundColor="matchBlurBackground"
+            gap="m"
+          >
+            <Box flexDirection="row" alignItems="center">
+              <SymbolView
+                name="clock.circle"
+                tintColor={theme.colors.primaryText}
+                size={20}
+                fallback={
+                  <Ionicons
+                    name="timer-outline"
+                    size={24}
+                    color={theme.colors.primaryText}
+                  />
+                }
+              />
+              {recipeData.recipe?.meta.prepTime && (
+                <Text variant="paragraph" marginLeft="m">
+                  {recipeData.recipe?.meta.prepTime} min prep
+                </Text>
+              )}
+              {recipeData.recipe?.meta.prepTime &&
+                recipeData.recipe?.meta.cookTime && (
+                  <Text fontSize={12} marginHorizontal="s">
+                    &bull;
+                  </Text>
+                )}
+              {recipeData.recipe?.meta.prepTime && (
+                <Text variant="paragraph">
+                  {recipeData.recipe?.meta.cookTime} min cook
+                </Text>
+              )}
+            </Box>
+            <Box flexDirection="row" alignItems="center">
+              <SymbolView
+                name="fork.knife"
+                tintColor={theme.colors.primaryText}
+                size={20}
+                fallback={
+                  <Feather
+                    name="pie-chart"
+                    size={20}
+                    color={theme.colors.primaryText}
+                  />
+                }
+              />
+              <Text marginLeft="m">
+                {recipeData.recipe?.meta.numberOfServings} servings
               </Text>
-            )}
+            </Box>
           </Box>
-          <Box flexDirection="row" alignItems="center">
-            <SymbolView
-              name="fork.knife"
-              tintColor={theme.colors.primaryText}
-              size={20}
-              fallback={
-                <Feather
-                  name="pie-chart"
-                  size={20}
-                  color={theme.colors.primaryText}
-                />
-              }
-            />
-            <Text marginLeft="m">
-              {recipeData.recipe?.meta.numberOfServings} servings
-            </Text>
+          {renderSectionHeader("Ingredients")}
+          <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
+            <Markdown>
+              {recipeData.recipe?.ingredients.replace(/\\n/g, "\n")}
+            </Markdown>
           </Box>
-        </Box>
-        {renderSectionHeader("Ingredients")}
-        <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
-          <Markdown>
-            {recipeData.recipe?.ingredients.replace(/\\n/g, "\n")}
-          </Markdown>
-        </Box>
-        {renderSectionHeader("Instructions")}
-        <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
-          <Markdown>
-            {recipeData.recipe?.instructions.replace(/\\n/g, "\n")}
-          </Markdown>
-        </Box>
+          {renderSectionHeader("Instructions")}
+          <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
+            <Markdown>
+              {recipeData.recipe?.instructions.replace(/\\n/g, "\n")}
+            </Markdown>
+          </Box>
+        </Animated.View>
       </ScrollView>
       <LinearGradient
         colors={[theme.colors.transparentRGB, theme.colors.secondaryBackground]}
