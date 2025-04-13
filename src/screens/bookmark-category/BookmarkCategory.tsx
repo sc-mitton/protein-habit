@@ -2,25 +2,21 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import _ from "lodash";
 import { LinearGradient } from "expo-linear-gradient";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { backgroundColor, useTheme } from "@shopify/restyle";
-import { BlurView } from "expo-blur";
+import { useTheme } from "@shopify/restyle";
 
-import { Box, Button, Text, RecipeThumbnail } from "@components";
+import { Box, Text } from "@components";
 import { RootScreenProps } from "@types";
 import { useSelectRecipe } from "@hooks";
 import { capitalize } from "@utils";
 import { Theme } from "@theme";
 import HeaderRight from "./HeaderRight";
-import CustomHeader from "./CustomHeader";
+import CustomHeader, { IMAGE_HEIGHT } from "./CategoryPicture";
+import ListItem from "./ListItem";
 
 type Props = RootScreenProps<"BookmarkCategory">;
 
-const IMAGE_SIZE = 60;
-
 const BookmarkCategory = (props: Props) => {
   const { category } = props.route.params;
-  const [headerHeight, setHeaderHeight] = useState(useHeaderHeight() + 84);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme<Theme>();
 
@@ -36,8 +32,12 @@ const BookmarkCategory = (props: Props) => {
     });
   }, [props.navigation, category.id, recipes.length]);
 
-  const handleRecipePress = (recipeId: string) => {
-    props.navigation.navigate("RecipeDetail", { recipe: recipeId });
+  const Listheader = () => {
+    return (
+      <Box style={styles.listHeader}>
+        <Text variant="largeHeader">{capitalize(category.name)}</Text>
+      </Box>
+    );
   };
 
   return (
@@ -48,58 +48,11 @@ const BookmarkCategory = (props: Props) => {
           .concat(filteredRecipes)
           .concat(filteredRecipes)
           .concat(filteredRecipes)}
-        style={[{ paddingTop: headerHeight }, styles.flatList]}
-        contentContainerStyle={[
-          styles.listContainer,
-          { backgroundColor: theme.colors.mainBackground },
-        ]}
-        renderItem={({ item, index }) => (
-          <Button
-            onPress={() => handleRecipePress(item.id)}
-            margin="none"
-            padding="none"
-            flexDirection="row"
-            paddingVertical="sm"
-            borderRadius="l"
-          >
-            <Box
-              backgroundColor="borderColor"
-              height={1.5}
-              position="absolute"
-              left={IMAGE_SIZE + 24}
-              right={0}
-              bottom={0}
-              opacity={0.5}
-            />
-            <Box
-              width={IMAGE_SIZE}
-              height={IMAGE_SIZE}
-              borderRadius="m"
-              overflow="hidden"
-            >
-              <RecipeThumbnail
-                source={{ uri: item.thumbnail }}
-                style={styles.thumbnail}
-                contentFit="cover"
-              />
-            </Box>
-            <Box flex={1} marginLeft="m" justifyContent="center">
-              <Text fontSize={15}>
-                {_.truncate(capitalize(item.title), { length: 34 })}
-              </Text>
-              <Box flexDirection="row" marginTop="xs">
-                <Text variant="caption" color="secondaryText">
-                  {item.meta.proteinPerServing}g protein
-                </Text>
-                {item.meta.caloriesPerServing && (
-                  <Text variant="caption" color="secondaryText" marginLeft="s">
-                    • {item.meta.caloriesPerServing} kcal
-                  </Text>
-                )}
-              </Box>
-            </Box>
-          </Button>
-        )}
+        style={[styles.flatList]}
+        ListHeaderComponent={<Listheader />}
+        contentContainerStyle={styles.listContainer}
+        scrollIndicatorInsets={{ top: (IMAGE_HEIGHT * 0.6) / 2 }}
+        renderItem={({ item, index }) => <ListItem item={item} index={index} />}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Box padding="xl" alignItems="center">
@@ -123,28 +76,26 @@ const BookmarkCategory = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
-  listContainer: {
-    paddingTop: 16,
-    paddingHorizontal: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+  listHeader: {
+    position: "absolute",
+    top: -54,
+    left: 16,
+    right: 0,
+    zIndex: 120,
   },
-  thumbnail: {
-    width: "100%",
-    height: "100%",
+  listContainer: {
+    paddingTop: IMAGE_HEIGHT * 0.6,
+    paddingBottom: 32,
   },
   flatList: {
     zIndex: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    marginTop: -20,
   },
   bottomGradient: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    height: 100,
+    height: 44,
     zIndex: 12,
   },
 });

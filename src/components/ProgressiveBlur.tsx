@@ -23,15 +23,24 @@ const styles = StyleSheet.create({
 
 export const ProgressiveBlur = ({
   children,
+  invert = false,
+  end = 1,
 }: {
   children: React.ReactNode;
+  invert?: boolean;
+  end?: number;
 }) => {
   const scheme = useColorScheme();
   const { colors, locations } = easeGradient({
-    colorStops: {
-      0: { color: "transparent" },
-      0.85: { color: "black" },
-    },
+    colorStops: invert
+      ? {
+          0: { color: "black" },
+          [end]: { color: "transparent" },
+        }
+      : {
+          0: { color: "transparent" },
+          [end]: { color: "black" },
+        },
   });
 
   return (

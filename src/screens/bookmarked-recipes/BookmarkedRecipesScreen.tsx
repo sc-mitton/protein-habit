@@ -4,7 +4,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { Theme } from "@theme";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { Box, GridSortableList } from "@components";
+import { GridSortableList } from "@components";
 import { RootScreenProps } from "@types";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import {

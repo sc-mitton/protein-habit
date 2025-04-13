@@ -224,8 +224,8 @@ const lightTheme = createTheme({
   textVariants: {
     largeHeader: {
       fontFamily: "Inter-Bold",
-      fontSize: 24,
-      lineHeight: 32,
+      fontSize: 32,
+      lineHeight: 36,
       color: "primaryText",
     },
     header: {

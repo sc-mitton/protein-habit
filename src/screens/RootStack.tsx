@@ -102,6 +102,7 @@ const RootStack = () => {
             title: "Bookmarks",
             headerRight: () => (
               <Button
+                marginRight="ns"
                 onPress={() => {
                   navigation.navigate("BookmarkModal", {
                     recipe: "",
@@ -137,7 +138,7 @@ const RootStack = () => {
           options={({ route }) => ({
             headerLargeStyle: false,
             headerBlurEffect: "none",
-            headerTitle: route.params.category.name,
+            headerTitle: "",
           })}
           component={BookmarkCategory}
         />

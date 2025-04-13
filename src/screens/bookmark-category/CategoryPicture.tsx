@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const IMAGE_HEIGHT = Dimensions.get("window").height * 0.25;
+export const IMAGE_HEIGHT = Dimensions.get("window").height * 0.5;
 
 const CustomHeader = () => {
   const category = useAppSelector(selectCategory);
@@ -25,7 +25,7 @@ const CustomHeader = () => {
 
   return (
     <Box height={IMAGE_HEIGHT} width="100%" style={styles.container}>
-      <ProgressiveBlur>
+      <ProgressiveBlur end={0.7}>
         <RecipeThumbnail
           source={{ uri: coverPhoto }}
           style={styles.coverPhoto}

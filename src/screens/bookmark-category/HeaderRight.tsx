@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, StyleSheet, useColorScheme } from "react-native";
+import { Alert, StyleSheet, useColorScheme, Platform } from "react-native";
 import { SymbolView } from "expo-symbols";
 import { Image as ImageIcon } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 20,
+    marginBottom: Platform.OS === "ios" ? -2 : 0,
   },
   blur: {
     ...StyleSheet.absoluteFillObject,
@@ -119,7 +120,7 @@ const HeaderRight = ({ categoryId }: HeaderRightProps) => {
         style={styles.blur}
       />
       <SymbolView
-        name="photo.on.rectangle"
+        name="photo.badge.plus"
         tintColor={
           accent ? theme.colors[`${accent}Text`] : theme.colors.primaryText
         }
