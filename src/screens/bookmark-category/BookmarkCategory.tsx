@@ -10,7 +10,7 @@ import { useSelectRecipe } from "@hooks";
 import { capitalize } from "@utils";
 import { Theme } from "@theme";
 import HeaderRight from "./HeaderRight";
-import CustomHeader, { IMAGE_HEIGHT } from "./CategoryPicture";
+import CategoryPicture, { IMAGE_HEIGHT } from "./CategoryPicture";
 import ListItem from "./ListItem";
 
 type Props = RootScreenProps<"BookmarkCategory">;
@@ -64,7 +64,7 @@ const BookmarkCategory = (props: Props) => {
           </Box>
         }
       />
-      <CustomHeader />
+      <CategoryPicture />
       <LinearGradient
         colors={[theme.colors.transparentRGB, theme.colors.matchBlurBackground]}
         style={styles.bottomGradient}

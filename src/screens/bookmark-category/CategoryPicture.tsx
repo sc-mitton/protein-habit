@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 export const IMAGE_HEIGHT = Dimensions.get("window").height * 0.5;
 
-const CustomHeader = () => {
+const CategoryPicture = () => {
   const category = useAppSelector(selectCategory);
   const coverPhoto = category?.coverPhoto;
 
@@ -36,4 +36,4 @@ const CustomHeader = () => {
   );
 };
 
-export default CustomHeader;
+export default CategoryPicture;
