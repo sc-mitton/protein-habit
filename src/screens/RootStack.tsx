@@ -135,7 +135,7 @@ const RootStack = () => {
         />
         <Stack.Screen
           name="BookmarkCategory"
-          options={({ route }) => ({
+          options={() => ({
             headerLargeStyle: false,
             headerBlurEffect: "none",
             headerTitle: "",

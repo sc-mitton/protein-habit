@@ -74,7 +74,7 @@ const ListItem = ({
           height={1.5}
           position="absolute"
           left={THUMBNAIL_SIZE + 24}
-          right={0}
+          right={16}
           top={0}
         />
       )}

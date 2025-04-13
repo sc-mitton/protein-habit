@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Animated } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Animated,
+  Platform,
+  useColorScheme,
+} from "react-native";
 import _ from "lodash";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@shopify/restyle";
+import { BlurView } from "expo-blur";
 
 import { Box, Text } from "@components";
 import { RootScreenProps } from "@types";
@@ -12,30 +19,58 @@ import { Theme } from "@theme";
 import HeaderRight from "./HeaderRight";
 import CategoryPicture, { IMAGE_HEIGHT } from "./CategoryPicture";
 import ListItem from "./ListItem";
+import SortMenu from "./SortMenu";
+import EmptyState from "./EmptyState";
 
 type Props = RootScreenProps<"BookmarkCategory">;
 
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+
 const BookmarkCategory = (props: Props) => {
   const { category } = props.route.params;
-  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState<
+    "alphabetical" | "reverse" | "default"
+  >("default");
+  const [showSortMenu, setShowSortMenu] = useState(false);
   const theme = useTheme<Theme>();
+  const scheme = useColorScheme();
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const { recipes } = useSelectRecipe(category.recipeIds);
 
-  const filteredRecipes = recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  useEffect(() => {
+    const listener = scrollY.addListener(({ value }) => {
+      setShowSortMenu(value > IMAGE_HEIGHT / 2);
+    });
+
+    return () => {
+      scrollY.removeListener(listener);
+    };
+  }, [scrollY]);
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerRight: () => <HeaderRight categoryId={category.id} />,
+      headerRight: () => (
+        <Box flexDirection="row" alignItems="center">
+          {showSortMenu ? (
+            <SortMenu onSortChange={setSortOption} currentSort={sortOption} />
+          ) : (
+            <HeaderRight categoryId={category.id} />
+          )}
+        </Box>
+      ),
     });
-  }, [props.navigation, category.id, recipes.length]);
+  }, [props.navigation, category.id, recipes.length, showSortMenu, sortOption]);
 
   const headerScale = scrollY.interpolate({
     inputRange: [-100, 0],
     outputRange: [1.08, 1],
+    extrapolate: "clamp",
+  });
+
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, IMAGE_HEIGHT / 2],
+    outputRange: [0, 1],
     extrapolate: "clamp",
   });
 
@@ -58,10 +93,7 @@ const BookmarkCategory = (props: Props) => {
     <View>
       {/* Recipe list */}
       <Animated.FlatList
-        data={filteredRecipes
-          .concat(filteredRecipes)
-          .concat(filteredRecipes)
-          .concat(filteredRecipes)}
+        data={recipes}
         style={[styles.flatList]}
         ListHeaderComponent={<Listheader />}
         contentContainerStyle={styles.listContainer}
@@ -72,28 +104,53 @@ const BookmarkCategory = (props: Props) => {
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true },
         )}
-        ListEmptyComponent={
-          <Box padding="xl" alignItems="center">
-            <Text variant="body" color="secondaryText">
-              {searchQuery
-                ? "No recipes match your search"
-                : "No recipes in this category yet"}
-            </Text>
-          </Box>
-        }
+        ListEmptyComponent={<EmptyState />}
       />
       <CategoryPicture scale={headerScale} />
+      <AnimatedBox
+        style={[styles.headerBlur, { opacity: headerOpacity }]}
+        borderBottomColor="borderColor"
+        borderBottomWidth={1.5}
+      >
+        {Platform.OS === "ios" ? (
+          <BlurView
+            intensity={100}
+            tint={scheme === "dark" ? "dark" : "light"}
+            style={StyleSheet.absoluteFill}
+          />
+        ) : (
+          <View
+            style={[
+              StyleSheet.absoluteFill,
+              { backgroundColor: theme.colors.matchBlurBackground },
+            ]}
+          />
+        )}
+      </AnimatedBox>
       <LinearGradient
         colors={[theme.colors.transparentRGB, theme.colors.mainBackground]}
         style={styles.bottomGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
       />
+      <AnimatedBox
+        style={[
+          styles.backCover,
+          { transform: [{ translateY: Animated.multiply(scrollY, -1) }] },
+        ]}
+        backgroundColor="mainBackground"
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  backCover: {
+    ...StyleSheet.absoluteFillObject,
+    top: IMAGE_HEIGHT * 0.6,
+    borderRadius: 24,
+  },
+
   listHeader: {
     position: "absolute",
     top: -54,
@@ -117,6 +174,25 @@ const styles = StyleSheet.create({
     right: 0,
     height: 44,
     zIndex: 12,
+  },
+  headerBlur: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: Platform.OS === "ios" ? 100 : 80,
+    zIndex: 110,
+  },
+  searchBar: {
+    position: "relative",
+    width: "100%",
+    zIndex: 130,
+    backgroundColor: "transparent",
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    fontSize: 16,
   },
 });
 
