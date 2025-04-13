@@ -1,9 +1,12 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@store";
+import * as FileSystem from "expo-file-system";
+
 export interface BookmarkCategory {
   id: string;
   name: string;
   recipeIds: string[];
+  coverPhoto?: string | null;
 }
 
 interface BookmarksState {
@@ -16,8 +19,26 @@ const initialState: BookmarksState = {
       id: "favorites",
       name: "Favorites",
       recipeIds: [],
+      coverPhoto: null,
     },
   ],
+};
+
+// Helper function to delete a cover photo file if it exists
+export const deleteCoverPhotoFile = async (
+  coverPhotoUri: string | null | undefined,
+) => {
+  if (!coverPhotoUri) return;
+
+  try {
+    // Check if the file exists before trying to delete it
+    const fileInfo = await FileSystem.getInfoAsync(coverPhotoUri);
+    if (fileInfo.exists) {
+      await FileSystem.deleteAsync(coverPhotoUri);
+    }
+  } catch (error) {
+    console.error("Error deleting cover photo file:", error);
+  }
 };
 
 const bookmarksSlice = createSlice({
@@ -32,6 +53,7 @@ const bookmarksSlice = createSlice({
         id: action.payload.id,
         name: action.payload.name,
         recipeIds: [],
+        coverPhoto: null,
       });
     },
     removeCategory: (state, action: PayloadAction<string>) => {
@@ -85,6 +107,20 @@ const bookmarksSlice = createSlice({
         return orderA - orderB;
       });
     },
+    updateCategoryCoverPhoto: (
+      state,
+      action: PayloadAction<{
+        categoryId: string;
+        coverPhoto: string | null;
+      }>,
+    ) => {
+      const category = state.categories.find(
+        (cat) => cat.id === action.payload.categoryId,
+      );
+      if (category) {
+        category.coverPhoto = action.payload.coverPhoto;
+      }
+    },
   },
 });
 
@@ -95,8 +131,10 @@ export const {
   removeRecipe,
   clearBookmarks,
   reorderCategories,
+  updateCategoryCoverPhoto,
 } = bookmarksSlice.actions;
 
+// Selectors
 export const selectIsBookmarked = createSelector(
   (state: RootState) => state.bookmarks.categories,
   (_: RootState, recipeId?: string) => recipeId,

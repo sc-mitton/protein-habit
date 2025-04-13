@@ -135,7 +135,9 @@ const RootStack = () => {
         <Stack.Screen
           name="BookmarkCategory"
           options={({ route }) => ({
-            title: route.params.category.name,
+            headerLargeStyle: false,
+            headerBlurEffect: "none",
+            headerTitle: route.params.category.name,
           })}
           component={BookmarkCategory}
         />

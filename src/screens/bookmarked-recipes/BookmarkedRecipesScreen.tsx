@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, Alert } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Theme } from "@theme";
 import { LinearGradient } from "expo-linear-gradient";
@@ -10,6 +10,8 @@ import { useAppSelector, useAppDispatch } from "@store/hooks";
 import {
   selectOrderedCategories,
   reorderCategories,
+  removeCategory,
+  deleteCoverPhotoFile,
 } from "@store/slices/bookmarksSlice";
 import { useTheme } from "@shopify/restyle";
 import { COLUMN_COUNT, ITEM_PADDING } from "./constants";
@@ -29,10 +31,51 @@ const BookmarkedScreen = (props: Props) => {
     setData(categories);
   }, [categories]);
 
+  // Handle category deletion with confirmation
+  const handleDeleteCategory = async (categoryId: string) => {
+    // Don't allow deleting the Favorites category
+    if (categoryId === "favorites") {
+      Alert.alert("Cannot Delete", "The Favorites category cannot be deleted.");
+      return;
+    }
+
+    Alert.alert(
+      "Delete Category",
+      "Are you sure you want to delete this category? All recipes will be removed from it.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            // Find the category to get its cover photo
+            const categoryToDelete = categories.find(
+              (cat) => cat.id === categoryId,
+            );
+
+            // Delete the category from Redux
+            dispatch(removeCategory(categoryId));
+
+            // Delete the cover photo file if it exists
+            if (categoryToDelete?.coverPhoto) {
+              await deleteCoverPhotoFile(categoryToDelete.coverPhoto);
+            }
+          },
+        },
+      ],
+    );
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
-        style={{ backgroundColor: theme.colors.matchBlurBackground }}
+        contentContainerStyle={[
+          styles.stretch,
+          { backgroundColor: theme.colors.matchBlurBackground },
+        ]}
         alwaysBounceVertical={false}
       >
         <LinearGradient
@@ -48,7 +91,7 @@ const BookmarkedScreen = (props: Props) => {
           data={data}
           containerViewStyle={[
             { paddingTop: headerHeight + 24 },
-            styles.contentContainer,
+            styles.gridContent,
           ]}
           columns={COLUMN_COUNT}
           rowPadding={ITEM_PADDING}
@@ -67,10 +110,13 @@ const styles = StyleSheet.create({
   item: {
     padding: ITEM_PADDING,
   },
+  stretch: {
+    flex: 1,
+  },
   touchable: {
     borderRadius: 16,
   },
-  contentContainer: {
+  gridContent: {
     paddingBottom: 20,
   },
   bottomGradient: {
