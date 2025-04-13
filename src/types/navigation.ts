@@ -46,7 +46,6 @@ export type RootStackParamList = {
   BookmarkedRecipes: undefined;
   GroceryList: undefined;
   BookmarkModal: { recipe: string };
-  AddBookmarkCategoryModal: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =

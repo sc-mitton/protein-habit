@@ -1,31 +1,19 @@
-import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
 import { Box, Text, Button, BackDrop } from "@components";
 import { Theme } from "@theme";
 import { useTheme } from "@shopify/restyle";
 import { RootState } from "@store";
-import { addRecipeToCategory } from "@store/slices/bookmarksSlice";
 import { RootScreenProps } from "@types";
+import FolderOption from "./FolderOption";
+import { useAppSelector } from "@store/hooks";
 
 const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
   const theme = useTheme<Theme>();
-  const dispatch = useDispatch();
-  const categories = useSelector(
+  const categories = useAppSelector(
     (state: RootState) => state.bookmarks.categories,
   );
-
-  const handleAddToCategory = (categoryId: string) => {
-    dispatch(
-      addRecipeToCategory({
-        categoryId,
-        recipeId: props.route.params.recipe,
-      }),
-    );
-    props.navigation.goBack();
-  };
 
   return (
     <BottomSheet
@@ -37,7 +25,7 @@ const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}
-      backdropComponent={() => <BackDrop blurIntensity={20} />}
+      backdropComponent={() => <BackDrop blurIntensity={10} />}
     >
       <BottomSheetView>
         <Box
@@ -53,39 +41,28 @@ const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
-            marginBottom="m"
+            marginBottom="xl"
           >
-            <Text variant="header">Choose Category</Text>
+            <Text variant="header">Choose a Folder</Text>
             <Button
               label="Create"
-              onPress={() =>
-                props.navigation.navigate("AddBookmarkCategoryModal")
-              }
+              onPress={() => {}}
               variant="pillMedium"
               marginRight="nm"
               backgroundColor="transparent"
               accent
             />
           </Box>
-
-          <Box marginBottom="m">
-            {categories.map((category) => (
-              <TouchableOpacity
-                key={category.id}
-                onPress={() => handleAddToCategory(category.id)}
-              >
-                <Box
-                  padding="m"
-                  marginBottom="s"
-                  backgroundColor="secondaryBackground"
-                  borderRadius="m"
-                >
-                  <Text variant="body">{category.name}</Text>
-                  <Text variant="caption" color="secondaryText">
-                    {category.recipeIds?.length} recipes
-                  </Text>
-                </Box>
-              </TouchableOpacity>
+          <Text variant="bold" fontSize={14} color="tertiaryText">
+            Bookmark Folders
+          </Text>
+          <Box marginBottom="m" marginTop="xs">
+            {categories.map((category, i) => (
+              <FolderOption
+                key={`category-${i}`}
+                categoryId={category.id}
+                recipeId={props.route.params.recipe}
+              />
             ))}
           </Box>
         </Box>

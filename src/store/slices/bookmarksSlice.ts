@@ -96,4 +96,12 @@ export const selectIsBookmarked = createSelector(
   },
 );
 
+export const selectCategory = createSelector(
+  (state: RootState) => state.bookmarks.categories,
+  (_: RootState, categoryId?: string) => categoryId,
+  (categories, categoryId) => {
+    return categories.find((category) => category.id === categoryId);
+  },
+);
+
 export default bookmarksSlice.reducer;

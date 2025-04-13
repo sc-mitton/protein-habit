@@ -10,7 +10,6 @@ import RecipesDetailScreen from "./recipes-detail/RecipesDetailScreen";
 import GroceryListScreen from "./grocery-list/GroceryListScreen";
 import BookmarkedRecipesScreen from "./bookmarked-recipes/BookmarkedRecipesScreen";
 import BookmarkModal from "./bookmark-modal/BookmarkModal";
-import AddBookmarkCategory from "./add-bookmark-category/AddBookmarkCategory";
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { selectAccent } from "@store/slices/uiSlice";
@@ -40,12 +39,6 @@ const RootStack = () => {
         name="BookmarkModal"
         component={BookmarkModal}
       />
-      <Stack.Screen
-        options={{ presentation: "modal", headerShown: false }}
-        name="AddBookmarkCategoryModal"
-        component={AddBookmarkCategory}
-      />
-
       <Stack.Screen
         name="RecipeDetail"
         options={({ route }) => ({
