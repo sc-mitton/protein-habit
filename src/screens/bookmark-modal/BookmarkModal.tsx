@@ -54,7 +54,7 @@ const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
             />
           </Box>
           <Text variant="bold" fontSize={14} color="tertiaryText">
-            Bookmark Folders
+            Folders
           </Text>
           <Box marginBottom="m" marginTop="xs">
             {categories.map((category, i) => (
