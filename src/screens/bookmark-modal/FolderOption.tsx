@@ -25,9 +25,11 @@ const styles = StyleSheet.create({
 const FolderOption = ({
   categoryId,
   recipeId,
+  index,
 }: {
   categoryId: string;
   recipeId: string;
+  index: number;
 }) => {
   const accentColor = useAppSelector(selectAccent);
   const theme = useTheme<Theme>();
@@ -68,15 +70,19 @@ const FolderOption = ({
   };
 
   return (
-    <Box
+    <Button
+      onPress={handleSave}
       paddingHorizontal="xs"
       borderRadius="m"
       flexDirection="row"
       justifyContent="space-between"
       alignItems="center"
       gap="m"
+      borderBottomWidth={index === 0 ? 1 : 0}
+      paddingBottom="m"
+      borderBottomColor="borderColor"
     >
-      <BookmarksFolderCover categoryId={categoryId} />
+      <BookmarksFolderCover categoryId={categoryId} gap="xs" borderRadius="s" />
       <Box flex={1} marginRight="m">
         <Box marginBottom="s">
           <Text variant="body">{category?.name}</Text>
@@ -85,28 +91,23 @@ const FolderOption = ({
           </Text>
         </Box>
       </Box>
-      <Button
-        onPress={handleSave}
-        marginRight="ns"
-        icon={
-          <SymbolView
-            name="arrow.down.circle.fill"
-            tintColor={
-              accentColor ? theme.colors[accentColor] : theme.colors.primaryText
-            }
-            size={24}
-            fallback={
-              <Icon
-                icon={ArrowRightCircleFill}
-                borderColor="primaryText"
-                color="modalBackground"
-                accent
-                size={24}
-              />
-            }
-          />
-        }
-      >
+      <Box>
+        <SymbolView
+          name="arrow.down.circle.fill"
+          tintColor={
+            accentColor ? theme.colors[accentColor] : theme.colors.primaryText
+          }
+          size={24}
+          fallback={
+            <Icon
+              icon={ArrowRightCircleFill}
+              borderColor="primaryText"
+              color="modalBackground"
+              accent
+              size={24}
+            />
+          }
+        />
         {showSuccess && (
           <Box
             style={styles.lottieContainer}
@@ -139,8 +140,8 @@ const FolderOption = ({
             />
           </Box>
         )}
-      </Button>
-    </Box>
+      </Box>
+    </Button>
   );
 };
 

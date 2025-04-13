@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Dimensions } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Theme } from "@theme";
+import { LinearGradient } from "expo-linear-gradient";
 
 import { Box, GridSortableList } from "@components";
 import { RootScreenProps } from "@types";
@@ -29,22 +30,36 @@ const BookmarkedScreen = (props: Props) => {
   }, [categories]);
 
   return (
-    <Box flex={1} backgroundColor="matchBlurBackground">
-      <GridSortableList
-        data={data}
-        containerViewStyle={[
-          { paddingTop: headerHeight + 24 },
-          styles.contentContainer,
-        ]}
-        columns={COLUMN_COUNT}
-        rowPadding={ITEM_PADDING}
-        idField="id"
-        onDragEnd={(positions) => {
-          dispatch(reorderCategories({ order: positions }));
-        }}
-        renderItem={({ item }) => <Card item={item} />}
-      />
-    </Box>
+    <View style={styles.container}>
+      <ScrollView
+        style={{ backgroundColor: theme.colors.matchBlurBackground }}
+        alwaysBounceVertical={false}
+      >
+        <LinearGradient
+          colors={[
+            theme.colors.transparentRGB,
+            theme.colors.matchBlurBackground,
+          ]}
+          style={styles.bottomGradient}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+        />
+        <GridSortableList
+          data={data}
+          containerViewStyle={[
+            { paddingTop: headerHeight + 24 },
+            styles.contentContainer,
+          ]}
+          columns={COLUMN_COUNT}
+          rowPadding={ITEM_PADDING}
+          idField="id"
+          onDragEnd={(positions) => {
+            dispatch(reorderCategories({ order: positions }));
+          }}
+          renderItem={({ item }) => <Card item={item} />}
+        />
+      </ScrollView>
+    </View>
   );
 };
 
@@ -57,6 +72,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: 20,
+  },
+  bottomGradient: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 100,
+  },
+  container: {
+    flex: 1,
   },
 });
 

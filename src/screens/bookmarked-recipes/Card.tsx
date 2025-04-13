@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     padding: ITEM_PADDING,
   },
   touchable: {
-    borderRadius: 16,
+    borderRadius: 12,
   },
   contentContainer: {
     paddingBottom: 20,
@@ -24,59 +24,63 @@ const Card = ({ item }: { item: BookmarkCategory }) => {
   const [isLongPressed, setIsLongPressed] = useState(false);
 
   return (
-    <TouchableHighlight
-      style={styles.touchable}
-      underlayColor={theme.colors.primaryText}
-      activeOpacity={0.95}
-      onLongPress={() => {
-        setIsLongPressed(true);
-      }}
-      onPress={() => {
-        if (isLongPressed) {
-          setIsLongPressed(false);
-        } else {
-          navigation.navigate("BookmarkCategory", {
-            category: item,
-          });
-        }
-      }}
-    >
-      <Box
-        shadowColor="foodItemShadow"
-        shadowOpacity={0.1}
-        shadowOffset={{ width: 0, height: 2 }}
-        shadowRadius={2}
-        elevation={5}
+    <Box>
+      <TouchableHighlight
+        style={styles.touchable}
+        underlayColor={theme.colors.primaryText}
+        activeOpacity={0.5}
+        onLongPress={() => {
+          setIsLongPressed(true);
+        }}
+        onPress={() => {
+          if (isLongPressed) {
+            setIsLongPressed(false);
+          } else {
+            navigation.navigate("BookmarkCategory", {
+              category: item,
+            });
+          }
+        }}
       >
         <Box
-          backgroundColor="secondaryBackground"
-          borderRadius="xl"
-          flexDirection="column"
-          alignItems="flex-start"
           shadowColor="foodItemShadow"
-          shadowOffset={{ width: 0, height: 2 }}
           shadowOpacity={0.1}
-          shadowRadius={8}
-          elevation={12}
-          padding="none"
+          shadowOffset={{ width: 0, height: 2 }}
+          shadowRadius={2}
+          elevation={5}
         >
-          <View style={styles.item}>
-            <BookmarksFolderCover
-              categoryId={item.id}
-              width={ITEM_WIDTH}
-              gap="s"
-              borderRadius="m"
-            />
-            <Box padding="s">
-              <Text variant="body">{item.name}</Text>
-              <Text variant="caption" color="secondaryText">
-                {item.recipeIds.length} recipes
-              </Text>
-            </Box>
-          </View>
+          <Box
+            backgroundColor="matchBlurBackground"
+            borderColor="borderColor"
+            borderWidth={1.5}
+            borderRadius="xl"
+            flexDirection="column"
+            alignItems="flex-start"
+            shadowColor="foodItemShadow"
+            shadowOffset={{ width: 0, height: 2 }}
+            shadowOpacity={0.1}
+            shadowRadius={8}
+            elevation={12}
+            padding="none"
+          >
+            <View style={styles.item}>
+              <BookmarksFolderCover
+                categoryId={item.id}
+                width={ITEM_WIDTH}
+                gap="s"
+                borderRadius="l"
+              />
+            </View>
+          </Box>
         </Box>
+      </TouchableHighlight>
+      <Box paddingHorizontal="sm" paddingTop="s" paddingBottom="xs">
+        <Text variant="body">{item.name}</Text>
+        <Text variant="caption" color="secondaryText">
+          {item.recipeIds.length} recipes
+        </Text>
       </Box>
-    </TouchableHighlight>
+    </Box>
   );
 };
 

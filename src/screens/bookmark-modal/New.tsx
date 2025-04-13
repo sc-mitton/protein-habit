@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { useAppDispatch } from "@store/hooks";
 import { addCategory } from "@store/slices/bookmarksSlice";
 
-import { Text, TextInput, KeyboardAvoidingView } from "@components";
+import { Text, TextInput, KeyboardAvoidingView2 } from "@components";
 
 const New = ({ onBlur }: { onBlur: () => void }) => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ const New = ({ onBlur }: { onBlur: () => void }) => {
   };
 
   return (
-    <KeyboardAvoidingView offset={72}>
+    <KeyboardAvoidingView2 offset={72}>
       <TextInput
         placeholder="Name"
         value={folderName}
@@ -47,7 +47,7 @@ const New = ({ onBlur }: { onBlur: () => void }) => {
           {error}
         </Text>
       ) : null}
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView2>
   );
 };
 

@@ -51,7 +51,7 @@ const HeaderRight = (props: RootScreenProps<"RecipeDetail">) => {
   }, [screenIsFocused, hasPressedBookmark, isBookmarked]);
 
   return (
-    <Box marginRight="nm">
+    <Box marginRight="ns">
       <BookmarkButton
         ref={bookmarkRef}
         useAccent={true}

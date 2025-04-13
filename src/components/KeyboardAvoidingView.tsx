@@ -1,5 +1,5 @@
-import { useRef, useLayoutEffect, useEffect } from "react";
-import { Keyboard, Dimensions, View, ViewProps } from "react-native";
+import { useRef, useLayoutEffect } from "react";
+import { Dimensions, View, ViewProps } from "react-native";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import Animated, {
   useAnimatedStyle,

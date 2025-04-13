@@ -12,7 +12,7 @@ export const BookmarksFolderCover = ({
   categoryId,
   width = 75,
   gap = "xs",
-  borderRadius = "s",
+  borderRadius = "sm",
   ...props
 }: {
   categoryId: string;
@@ -32,7 +32,7 @@ export const BookmarksFolderCover = ({
   return (
     <Box
       flexDirection="row"
-      height={0.75 * width}
+      height={0.7 * width}
       width={width}
       gap={gap}
       borderRadius={borderRadius}
@@ -45,13 +45,13 @@ export const BookmarksFolderCover = ({
             style={{
               width: "100%",
               height: "100%",
-              borderRadius: theme.borderRadii.m,
+              borderRadius: theme.borderRadii[borderRadius],
             }}
           />
         ) : (
           <Box
             flex={1}
-            backgroundColor="secondaryCardBackground"
+            backgroundColor="primaryButton"
             borderRadius={borderRadius}
             {...props}
           />
@@ -65,13 +65,13 @@ export const BookmarksFolderCover = ({
               style={{
                 width: "100%",
                 height: "100%",
-                borderRadius: theme.borderRadii.m,
+                borderRadius: theme.borderRadii[borderRadius],
               }}
             />
           ) : (
             <Box
               flex={1}
-              backgroundColor="secondaryCardBackground"
+              backgroundColor="primaryButton"
               borderRadius={borderRadius}
               {...props}
             />
@@ -84,13 +84,13 @@ export const BookmarksFolderCover = ({
               style={{
                 width: "100%",
                 height: "100%",
-                borderRadius: theme.borderRadii.m,
+                borderRadius: theme.borderRadii[borderRadius],
               }}
             />
           ) : (
             <Box
               flex={1}
-              backgroundColor="secondaryCardBackground"
+              backgroundColor="primaryButton"
               borderRadius={borderRadius}
               {...props}
             />

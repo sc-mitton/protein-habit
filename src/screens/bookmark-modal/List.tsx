@@ -16,12 +16,13 @@ const List = (props: RootScreenProps<"BookmarkModal">) => {
       <Text variant="bold" fontSize={14} color="tertiaryText" marginLeft="xs">
         Folders
       </Text>
-      <Box marginBottom="m" marginTop="m" gap="m">
+      <Box marginBottom="m" marginTop="s" gap="s">
         {categories.map((category, i) => (
           <FolderOption
             key={`category-${i}`}
             categoryId={category.id}
             recipeId={props.route.params.recipe}
+            index={i}
           />
         ))}
       </Box>

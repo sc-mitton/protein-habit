@@ -22,3 +22,4 @@ export * from "./LinearGradientEdges";
 export * from "./BookmarksFolderCover";
 export * from "./RecipeThumbnail";
 export * from "./grid-sortable-list/GridSortableList";
+export * from "./KeyboardAvoidingView2";

@@ -124,6 +124,7 @@ const lightTheme = createTheme({
   },
   borderRadii: {
     none: 0,
+    xs: 2,
     s: 4,
     sm: 6,
     m: 8,
@@ -241,7 +242,7 @@ const lightTheme = createTheme({
     },
     caption: {
       fontFamily: "Inter-Regular",
-      fontSize: 13,
+      fontSize: 12,
       lineHeight: 16,
       color: "secondaryText",
     },

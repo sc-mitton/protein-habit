@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 32,
-    zIndex: 1,
+    zIndex: 12,
   },
   tagImage: {
     width: 32,
@@ -345,7 +345,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
         </Animated.View>
       </ScrollView>
       <LinearGradient
-        colors={[theme.colors.transparentRGB, theme.colors.secondaryBackground]}
+        colors={[theme.colors.transparentRGB, theme.colors.matchBlurBackground]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 0.8 }}
         style={styles.gradient}
