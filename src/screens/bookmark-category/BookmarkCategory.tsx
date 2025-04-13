@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { StyleSheet, View, Animated } from "react-native";
 import _ from "lodash";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@shopify/restyle";
@@ -19,6 +19,7 @@ const BookmarkCategory = (props: Props) => {
   const { category } = props.route.params;
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme<Theme>();
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const { recipes } = useSelectRecipe(category.recipeIds);
 
@@ -32,18 +33,31 @@ const BookmarkCategory = (props: Props) => {
     });
   }, [props.navigation, category.id, recipes.length]);
 
+  const headerScale = scrollY.interpolate({
+    inputRange: [-100, 0],
+    outputRange: [1.08, 1],
+    extrapolate: "clamp",
+  });
+
   const Listheader = () => {
     return (
-      <Box style={styles.listHeader}>
+      <Animated.View
+        style={[
+          styles.listHeader,
+          {
+            transform: [{ scale: headerScale }],
+          },
+        ]}
+      >
         <Text variant="largeHeader">{capitalize(category.name)}</Text>
-      </Box>
+      </Animated.View>
     );
   };
 
   return (
     <View>
       {/* Recipe list */}
-      <FlatList
+      <Animated.FlatList
         data={filteredRecipes
           .concat(filteredRecipes)
           .concat(filteredRecipes)
@@ -54,6 +68,10 @@ const BookmarkCategory = (props: Props) => {
         scrollIndicatorInsets={{ top: (IMAGE_HEIGHT * 0.6) / 2 }}
         renderItem={({ item, index }) => <ListItem item={item} index={index} />}
         keyExtractor={(item) => item.id}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true },
+        )}
         ListEmptyComponent={
           <Box padding="xl" alignItems="center">
             <Text variant="body" color="secondaryText">
@@ -64,9 +82,9 @@ const BookmarkCategory = (props: Props) => {
           </Box>
         }
       />
-      <CategoryPicture />
+      <CategoryPicture scale={headerScale} />
       <LinearGradient
-        colors={[theme.colors.transparentRGB, theme.colors.matchBlurBackground]}
+        colors={[theme.colors.transparentRGB, theme.colors.mainBackground]}
         style={styles.bottomGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
@@ -82,6 +100,7 @@ const styles = StyleSheet.create({
     left: 16,
     right: 0,
     zIndex: 120,
+    transformOrigin: "top left",
   },
   listContainer: {
     paddingTop: IMAGE_HEIGHT * 0.6,
@@ -89,6 +108,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     zIndex: 1,
+    height: "100%",
   },
   bottomGradient: {
     position: "absolute",

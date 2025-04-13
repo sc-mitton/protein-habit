@@ -68,14 +68,16 @@ const ListItem = ({
         borderTopStartRadius={index === 0 ? "xl" : "none"}
         style={StyleSheet.absoluteFill}
       />
-      <Box
-        backgroundColor="borderColor"
-        height={1.5}
-        position="absolute"
-        left={THUMBNAIL_SIZE + 24}
-        right={0}
-        bottom={0}
-      />
+      {index !== 0 && (
+        <Box
+          backgroundColor="borderColor"
+          height={1.5}
+          position="absolute"
+          left={THUMBNAIL_SIZE + 24}
+          right={0}
+          top={0}
+        />
+      )}
       <TouchableOpacity
         onPress={() => handleRecipePress(item.id)}
         activeOpacity={0.6}

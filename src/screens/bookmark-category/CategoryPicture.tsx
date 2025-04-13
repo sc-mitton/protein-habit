@@ -1,8 +1,9 @@
 import { useAppSelector } from "@store/hooks";
 import { selectCategory } from "@store/slices/bookmarksSlice";
-import { Dimensions, StyleSheet } from "react-native";
+import { Animated, Dimensions, StyleSheet } from "react-native";
 
 import { ProgressiveBlur, Box, RecipeThumbnail } from "@components";
+import { SharedValue } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
   coverPhoto: {
@@ -19,12 +20,27 @@ const styles = StyleSheet.create({
 
 export const IMAGE_HEIGHT = Dimensions.get("window").height * 0.5;
 
-const CategoryPicture = () => {
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+
+const CategoryPicture = ({
+  scale,
+}: {
+  scale: Animated.AnimatedInterpolation<string | number>;
+}) => {
   const category = useAppSelector(selectCategory);
   const coverPhoto = category?.coverPhoto;
 
   return (
-    <Box height={IMAGE_HEIGHT} width="100%" style={styles.container}>
+    <AnimatedBox
+      height={IMAGE_HEIGHT}
+      width="100%"
+      style={[
+        styles.container,
+        {
+          transform: [{ scale }],
+        },
+      ]}
+    >
       <ProgressiveBlur end={0.7}>
         <RecipeThumbnail
           source={{ uri: coverPhoto }}
@@ -32,7 +48,7 @@ const CategoryPicture = () => {
           contentFit="cover"
         />
       </ProgressiveBlur>
-    </Box>
+    </AnimatedBox>
   );
 };
 
