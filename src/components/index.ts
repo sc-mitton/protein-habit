@@ -19,3 +19,5 @@ export * from "./BumpButton";
 export * from "./tagImages";
 export * from "./BookmarkButton";
 export * from "./LinearGradientEdges";
+export * from "./BookmarksFolderCover";
+export * from "./RecipeThumbnail";

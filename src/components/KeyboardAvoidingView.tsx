@@ -1,11 +1,11 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
-import { Dimensions, Keyboard, View, ViewProps } from "react-native";
+import { useRef, useLayoutEffect, useEffect } from "react";
+import { Keyboard, Dimensions, View, ViewProps } from "react-native";
+import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
   Easing,
-  runOnJS,
 } from "react-native-reanimated";
 
 interface Props extends ViewProps {
@@ -16,68 +16,37 @@ interface Props extends ViewProps {
 
 export const KeyboardAvoidingView = ({
   children,
-  offset = 128,
-  type = "padding",
+  offset = 32,
   style,
   ...props
 }: Props) => {
   const viewRef = useRef<View>(null);
-  const avoidValue = useSharedValue(0);
-  const contentHeight = useSharedValue(0);
-  const contentPageY = useSharedValue(0);
-
-  const measureView = () => {
-    if (viewRef.current) {
-      viewRef.current.measure((x, y, width, height, pageX, pageY) => {
-        contentHeight.value = height;
-        contentPageY.value = pageY;
-      });
-    }
-  };
+  const { height, progress } = useReanimatedKeyboardAnimation();
+  const topEdgeY = useSharedValue(0);
 
   useLayoutEffect(() => {
-    runOnJS(measureView)();
-  });
-
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", (e) => {
-      const overlap = Math.max(
-        e.endCoordinates.height -
-          (Dimensions.get("window").height -
-            contentPageY.value -
-            contentHeight.value),
-        0,
-      );
-
-      if (overlap > 0) {
-        avoidValue.value = withTiming(overlap + offset, {
-          duration: 300,
-          easing: Easing.bezier(0.25, 0.1, 0.25, 1.0),
-        });
-      }
-    });
-
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      avoidValue.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1.0),
+    setTimeout(() => {
+      viewRef.current?.measure((x, y, width, height, pageX, pageY) => {
+        topEdgeY.value =
+          Dimensions.get("window").height - pageY - height - offset;
       });
-    });
+    }, 0);
+  }, []);
 
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
+  const animation = useAnimatedStyle(() => {
+    return {
+      paddingBottom: withTiming(
+        progress.value > 0 ? -height.value - topEdgeY.value : offset,
+        {
+          duration: 200,
+          easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+        },
+      ),
     };
-  }, [offset]);
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return type === "padding"
-      ? { paddingBottom: avoidValue.value }
-      : { height: avoidValue.value };
   });
 
   return (
-    <Animated.View ref={viewRef} style={[animatedStyle, style]} {...props}>
+    <Animated.View ref={viewRef} style={[animation, style]} {...props}>
       {children}
     </Animated.View>
   );

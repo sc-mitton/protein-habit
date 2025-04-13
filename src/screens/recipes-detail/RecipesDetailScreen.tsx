@@ -30,6 +30,7 @@ import {
   tagImages,
   LinearGradientEdges,
   BookmarkButton,
+  RecipeThumbnail,
 } from "@components";
 import { Theme } from "@theme";
 import { capitalize } from "@utils";
@@ -39,7 +40,8 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 
 const IMAGE_HEIGHT = Dimensions.get("window").height * 0.3;
 
-const AnimatedImage = Animated.createAnimatedComponent(Image);
+const AnimatedRecipeThumbnail =
+  Animated.createAnimatedComponent(RecipeThumbnail);
 
 const styles = StyleSheet.create({
   image: {
@@ -127,6 +129,10 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       ),
     });
   }, [isBookmarked, bookmarked]);
+
+  useEffect(() => {
+    setBookmarked(isBookmarked);
+  }, [isBookmarked]);
 
   useEffect(() => {
     props.navigation.addListener("focus", () => {
@@ -251,22 +257,14 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       borderTopRightRadius="xl"
       backgroundColor="matchBlurBackground"
     >
-      <AnimatedImage
-        source={{
-          uri: props.route.params.recipe
-            ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
-            : "",
-        }}
+      <AnimatedRecipeThumbnail
+        source={{ uri: recipeData.recipe?.thumbnail }}
         style={[styles.blurredImage, blurredImageAnimation]}
         contentFit="cover"
       />
-      <AnimatedImage
+      <AnimatedRecipeThumbnail
         // sharedTransitionTag={`image${props.route.params.recipe?.id}`}
-        source={{
-          uri: props.route.params.recipe
-            ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
-            : "",
-        }}
+        source={{ uri: recipeData.recipe?.thumbnail }}
         style={[styles.image, imageAnimation]}
         transition={100}
       />
@@ -331,7 +329,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
               <SymbolView
                 name="clock.circle"
                 tintColor={theme.colors.primaryText}
-                size={20}
+                size={24}
                 fallback={
                   <Ionicons
                     name="timer-outline"
@@ -341,7 +339,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
                 }
               />
               {recipeData.recipe?.meta.prepTime && (
-                <Text variant="paragraph" marginLeft="m">
+                <Text variant="paragraph" marginLeft="sm">
                   {recipeData.recipe?.meta.prepTime} min prep
                 </Text>
               )}
@@ -359,19 +357,23 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
             </Box>
             <Box flexDirection="row" alignItems="center">
               <SymbolView
-                name="fork.knife"
+                name="fork.knife.circle"
                 tintColor={theme.colors.primaryText}
-                size={20}
+                size={24}
                 fallback={
                   <Feather
                     name="pie-chart"
-                    size={20}
+                    size={24}
                     color={theme.colors.primaryText}
                   />
                 }
               />
-              <Text marginLeft="m">
-                {recipeData.recipe?.meta.numberOfServings} servings
+              <Text marginLeft="sm">
+                {recipeData.recipe?.meta.numberOfServings}{" "}
+                {recipeData.recipe?.meta.numberOfServings &&
+                recipeData.recipe?.meta.numberOfServings > 1
+                  ? "servings"
+                  : "serving"}
               </Text>
             </Box>
           </Box>

@@ -16,13 +16,22 @@ import Reanimated, {
 
 import seedrandom from "seedrandom";
 import _ from "lodash";
-import { Box, Text, PulseText, BookmarkButton } from "@components";
+import {
+  Box,
+  Text,
+  PulseText,
+  BookmarkButton,
+  RecipeThumbnail,
+} from "@components";
 import { RecipeWithAssociations } from "@db/schema/types";
 import { Theme } from "@theme";
 import { RootStackParamList } from "@types";
 import { capitalize } from "@utils";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { selectIsBookmarked, removeRecipe } from "@store/slices/bookmarksSlice";
+
+const AnimatedRecipeThumbnail =
+  Animated.createAnimatedComponent(RecipeThumbnail);
 
 const styles = StyleSheet.create({
   bookmarkButton: {
@@ -56,8 +65,6 @@ interface Props {
   index: number;
 }
 
-const AnimatedImage = Animated.createAnimatedComponent(Image);
-
 const RecipeCard = (props: Props) => {
   const dispatch = useAppDispatch();
   const isBookmarked = useAppSelector((state) =>
@@ -74,6 +81,10 @@ const RecipeCard = (props: Props) => {
       setBookmarked(isBookmarked);
     });
   }, [navigation]);
+
+  useEffect(() => {
+    setBookmarked(isBookmarked);
+  }, [isBookmarked]);
 
   const handleBookmark = () => {
     setBookmarked(!bookmarked);
@@ -133,13 +144,9 @@ const RecipeCard = (props: Props) => {
               />
             </Reanimated.View>
           )}
-          <AnimatedImage
+          <AnimatedRecipeThumbnail
             // sharedTransitionTag={`image${props.recipe?.id}`}
-            source={{
-              uri: props.recipe
-                ? "https://protein-count-recipe-thumbnails.s3.us-west-1.amazonaws.com/a3d4e7c9-4f85-4d8e-bfde-1e3f6d8b0986.jpg"
-                : "",
-            }}
+            source={{ uri: props.recipe?.thumbnail }}
             onLoadEnd={() => props.recipe && setIsLoaded(true)}
             style={styles.image}
             transition={100}

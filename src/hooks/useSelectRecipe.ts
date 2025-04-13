@@ -24,47 +24,34 @@ type UseSelectRecipeResult<T extends RecipeIds> = T extends RecipeId
   : MultipleRecipesResult;
 
 export function useSelectRecipe<T extends RecipeIds>(
-  id?: T,
+  id: T,
 ): UseSelectRecipeResult<T> {
+  const { db } = useDrizzleDb();
+
   const [recipes, setRecipes] = useState<RecipeWithAssociations[]>([]);
   const [recipe, setRecipe] = useState<RecipeWithAssociations | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const { db } = useDrizzleDb();
-  const [recipeIds, setRecipeIds] = useState<RecipeIds>("");
+  const [recipeIds, setRecipeIds] = useState<RecipeIds>(id);
 
   useEffect(() => {
     async function fetchRecipes(ids: RecipeIds) {
       try {
         setIsLoading(true);
 
+        const joins = {
+          recipeCuisines: { with: { cuisine: true } },
+          recipeMealTypes: { with: { mealType: true } },
+          recipeProteins: { with: { protein: true } },
+          recipeDishTypes: { with: { dishType: true } },
+          meta: true,
+        } as const;
+
         if (Array.isArray(ids)) {
           // Fetch multiple recipes
           const queryResult = await db.query.recipesTable.findMany({
             where: inArray(recipesTable.id, ids),
-            with: {
-              recipeCuisines: {
-                with: {
-                  cuisine: true,
-                },
-              },
-              recipeMealTypes: {
-                with: {
-                  mealType: true,
-                },
-              },
-              recipeProteins: {
-                with: {
-                  protein: true,
-                },
-              },
-              recipeDishTypes: {
-                with: {
-                  dishType: true,
-                },
-              },
-              meta: true,
-            },
+            with: { ...joins },
           });
 
           const flattenedRecipes = queryResult.map((result) => {
@@ -73,7 +60,6 @@ export function useSelectRecipe<T extends RecipeIds>(
                 `Recipe with ID ${result.id} not found or missing meta data`,
               );
             }
-
             return {
               ...result,
               cuisines: result.recipeCuisines.map((rc) => rc.cuisine),
@@ -89,29 +75,7 @@ export function useSelectRecipe<T extends RecipeIds>(
           // Fetch a single recipe
           const queryResult = await db.query.recipesTable.findFirst({
             where: eq(recipesTable.id, ids),
-            with: {
-              recipeCuisines: {
-                with: {
-                  cuisine: true,
-                },
-              },
-              recipeMealTypes: {
-                with: {
-                  mealType: true,
-                },
-              },
-              recipeProteins: {
-                with: {
-                  protein: true,
-                },
-              },
-              recipeDishTypes: {
-                with: {
-                  dishType: true,
-                },
-              },
-              meta: true,
-            },
+            with: { ...joins },
           });
 
           if (!queryResult || !queryResult.meta) {
@@ -144,10 +108,21 @@ export function useSelectRecipe<T extends RecipeIds>(
   }, [recipeIds]);
 
   useEffect(() => {
-    if (id !== recipeIds && id) {
+    if (Array.isArray(id)) {
+      // Compare sets to check if arrays have the same elements
+      const currentSet = new Set(recipeIds);
+      const newSet = new Set(id);
+
+      if (
+        currentSet.size !== newSet.size ||
+        ![...currentSet].every((item) => newSet.has(item))
+      ) {
+        setRecipeIds(id);
+      }
+    } else if (id !== recipeIds && id) {
       setRecipeIds(id);
     }
-  }, [id]);
+  }, [id, recipeIds]);
 
   // Return type based on whether a single ID or array was provided
   if (Array.isArray(id)) {

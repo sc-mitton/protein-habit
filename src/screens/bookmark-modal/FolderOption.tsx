@@ -3,9 +3,8 @@ import { ArrowRightCircleFill } from "geist-native-icons";
 import LottieView from "lottie-react-native";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Animated, { FadeOut } from "react-native-reanimated";
 
-import { Box, Text, Button, Icon } from "@components";
+import { Box, Text, Button, Icon, BookmarksFolderCover } from "@components";
 import { Theme } from "@theme";
 import { useTheme } from "@shopify/restyle";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
@@ -70,19 +69,21 @@ const FolderOption = ({
 
   return (
     <Box
-      paddingVertical="m"
       paddingHorizontal="xs"
-      marginBottom="s"
       borderRadius="m"
       flexDirection="row"
       justifyContent="space-between"
       alignItems="center"
+      gap="m"
     >
-      <Box gap="xs">
-        <Text variant="body">{category?.name}</Text>
-        <Text variant="caption" color="secondaryText">
-          {category?.recipeIds?.length} recipes
-        </Text>
+      <BookmarksFolderCover categoryId={categoryId} />
+      <Box flex={1} marginRight="m">
+        <Box marginBottom="s">
+          <Text variant="body">{category?.name}</Text>
+          <Text variant="caption" color="secondaryText">
+            {category?.recipeIds?.length} recipes
+          </Text>
+        </Box>
       </Box>
       <Button
         onPress={handleSave}

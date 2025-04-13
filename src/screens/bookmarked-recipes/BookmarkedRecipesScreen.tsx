@@ -15,7 +15,6 @@ import { useSelectRecipe } from "@hooks";
 type Props = RootScreenProps<"BookmarkedRecipes">;
 
 const BookmarkedScreen = (props: Props) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const categories = useSelector(
     (state: RootState) => state.bookmarks.categories,
   );

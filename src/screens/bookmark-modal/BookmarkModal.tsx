@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Animated, {
+  FadeIn,
+  FadeInRight,
+  FadeInLeft,
+  FadeOutRight,
+  FadeOutLeft,
+  FadeOut,
+} from "react-native-reanimated";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
-import { Box, Text, Button, BackDrop } from "@components";
+import { BackDrop, Box, Button, Text } from "@components";
 import { Theme } from "@theme";
 import { useTheme } from "@shopify/restyle";
-import { RootState } from "@store";
 import { RootScreenProps } from "@types";
-import FolderOption from "./FolderOption";
-import { useAppSelector } from "@store/hooks";
+import List from "./List";
+import New from "./New";
 
 const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
   const theme = useTheme<Theme>();
-  const categories = useAppSelector(
-    (state: RootState) => state.bookmarks.categories,
-  );
+  const [firstRender, setFirstRender] = useState(true);
+  const [createNew, setCreateNew] = useState(false);
+
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+    }
+  }, [firstRender]);
 
   return (
     <BottomSheet
@@ -43,28 +55,36 @@ const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
             alignItems="center"
             marginBottom="xl"
           >
-            <Text variant="header">Choose a Folder</Text>
+            {createNew ? (
+              <Animated.View exiting={FadeOut} entering={FadeIn}>
+                <Text variant="header">Create a Folder</Text>
+              </Animated.View>
+            ) : (
+              <Animated.View exiting={FadeOut} entering={FadeIn}>
+                <Text variant="header">Choose a Folder</Text>
+              </Animated.View>
+            )}
             <Button
-              label="Create"
-              onPress={() => {}}
+              label={createNew ? "Cancel" : "Create"}
+              onPress={() => setCreateNew(!createNew)}
               variant="pillMedium"
               marginRight="nm"
               backgroundColor="transparent"
               accent
             />
           </Box>
-          <Text variant="bold" fontSize={14} color="tertiaryText">
-            Folders
-          </Text>
-          <Box marginBottom="m" marginTop="xs">
-            {categories.map((category, i) => (
-              <FolderOption
-                key={`category-${i}`}
-                categoryId={category.id}
-                recipeId={props.route.params.recipe}
-              />
-            ))}
-          </Box>
+          {createNew ? (
+            <Animated.View
+              entering={FadeInRight.duration(firstRender ? 0 : 200)}
+              exiting={FadeOutLeft.duration(firstRender ? 0 : 200)}
+            >
+              <New onBlur={() => setCreateNew(false)} />
+            </Animated.View>
+          ) : (
+            <Animated.View entering={FadeIn} exiting={FadeOut}>
+              <List {...props} />
+            </Animated.View>
+          )}
         </Box>
       </BottomSheetView>
     </BottomSheet>
