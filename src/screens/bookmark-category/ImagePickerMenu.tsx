@@ -216,14 +216,7 @@ const HeaderRight = ({ categoryId }: HeaderRightProps) => {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       ) : (
-        <Box
-          justifyContent="space-between"
-          alignItems="center"
-          gap="s"
-          position="absolute"
-          top={0}
-          right={0}
-        >
+        <Box justifyContent="space-between" alignItems="center" gap="s">
           <MMenu
             visible={isOpen}
             style={{
@@ -236,8 +229,6 @@ const HeaderRight = ({ categoryId }: HeaderRightProps) => {
                 onPress={() => setIsOpen(!isOpen)}
                 underlayColor={theme.colors.secondaryBackground}
                 style={{
-                  paddingVertical: 6,
-                  paddingHorizontal: 12,
                   marginRight: 2,
                   borderRadius: 24,
                 }}

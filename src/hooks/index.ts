@@ -5,3 +5,4 @@ export * from "./useDrizzleDb";
 export * from "./useRecipes";
 export * from "./useFilterOptions";
 export * from "./useSelectRecipe";
+export * from "./useAndroidNavBarBackground";

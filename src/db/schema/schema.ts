@@ -1,6 +1,5 @@
 import { text, integer, sqliteTable, real } from "drizzle-orm/sqlite-core";
 import { relations, sql } from "drizzle-orm";
-import { CuisineEnum, MealTypeEnum, ProteinEnum, DishTypeEnum } from "./enums";
 import { v4 as uuidv4 } from "uuid";
 
 /* --------------------------------- Tables --------------------------------- */
@@ -18,35 +17,19 @@ export const recipesTable = sqliteTable("recipes", {
 });
 
 export const cuisinesTable = sqliteTable("cuisines", {
-  name: text("name", {
-    enum: Object.values(CuisineEnum) as [string, ...string[]],
-  })
-    .primaryKey()
-    .notNull(),
+  name: text("name").primaryKey().notNull(),
 });
 
 export const mealTypesTable = sqliteTable("meal_types", {
-  name: text("name", {
-    enum: Object.values(MealTypeEnum) as [string, ...string[]],
-  })
-    .primaryKey()
-    .notNull(),
+  name: text("name").primaryKey().notNull(),
 });
 
 export const proteinTypesTable = sqliteTable("proteins", {
-  name: text("name", {
-    enum: Object.values(ProteinEnum) as [string, ...string[]],
-  })
-    .primaryKey()
-    .notNull(),
+  name: text("name").primaryKey().notNull(),
 });
 
 export const dishTypesTable = sqliteTable("dish_types", {
-  name: text("name", {
-    enum: Object.values(DishTypeEnum) as [string, ...string[]],
-  })
-    .primaryKey()
-    .notNull(),
+  name: text("name").primaryKey().notNull(),
 });
 
 /* ------------------------ Nutrition Meta Data Table ----------------------- */

@@ -1,32 +1,32 @@
 {
-  "version": "3",
+  "version": "7",
   "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "3",
-      "when": 1744415008883,
-      "tag": "0000_chilly_black_cat",
+      "version": "6",
+      "when": 1744646671523,
+      "tag": "0000_magenta_thunderbolt",
       "breakpoints": true
     },
     {
       "idx": 1,
-      "version": "3",
-      "when": 1744415015911,
+      "version": "6",
+      "when": 1744646674400,
       "tag": "0001_seed_enums",
       "breakpoints": true
     },
     {
       "idx": 2,
-      "version": "3",
-      "when": 1744415032874,
+      "version": "6",
+      "when": 1744646676142,
       "tag": "0002_db_dump",
       "breakpoints": true
     },
     {
       "idx": 3,
-      "version": "3",
-      "when": 1744415080127,
+      "version": "6",
+      "when": 1744646678845,
       "tag": "0003_fts_search",
       "breakpoints": true
     }

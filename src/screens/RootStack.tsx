@@ -100,6 +100,7 @@ const RootStack = () => {
                         icon={Plus}
                         color="modalBackground"
                         accent
+                        strokeWidth={2}
                         size={24}
                       />
                     }

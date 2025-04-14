@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Image } from "expo-image";
 import {
-  Dimensions,
   ScrollView,
   StyleSheet,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  View,
   useColorScheme,
   Platform,
 } from "react-native";
@@ -17,7 +15,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "@shopify/restyle";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { SymbolView } from "expo-symbols";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";

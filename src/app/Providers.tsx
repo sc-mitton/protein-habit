@@ -12,17 +12,14 @@ import { SQLiteProvider } from "expo-sqlite";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import React, { useEffect } from "react";
 
 import lightTheme, { darkTheme } from "@theme";
 import { store, persistor } from "@store";
 import { dbName, sqliteDb } from "@db";
 import migrations from "@db/migrations/migrations";
-import { useEffect } from "react";
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
-  const colorScheme = useColorScheme();
-  const restyledTheme = colorScheme === "dark" ? darkTheme : lightTheme;
-
+const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
   useDrizzleStudio(sqliteDb);
   const drizzleDb = drizzle(sqliteDb);
   const { error } = useMigrations(drizzleDb, migrations);
@@ -32,6 +29,13 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       console.error("db error: ", error);
     }
   }, [error]);
+
+  return <>{children}</>;
+};
+
+const Providers = ({ children }: { children: React.ReactNode }) => {
+  const colorScheme = useColorScheme();
+  const restyledTheme = colorScheme === "dark" ? darkTheme : lightTheme;
 
   return (
     <SQLiteProvider
@@ -48,7 +52,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
                   <SafeAreaProvider>
                     <GestureHandlerRootView>
                       <PersistGate loading={null} persistor={persistor}>
-                        {children}
+                        <DatabaseProvider>{children}</DatabaseProvider>
                       </PersistGate>
                     </GestureHandlerRootView>
                   </SafeAreaProvider>
