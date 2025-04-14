@@ -45,7 +45,7 @@ const CategoryPicture = ({
       width="100%"
       style={[styles.container, animation]}
     >
-      <ProgressiveBlur end={0.7}>
+      <ProgressiveBlur end={0.8}>
         <AnimatedRecipeThumbnail
           key={uri}
           source={{

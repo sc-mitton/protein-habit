@@ -43,7 +43,7 @@ const CategoryPicture = ({
         },
       ]}
     >
-      <ProgressiveBlur end={0.7}>
+      <ProgressiveBlur end={0.85}>
         {coverPhoto ? (
           <Image
             key={coverPhoto}
