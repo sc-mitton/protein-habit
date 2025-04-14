@@ -7,6 +7,10 @@ import { useTheme } from "@shopify/restyle";
 import * as Linking from "expo-linking";
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
+import {
+  configureReanimatedLogger,
+  ReanimatedLogLevel,
+} from "react-native-reanimated";
 
 import { Box } from "@components";
 import RootStack from "../screens/RootStack";
@@ -15,6 +19,13 @@ import { useNavigationTheme } from "@hooks";
 import Providers from "./Providers";
 import { useAppIntegrity } from "@hooks";
 import { Theme } from "@theme";
+
+// LogBox.ignoreAllLogs(false);
+
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false,
+});
 
 export const linking = {
   prefixes: [Linking.createURL("/")],
