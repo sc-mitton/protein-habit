@@ -20,7 +20,7 @@ import {
 import type { ProductAndroid } from "expo-iap/build/types/ExpoIapAndroid.types";
 import type { ProductIos } from "expo-iap/build/types/ExpoIapIos.types";
 
-import { HomeScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { setPurchaseStatus } from "@store/slices/userSlice";
 import { Box, Text, Button, Icon, BackDrop, PulseText } from "@components";
@@ -60,7 +60,7 @@ const Message = ({
   );
 };
 
-export default function Purchase(props: HomeScreenProps<"PurchaseModal">) {
+export default function Purchase(props: RootScreenProps<"PurchaseModal">) {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const [purchasable, setPurchasable] = useState<ProductIos | ProductAndroid>();
@@ -100,8 +100,11 @@ export default function Purchase(props: HomeScreenProps<"PurchaseModal">) {
       if (props.navigation.canGoBack()) {
         props.navigation.goBack();
       } else {
-        props.navigation.navigate("Home", {
-          screen: "Main",
+        props.navigation.navigate("BottomTabs", {
+          screen: "Home",
+          params: {
+            screen: "Main",
+          },
         });
       }
     } else if (isProductIos(purchasable)) {

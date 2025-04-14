@@ -13,11 +13,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { DrumStickIcon } from "@components";
 import { Box, Icon, Text } from "@components";
-import { HomeStackParamList } from "@types";
+import { RootStackParamList } from "@types";
 import { Fragment } from "react";
 
 const PlusMenu = () => {
-  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   return (

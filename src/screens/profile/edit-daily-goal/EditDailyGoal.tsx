@@ -3,10 +3,10 @@ import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import SlotNumbers from "react-native-slot-numbers";
 import { Text as RNText, View } from "react-native";
 import {
-  ChevronDown,
-  ChevronUp,
-  ChevronsDown,
-  ChevronsUp,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from "geist-native-icons";
 import { useTheme } from "@shopify/restyle";
 
@@ -45,7 +45,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
         marginTop="l"
       >
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronsDown} size={18} />}
+          icon={<Icon strokeWidth={2} icon={ChevronsLeft} size={18} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -56,7 +56,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
           }}
         />
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronDown} size={24} />}
+          icon={<Icon strokeWidth={2} icon={ChevronLeft} size={24} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -66,7 +66,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
         />
         <Box flexDirection="row" alignItems="baseline">
           <SlotNumbers
-            value={1200}
+            value={dailyProteinTarget}
             animateIntermediateValues
             animationDuration={300}
             easing={"in-out"}
@@ -88,7 +88,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
           </Box>
         </Box>
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronUp} size={24} />}
+          icon={<Icon strokeWidth={2} icon={ChevronRight} size={24} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}
@@ -97,7 +97,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
           onPress={() => setDisplayVal((prev) => prev + 1)}
         />
         <Button
-          icon={<Icon strokeWidth={2} icon={ChevronsUp} size={18} />}
+          icon={<Icon strokeWidth={2} icon={ChevronsRight} size={18} />}
           backgroundColor="transparent"
           borderColor="seperator"
           borderWidth={1}

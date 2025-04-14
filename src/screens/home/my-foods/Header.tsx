@@ -23,10 +23,11 @@ import {
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { LinearGradient } from "expo-linear-gradient";
+import { SymbolView } from "expo-symbols";
 
 import { Button, Icon, Box, Text, TextInput, Tag } from "@components";
 import { dayFormat } from "@constants/formats";
-import { HomeStackParamList } from "@types";
+import { RootStackParamList } from "@types";
 import { useMyFoods } from "./context";
 import { useAppSelector } from "@store/hooks";
 import { selectTags } from "@store/slices/foodsSlice";
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   searchIcon: {
     position: "absolute",
     left: 12,
-    top: Platform.OS === "android" ? 12 : 9,
+    top: Platform.OS === "android" ? 13 : 9,
   },
   inputContainer: {
     zIndex: 1,
@@ -69,7 +70,7 @@ const Actions = () => {
   const tags = useAppSelector(selectTags);
   const [showTags, setShowTags] = useState(false);
   const [focusedSearch, setFocusedSearch] = useState(false);
-  const navigation = useNavigation<NavigationProp<HomeStackParamList>>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const theme = useTheme();
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -175,8 +176,6 @@ const Actions = () => {
               {selectedFoods.length <= 0 && (
                 <Button
                   borderRadius="m"
-                  borderWidth={1.5}
-                  borderColor="borderColor"
                   padding="s"
                   fontSize={15}
                   onPress={() => {
@@ -184,11 +183,18 @@ const Actions = () => {
                   }}
                   textColor="primaryText"
                   icon={
-                    <Icon
-                      icon={Plus}
-                      size={18}
-                      strokeWidth={2.5}
-                      color="primaryText"
+                    <SymbolView
+                      name="plus.circle.fill"
+                      size={24}
+                      tintColor={theme.colors.secondaryText}
+                      fallback={
+                        <Icon
+                          icon={Plus}
+                          size={24}
+                          strokeWidth={2.5}
+                          color="primaryText"
+                        />
+                      }
                     />
                   }
                 />

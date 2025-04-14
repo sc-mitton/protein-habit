@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { Box, Text, Button, TextInput, Icon } from "@components";
-import { HomeScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { addTag } from "@store/slices/foodsSlice";
 import type { Theme } from "@theme";
@@ -22,7 +22,7 @@ type FormData = z.infer<typeof schema>;
 
 const COLORS = ["blue", "green", "yellow", "orange", "red", "purple"] as const;
 
-const NewTag = (props: HomeScreenProps<"NewTagModal">) => {
+const NewTag = (props: RootScreenProps<"NewTagModal">) => {
   const theme = useTheme<Theme>();
   const dispatch = useAppDispatch();
 

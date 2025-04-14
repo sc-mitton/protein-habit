@@ -5,7 +5,7 @@ import Animated, { LinearTransition, FadeIn } from "react-native-reanimated";
 import { Box, Button, IncrementDecrement, Text } from "@components";
 import { useMyFoods } from "./context";
 import { useAppDispatch } from "@store/hooks";
-import { HomeScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 import { updateEntry, addEntry } from "@store/slices/proteinSlice";
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SelectedFoods = (props: HomeScreenProps<"MyFoodsModal">) => {
+const SelectedFoods = (props: RootScreenProps<"MyFoodsModal">) => {
   const dispatch = useAppDispatch();
   const { selectedFoods, setSelectedFoods, day } = useMyFoods();
 

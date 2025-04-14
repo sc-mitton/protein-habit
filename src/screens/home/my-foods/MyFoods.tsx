@@ -5,14 +5,14 @@ import * as Device from "expo-device";
 
 import { selectFoods } from "@store/slices/foodsSlice";
 import { Box } from "@components";
-import { HomeScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 import { useAppSelector } from "@store/hooks";
 import FoodList from "./FoodList";
 import { MyFoodsProvider, useMyFoods } from "./context";
 import Header from "./Header";
 import SelectedFoods from "./SelectedFoods";
 
-const MyFoods = (props: HomeScreenProps<"MyFoodsModal">) => {
+const MyFoods = (props: RootScreenProps<"MyFoodsModal">) => {
   const foods = useAppSelector(selectFoods);
 
   const { selectedFoods, setSelectedFoods } = useMyFoods();
@@ -69,7 +69,7 @@ const MyFoods = (props: HomeScreenProps<"MyFoodsModal">) => {
   );
 };
 
-export default function MyFoodsWrapper(props: HomeScreenProps<"MyFoodsModal">) {
+export default function MyFoodsWrapper(props: RootScreenProps<"MyFoodsModal">) {
   return (
     <MyFoodsProvider>
       <MyFoods {...props} />

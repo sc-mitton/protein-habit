@@ -19,7 +19,7 @@ import {
   EmojiPicker,
   Tag,
 } from "@components";
-import { HomeScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { addFood, updateFood, selectTags } from "@store/slices/foodsSlice";
 import { TagMenu } from "./Menu";
@@ -40,7 +40,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const AddFood = ({ navigation, route }: HomeScreenProps<"AddFoodModal">) => {
+const AddFood = ({ navigation, route }: RootScreenProps<"AddFoodModal">) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const {

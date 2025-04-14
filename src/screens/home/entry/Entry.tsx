@@ -9,13 +9,13 @@ import * as Haptics from "expo-haptics";
 import { Box, Text, Button, Icon } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import { addEntry, updateEntry } from "@store/slices/proteinSlice";
-import type { HomeScreenProps } from "@types";
+import type { RootScreenProps } from "@types";
 import { dayFormat } from "@constants/formats";
 import DescriptionInput from "./DescriptionInput";
 import KeyPad from "./KeyPad";
 import Value from "./Value";
 
-const Entry = (props: HomeScreenProps<"EntryModal">) => {
+const Entry = (props: RootScreenProps<"EntryModal">) => {
   const [value, setValue] = useState(props.route.params?.entry?.grams || 0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [day, setDay] = useState(dayjs().format(dayFormat));

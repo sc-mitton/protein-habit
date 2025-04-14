@@ -10,6 +10,7 @@ import {
   Appearance,
   ScrollView,
   Alert,
+  Platform,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import Animated, {
@@ -38,7 +39,7 @@ import {
   SwipeOptions,
   IncrementDecrement,
 } from "@components";
-import { HomeScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 import OutsidePressHandler from "react-native-outside-press";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { selectAccent } from "@store/slices/uiSlice";
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     marginHorizontal: 38,
-    marginTop: 18,
+    marginTop: Platform.OS === "ios" ? 18 : 16,
     fontFamily: "InterRegular",
   },
   placeholderInnput: {
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Search = (props: HomeScreenProps<"SearchModal">) => {
+const Search = (props: RootScreenProps<"SearchModal">) => {
   const theme = useTheme();
   const accent = useAppSelector(selectAccent);
   const dispatch = useAppDispatch();
@@ -361,7 +362,7 @@ const Search = (props: HomeScreenProps<"SearchModal">) => {
   );
 };
 
-export default function (props: HomeScreenProps<"SearchModal">) {
+export default function (props: RootScreenProps<"SearchModal">) {
   return (
     <BottomSheet
       onClose={() => props.navigation.goBack()}

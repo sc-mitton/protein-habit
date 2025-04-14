@@ -7,10 +7,18 @@ import WelcomeScreen from "./welcome/WelcomeScreen";
 import WeightInput from "./welcome/WeightInput";
 import BottomTabs from "./BottomTabs";
 import RecipesDetailScreen from "./recipes-detail/RecipesDetailScreen";
-import GroceryListScreen from "./grocery-list/GroceryListScreen";
 import BookmarkedRecipesScreen from "./bookmarked-recipes/BookmarkedRecipesScreen";
-import BookmarkModal from "./bookmark-modal/BookmarkModal";
 import BookmarkCategory from "./bookmark-category/BookmarkCategory";
+// Modal screens
+import BookmarkModal from "./bookmark-modal/BookmarkModal";
+import SuccessModal from "./home/success/SuccessModal";
+import Purchase from "./home/purchase/Purchase";
+import Search from "./home/search/Search";
+import Entry from "./home/entry/Entry";
+import NewTag from "./home/new-tag/NewTag";
+import MyFoods from "./home/my-foods/MyFoods";
+import AddFood from "./home/add-food/AddFood";
+
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { selectAccent } from "@store/slices/uiSlice";
@@ -28,6 +36,20 @@ const RootStack = () => {
   const accentColor = useAppSelector(selectAccent);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  const androidHeaderOptions = {
+    headerTintColor: theme.colors.primaryText,
+    headerBackButtonDisplayMode: "default",
+    headerStyle: {
+      backgroundColor: theme.colors.mainBackground,
+    },
+    headerShadowVisible: false,
+    headerTitleStyle: {
+      color: theme.colors.primaryText,
+      fontFamily: "Inter-Bold",
+    },
+    title: "Add Protein",
+  } as const;
+
   return (
     <Stack.Navigator
       initialRouteName={name ? "BottomTabs" : "Welcome"}
@@ -36,15 +58,57 @@ const RootStack = () => {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="WeightInput" component={WeightInput} />
       <Stack.Screen name="BottomTabs" component={BottomTabs} />
-      <Stack.Screen
-        options={{
+
+      {/* Modals */}
+      <Stack.Group
+        screenOptions={{
+          headerShown: false,
+          presentation: "modal",
+          animation:
+            Platform.OS === "ios" ? "fade_from_bottom" : "slide_from_bottom",
+          headerShadowVisible: false,
+          statusBarTranslucent: true,
+          statusBarBackgroundColor: theme.colors.mainBackground,
+          ...(Platform.OS === "android" && androidHeaderOptions),
+        }}
+      >
+        <Stack.Screen name="EntryModal" component={Entry} />
+        <Stack.Screen
+          options={{
+            ...(Platform.OS === "android" && { title: "" }),
+          }}
+          name="NewTagModal"
+          component={NewTag}
+        />
+        <Stack.Screen name="MyFoodsModal" component={MyFoods} />
+        <Stack.Screen name="AddFoodModal" component={AddFood} />
+      </Stack.Group>
+
+      {/* Transparent Modals */}
+      <Stack.Group
+        screenOptions={{
           presentation: "transparentModal",
           headerShown: false,
-          animation: "fade",
         }}
-        name="BookmarkModal"
-        component={BookmarkModal}
-      />
+      >
+        <Stack.Screen name="SearchModal" component={Search} />
+      </Stack.Group>
+
+      {/* Bottom Sheet Modals */}
+      <Stack.Group
+        screenOptions={{
+          presentation: "transparentModal",
+          headerShown: false,
+          animation:
+            Platform.OS === "ios" ? "fade_from_bottom" : "slide_from_bottom",
+          statusBarBackgroundColor: theme.colors.modalAndroidStatusBackground,
+        }}
+      >
+        <Stack.Screen name="SuccessModal" component={SuccessModal} />
+        <Stack.Screen name="PurchaseModal" component={Purchase} />
+        <Stack.Screen name="BookmarkModal" component={BookmarkModal} />
+      </Stack.Group>
+
       <Stack.Group
         screenOptions={{
           headerShown: true,
@@ -81,9 +145,7 @@ const RootStack = () => {
               <Button
                 marginRight="ns"
                 onPress={() => {
-                  navigation.navigate("BookmarkModal", {
-                    recipe: "",
-                  });
+                  navigation.navigate("BookmarkModal", { recipe: "" });
                 }}
                 accent
                 icon={
@@ -130,11 +192,6 @@ const RootStack = () => {
             headerTitle: "",
           })}
           component={BookmarkCategory}
-        />
-        <Stack.Screen
-          name="GroceryList"
-          options={{ title: "Grocery List" }}
-          component={GroceryListScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -7,19 +7,10 @@ import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { baseIap, premiumIap } from "@constants/iaps";
-import { Recipe } from "@db/schema/types";
 import { BookmarkCategory } from "@store/slices/bookmarksSlice";
 
 export type HomeStackParamList = {
-  StatsInfo: undefined;
   Main: undefined;
-  EntryModal: undefined | { entry: ProteinEntry };
-  MyFoodsModal: undefined | { entry: ProteinEntry };
-  AddFoodModal: undefined | { food: Food };
-  SuccessModal: undefined;
-  PurchaseModal: { iap: typeof baseIap | typeof premiumIap };
-  NewTagModal: undefined;
-  SearchModal: undefined;
 };
 
 export type ProfileStackParamList = {
@@ -47,6 +38,13 @@ export type RootStackParamList = {
   BookmarkedRecipes: undefined;
   BookmarkCategory: { category: BookmarkCategory };
   GroceryList: undefined;
+  SuccessModal: undefined;
+  PurchaseModal: { iap: typeof baseIap | typeof premiumIap };
+  SearchModal: undefined;
+  EntryModal: undefined | { entry: ProteinEntry };
+  MyFoodsModal: undefined | { entry: ProteinEntry };
+  AddFoodModal: undefined | { food: Food };
+  NewTagModal: undefined;
   BookmarkModal: { recipe: string };
 };
 

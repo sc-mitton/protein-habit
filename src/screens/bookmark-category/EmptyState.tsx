@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image1: {
-    transform: [{ translateX: -25 }, { translateY: -35 }, { scale: 0.8 }],
+    transform: [{ translateX: -28 }, { translateY: -35 }, { scale: 0.8 }],
   },
   image2: {
-    transform: [{ translateX: 33 }, { translateY: -40 }, { scale: 0.9 }],
+    transform: [{ translateX: 31 }, { translateY: -40 }, { scale: 0.85 }],
   },
   image3: {
-    transform: [{ translateX: 0 }, { translateY: 10 }, { scale: 0.66 }],
+    transform: [{ translateX: 0 }, { translateY: 10 }, { scale: 0.7 }],
   },
   messageButton: {
     transform: [{ translateY: 100 }],

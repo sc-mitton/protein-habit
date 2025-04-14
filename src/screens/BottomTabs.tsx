@@ -16,8 +16,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
 
-import AndroidHomeStack from "./home/AndroidHomeStack";
-import IOSHomeStack from "./home/IOSHomeStack";
+import Stack from "./home/Stack";
 import RecipesScreen from "./recipes/Stack";
 import ProfileStack from "./profile/Stack";
 import { Box } from "@components";
@@ -223,7 +222,7 @@ const RootTabs = () => {
           ),
         }}
         name="Home"
-        component={Platform.OS === "android" ? AndroidHomeStack : IOSHomeStack}
+        component={Stack}
       />
       <Tab.Screen
         options={{
