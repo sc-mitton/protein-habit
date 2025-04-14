@@ -56,9 +56,6 @@ export default {
           backgroundColor: "#111113",
         },
       },
-      runtimeVersion: {
-        policy: "appVersion",
-      },
     },
     android: {
       adaptiveIcon: {
@@ -84,9 +81,7 @@ export default {
         projectId: "6df3f0fe-e7b4-45b7-b721-3139de64dd31",
       },
     },
-    runtimeVersion: {
-      policy: "appVersion",
-    },
+    runtimeVersion: "1.0.0",
     plugins: [
       ["expo-iap"],
       ["./plugins/withNoIpadSupport.js"],

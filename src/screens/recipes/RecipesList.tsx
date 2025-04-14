@@ -16,6 +16,7 @@ import { useAppDispatch } from "@store/hooks";
 import { useRecipes } from "@hooks";
 import { showBottomBar } from "@store/slices/uiSlice";
 import Filters from "./Filters";
+import { ProgressiveBlur } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
@@ -135,9 +136,9 @@ const ExploreScreen: React.FC<Props> = (props) => {
 
 export default function (props: Props) {
   return Platform.OS === "ios" ? (
-    <View style={styles.containerIOS}>
+    <ProgressiveBlur style={styles.containerIOS} start={0.9}>
       <ExploreScreen {...props} />
-    </View>
+    </ProgressiveBlur>
   ) : (
     <View style={styles.containerAndroid}>
       <ExploreScreen {...props} />

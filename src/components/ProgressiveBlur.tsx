@@ -24,11 +24,13 @@ const styles = StyleSheet.create({
 export const ProgressiveBlur = ({
   children,
   invert = false,
+  start = 0,
   end = 1,
   style,
 }: {
   children: React.ReactNode;
   invert?: boolean;
+  start?: number;
   end?: number;
   style?: ViewStyle;
 }) => {
@@ -36,11 +38,11 @@ export const ProgressiveBlur = ({
   const { colors, locations } = easeGradient({
     colorStops: invert
       ? {
-          0: { color: "black" },
+          [start]: { color: "black" },
           [end]: { color: "transparent" },
         }
       : {
-          0: { color: "transparent" },
+          [start]: { color: "transparent" },
           [end]: { color: "black" },
         },
   });
@@ -48,7 +50,7 @@ export const ProgressiveBlur = ({
   return (
     <View style={[styles.container, style]}>
       {children}
-      <View style={[styles.blurContainer]}>
+      <View style={[styles.blurContainer]} pointerEvents="none">
         <MaskedView
           maskElement={
             <LinearGradient
