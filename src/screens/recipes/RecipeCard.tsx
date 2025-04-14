@@ -75,6 +75,7 @@ const RecipeCard = (props: Props) => {
   const theme = useTheme<Theme>();
   const generator = seedrandom(props.index.toString());
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showPlaceholderBox, setShowPlaceholderBox] = useState(false);
   const bookmarkAnimationRef = useRef<BookmarkButtonRef>(null);
 
   useEffect(() => {
@@ -143,16 +144,30 @@ const RecipeCard = (props: Props) => {
               />
             </Reanimated.View>
           )}
+          {showPlaceholderBox && (
+            <Reanimated.View
+              style={[StyleSheet.absoluteFill]}
+              exiting={FadeOut}
+              entering={FadeIn}
+            >
+              <Box
+                flex={1}
+                backgroundColor="primaryButton"
+                borderRadius={"l"}
+              />
+            </Reanimated.View>
+          )}
           <AnimatedRecipeThumbnail
             // sharedTransitionTag={`image${props.recipe?.id}`}
             source={{ uri: props.recipe?.thumbnail }}
             onLoadEnd={() => props.recipe && setIsLoaded(true)}
             style={styles.image}
             transition={100}
+            onError={() => setShowPlaceholderBox(true)}
           />
         </Box>
       </TouchableHighlight>
-      <Box marginTop="s" gap="s">
+      <Box marginTop="sm" gap="s" marginLeft="xs">
         <PulseText pulsing={!isLoaded}>
           <Text fontSize={13} lineHeight={13} variant="bold">
             {_.truncate(

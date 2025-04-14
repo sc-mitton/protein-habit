@@ -45,15 +45,6 @@ const RootStack = () => {
         name="BookmarkModal"
         component={BookmarkModal}
       />
-      <Stack.Screen
-        name="RecipeDetail"
-        options={() => ({
-          headerLargeStyle: false,
-          headerBlurEffect: "none",
-          headerTitle: "",
-        })}
-        component={RecipesDetailScreen}
-      />
       <Stack.Group
         screenOptions={{
           headerShown: true,
@@ -118,6 +109,17 @@ const RootStack = () => {
             ),
           }}
           component={BookmarkedRecipesScreen}
+        />
+        <Stack.Screen
+          name="RecipeDetail"
+          options={() => ({
+            headerLargeStyle: false,
+            headerBlurEffect: "none",
+            headerTitle: "",
+            headerLargeTitle: false,
+            headerTransparent: true,
+          })}
+          component={RecipesDetailScreen}
         />
         <Stack.Screen
           name="BookmarkCategory"

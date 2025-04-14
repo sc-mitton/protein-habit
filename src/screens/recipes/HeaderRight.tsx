@@ -32,7 +32,7 @@ const HeaderRight = () => {
           <SymbolView
             name="bookmark.fill"
             size={20}
-            tintColor={theme.colors.secondaryText}
+            tintColor={theme.colors.primaryText}
             fallback={
               <Icon
                 icon={Bookmark}

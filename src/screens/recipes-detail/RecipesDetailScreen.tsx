@@ -8,6 +8,7 @@ import {
   NativeSyntheticEvent,
   View,
   useColorScheme,
+  Platform,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -21,6 +22,7 @@ import { SymbolView } from "expo-symbols";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "@expo/vector-icons/Feather";
 import { useKeepAwake } from "expo-keep-awake";
+import { BlurView } from "expo-blur";
 
 import { RootScreenProps } from "@types";
 import {
@@ -67,27 +69,53 @@ const styles = StyleSheet.create({
   sectionHeader: {
     paddingTop: 16,
   },
+  headerBlur: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: Platform.OS === "ios" ? 100 : 80,
+    zIndex: 110,
+  },
 });
 
 const TAG_TYPES = ["proteins", "cuisines", "mealTypes", "dishTypes"] as const;
+
+const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   useKeepAwake();
 
   const [currentSection, setCurrentSection] = useState<string>("");
-
+  const [showHeader, setShowHeader] = useState(false);
   const theme = useTheme<Theme>();
   const recipeData = useSelectRecipe(props.route.params.recipe);
   const sectionRefs = useRef<{ [key: string]: number }>({});
-  const headerHeight = useHeaderHeight();
   const scrollY = useSharedValue(0);
   const scheme = useColorScheme();
-  const scale = useSharedValue(1);
+  const scale = useSharedValue(1.1);
+
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => <HeaderRight {...props} />,
+      headerTransparent: true,
+      headerTitle: () => (
+        <Animated.Text
+          style={{
+            color: theme.colors.primaryText,
+            fontSize: 17,
+            fontWeight: "600",
+            opacity: showHeader ? 1 : 0,
+          }}
+        >
+          {currentSection ? capitalize(currentSection) : ""}
+        </Animated.Text>
+      ),
+      headerStyle: {
+        backgroundColor: "transparent",
+      },
     });
-  }, []);
+  }, [showHeader, currentSection]);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
@@ -98,10 +126,20 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       [1.2, 1.1, 1],
     );
 
+    // Update header visibility based on scroll position
+    if (currentScrollY > IMAGE_HEIGHT / 2) {
+      if (!showHeader) {
+        setShowHeader(true);
+      }
+    } else {
+      if (showHeader) {
+        setShowHeader(false);
+      }
+    }
+
     if (currentScrollY < 100) {
       if (currentSection !== "") {
         setCurrentSection("");
-        props.navigation.setOptions({ title: "" });
       }
       return;
     }
@@ -112,7 +150,6 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       if (currentScrollY >= position - 100) {
         if (currentSection !== section) {
           setCurrentSection(section);
-          props.navigation.setOptions({ title: capitalize(section) });
         }
         break;
       }
@@ -132,6 +169,18 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       shadowOffset: { width: 0, height: -48 },
       shadowRadius: 24,
       elevation: 24,
+    };
+  });
+
+  const headerOpacityStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      scrollY.value,
+      [0, IMAGE_HEIGHT / 2],
+      [0, 1],
+      "clamp",
+    );
+    return {
+      opacity,
     };
   });
 
@@ -176,11 +225,30 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       overflow="hidden"
     >
       <CoverImage uri={recipeData.recipe?.thumbnail} scale={scale} />
+      {/* Transparent header that fades in on scroll */}
+      <AnimatedBox
+        style={[styles.headerBlur, headerOpacityStyle]}
+        borderBottomColor="borderColor"
+        borderBottomWidth={1.5}
+      >
+        {Platform.OS === "ios" ? (
+          <BlurView
+            intensity={100}
+            tint={scheme === "dark" ? "dark" : "light"}
+            style={StyleSheet.absoluteFill}
+          />
+        ) : (
+          <Box
+            backgroundColor="matchBlurBackground"
+            style={[StyleSheet.absoluteFill]}
+          />
+        )}
+      </AnimatedBox>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: headerHeight + IMAGE_HEIGHT / 1.5 },
+          { paddingTop: IMAGE_HEIGHT / 1.5 },
         ]}
         onScroll={handleScroll}
         scrollEventThrottle={16}
