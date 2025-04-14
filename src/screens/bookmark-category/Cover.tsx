@@ -1,7 +1,7 @@
 import { useAppSelector } from "@store/hooks";
 import { selectCategory } from "@store/slices/bookmarksSlice";
 import { Image } from "expo-image";
-import { Animated, Dimensions, StyleSheet } from "react-native";
+import { Animated, Dimensions, StyleSheet, useColorScheme } from "react-native";
 
 import { ProgressiveBlur, Box, RecipeThumbnail } from "@components";
 
@@ -31,6 +31,7 @@ const CategoryPicture = ({
 }) => {
   const category = useAppSelector((state) => selectCategory(state, categoryId));
   const coverPhoto = category?.coverPhoto;
+  const scheme = useColorScheme();
 
   return (
     <AnimatedBox
@@ -57,7 +58,14 @@ const CategoryPicture = ({
             recyclingKey={coverPhoto}
           />
         ) : (
-          <Box style={styles.coverPhoto} backgroundColor="primaryButton" />
+          <Box style={styles.coverPhoto} backgroundColor="matchBlurBackground">
+            <Box
+              style={styles.coverPhoto}
+              position="absolute"
+              backgroundColor={"primaryText"}
+              opacity={scheme == "dark" ? 0.05 : 0.15}
+            />
+          </Box>
         )}
       </ProgressiveBlur>
     </AnimatedBox>
