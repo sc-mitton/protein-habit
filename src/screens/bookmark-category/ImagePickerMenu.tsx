@@ -278,7 +278,7 @@ const HeaderRight = ({ categoryId }: HeaderRightProps) => {
                     color={theme.colors.primaryText}
                   />
                 </Box>
-                <Text>Select Image</Text>
+                <Text>Select Cover</Text>
               </Box>
             </MMenuItem>
             {coverPhoto && (
@@ -297,7 +297,7 @@ const HeaderRight = ({ categoryId }: HeaderRightProps) => {
                       color={theme.colors.primaryText}
                     />
                   </Box>
-                  <Text>Remove Image</Text>
+                  <Text>Remove Cover</Text>
                 </Box>
               </MMenuItem>
             )}
