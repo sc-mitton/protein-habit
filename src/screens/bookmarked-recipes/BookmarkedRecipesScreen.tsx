@@ -24,7 +24,6 @@ const BookmarkedScreen = (props: Props) => {
   const categories = useAppSelector(selectOrderedCategories);
   const headerHeight = useHeaderHeight();
   const theme = useTheme<Theme>();
-  const [longPressed, setLongPressed] = useState(false);
   const [data, setData] = useState(categories);
 
   useEffect(() => {
