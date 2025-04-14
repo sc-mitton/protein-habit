@@ -16,7 +16,7 @@ import { RootScreenProps } from "@types";
 import { useSelectRecipe } from "@hooks";
 import { capitalize } from "@utils";
 import { Theme } from "@theme";
-import HeaderRight from "./ImagePickerMenu";
+import ImagePickerMenu from "./ImagePickerMenu";
 import CategoryPicture, { IMAGE_HEIGHT } from "./CategoryPicture";
 import ListItem from "./ListItem";
 import SortMenu from "./SortMenu";
@@ -67,7 +67,7 @@ const BookmarkCategory = (props: Props) => {
           {showSortMenu ? (
             <SortMenu onSortChange={setSortOption} currentSort={sortOption} />
           ) : (
-            <HeaderRight categoryId={category.id} />
+            <ImagePickerMenu categoryId={category.id} />
           )}
         </Box>
       ),
@@ -105,10 +105,7 @@ const BookmarkCategory = (props: Props) => {
     <View>
       {/* Recipe list */}
       <Animated.FlatList
-        data={sortedRecipes
-          .concat(sortedRecipes)
-          .concat(sortedRecipes)
-          .concat(sortedRecipes)}
+        data={sortedRecipes}
         style={[styles.flatList]}
         ListHeaderComponent={<Listheader />}
         contentContainerStyle={styles.listContainer}
