@@ -1,9 +1,9 @@
 import { useAppSelector } from "@store/hooks";
 import { selectCategory } from "@store/slices/bookmarksSlice";
+import { Image } from "expo-image";
 import { Animated, Dimensions, StyleSheet } from "react-native";
 
 import { ProgressiveBlur, Box, RecipeThumbnail } from "@components";
-import { SharedValue } from "react-native-reanimated";
 
 const styles = StyleSheet.create({
   coverPhoto: {
@@ -24,10 +24,12 @@ const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 const CategoryPicture = ({
   scale,
+  categoryId,
 }: {
   scale: Animated.AnimatedInterpolation<string | number>;
+  categoryId: string;
 }) => {
-  const category = useAppSelector(selectCategory);
+  const category = useAppSelector((state) => selectCategory(state, categoryId));
   const coverPhoto = category?.coverPhoto;
 
   return (
@@ -42,11 +44,21 @@ const CategoryPicture = ({
       ]}
     >
       <ProgressiveBlur end={0.7}>
-        <RecipeThumbnail
-          source={{ uri: coverPhoto }}
-          style={styles.coverPhoto}
-          contentFit="cover"
-        />
+        {coverPhoto ? (
+          <Image
+            key={coverPhoto}
+            source={{
+              uri: coverPhoto,
+              cache: "reload",
+            }}
+            style={styles.coverPhoto}
+            contentFit="cover"
+            transition={100}
+            recyclingKey={coverPhoto}
+          />
+        ) : (
+          <Box style={styles.coverPhoto} backgroundColor="primaryButton" />
+        )}
       </ProgressiveBlur>
     </AnimatedBox>
   );

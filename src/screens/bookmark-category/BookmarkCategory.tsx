@@ -16,7 +16,7 @@ import { RootScreenProps } from "@types";
 import { useSelectRecipe } from "@hooks";
 import { capitalize } from "@utils";
 import { Theme } from "@theme";
-import HeaderRight from "./HeaderRight";
+import HeaderRight from "./ImagePickerMenu";
 import CategoryPicture, { IMAGE_HEIGHT } from "./CategoryPicture";
 import ListItem from "./ListItem";
 import SortMenu from "./SortMenu";
@@ -37,6 +37,18 @@ const BookmarkCategory = (props: Props) => {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const { recipes } = useSelectRecipe(category.recipeIds);
+
+  const sortedRecipes = React.useMemo(() => {
+    if (sortOption === "default") return recipes;
+
+    return [...recipes].sort((a, b) => {
+      if (sortOption === "alphabetical") {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+  }, [recipes, sortOption]);
 
   useEffect(() => {
     const listener = scrollY.addListener(({ value }) => {
@@ -93,7 +105,10 @@ const BookmarkCategory = (props: Props) => {
     <View>
       {/* Recipe list */}
       <Animated.FlatList
-        data={recipes}
+        data={sortedRecipes
+          .concat(sortedRecipes)
+          .concat(sortedRecipes)
+          .concat(sortedRecipes)}
         style={[styles.flatList]}
         ListHeaderComponent={<Listheader />}
         contentContainerStyle={styles.listContainer}
@@ -106,7 +121,7 @@ const BookmarkCategory = (props: Props) => {
         )}
         ListEmptyComponent={<EmptyState />}
       />
-      <CategoryPicture scale={headerScale} />
+      <CategoryPicture scale={headerScale} categoryId={category.id} />
       <AnimatedBox
         style={[styles.headerBlur, { opacity: headerOpacity }]}
         borderBottomColor="borderColor"
