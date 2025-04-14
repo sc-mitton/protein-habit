@@ -75,7 +75,14 @@ const FilterButton = ({ filter }: { filter: string }) => {
           activeOpacity={0.97}
           style={styles.touchable}
           onPress={() => {
-            setSelectedFilters((prev) => ({ ...prev, [filterType]: filter }));
+            setSelectedFilters((prev) => {
+              if (prev[filterType] === filter) {
+                const newFilters = { ...prev };
+                delete newFilters[filterType];
+                return newFilters;
+              }
+              return { ...prev, [filterType]: filter };
+            });
           }}
         >
           <Box

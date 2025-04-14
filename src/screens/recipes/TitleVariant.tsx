@@ -3,9 +3,8 @@ import { Platform, Image, StyleSheet, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import _ from "lodash";
 
-import { Box, Button, Text } from "@components";
+import { Box, Button, Text, tagImages } from "@components";
 import { useRecipesScreenContext } from "./Context";
-import images from "../../components/tagImages";
 import { capitalize } from "@utils";
 
 const styles = StyleSheet.create({
@@ -60,7 +59,7 @@ const TitleVariant = () => {
                 padding="xxs"
               >
                 <Image
-                  source={images[(selectedFilters as any)[filter]]}
+                  source={tagImages[(selectedFilters as any)[filter]]}
                   style={styles.image}
                 />
               </Box>

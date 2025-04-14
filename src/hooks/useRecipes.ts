@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { sql, eq, and, desc, gt, inArray } from "drizzle-orm";
+import { sql, eq, and, desc, gt, inArray, or } from "drizzle-orm";
 
 import {
   recipesTable,
@@ -39,20 +39,47 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
       searchIds = results.map((result) => result.id);
     }
 
-    const filtersConditions = options.filters?.tags
-      ? Object.entries(options.filters.tags).map(([key, value]) => {
-          switch (key) {
-            case "cuisine":
-              return eq(recipesToCuisines.cuisine, value);
-            case "mealType":
-              return eq(recipesToMealTypes.mealType, value);
-            case "protein":
-              return eq(recipesToProteins.protein, value);
-            case "dishType":
-              return eq(recipesToDishTypes.dishType, value);
-          }
-        })
-      : [];
+    // Create a map to store conditions for each tag type
+    const tagConditions: Record<string, any[]> = {
+      cuisine: [],
+      mealType: [],
+      protein: [],
+      dishType: [],
+    };
+
+    // Group conditions by tag type
+    if (options.filters?.tags) {
+      Object.entries(options.filters.tags).forEach(([key, value]) => {
+        switch (key) {
+          case "cuisine":
+            tagConditions.cuisine.push(eq(recipesToCuisines.cuisine, value));
+            break;
+          case "meal":
+            tagConditions.mealType.push(eq(recipesToMealTypes.mealType, value));
+            break;
+          case "protein":
+            tagConditions.protein.push(eq(recipesToProteins.protein, value));
+            break;
+          case "dish":
+            tagConditions.dishType.push(eq(recipesToDishTypes.dishType, value));
+            break;
+        }
+      });
+    }
+
+    // Combine conditions for each tag type
+    const filtersConditions: any[] = [];
+
+    // For each tag type, if there are conditions, add them as a group
+    Object.entries(tagConditions).forEach(([tagType, conditions]) => {
+      if (conditions.length > 0) {
+        // If there are multiple conditions for the same tag type, use OR
+        // For example, if we want recipes with either "Italian" OR "Mexican" cuisine
+        filtersConditions.push(or(...conditions));
+      }
+    });
+
+    // Add cursor condition if needed
     if (cursorId.current) {
       filtersConditions.push(gt(recipesTable.id, cursorId.current));
     }
@@ -83,7 +110,9 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
       .where(
         searchIds.length > 0
           ? inArray(recipesTable.id, searchIds)
-          : and(...filtersConditions),
+          : filtersConditions.length > 0
+            ? and(...filtersConditions)
+            : undefined,
       )
       .orderBy(desc(recipesTable.lastSeen))
       .groupBy(recipesTable.id)
@@ -95,7 +124,9 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
     }));
 
     // Update cursorId to the last recipe id
-    cursorId.current = mappedResults[mappedResults.length - 1].id;
+    if (mappedResults.length > 0) {
+      cursorId.current = mappedResults[mappedResults.length - 1].id;
+    }
 
     return mappedResults as RecipeWithMeta[];
   };
