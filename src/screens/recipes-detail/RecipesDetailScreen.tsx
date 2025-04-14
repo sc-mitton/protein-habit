@@ -29,35 +29,14 @@ import {
   Text,
   tagImages,
   LinearGradientEdges,
-  RecipeThumbnail,
 } from "@components";
 import { Theme } from "@theme";
 import { capitalize } from "@utils";
 import { useSelectRecipe } from "@hooks";
 import HeaderRight from "./HeaderRight";
-
-const IMAGE_HEIGHT = Dimensions.get("window").height * 0.3;
-
-const AnimatedRecipeThumbnail =
-  Animated.createAnimatedComponent(RecipeThumbnail);
+import CoverImage, { IMAGE_HEIGHT } from "./CoverImage";
 
 const styles = StyleSheet.create({
-  image: {
-    width: "100%",
-    height: IMAGE_HEIGHT,
-    borderRadius: 0,
-    zIndex: -1,
-    position: "absolute",
-    top: 0,
-  },
-  blurredImage: {
-    width: "100%",
-    height: IMAGE_HEIGHT,
-    borderRadius: 0,
-    position: "absolute",
-    top: 0,
-    zIndex: -1,
-  },
   scrollView: {
     zIndex: 2,
     marginTop: -24,
@@ -103,7 +82,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   const headerHeight = useHeaderHeight();
   const scrollY = useSharedValue(0);
   const scheme = useColorScheme();
-
+  const scale = useSharedValue(1);
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => <HeaderRight {...props} />,
@@ -113,6 +92,11 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
     scrollY.value = currentScrollY;
+    scale.value = interpolate(
+      currentScrollY,
+      [-IMAGE_HEIGHT, 0, IMAGE_HEIGHT],
+      [1.2, 1.1, 1],
+    );
 
     if (currentScrollY < 100) {
       if (currentSection !== "") {
@@ -135,33 +119,11 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
     }
   };
 
-  const imageAnimation = useAnimatedStyle(() => {
-    const scale = interpolate(scrollY.value, [-100, 0, 200], [1.1, 1.05, 1]);
-    const opacity = interpolate(scrollY.value, [0, IMAGE_HEIGHT / 1.1], [1, 0]);
-    return {
-      transform: [{ scale }, { translateY: headerHeight }],
-      opacity,
-    };
-  });
-
-  const blurredImageAnimation = useAnimatedStyle(() => {
-    const scale = interpolate(scrollY.value, [-100, 0, 200], [1.1, 1.05, 1]);
-    const opacity = interpolate(
-      scrollY.value,
-      [0, IMAGE_HEIGHT / 1.1],
-      [1, 0.2],
-    );
-    return {
-      transform: [{ scale }, { translateY: -IMAGE_HEIGHT + headerHeight }],
-      opacity,
-    };
-  });
-
   const scrollContentAnimation = useAnimatedStyle(() => {
     const shadowOpacity = interpolate(
       scrollY.value,
       [-24, 0, IMAGE_HEIGHT],
-      [0, 0.5, 0.2],
+      [0, 0.2, 0.1],
     );
     return {
       shadowOpacity: shadowOpacity,
@@ -213,22 +175,12 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       backgroundColor="matchBlurBackground"
       overflow="hidden"
     >
-      <AnimatedRecipeThumbnail
-        source={{ uri: recipeData.recipe?.thumbnail }}
-        style={[styles.blurredImage, blurredImageAnimation]}
-        contentFit="cover"
-      />
-      <AnimatedRecipeThumbnail
-        // sharedTransitionTag={`image${props.route.params.recipe?.id}`}
-        source={{ uri: recipeData.recipe?.thumbnail }}
-        style={[styles.image, imageAnimation]}
-        transition={100}
-      />
+      <CoverImage uri={recipeData.recipe?.thumbnail} scale={scale} />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingTop: headerHeight + IMAGE_HEIGHT },
+          { paddingTop: headerHeight + IMAGE_HEIGHT / 1.5 },
         ]}
         onScroll={handleScroll}
         scrollEventThrottle={16}

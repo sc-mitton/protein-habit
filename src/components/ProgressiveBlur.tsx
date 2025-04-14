@@ -1,4 +1,4 @@
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { View, StyleSheet, useColorScheme, ViewStyle } from "react-native";
 import { easeGradient } from "react-native-easing-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
@@ -25,10 +25,12 @@ export const ProgressiveBlur = ({
   children,
   invert = false,
   end = 1,
+  style,
 }: {
   children: React.ReactNode;
   invert?: boolean;
   end?: number;
+  style?: ViewStyle;
 }) => {
   const scheme = useColorScheme();
   const { colors, locations } = easeGradient({
@@ -44,7 +46,7 @@ export const ProgressiveBlur = ({
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {children}
       <View style={[styles.blurContainer]}>
         <MaskedView

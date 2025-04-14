@@ -17,7 +17,7 @@ import { useSelectRecipe } from "@hooks";
 import { capitalize } from "@utils";
 import { Theme } from "@theme";
 import ImagePickerMenu from "./ImagePickerMenu";
-import CategoryPicture, { IMAGE_HEIGHT } from "./CategoryPicture";
+import CategoryPicture, { IMAGE_HEIGHT } from "./Cover";
 import ListItem from "./ListItem";
 import SortMenu from "./SortMenu";
 import EmptyState from "./EmptyState";

@@ -6,7 +6,7 @@ import { Box, Text, RecipeThumbnail } from "@components";
 import { RootStackParamList } from "@types";
 import { capitalize } from "@utils";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { IMAGE_HEIGHT } from "./CategoryPicture";
+import { IMAGE_HEIGHT } from "./Cover";
 import { RecipeWithAssociations } from "@db/schema/types";
 
 const styles = StyleSheet.create({

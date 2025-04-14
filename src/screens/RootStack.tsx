@@ -47,24 +47,10 @@ const RootStack = () => {
       />
       <Stack.Screen
         name="RecipeDetail"
-        options={({ route }) => ({
-          headerShown: true,
-          headerLargeTitleShadowVisible: true,
-          headerShadowVisible: true,
-          headerTransparent: true,
-          headerBackTitle: "Back",
-          headerBlurEffect: colorScheme === "dark" ? "dark" : "light",
-          headerTintColor: accentColor
-            ? theme.colors[accentColor]
-            : theme.colors.primaryText,
-          headerTitleStyle: {
-            fontSize: 16,
-            fontFamily: "Inter-SemiBold",
-            color: theme.colors.primaryText,
-          },
-          title: "",
-          animation:
-            Platform.OS === "ios" ? "ios_from_right" : "slide_from_bottom",
+        options={() => ({
+          headerLargeStyle: false,
+          headerBlurEffect: "none",
+          headerTitle: "",
         })}
         component={RecipesDetailScreen}
       />

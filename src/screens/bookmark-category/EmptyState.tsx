@@ -8,7 +8,7 @@ import { Grayscale } from "react-native-color-matrix-image-filters";
 import { Box, Text, Button } from "@components";
 
 import { RootStackParamList } from "@types";
-import { IMAGE_HEIGHT } from "./CategoryPicture";
+import { IMAGE_HEIGHT } from "./Cover";
 
 const styles = StyleSheet.create({
   emptyContainer: {
