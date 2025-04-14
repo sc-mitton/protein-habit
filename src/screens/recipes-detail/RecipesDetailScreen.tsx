@@ -252,7 +252,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
         ]}
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        scrollIndicatorInsets={{ top: IMAGE_HEIGHT }}
+        scrollIndicatorInsets={{ top: IMAGE_HEIGHT / 2 }}
       >
         <Animated.View style={scrollContentAnimation}>
           <Box
