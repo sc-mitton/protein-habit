@@ -67,7 +67,7 @@ const Card = ({ item }: { item: BookmarkCategory }) => {
           >
             <Box
               style={styles.item}
-              backgroundColor="foodItemBackground"
+              backgroundColor="secondaryBackground"
               borderRadius="l"
             >
               <BookmarksFolderCover
