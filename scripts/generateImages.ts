@@ -19,7 +19,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Initialize database connection
 const parentDir = join(__dirname, "..");
-const sqlite = new Database(join(parentDir, "assets/recipes.db"));
+const sqlite = new Database(join(parentDir, "recipes.db"));
 const db = drizzle(sqlite);
 
 // Define the directory for storing recipe thumbnails

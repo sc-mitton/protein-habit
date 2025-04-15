@@ -41,7 +41,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <SQLiteProvider
       databaseName={dbName}
       options={{ enableChangeListener: true }}
-      assetSource={{ assetId: require("@assets/recipes.db") }}
     >
       <Provider store={store}>
         <KeyboardProvider>
