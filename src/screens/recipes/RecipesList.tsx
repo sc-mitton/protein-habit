@@ -15,12 +15,12 @@ import { useAppDispatch } from "@store/hooks";
 import { useRecipes } from "@hooks";
 import { showBottomBar } from "@store/slices/uiSlice";
 import Filters from "./Filters";
-import { ProgressiveBlur } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
 import { seeRecipe, useDrizzleDb } from "@db";
 import { Recipe } from "@db/schema/types";
+import { LinearGradient } from "expo-linear-gradient";
 
 type Props = RecipesScreenProps<"List">;
 
@@ -164,14 +164,28 @@ const ExploreScreen: React.FC<Props> = (props) => {
   );
 };
 
+const BottomGradient = () => {
+  const theme = useTheme();
+  return (
+    <LinearGradient
+      colors={[theme.colors.transparentRGB, theme.colors.matchBlurBackground]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      style={styles.gradient}
+    />
+  );
+};
+
 export default function (props: Props) {
   return Platform.OS === "ios" ? (
-    <ProgressiveBlur style={styles.containerIOS} start={0.9}>
+    <View style={styles.containerIOS}>
       <ExploreScreen {...props} />
-    </ProgressiveBlur>
+      <BottomGradient />
+    </View>
   ) : (
     <View style={styles.containerAndroid}>
       <ExploreScreen {...props} />
+      <BottomGradient />
     </View>
   );
 }
@@ -195,5 +209,12 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 16,
     paddingTop: 16,
+  },
+  gradient: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 64,
   },
 });

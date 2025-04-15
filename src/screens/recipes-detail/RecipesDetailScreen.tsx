@@ -270,9 +270,14 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
               <Text variant="paragraph" color="secondaryText">
                 {recipeData.recipe?.meta.proteinPerServing}g protein
               </Text>
+              {recipeData.recipe?.meta.proteinPerServing && (
+                <Text variant="paragraph" color="secondaryText">
+                  •
+                </Text>
+              )}
               {recipeData.recipe?.meta.caloriesPerServing && (
                 <Text variant="paragraph" color="secondaryText">
-                  &bull;&nbsp;{recipeData.recipe?.meta.caloriesPerServing} kcal
+                  {recipeData.recipe?.meta.caloriesPerServing} kcal
                 </Text>
               )}
             </Box>
@@ -316,7 +321,7 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
               {recipeData.recipe?.meta.prepTime &&
                 recipeData.recipe?.meta.cookTime && (
                   <Text fontSize={12} marginHorizontal="s">
-                    &bull;
+                    •
                   </Text>
                 )}
               {recipeData.recipe?.meta.prepTime && (
