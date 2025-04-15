@@ -6,12 +6,11 @@ import {
   StyleSheet,
   View,
   Platform,
+  RefreshControl,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { inArray } from "drizzle-orm";
-import { eq } from "drizzle-orm";
-import { sql } from "drizzle-orm";
 
 import { RecipesScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
@@ -40,7 +39,8 @@ const ExploreScreen: React.FC<Props> = (props) => {
   const filtersHeight = useRef(0);
   const { selectedFilters, searchQuery } = useRecipesScreenContext();
   const [showFiltersHeader, setShowFiltersHeader] = useState(false);
-  const { recipes, fetchMore } = useRecipes({
+  const [refreshing, setRefreshing] = useState(false);
+  const { recipes, fetchMore, refetch } = useRecipes({
     filters: { searchQuery, tags: selectedFilters },
     pageSize: 20,
   });
@@ -109,6 +109,17 @@ const ExploreScreen: React.FC<Props> = (props) => {
     lastOffsetY.current = currentOffsetY;
   };
 
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await refetch();
+    } finally {
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 500);
+    }
+  }, [refetch]);
+
   return (
     <MasonryFlashList
       contentContainerStyle={{
@@ -140,6 +151,16 @@ const ExploreScreen: React.FC<Props> = (props) => {
       numColumns={2}
       estimatedItemSize={200}
       scrollEventThrottle={16}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          colors={[theme.colors.secondaryText]}
+          tintColor={theme.colors.primary}
+          progressViewOffset={Platform.OS === "ios" ? 0 : 20}
+          progressBackgroundColor={theme.colors.matchBlurBackground}
+        />
+      }
     />
   );
 };

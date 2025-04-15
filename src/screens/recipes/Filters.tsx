@@ -44,7 +44,7 @@ const Filters = () => {
   }, [selectedFilterTab]);
 
   return (
-    <Box marginHorizontal="nm">
+    <Box marginHorizontal="nm" marginTop="ns">
       <TabButtons value={selectedFilterTab} onChange={setSelectedFilterTab} />
       <View>
         <LinearGradientEdges height={80} />

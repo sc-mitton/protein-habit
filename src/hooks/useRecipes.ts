@@ -142,6 +142,13 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
     }
   };
 
+  const refetch = async () => {
+    cursorId.current = null;
+    endOfResults.current = false;
+    setRecipes([]);
+    await fetch();
+  };
+
   useEffect(() => {
     fetch();
   }, [filters]);
@@ -157,5 +164,5 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
     }
   }, [options.filters]);
 
-  return { fetchMore: fetch, recipes };
+  return { fetchMore: fetch, refetch: refetch, recipes };
 };
