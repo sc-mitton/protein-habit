@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { unionAll } from "drizzle-orm/sqlite-core";
 
-import { useDrizzleDb } from "./useDrizzleDb";
+import { useDrizzleDb } from "@db";
 import {
   cuisinesTable,
   mealTypesTable,

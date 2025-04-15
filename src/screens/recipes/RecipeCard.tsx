@@ -181,10 +181,14 @@ const RecipeCard = (props: Props) => {
             )}
           </Text>
         </PulseText>
-        <PulseText pulsing={!isLoaded} width={100}>
-          <Text fontSize={13} lineHeight={13} color="secondaryText">
-            {`${props.recipe?.meta.proteinPerServing}g protein`}
-          </Text>
+        <PulseText pulsing={!isLoaded}>
+          <Box flexDirection="row" gap="s">
+            <Text fontSize={12} lineHeight={12} color="secondaryText">
+              {`${props.recipe?.meta.proteinPerServing}g protein`}
+              {props.recipe?.meta.caloriesPerServing &&
+                ` • ${props.recipe?.meta.caloriesPerServing} kcal`}
+            </Text>
+          </Box>
         </PulseText>
       </Box>
     </Box>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import dayjs from "dayjs";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -10,6 +10,8 @@ import {
 import { useTheme } from "@shopify/restyle";
 import { MasonryFlashList } from "@shopify/flash-list";
 import { inArray } from "drizzle-orm";
+import { eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 
 import { RecipesScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
@@ -21,7 +23,7 @@ import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
 import { recipesTable } from "@db/schema/schema";
-import { useDrizzleDb } from "@hooks";
+import { useDrizzleDb } from "@db";
 
 type Props = RecipesScreenProps<"List">;
 
@@ -70,6 +72,21 @@ const ExploreScreen: React.FC<Props> = (props) => {
     isScrolling.current = false;
   };
 
+  const handleUpdateLastSeen = async (recipeIds: string[]) => {
+    // Mark recipes as seen when they leave the view
+    if (recipeIds.length === 0) return;
+
+    try {
+      const query = db
+        .update(recipesTable)
+        .set({ lastSeen: dayjs().toISOString() })
+        .where(inArray(recipesTable.id, recipeIds));
+      await query;
+    } catch (err) {
+      console.error("Error updating lastSeen:", err);
+    }
+  };
+
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentOffsetY = event.nativeEvent.contentOffset.y;
     const diff = currentOffsetY - lastOffsetY.current;
@@ -105,23 +122,16 @@ const ExploreScreen: React.FC<Props> = (props) => {
         <RecipeCard recipe={item === null ? undefined : item} index={index} />
       )}
       onViewableItemsChanged={({ changed }) => {
-        // Mark recipes as seen when they leave the view
-        db.update(recipesTable)
-          .set({ lastSeen: new Date().toISOString() })
-          .where(
-            inArray(
-              recipesTable.id,
-              changed
-                .filter((c) => c.item !== null)
-                .filter((c) => !c.isViewable)
-                .map((c) => c.item.id),
-            ),
-          );
+        handleUpdateLastSeen(
+          changed
+            .filter((c) => c.item !== null)
+            .filter((c) => !c.isViewable)
+            .map((c) => c.item.id),
+        );
       }}
       onEndReached={() => {
         fetchMore();
       }}
-      keyExtractor={(_, index) => `recipe-${index}`}
       ListHeaderComponent={ListHeaderComponent}
       onScrollBeginDrag={handleScrollBeginDrag}
       onScrollEndDrag={handleScrollEndDrag}

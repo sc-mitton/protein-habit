@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { eq, inArray } from "drizzle-orm";
 import { recipesTable } from "@db/schema/schema";
-import { useDrizzleDb } from "./useDrizzleDb";
+import { useDrizzleDb } from "@db";
 import type { RecipeWithAssociations } from "@db/schema/types";
 
 type RecipeId = string;

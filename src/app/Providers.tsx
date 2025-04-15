@@ -42,25 +42,27 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       databaseName={dbName}
       options={{ enableChangeListener: true }}
     >
-      <Provider store={store}>
-        <KeyboardProvider>
-          <ThemeProvider theme={restyledTheme}>
-            <PaperProvider>
-              <EventProvider>
-                <BottomSheetModalProvider>
-                  <SafeAreaProvider>
-                    <GestureHandlerRootView>
-                      <PersistGate loading={null} persistor={persistor}>
-                        <DatabaseProvider>{children}</DatabaseProvider>
-                      </PersistGate>
-                    </GestureHandlerRootView>
-                  </SafeAreaProvider>
-                </BottomSheetModalProvider>
-              </EventProvider>
-            </PaperProvider>
-          </ThemeProvider>
-        </KeyboardProvider>
-      </Provider>
+      <DatabaseProvider>
+        <Provider store={store}>
+          <KeyboardProvider>
+            <ThemeProvider theme={restyledTheme}>
+              <PaperProvider>
+                <EventProvider>
+                  <BottomSheetModalProvider>
+                    <SafeAreaProvider>
+                      <GestureHandlerRootView>
+                        <PersistGate loading={null} persistor={persistor}>
+                          {children}
+                        </PersistGate>
+                      </GestureHandlerRootView>
+                    </SafeAreaProvider>
+                  </BottomSheetModalProvider>
+                </EventProvider>
+              </PaperProvider>
+            </ThemeProvider>
+          </KeyboardProvider>
+        </Provider>
+      </DatabaseProvider>
     </SQLiteProvider>
   );
 };

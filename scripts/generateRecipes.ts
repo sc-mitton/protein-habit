@@ -13,7 +13,7 @@ const openai = new OpenAI({
 });
 
 // Initialize database connection
-const parentDir = join(__dirname, "..");
+const parentDir = join(__dirname);
 const sqlite = new Database(join(parentDir, "recipes.db"));
 const dishesPath = join(parentDir, "scripts/dishes.csv");
 // const dishesSlicesPath = join(parentDir, "scripts/dishes-slice.csv");

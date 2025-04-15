@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { StatusBar } from "react-native";
 import { useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -13,12 +13,14 @@ import {
 import { Box } from "@components";
 import RootStack from "../screens/RootStack";
 import { baseIap, premiumIap } from "@constants/iaps";
+import { showBottomBar } from "@store/slices/uiSlice";
 import {
   useNavigationTheme,
   useAndroidNavBarBackground,
   useAppIntegrity,
 } from "@hooks";
 import Providers from "./Providers";
+import { useAppDispatch } from "@store/hooks";
 
 // LogBox.ignoreAllLogs(false);
 
@@ -57,6 +59,7 @@ export const linking = {
 SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
+  const dispatch = useAppDispatch();
   useAppIntegrity();
   useAndroidNavBarBackground();
   const colorScheme = useColorScheme();
@@ -77,6 +80,10 @@ function MainApp() {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  useEffect(() => {
+    dispatch(showBottomBar(true));
+  }, []);
 
   if (!fontsLoaded) {
     return null;

@@ -9,7 +9,7 @@ import {
   recipesToDishTypes,
   metaTable,
 } from "@db/schema/schema";
-import { useDrizzleDb } from "./useDrizzleDb";
+import { useDrizzleDb } from "@db";
 import type { RecipeFts, RecipeWithMeta } from "@db/schema/types";
 
 interface UseRecipesOptions {

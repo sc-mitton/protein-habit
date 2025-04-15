@@ -5,28 +5,28 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1744646671523,
-      "tag": "0000_magenta_thunderbolt",
+      "when": 1744736289854,
+      "tag": "0000_careless_kate_bishop",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "6",
-      "when": 1744646674400,
-      "tag": "0001_seed_enums",
+      "when": 1744736292278,
+      "tag": "0001_seed_tag_tables",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "6",
-      "when": 1744646676142,
+      "when": 1744736303788,
       "tag": "0002_db_dump",
       "breakpoints": true
     },
     {
       "idx": 3,
       "version": "6",
-      "when": 1744646678845,
+      "when": 1744736311382,
       "tag": "0003_fts_search",
       "breakpoints": true
     }

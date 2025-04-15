@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "bf683a54-5725-4e17-8ef6-ca6105733ff9",
+  "id": "36d1870c-9e02-453a-9ee4-1cc926855dd0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "cuisines": {

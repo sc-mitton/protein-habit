@@ -1,17 +1,19 @@
 import { join } from "path";
-import { recipesTable, metaTable } from "@db/schema/schema";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
 import { OpenAI } from "openai";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { eq } from "drizzle-orm";
 
+import { recipesTable, metaTable } from "@db/schema/schema";
+import { RecipeWithMeta } from "@db/schema/types";
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Initialize database connection
-const parentDir = join(__dirname, "..");
+const parentDir = join(__dirname);
 const sqlite = new Database(join(parentDir, "recipes.db"));
 const db = drizzle(sqlite);
 
@@ -27,18 +29,23 @@ async function applyMigrations() {
   }
 }
 
-async function getCaloriesForRecipe(recipe: {
-  title: string;
-  ingredients: string;
-  numberOfServings: number;
-}) {
+async function getCaloriesForRecipe(recipe: RecipeWithMeta) {
   const prompt = `Given the following recipe, calculate the approximate calories per serving.
-  Consider all ingredients and their typical calorie content. Return ONLY a number representing calories per serving.
+  Consider all ingredients and their typical calorie content.
 
   Recipe: ${recipe.title}
-  Number of servings: ${recipe.numberOfServings}
+  Number of servings: ${recipe.meta.numberOfServings}
   Ingredients:
-  ${recipe.ingredients}`;
+  ${recipe.ingredients}
+
+  Guidelines for calorie estimation:
+  - A typical main dish serving ranges from 300-800 calories
+  - Light meals/sides typically range from 100-400 calories
+  - Very calorie-dense dishes (like rich desserts or heavy pasta dishes) might reach 800-1000 calories
+  - Consider portion sizes and cooking methods (e.g., fried foods have more calories than baked)
+  - Account for oils, butter, and other cooking fats (typically 100-120 calories per tablespoon)
+
+  IMPORTANT: Return ONLY a number with no text, units, or explanation. For example: "450" or "350.5"`;
 
   const response = await openai.chat.completions.create({
     model: "gpt-4",
@@ -46,22 +53,36 @@ async function getCaloriesForRecipe(recipe: {
       {
         role: "system",
         content:
-          "You are a nutrition expert. Calculate calories based on ingredients and serving size. Return only a number.",
+          "You are a nutrition expert specializing in accurate calorie estimation. " +
+          "Calculate calories based on ingredients and serving size. " +
+          "Return ONLY a number with no text, units, or explanation. ",
       },
       {
         role: "user",
         content: prompt,
       },
     ],
-    temperature: 0.3,
-    max_tokens: 50,
+    temperature: 0.1,
+    max_tokens: 10,
   });
 
   const caloriesText = response.choices[0].message.content?.trim();
-  const calories = parseFloat(caloriesText || "0");
 
-  if (isNaN(calories)) {
-    throw new Error(`Failed to parse calories from response: ${caloriesText}`);
+  // Remove any non-numeric characters except decimal point
+  const cleanedText = caloriesText?.replace(/[^0-9.]/g, "");
+  const calories = parseFloat(cleanedText || "0");
+
+  if (isNaN(calories) || calories <= 0) {
+    throw new Error(
+      `Invalid calories value: ${caloriesText}. Expected a positive number.`,
+    );
+  }
+
+  // Add a sanity check for unreasonably high values
+  if (calories > 1500) {
+    throw new Error(
+      `Unreasonably high calorie value: ${calories}. This seems incorrect for a single serving.`,
+    );
   }
 
   return calories;
@@ -93,24 +114,23 @@ async function main() {
 
     if (!recipe.meta) {
       console.log(
-        `Skipping recipe ${recipe.title} - no meta information found`,
+        `⚠️ Skipping recipe ${recipe.title} - no meta information found`,
       );
       continue;
     }
 
     try {
-      const caloriesPerServing = await getCaloriesForRecipe({
-        title: recipe.title,
-        ingredients: recipe.ingredients,
-        numberOfServings: recipe.meta.numberOfServings,
-      });
+      const caloriesPerServing = await getCaloriesForRecipe(
+        recipe as RecipeWithMeta,
+      );
 
+      console.log("HERE HERE HERE: ", caloriesPerServing);
       // Update the meta table with calories information
       await db
         .update(metaTable)
         .set({ caloriesPerServing })
         .where(eq(metaTable.recipeId, recipe.id));
-
+      break;
       console.log(
         `✅ Updated calories for ${recipe.title}: ${caloriesPerServing} calories per serving`,
       );

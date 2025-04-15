@@ -1,114 +1,114 @@
-INSERT INTO meta VALUES('1','1',1,34.0,NULL,30,30);
+INSERT INTO meta VALUES('1','1',1,34.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('2','2',1,25.0,NULL,30,30);
+INSERT INTO meta VALUES('2','2',1,25.0,550.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('3','3',10,14.0,NULL,30,30);
+INSERT INTO meta VALUES('3','3',10,14.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('4','4',1,35.0,NULL,30,30);
+INSERT INTO meta VALUES('4','4',1,35.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('5','5',1,54.0,NULL,30,30);
+INSERT INTO meta VALUES('5','5',1,54.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('6','6',4,30.0,NULL,30,30);
+INSERT INTO meta VALUES('6','6',4,30.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('7','7',6,40.0,NULL,30,30);
+INSERT INTO meta VALUES('7','7',6,40.0,420.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('8','8',2,40.0,NULL,30,30);
+INSERT INTO meta VALUES('8','8',2,40.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('9','9',5,12.0,NULL,30,30);
+INSERT INTO meta VALUES('9','9',5,12.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('10','10',2,14.0,NULL,30,30);
+INSERT INTO meta VALUES('10','10',2,14.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('11','11',7,32.0,NULL,30,30);
+INSERT INTO meta VALUES('11','11',7,32.0,687.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('12','12',4,26.0,NULL,30,30);
+INSERT INTO meta VALUES('12','12',4,26.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('13','13',2,20.0,NULL,30,30);
+INSERT INTO meta VALUES('13','13',2,20.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('14','14',3,40.0,NULL,30,30);
+INSERT INTO meta VALUES('14','14',3,40.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('15','15',15,5.5,NULL,30,30);
+INSERT INTO meta VALUES('15','15',15,5.5,150.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('16','16',4,27.0,NULL,30,30);
+INSERT INTO meta VALUES('16','16',4,27.0,550.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('17','17',2,27.0,NULL,30,30);
+INSERT INTO meta VALUES('17','17',2,27.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('18','18',4,7.0,NULL,30,30);
+INSERT INTO meta VALUES('18','18',4,7.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('19','19',6,16.0,NULL,30,30);
+INSERT INTO meta VALUES('19','19',6,16.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('20','20',3,40.0,NULL,30,30);
+INSERT INTO meta VALUES('20','20',3,40.0,850.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('21','21',2,32.0,NULL,30,30);
+INSERT INTO meta VALUES('21','21',2,32.0,315.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('22','22',10,40.0,NULL,30,30);
+INSERT INTO meta VALUES('22','22',10,40.0,450.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('23','23',1,19.0,NULL,30,30);
+INSERT INTO meta VALUES('23','23',1,19.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('24','24',1,33.0,NULL,30,30);
+INSERT INTO meta VALUES('24','24',1,33.0,525.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('25','25',6,14.0,NULL,30,30);
+INSERT INTO meta VALUES('25','25',6,14.0,250.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('26','26',1,26.0,NULL,30,30);
+INSERT INTO meta VALUES('26','26',1,26.0,250.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('27','27',2,20.0,NULL,30,30);
+INSERT INTO meta VALUES('27','27',2,20.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('28','28',2,32.0,NULL,30,30);
+INSERT INTO meta VALUES('28','28',2,32.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('29','29',9,32.0,NULL,30,30);
+INSERT INTO meta VALUES('29','29',9,32.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('30','30',8,9.0,NULL,30,30);
+INSERT INTO meta VALUES('30','30',8,9.0,230.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('31','31',4,40.0,NULL,30,30);
+INSERT INTO meta VALUES('31','31',4,40.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('32','32',3,38.0,NULL,30,30);
+INSERT INTO meta VALUES('32','32',3,38.0,550.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('33','33',6,32.0,NULL,30,30);
+INSERT INTO meta VALUES('33','33',6,32.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('34','34',6,10.5,NULL,30,30);
+INSERT INTO meta VALUES('34','34',6,10.5,150.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('35','35',6,46.5,NULL,30,30);
+INSERT INTO meta VALUES('35','35',6,46.5,450.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('36','36',8,40.0,NULL,30,30);
+INSERT INTO meta VALUES('36','36',8,40.0,892.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('37','37',4,35.0,NULL,30,30);
+INSERT INTO meta VALUES('37','37',4,35.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('38','38',1,40.0,NULL,30,30);
+INSERT INTO meta VALUES('38','38',1,40.0,375.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('39','39',10,6.0,NULL,30,30);
+INSERT INTO meta VALUES('39','39',10,6.0,120.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('40','40',4,28.0,NULL,30,30);
+INSERT INTO meta VALUES('40','40',4,28.0,375.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('41','41',1,56.0,NULL,30,30);
+INSERT INTO meta VALUES('41','41',1,56.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('42','42',1,44.0,NULL,30,30);
+INSERT INTO meta VALUES('42','42',1,44.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('43','43',3,33.0,NULL,30,30);
+INSERT INTO meta VALUES('43','43',3,33.0,450.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('44','44',8,40.0,NULL,30,30);
+INSERT INTO meta VALUES('44','44',8,40.0,750.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('45','45',7,12.0,NULL,30,30);
+INSERT INTO meta VALUES('45','45',7,12.0,250.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('46','46',1,51.0,NULL,30,30);
+INSERT INTO meta VALUES('46','46',1,51.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('47','47',2,24.0,NULL,30,30);
+INSERT INTO meta VALUES('47','47',2,24.0,350.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('48','48',1,30.0,NULL,30,30);
+INSERT INTO meta VALUES('48','48',1,30.0,375.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('49','49',1,30.0,NULL,30,30);
+INSERT INTO meta VALUES('49','49',1,30.0,375.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('50','50',6,32.0,NULL,30,30);
+INSERT INTO meta VALUES('50','50',6,32.0,687.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('51','51',12,6.0,NULL,30,30);
+INSERT INTO meta VALUES('51','51',12,6.0,70.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('52','52',4,9.0,NULL,30,30);
+INSERT INTO meta VALUES('52','52',4,9.0,550.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('53','53',4,40.0,NULL,30,30);
+INSERT INTO meta VALUES('53','53',4,40.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('54','54',3,40.0,NULL,30,30);
+INSERT INTO meta VALUES('54','54',3,40.0,550.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('55','55',1,31.0,NULL,30,30);
+INSERT INTO meta VALUES('55','55',1,31.0,560.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('56','56',3,56.0,NULL,30,30);
+INSERT INTO meta VALUES('56','56',3,56.0,350.0,30,30);
 --> statement-breakpoint
 INSERT INTO meta VALUES('57','57',8,5.0,NULL,10,60);
 --> statement-breakpoint
@@ -160,1053 +160,1053 @@ INSERT INTO meta VALUES('80','80',6,8.0,NULL,15,60);
 --> statement-breakpoint
 INSERT INTO meta VALUES('81','81',8,7.0,NULL,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('82','82',8,5.0,NULL,10,60);
+INSERT INTO meta VALUES('82','82',8,5.0,275.0,10,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('83','83',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('83','83',4,40.0,720.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('84','84',4,45.0,NULL,15,45);
+INSERT INTO meta VALUES('84','84',4,45.0,750.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('85','85',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('85','85',4,40.0,850.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('86','86',4,30.0,NULL,20,22);
+INSERT INTO meta VALUES('86','86',4,30.0,750.0,20,22);
 --> statement-breakpoint
-INSERT INTO meta VALUES('87','87',4,35.0,NULL,30,30);
+INSERT INTO meta VALUES('87','87',4,35.0,750.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('88','88',6,45.0,NULL,20,30);
+INSERT INTO meta VALUES('88','88',6,45.0,715.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('89','89',6,32.0,NULL,15,30);
+INSERT INTO meta VALUES('89','89',6,32.0,650.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('90','90',4,45.0,NULL,20,20);
+INSERT INTO meta VALUES('90','90',4,45.0,850.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('91','91',4,35.0,NULL,20,25);
+INSERT INTO meta VALUES('91','91',4,35.0,650.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('92','92',4,50.0,NULL,20,25);
+INSERT INTO meta VALUES('92','92',4,50.0,750.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('93','93',4,42.0,NULL,30,45);
+INSERT INTO meta VALUES('93','93',4,42.0,850.0,30,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('94','94',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('94','94',4,40.0,680.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('95','95',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('95','95',4,40.0,850.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('96','96',4,40.0,NULL,10,25);
+INSERT INTO meta VALUES('96','96',4,40.0,720.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('97','97',6,35.0,NULL,15,30);
+INSERT INTO meta VALUES('97','97',6,35.0,650.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('98','98',4,45.0,NULL,30,30);
+INSERT INTO meta VALUES('98','98',4,45.0,750.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('99','99',4,45.0,NULL,15,15);
+INSERT INTO meta VALUES('99','99',4,45.0,650.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('100','100',4,40.0,NULL,15,20);
+INSERT INTO meta VALUES('100','100',4,40.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('101','101',4,40.0,NULL,20,30);
+INSERT INTO meta VALUES('101','101',4,40.0,850.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('102','102',4,38.0,NULL,20,23);
+INSERT INTO meta VALUES('102','102',4,38.0,650.0,20,23);
 --> statement-breakpoint
-INSERT INTO meta VALUES('103','103',4,45.0,NULL,20,25);
+INSERT INTO meta VALUES('103','103',4,45.0,850.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('104','104',4,45.0,NULL,20,45);
+INSERT INTO meta VALUES('104','104',4,45.0,715.0,20,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('105','105',4,40.0,NULL,20,30);
+INSERT INTO meta VALUES('105','105',4,40.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('106','106',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('106','106',4,40.0,750.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('107','107',3,30.0,NULL,20,10);
+INSERT INTO meta VALUES('107','107',3,30.0,550.0,20,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('108','108',4,40.0,NULL,30,20);
+INSERT INTO meta VALUES('108','108',4,40.0,715.0,30,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('109','109',4,35.0,NULL,30,15);
+INSERT INTO meta VALUES('109','109',4,35.0,1020.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('110','110',4,40.0,NULL,45,20);
+INSERT INTO meta VALUES('110','110',4,40.0,650.0,45,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('111','111',4,35.0,NULL,15,30);
+INSERT INTO meta VALUES('111','111',4,35.0,850.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('112','112',4,45.0,NULL,15,30);
+INSERT INTO meta VALUES('112','112',4,45.0,650.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('113','113',4,40.0,NULL,20,30);
+INSERT INTO meta VALUES('113','113',4,40.0,687.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('114','114',1,15.0,NULL,5,0);
+INSERT INTO meta VALUES('114','114',1,15.0,350.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('115','115',4,40.0,NULL,30,25);
+INSERT INTO meta VALUES('115','115',4,40.0,750.0,30,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('116','116',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('116','116',4,40.0,680.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('117','117',4,45.0,NULL,15,20);
+INSERT INTO meta VALUES('117','117',4,45.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('118','118',4,40.0,NULL,30,20);
+INSERT INTO meta VALUES('118','118',4,40.0,680.0,30,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('119','119',4,45.0,NULL,70,15);
+INSERT INTO meta VALUES('119','119',4,45.0,650.0,70,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('120','120',4,45.0,NULL,30,30);
+INSERT INTO meta VALUES('120','120',4,45.0,750.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('121','121',4,38.0,NULL,15,20);
+INSERT INTO meta VALUES('121','121',4,38.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('122','122',4,35.0,NULL,40,15);
+INSERT INTO meta VALUES('122','122',4,35.0,650.0,40,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('123','123',4,35.0,NULL,20,15);
+INSERT INTO meta VALUES('123','123',4,35.0,650.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('124','124',4,35.0,NULL,20,30);
+INSERT INTO meta VALUES('124','124',4,35.0,785.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('125','125',4,35.0,NULL,10,20);
+INSERT INTO meta VALUES('125','125',4,35.0,650.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('126','126',8,35.0,NULL,20,30);
+INSERT INTO meta VALUES('126','126',8,35.0,450.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('127','127',4,40.0,NULL,20,30);
+INSERT INTO meta VALUES('127','127',4,40.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('128','128',3,35.0,NULL,15,25);
+INSERT INTO meta VALUES('128','128',3,35.0,650.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('129','129',2,15.0,NULL,15,15);
+INSERT INTO meta VALUES('129','129',2,15.0,650.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('130','130',3,25.0,NULL,15,10);
+INSERT INTO meta VALUES('130','130',3,25.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('131','131',6,30.0,NULL,20,10);
+INSERT INTO meta VALUES('131','131',6,30.0,650.0,20,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('132','132',4,25.0,NULL,15,20);
+INSERT INTO meta VALUES('132','132',4,25.0,750.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('133','133',4,23.0,NULL,15,20);
+INSERT INTO meta VALUES('133','133',4,23.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('134','134',4,32.0,NULL,40,20);
+INSERT INTO meta VALUES('134','134',4,32.0,650.0,40,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('135','135',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('135','135',4,30.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('136','136',2,24.0,NULL,15,60);
+INSERT INTO meta VALUES('136','136',2,24.0,350.0,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('137','137',2,25.0,NULL,10,15);
+INSERT INTO meta VALUES('137','137',2,25.0,850.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('138','138',10,45.0,NULL,20,45);
+INSERT INTO meta VALUES('138','138',10,45.0,550.0,20,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('139','139',8,10.0,NULL,20,35);
+INSERT INTO meta VALUES('139','139',8,10.0,210.0,20,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('140','140',2,30.0,NULL,5,0);
+INSERT INTO meta VALUES('140','140',2,30.0,365.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('141','141',4,35.0,NULL,20,40);
+INSERT INTO meta VALUES('141','141',4,35.0,650.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('142','142',1,20.0,NULL,5,0);
+INSERT INTO meta VALUES('142','142',1,20.0,210.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('143','143',5,20.0,NULL,30,15);
+INSERT INTO meta VALUES('143','143',5,20.0,450.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('144','144',4,30.0,NULL,10,10);
+INSERT INTO meta VALUES('144','144',4,30.0,550.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('145','145',4,12.0,NULL,10,15);
+INSERT INTO meta VALUES('145','145',4,12.0,315.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('146','146',2,20.0,NULL,10,10);
+INSERT INTO meta VALUES('146','146',2,20.0,520.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('147','147',4,30.0,NULL,20,15);
+INSERT INTO meta VALUES('147','147',4,30.0,350.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('148','148',4,24.0,NULL,15,20);
+INSERT INTO meta VALUES('148','148',4,24.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('149','149',4,35.0,NULL,15,27);
+INSERT INTO meta VALUES('149','149',4,35.0,350.0,15,27);
 --> statement-breakpoint
-INSERT INTO meta VALUES('150','150',4,40.0,NULL,20,120);
+INSERT INTO meta VALUES('150','150',4,40.0,650.0,20,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('151','151',4,40.0,NULL,15,20);
+INSERT INTO meta VALUES('151','151',4,40.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('152','152',4,35.0,NULL,30,120);
+INSERT INTO meta VALUES('152','152',4,35.0,650.0,30,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('153','153',4,30.0,NULL,10,25);
+INSERT INTO meta VALUES('153','153',4,30.0,650.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('154','154',4,27.0,NULL,15,40);
+INSERT INTO meta VALUES('154','154',4,27.0,350.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('155','155',4,32.0,NULL,20,40);
+INSERT INTO meta VALUES('155','155',4,32.0,450.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('156','156',4,30.0,NULL,40,12);
+INSERT INTO meta VALUES('156','156',4,30.0,450.0,40,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('157','157',4,25.0,NULL,20,35);
+INSERT INTO meta VALUES('157','157',4,25.0,650.0,20,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('158','158',3,15.0,NULL,10,20);
+INSERT INTO meta VALUES('158','158',3,15.0,390.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('159','159',8,30.0,NULL,20,60);
+INSERT INTO meta VALUES('159','159',8,30.0,687.0,20,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('160','160',4,15.0,NULL,20,20);
+INSERT INTO meta VALUES('160','160',4,15.0,650.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('161','161',4,35.0,NULL,30,15);
+INSERT INTO meta VALUES('161','161',4,35.0,350.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('162','162',4,12.0,NULL,10,45);
+INSERT INTO meta VALUES('162','162',4,12.0,405.0,10,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('163','163',4,12.0,NULL,20,20);
+INSERT INTO meta VALUES('163','163',4,12.0,450.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('164','164',6,20.0,NULL,20,40);
+INSERT INTO meta VALUES('164','164',6,20.0,550.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('165','165',6,12.0,NULL,10,30);
+INSERT INTO meta VALUES('165','165',6,12.0,350.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('166','166',4,20.0,NULL,10,15);
+INSERT INTO meta VALUES('166','166',4,20.0,550.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('167','167',8,10.0,NULL,15,50);
+INSERT INTO meta VALUES('167','167',8,10.0,210.0,15,50);
 --> statement-breakpoint
-INSERT INTO meta VALUES('168','168',4,12.0,NULL,15,15);
+INSERT INTO meta VALUES('168','168',4,12.0,320.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('169','169',4,30.0,NULL,15,30);
+INSERT INTO meta VALUES('169','169',4,30.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('170','170',4,25.0,NULL,75,15);
+INSERT INTO meta VALUES('170','170',4,25.0,687.0,75,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('171','171',4,25.0,NULL,75,15);
+INSERT INTO meta VALUES('171','171',4,25.0,550.0,75,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('172','172',2,25.0,NULL,15,15);
+INSERT INTO meta VALUES('172','172',2,25.0,650.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('173','173',6,15.0,NULL,10,18);
+INSERT INTO meta VALUES('173','173',6,15.0,150.0,10,18);
 --> statement-breakpoint
-INSERT INTO meta VALUES('174','174',4,25.0,NULL,10,25);
+INSERT INTO meta VALUES('174','174',4,25.0,350.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('175','175',2,20.0,NULL,10,0);
+INSERT INTO meta VALUES('175','175',2,20.0,285.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('176','176',1,20.0,NULL,10,22);
+INSERT INTO meta VALUES('176','176',1,20.0,350.0,10,22);
 --> statement-breakpoint
-INSERT INTO meta VALUES('177','177',4,22.0,NULL,15,10);
+INSERT INTO meta VALUES('177','177',4,22.0,350.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('178','178',2,32.0,NULL,10,10);
+INSERT INTO meta VALUES('178','178',2,32.0,420.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('179','179',4,16.0,NULL,10,20);
+INSERT INTO meta VALUES('179','179',4,16.0,450.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('180','180',6,12.0,NULL,20,50);
+INSERT INTO meta VALUES('180','180',6,12.0,450.0,20,50);
 --> statement-breakpoint
-INSERT INTO meta VALUES('181','181',4,35.0,NULL,15,25);
+INSERT INTO meta VALUES('181','181',4,35.0,350.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('182','182',2,35.0,NULL,15,15);
+INSERT INTO meta VALUES('182','182',2,35.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('183','183',4,10.0,NULL,15,0);
+INSERT INTO meta VALUES('183','183',4,10.0,350.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('184','184',4,10.0,NULL,10,30);
+INSERT INTO meta VALUES('184','184',4,10.0,550.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('185','185',4,38.0,NULL,15,40);
+INSERT INTO meta VALUES('185','185',4,38.0,450.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('186','186',4,40.0,NULL,15,30);
+INSERT INTO meta VALUES('186','186',4,40.0,650.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('187','187',4,8.0,NULL,15,10);
+INSERT INTO meta VALUES('187','187',4,8.0,350.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('188','188',2,20.0,NULL,5,10);
+INSERT INTO meta VALUES('188','188',2,20.0,650.0,5,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('189','189',6,30.0,NULL,10,30);
+INSERT INTO meta VALUES('189','189',6,30.0,450.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('190','190',2,18.0,NULL,5,0);
+INSERT INTO meta VALUES('190','190',2,18.0,435.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('191','191',4,25.0,NULL,10,15);
+INSERT INTO meta VALUES('191','191',4,25.0,550.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('192','192',4,30.0,NULL,20,20);
+INSERT INTO meta VALUES('192','192',4,30.0,550.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('193','193',4,25.0,NULL,30,15);
+INSERT INTO meta VALUES('193','193',4,25.0,450.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('194','194',4,35.0,NULL,20,20);
+INSERT INTO meta VALUES('194','194',4,35.0,750.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('195','195',4,30.0,NULL,15,10);
+INSERT INTO meta VALUES('195','195',4,30.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('196','196',4,30.0,NULL,20,15);
+INSERT INTO meta VALUES('196','196',4,30.0,550.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('197','197',4,35.0,NULL,15,25);
+INSERT INTO meta VALUES('197','197',4,35.0,720.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('198','198',4,25.0,NULL,15,15);
+INSERT INTO meta VALUES('198','198',4,25.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('199','199',4,40.0,NULL,15,35);
+INSERT INTO meta VALUES('199','199',4,40.0,550.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('200','200',2,25.0,NULL,10,10);
+INSERT INTO meta VALUES('200','200',2,25.0,750.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('201','201',2,20.0,NULL,10,10);
+INSERT INTO meta VALUES('201','201',2,20.0,550.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('202','202',4,35.0,NULL,20,35);
+INSERT INTO meta VALUES('202','202',4,35.0,750.0,20,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('203','203',4,15.0,NULL,15,5);
+INSERT INTO meta VALUES('203','203',4,15.0,375.0,15,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('204','204',4,25.0,NULL,10,12);
+INSERT INTO meta VALUES('204','204',4,25.0,550.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('205','205',2,25.0,NULL,10,12);
+INSERT INTO meta VALUES('205','205',2,25.0,650.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('206','206',1,30.0,NULL,5,10);
+INSERT INTO meta VALUES('206','206',1,30.0,460.0,5,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('207','207',2,20.0,NULL,10,10);
+INSERT INTO meta VALUES('207','207',2,20.0,550.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('208','208',2,20.0,NULL,15,15);
+INSERT INTO meta VALUES('208','208',2,20.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('209','209',2,30.0,NULL,10,10);
+INSERT INTO meta VALUES('209','209',2,30.0,750.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('210','210',2,25.0,NULL,15,10);
+INSERT INTO meta VALUES('210','210',2,25.0,750.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('211','211',6,15.0,NULL,20,15);
+INSERT INTO meta VALUES('211','211',6,15.0,450.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('212','212',6,30.0,NULL,15,30);
+INSERT INTO meta VALUES('212','212',6,30.0,350.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('213','213',6,30.0,NULL,15,60);
+INSERT INTO meta VALUES('213','213',6,30.0,350.0,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('214','214',4,30.0,NULL,10,40);
+INSERT INTO meta VALUES('214','214',4,30.0,550.0,10,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('215','215',6,15.0,NULL,15,40);
+INSERT INTO meta VALUES('215','215',6,15.0,350.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('216','216',6,25.0,NULL,20,30);
+INSERT INTO meta VALUES('216','216',6,25.0,350.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('217','217',4,35.0,NULL,20,40);
+INSERT INTO meta VALUES('217','217',4,35.0,475.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('218','218',6,25.0,NULL,15,60);
+INSERT INTO meta VALUES('218','218',6,25.0,450.0,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('219','219',6,20.0,NULL,15,60);
+INSERT INTO meta VALUES('219','219',6,20.0,350.0,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('220','220',4,20.0,NULL,15,30);
+INSERT INTO meta VALUES('220','220',4,20.0,350.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('221','221',4,10.0,NULL,10,15);
+INSERT INTO meta VALUES('221','221',4,10.0,150.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('222','222',4,25.0,NULL,15,30);
+INSERT INTO meta VALUES('222','222',4,25.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('223','223',6,30.0,NULL,30,40);
+INSERT INTO meta VALUES('223','223',6,30.0,350.0,30,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('224','224',4,30.0,NULL,15,25);
+INSERT INTO meta VALUES('224','224',4,30.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('225','225',4,35.0,NULL,15,15);
+INSERT INTO meta VALUES('225','225',4,35.0,495.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('226','226',2,12.0,NULL,10,10);
+INSERT INTO meta VALUES('226','226',2,12.0,495.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('227','227',4,30.0,NULL,20,25);
+INSERT INTO meta VALUES('227','227',4,30.0,750.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('228','228',4,30.0,NULL,30,20);
+INSERT INTO meta VALUES('228','228',4,30.0,550.0,30,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('229','229',4,28.0,NULL,30,30);
+INSERT INTO meta VALUES('229','229',4,28.0,550.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('230','230',6,35.0,NULL,15,12);
+INSERT INTO meta VALUES('230','230',6,35.0,450.0,15,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('231','231',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('231','231',4,25.0,550.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('232','232',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('232','232',4,30.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('233','233',4,30.0,NULL,60,16);
+INSERT INTO meta VALUES('233','233',4,30.0,550.0,60,16);
 --> statement-breakpoint
-INSERT INTO meta VALUES('234','234',6,21.0,NULL,30,40);
+INSERT INTO meta VALUES('234','234',6,21.0,550.0,30,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('235','235',4,30.0,NULL,10,8);
+INSERT INTO meta VALUES('235','235',4,30.0,550.0,10,8);
 --> statement-breakpoint
-INSERT INTO meta VALUES('236','236',4,30.0,NULL,20,10);
+INSERT INTO meta VALUES('236','236',4,30.0,650.0,20,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('237','237',6,35.0,NULL,20,120);
+INSERT INTO meta VALUES('237','237',6,35.0,687.0,20,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('238','238',6,30.0,NULL,30,60);
+INSERT INTO meta VALUES('238','238',6,30.0,650.0,30,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('239','239',6,15.0,NULL,45,15);
+INSERT INTO meta VALUES('239','239',6,15.0,550.0,45,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('240','240',4,12.0,NULL,15,90);
+INSERT INTO meta VALUES('240','240',4,12.0,350.0,15,90);
 --> statement-breakpoint
-INSERT INTO meta VALUES('241','241',4,15.0,NULL,10,35);
+INSERT INTO meta VALUES('241','241',4,15.0,375.0,10,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('242','242',4,20.0,NULL,10,10);
+INSERT INTO meta VALUES('242','242',4,20.0,715.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('243','243',4,45.0,NULL,15,20);
+INSERT INTO meta VALUES('243','243',4,45.0,687.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('244','244',4,9.0,NULL,15,0);
+INSERT INTO meta VALUES('244','244',4,9.0,210.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('245','245',2,25.0,NULL,5,0);
+INSERT INTO meta VALUES('245','245',2,25.0,235.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('246','246',6,12.0,NULL,15,10);
+INSERT INTO meta VALUES('246','246',6,12.0,210.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('247','247',4,15.0,NULL,20,5);
+INSERT INTO meta VALUES('247','247',4,15.0,250.0,20,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('248','248',4,30.0,NULL,10,20);
+INSERT INTO meta VALUES('248','248',4,30.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('249','249',1,8.0,NULL,5,0);
+INSERT INTO meta VALUES('249','249',1,8.0,315.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('250','250',1,8.0,NULL,5,5);
+INSERT INTO meta VALUES('250','250',1,8.0,350.0,5,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('251','251',1,12.0,NULL,5,0);
+INSERT INTO meta VALUES('251','251',1,12.0,315.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('252','252',2,10.0,NULL,10,0);
+INSERT INTO meta VALUES('252','252',2,10.0,410.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('253','253',4,25.0,NULL,20,25);
+INSERT INTO meta VALUES('253','253',4,25.0,550.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('254','254',4,30.0,NULL,30,10);
+INSERT INTO meta VALUES('254','254',4,30.0,550.0,30,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('255','255',4,35.0,NULL,10,15);
+INSERT INTO meta VALUES('255','255',4,35.0,685.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('256','256',4,30.0,NULL,60,10);
+INSERT INTO meta VALUES('256','256',4,30.0,650.0,60,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('257','257',4,28.0,NULL,40,20);
+INSERT INTO meta VALUES('257','257',4,28.0,550.0,40,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('258','258',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('258','258',4,25.0,550.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('259','259',4,30.0,NULL,10,10);
+INSERT INTO meta VALUES('259','259',4,30.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('260','260',4,25.0,NULL,15,15);
+INSERT INTO meta VALUES('260','260',4,25.0,650.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('261','261',4,35.0,NULL,15,35);
+INSERT INTO meta VALUES('261','261',4,35.0,550.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('262','262',4,35.0,NULL,15,25);
+INSERT INTO meta VALUES('262','262',4,35.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('263','263',4,30.0,NULL,40,10);
+INSERT INTO meta VALUES('263','263',4,30.0,550.0,40,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('264','264',6,30.0,NULL,20,180);
+INSERT INTO meta VALUES('264','264',6,30.0,687.0,20,180);
 --> statement-breakpoint
-INSERT INTO meta VALUES('265','265',4,14.0,NULL,30,15);
+INSERT INTO meta VALUES('265','265',4,14.0,550.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('266','266',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('266','266',4,30.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('267','267',6,30.0,NULL,10,45);
+INSERT INTO meta VALUES('267','267',6,30.0,550.0,10,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('268','268',4,30.0,NULL,15,10);
+INSERT INTO meta VALUES('268','268',4,30.0,350.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('269','269',4,30.0,NULL,20,7);
+INSERT INTO meta VALUES('269','269',4,30.0,350.0,20,7);
 --> statement-breakpoint
-INSERT INTO meta VALUES('270','270',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('270','270',4,30.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('271','271',2,45.0,NULL,15,10);
+INSERT INTO meta VALUES('271','271',2,45.0,350.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('272','272',2,30.0,NULL,15,15);
+INSERT INTO meta VALUES('272','272',2,30.0,450.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('273','273',4,25.0,NULL,40,20);
+INSERT INTO meta VALUES('273','273',4,25.0,650.0,40,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('274','274',4,38.0,NULL,15,15);
+INSERT INTO meta VALUES('274','274',4,38.0,475.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('275','275',4,22.0,NULL,15,15);
+INSERT INTO meta VALUES('275','275',4,22.0,650.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('276','276',4,29.0,NULL,15,25);
+INSERT INTO meta VALUES('276','276',4,29.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('277','277',4,28.0,NULL,15,10);
+INSERT INTO meta VALUES('277','277',4,28.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('278','278',4,18.0,NULL,15,5);
+INSERT INTO meta VALUES('278','278',4,18.0,350.0,15,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('279','279',4,32.0,NULL,15,20);
+INSERT INTO meta VALUES('279','279',4,32.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('280','280',4,25.0,NULL,15,20);
+INSERT INTO meta VALUES('280','280',4,25.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('281','281',4,20.0,NULL,15,15);
+INSERT INTO meta VALUES('281','281',4,20.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('282','282',2,35.0,NULL,10,20);
+INSERT INTO meta VALUES('282','282',2,35.0,650.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('283','283',4,20.0,NULL,15,25);
+INSERT INTO meta VALUES('283','283',4,20.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('284','284',4,42.0,NULL,15,20);
+INSERT INTO meta VALUES('284','284',4,42.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('285','285',4,10.0,NULL,10,15);
+INSERT INTO meta VALUES('285','285',4,10.0,350.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('286','286',4,12.0,NULL,480,45);
+INSERT INTO meta VALUES('286','286',4,12.0,350.0,480,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('287','287',4,30.0,NULL,20,30);
+INSERT INTO meta VALUES('287','287',4,30.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('288','288',4,25.0,NULL,15,30);
+INSERT INTO meta VALUES('288','288',4,25.0,600.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('289','289',4,14.0,NULL,10,30);
+INSERT INTO meta VALUES('289','289',4,14.0,420.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('290','290',4,15.0,NULL,15,25);
+INSERT INTO meta VALUES('290','290',4,15.0,350.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('291','291',4,12.0,NULL,10,30);
+INSERT INTO meta VALUES('291','291',4,12.0,350.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('292','292',4,25.0,NULL,15,20);
+INSERT INTO meta VALUES('292','292',4,25.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('293','293',4,25.0,NULL,20,30);
+INSERT INTO meta VALUES('293','293',4,25.0,550.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('294','294',4,15.0,NULL,15,25);
+INSERT INTO meta VALUES('294','294',4,15.0,350.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('295','295',4,36.0,NULL,10,15);
+INSERT INTO meta VALUES('295','295',4,36.0,550.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('296','296',4,12.0,NULL,15,20);
+INSERT INTO meta VALUES('296','296',4,12.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('297','297',4,15.0,NULL,10,30);
+INSERT INTO meta VALUES('297','297',4,15.0,225.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('298','298',4,35.0,NULL,15,30);
+INSERT INTO meta VALUES('298','298',4,35.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('299','299',6,30.0,NULL,15,120);
+INSERT INTO meta VALUES('299','299',6,30.0,650.0,15,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('300','300',3,14.0,NULL,10,15);
+INSERT INTO meta VALUES('300','300',3,14.0,290.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('301','301',4,7.0,NULL,15,0);
+INSERT INTO meta VALUES('301','301',4,7.0,105.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('302','302',6,30.0,NULL,40,40);
+INSERT INTO meta VALUES('302','302',6,30.0,550.0,40,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('303','303',4,12.0,NULL,10,20);
+INSERT INTO meta VALUES('303','303',4,12.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('304','304',4,12.0,NULL,10,45);
+INSERT INTO meta VALUES('304','304',4,12.0,350.0,10,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('305','305',4,35.0,NULL,15,35);
+INSERT INTO meta VALUES('305','305',4,35.0,350.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('306','306',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('306','306',4,25.0,350.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('307','307',4,12.0,NULL,10,20);
+INSERT INTO meta VALUES('307','307',4,12.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('308','308',4,15.0,NULL,15,20);
+INSERT INTO meta VALUES('308','308',4,15.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('309','309',4,10.0,NULL,10,20);
+INSERT INTO meta VALUES('309','309',4,10.0,250.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('310','310',4,10.0,NULL,10,20);
+INSERT INTO meta VALUES('310','310',4,10.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('311','311',4,16.0,NULL,10,20);
+INSERT INTO meta VALUES('311','311',4,16.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('312','312',4,30.0,NULL,15,30);
+INSERT INTO meta VALUES('312','312',4,30.0,650.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('313','313',4,14.0,NULL,15,25);
+INSERT INTO meta VALUES('313','313',4,14.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('314','314',4,25.0,NULL,20,20);
+INSERT INTO meta VALUES('314','314',4,25.0,350.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('315','315',4,20.0,NULL,30,20);
+INSERT INTO meta VALUES('315','315',4,20.0,550.0,30,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('316','316',4,35.0,NULL,15,25);
+INSERT INTO meta VALUES('316','316',4,35.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('317','317',4,10.0,NULL,20,20);
+INSERT INTO meta VALUES('317','317',4,10.0,350.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('318','318',4,30.0,NULL,15,30);
+INSERT INTO meta VALUES('318','318',4,30.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('319','319',4,15.0,NULL,20,60);
+INSERT INTO meta VALUES('319','319',4,15.0,375.0,20,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('320','320',3,12.0,NULL,10,20);
+INSERT INTO meta VALUES('320','320',3,12.0,450.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('321','321',4,25.0,NULL,10,30);
+INSERT INTO meta VALUES('321','321',4,25.0,650.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('322','322',4,12.0,NULL,15,30);
+INSERT INTO meta VALUES('322','322',4,12.0,350.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('323','323',4,12.0,NULL,20,25);
+INSERT INTO meta VALUES('323','323',4,12.0,350.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('324','324',4,22.0,NULL,10,20);
+INSERT INTO meta VALUES('324','324',4,22.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('325','325',4,12.0,NULL,15,45);
+INSERT INTO meta VALUES('325','325',4,12.0,375.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('326','326',4,25.0,NULL,10,10);
+INSERT INTO meta VALUES('326','326',4,25.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('327','327',4,25.0,NULL,35,10);
+INSERT INTO meta VALUES('327','327',4,25.0,600.0,35,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('328','328',4,15.0,NULL,10,20);
+INSERT INTO meta VALUES('328','328',4,15.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('329','329',4,10.0,NULL,15,0);
+INSERT INTO meta VALUES('329','329',4,10.0,350.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('330','330',4,30.0,NULL,70,20);
+INSERT INTO meta VALUES('330','330',4,30.0,650.0,70,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('331','331',4,10.0,NULL,15,12);
+INSERT INTO meta VALUES('331','331',4,10.0,180.0,15,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('332','332',4,15.0,NULL,10,20);
+INSERT INTO meta VALUES('332','332',4,15.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('333','333',3,12.0,NULL,10,15);
+INSERT INTO meta VALUES('333','333',3,12.0,210.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('334','334',4,35.0,NULL,10,20);
+INSERT INTO meta VALUES('334','334',4,35.0,335.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('335','335',4,40.0,NULL,10,10);
+INSERT INTO meta VALUES('335','335',4,40.0,450.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('336','336',4,30.0,NULL,20,35);
+INSERT INTO meta VALUES('336','336',4,30.0,275.0,20,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('337','337',4,30.0,NULL,15,45);
+INSERT INTO meta VALUES('337','337',4,30.0,450.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('338','338',4,28.0,NULL,15,15);
+INSERT INTO meta VALUES('338','338',4,28.0,420.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('339','339',4,20.0,NULL,15,0);
+INSERT INTO meta VALUES('339','339',4,20.0,350.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('340','340',4,14.0,NULL,10,12);
+INSERT INTO meta VALUES('340','340',4,14.0,150.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('341','341',4,30.0,NULL,20,40);
+INSERT INTO meta VALUES('341','341',4,30.0,450.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('342','342',6,22.0,NULL,15,40);
+INSERT INTO meta VALUES('342','342',6,22.0,550.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('343','343',4,35.0,NULL,15,30);
+INSERT INTO meta VALUES('343','343',4,35.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('344','344',4,12.0,NULL,10,15);
+INSERT INTO meta VALUES('344','344',4,12.0,350.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('345','345',4,40.0,NULL,10,30);
+INSERT INTO meta VALUES('345','345',4,40.0,550.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('346','346',4,25.0,NULL,10,20);
+INSERT INTO meta VALUES('346','346',4,25.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('347','347',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('347','347',4,30.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('348','348',4,20.0,NULL,10,0);
+INSERT INTO meta VALUES('348','348',4,20.0,350.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('349','349',4,40.0,NULL,10,25);
+INSERT INTO meta VALUES('349','349',4,40.0,550.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('350','350',4,25.0,NULL,10,15);
+INSERT INTO meta VALUES('350','350',4,25.0,550.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('351','351',4,20.0,NULL,20,30);
+INSERT INTO meta VALUES('351','351',4,20.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('352','352',4,35.0,NULL,20,50);
+INSERT INTO meta VALUES('352','352',4,35.0,550.0,20,50);
 --> statement-breakpoint
-INSERT INTO meta VALUES('353','353',4,25.0,NULL,10,40);
+INSERT INTO meta VALUES('353','353',4,25.0,425.0,10,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('354','354',4,25.0,NULL,40,6);
+INSERT INTO meta VALUES('354','354',4,25.0,250.0,40,6);
 --> statement-breakpoint
-INSERT INTO meta VALUES('355','355',4,35.0,NULL,10,20);
+INSERT INTO meta VALUES('355','355',4,35.0,375.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('356','356',4,30.0,NULL,15,0);
+INSERT INTO meta VALUES('356','356',4,30.0,495.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('357','357',4,18.0,NULL,25,45);
+INSERT INTO meta VALUES('357','357',4,18.0,550.0,25,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('358','358',6,20.0,NULL,30,60);
+INSERT INTO meta VALUES('358','358',6,20.0,550.0,30,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('359','359',6,10.0,NULL,15,35);
+INSERT INTO meta VALUES('359','359',6,10.0,250.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('360','360',4,32.0,NULL,20,30);
+INSERT INTO meta VALUES('360','360',4,32.0,550.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('361','361',6,24.0,NULL,30,45);
+INSERT INTO meta VALUES('361','361',6,24.0,450.0,30,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('362','362',6,14.0,NULL,10,10);
+INSERT INTO meta VALUES('362','362',6,14.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('363','363',4,15.0,NULL,10,20);
+INSERT INTO meta VALUES('363','363',4,15.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('364','364',4,25.0,NULL,15,40);
+INSERT INTO meta VALUES('364','364',4,25.0,550.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('365','365',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('365','365',4,30.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('366','366',4,25.0,NULL,15,15);
+INSERT INTO meta VALUES('366','366',4,25.0,425.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('367','367',6,35.0,NULL,10,90);
+INSERT INTO meta VALUES('367','367',6,35.0,550.0,10,90);
 --> statement-breakpoint
-INSERT INTO meta VALUES('368','368',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('368','368',4,30.0,650.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('369','369',4,25.0,NULL,20,40);
+INSERT INTO meta VALUES('369','369',4,25.0,350.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('370','370',6,15.0,NULL,10,15);
+INSERT INTO meta VALUES('370','370',6,15.0,350.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('371','371',6,15.0,NULL,30,65);
+INSERT INTO meta VALUES('371','371',6,15.0,550.0,30,65);
 --> statement-breakpoint
-INSERT INTO meta VALUES('372','372',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('372','372',4,30.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('373','373',4,12.0,NULL,30,45);
+INSERT INTO meta VALUES('373','373',4,12.0,350.0,30,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('374','374',4,15.0,NULL,15,30);
+INSERT INTO meta VALUES('374','374',4,15.0,375.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('375','375',4,48.0,NULL,10,35);
+INSERT INTO meta VALUES('375','375',4,48.0,550.0,10,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('376','376',4,20.0,NULL,10,20);
+INSERT INTO meta VALUES('376','376',4,20.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('377','377',4,30.0,NULL,10,15);
+INSERT INTO meta VALUES('377','377',4,30.0,275.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('378','378',4,32.0,NULL,10,50);
+INSERT INTO meta VALUES('378','378',4,32.0,550.0,10,50);
 --> statement-breakpoint
-INSERT INTO meta VALUES('379','379',4,12.0,NULL,10,15);
+INSERT INTO meta VALUES('379','379',4,12.0,250.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('380','380',4,35.0,NULL,10,15);
+INSERT INTO meta VALUES('380','380',4,35.0,350.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('381','381',4,18.0,NULL,20,45);
+INSERT INTO meta VALUES('381','381',4,18.0,450.0,20,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('382','382',4,35.0,NULL,15,40);
+INSERT INTO meta VALUES('382','382',4,35.0,550.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('383','383',6,28.0,NULL,20,35);
+INSERT INTO meta VALUES('383','383',6,28.0,650.0,20,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('384','384',4,18.0,NULL,15,15);
+INSERT INTO meta VALUES('384','384',4,18.0,375.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('385','385',4,25.0,NULL,15,20);
+INSERT INTO meta VALUES('385','385',4,25.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('386','386',2,50.0,NULL,20,30);
+INSERT INTO meta VALUES('386','386',2,50.0,1320.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('387','387',4,35.0,NULL,15,15);
+INSERT INTO meta VALUES('387','387',4,35.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('388','388',4,16.0,NULL,10,25);
+INSERT INTO meta VALUES('388','388',4,16.0,550.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('389','389',6,28.0,NULL,15,60);
+INSERT INTO meta VALUES('389','389',6,28.0,350.0,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('390','390',4,35.0,NULL,80,15);
+INSERT INTO meta VALUES('390','390',4,35.0,550.0,80,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('391','391',8,30.0,NULL,15,150);
+INSERT INTO meta VALUES('391','391',8,30.0,650.0,15,150);
 --> statement-breakpoint
-INSERT INTO meta VALUES('392','392',4,35.0,NULL,20,30);
+INSERT INTO meta VALUES('392','392',4,35.0,550.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('393','393',4,30.0,NULL,15,30);
+INSERT INTO meta VALUES('393','393',4,30.0,650.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('394','394',4,35.0,NULL,15,25);
+INSERT INTO meta VALUES('394','394',4,35.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('395','395',4,30.0,NULL,10,20);
+INSERT INTO meta VALUES('395','395',4,30.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('396','396',2,12.0,NULL,5,10);
+INSERT INTO meta VALUES('396','396',2,12.0,350.0,5,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('397','397',4,30.0,NULL,20,30);
+INSERT INTO meta VALUES('397','397',4,30.0,550.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('398','398',4,25.0,NULL,10,30);
+INSERT INTO meta VALUES('398','398',4,25.0,550.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('399','399',6,35.0,NULL,15,120);
+INSERT INTO meta VALUES('399','399',6,35.0,485.0,15,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('400','400',4,30.0,NULL,10,10);
+INSERT INTO meta VALUES('400','400',4,30.0,450.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('401','401',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('401','401',4,25.0,350.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('402','402',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('402','402',4,30.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('403','403',4,15.0,NULL,15,30);
+INSERT INTO meta VALUES('403','403',4,15.0,350.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('404','404',6,22.0,NULL,20,40);
+INSERT INTO meta VALUES('404','404',6,22.0,350.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('405','405',4,15.0,NULL,15,20);
+INSERT INTO meta VALUES('405','405',4,15.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('406','406',6,35.0,NULL,15,240);
+INSERT INTO meta VALUES('406','406',6,35.0,550.0,15,240);
 --> statement-breakpoint
-INSERT INTO meta VALUES('407','407',4,30.0,NULL,20,30);
+INSERT INTO meta VALUES('407','407',4,30.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('408','408',4,25.0,NULL,15,35);
+INSERT INTO meta VALUES('408','408',4,25.0,450.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('409','409',4,20.0,NULL,15,20);
+INSERT INTO meta VALUES('409','409',4,20.0,450.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('410','410',4,15.0,NULL,10,15);
+INSERT INTO meta VALUES('410','410',4,15.0,350.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('411','411',4,22.0,NULL,15,10);
+INSERT INTO meta VALUES('411','411',4,22.0,390.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('412','412',6,40.0,NULL,20,150);
+INSERT INTO meta VALUES('412','412',6,40.0,450.0,20,150);
 --> statement-breakpoint
-INSERT INTO meta VALUES('413','413',4,20.0,NULL,15,20);
+INSERT INTO meta VALUES('413','413',4,20.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('414','414',4,25.0,NULL,15,0);
+INSERT INTO meta VALUES('414','414',4,25.0,250.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('415','415',4,30.0,NULL,15,30);
+INSERT INTO meta VALUES('415','415',4,30.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('416','416',4,20.0,NULL,10,15);
+INSERT INTO meta VALUES('416','416',4,20.0,550.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('417','417',4,30.0,NULL,30,60);
+INSERT INTO meta VALUES('417','417',4,30.0,750.0,30,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('418','418',6,30.0,NULL,15,60);
+INSERT INTO meta VALUES('418','418',6,30.0,350.0,15,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('419','419',4,40.0,NULL,15,10);
+INSERT INTO meta VALUES('419','419',4,40.0,687.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('420','420',4,25.0,NULL,20,15);
+INSERT INTO meta VALUES('420','420',4,25.0,650.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('421','421',4,25.0,NULL,20,15);
+INSERT INTO meta VALUES('421','421',4,25.0,550.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('422','422',4,25.0,NULL,10,30);
+INSERT INTO meta VALUES('422','422',4,25.0,350.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('423','423',8,18.0,NULL,30,25);
+INSERT INTO meta VALUES('423','423',8,18.0,350.0,30,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('424','424',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('424','424',4,30.0,450.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('425','425',4,15.0,NULL,20,30);
+INSERT INTO meta VALUES('425','425',4,15.0,550.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('426','426',4,30.0,NULL,30,30);
+INSERT INTO meta VALUES('426','426',4,30.0,650.0,30,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('427','427',4,14.0,NULL,15,25);
+INSERT INTO meta VALUES('427','427',4,14.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('428','428',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('428','428',4,30.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('429','429',4,23.0,NULL,10,30);
+INSERT INTO meta VALUES('429','429',4,23.0,350.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('430','430',4,24.0,NULL,20,20);
+INSERT INTO meta VALUES('430','430',4,24.0,550.0,20,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('431','431',4,25.0,NULL,40,10);
+INSERT INTO meta VALUES('431','431',4,25.0,350.0,40,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('432','432',4,20.0,NULL,10,25);
+INSERT INTO meta VALUES('432','432',4,20.0,475.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('433','433',4,25.0,NULL,15,12);
+INSERT INTO meta VALUES('433','433',4,25.0,550.0,15,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('434','434',4,18.0,NULL,15,20);
+INSERT INTO meta VALUES('434','434',4,18.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('435','435',4,25.0,NULL,20,25);
+INSERT INTO meta VALUES('435','435',4,25.0,450.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('436','436',4,35.0,NULL,10,20);
+INSERT INTO meta VALUES('436','436',4,35.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('437','437',4,38.0,NULL,40,20);
+INSERT INTO meta VALUES('437','437',4,38.0,550.0,40,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('438','438',4,42.0,NULL,15,15);
+INSERT INTO meta VALUES('438','438',4,42.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('439','439',4,35.0,NULL,15,15);
+INSERT INTO meta VALUES('439','439',4,35.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('440','440',4,12.0,NULL,20,25);
+INSERT INTO meta VALUES('440','440',4,12.0,350.0,20,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('441','441',4,25.0,NULL,15,25);
+INSERT INTO meta VALUES('441','441',4,25.0,350.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('442','442',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('442','442',4,30.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('443','443',4,10.0,NULL,15,30);
+INSERT INTO meta VALUES('443','443',4,10.0,350.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('444','444',2,27.0,NULL,10,0);
+INSERT INTO meta VALUES('444','444',2,27.0,350.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('445','445',6,10.0,NULL,10,20);
+INSERT INTO meta VALUES('445','445',6,10.0,150.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('446','446',4,30.0,NULL,80,12);
+INSERT INTO meta VALUES('446','446',4,30.0,550.0,80,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('447','447',4,32.0,NULL,15,0);
+INSERT INTO meta VALUES('447','447',4,32.0,375.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('448','448',4,20.0,NULL,15,15);
+INSERT INTO meta VALUES('448','448',4,20.0,450.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('449','449',4,18.0,NULL,10,15);
+INSERT INTO meta VALUES('449','449',4,18.0,450.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('450','450',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('450','450',4,25.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('451','451',4,20.0,NULL,15,15);
+INSERT INTO meta VALUES('451','451',4,20.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('452','452',4,15.0,NULL,10,20);
+INSERT INTO meta VALUES('452','452',4,15.0,350.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('453','453',4,38.0,NULL,10,30);
+INSERT INTO meta VALUES('453','453',4,38.0,450.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('454','454',4,36.0,NULL,15,15);
+INSERT INTO meta VALUES('454','454',4,36.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('455','455',4,35.0,NULL,30,20);
+INSERT INTO meta VALUES('455','455',4,35.0,550.0,30,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('456','456',4,20.0,NULL,10,20);
+INSERT INTO meta VALUES('456','456',4,20.0,390.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('457','457',4,40.0,NULL,10,10);
+INSERT INTO meta VALUES('457','457',4,40.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('458','458',4,35.0,NULL,15,30);
+INSERT INTO meta VALUES('458','458',4,35.0,450.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('459','459',4,25.0,NULL,15,35);
+INSERT INTO meta VALUES('459','459',4,25.0,250.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('460','460',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('460','460',4,25.0,550.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('461','461',4,12.0,NULL,10,15);
+INSERT INTO meta VALUES('461','461',4,12.0,350.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('462','462',2,40.0,NULL,30,15);
+INSERT INTO meta VALUES('462','462',2,40.0,550.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('463','463',4,34.0,NULL,15,15);
+INSERT INTO meta VALUES('463','463',4,34.0,450.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('464','464',2,22.0,NULL,15,25);
+INSERT INTO meta VALUES('464','464',2,22.0,650.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('465','465',4,30.0,NULL,15,40);
+INSERT INTO meta VALUES('465','465',4,30.0,450.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('466','466',4,35.0,NULL,15,15);
+INSERT INTO meta VALUES('466','466',4,35.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('467','467',4,20.0,NULL,20,30);
+INSERT INTO meta VALUES('467','467',4,20.0,550.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('468','468',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('468','468',4,30.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('469','469',4,24.0,NULL,35,6);
+INSERT INTO meta VALUES('469','469',4,24.0,250.0,35,6);
 --> statement-breakpoint
-INSERT INTO meta VALUES('470','470',4,25.0,NULL,15,15);
+INSERT INTO meta VALUES('470','470',4,25.0,350.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('471','471',4,25.0,NULL,15,0);
+INSERT INTO meta VALUES('471','471',4,25.0,350.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('472','472',4,30.0,NULL,15,45);
+INSERT INTO meta VALUES('472','472',4,30.0,550.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('473','473',2,20.0,NULL,10,25);
+INSERT INTO meta VALUES('473','473',2,20.0,685.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('474','474',4,32.0,NULL,15,0);
+INSERT INTO meta VALUES('474','474',4,32.0,350.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('475','475',4,32.0,NULL,30,40);
+INSERT INTO meta VALUES('475','475',4,32.0,550.0,30,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('476','476',4,20.0,NULL,30,10);
+INSERT INTO meta VALUES('476','476',4,20.0,550.0,30,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('477','477',4,14.0,NULL,15,10);
+INSERT INTO meta VALUES('477','477',4,14.0,210.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('478','478',4,30.0,NULL,15,15);
+INSERT INTO meta VALUES('478','478',4,30.0,550.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('479','479',2,15.0,NULL,10,15);
+INSERT INTO meta VALUES('479','479',2,15.0,375.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('480','480',6,15.0,NULL,45,60);
+INSERT INTO meta VALUES('480','480',6,15.0,450.0,45,60);
 --> statement-breakpoint
-INSERT INTO meta VALUES('481','481',4,20.0,NULL,10,10);
+INSERT INTO meta VALUES('481','481',4,20.0,250.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('482','482',4,35.0,NULL,10,15);
+INSERT INTO meta VALUES('482','482',4,35.0,550.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('483','483',4,22.0,NULL,20,10);
+INSERT INTO meta VALUES('483','483',4,22.0,350.0,20,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('484','484',4,40.0,NULL,15,12);
+INSERT INTO meta VALUES('484','484',4,40.0,375.0,15,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('485','485',4,30.0,NULL,15,10);
+INSERT INTO meta VALUES('485','485',4,30.0,450.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('486','486',4,12.0,NULL,10,5);
+INSERT INTO meta VALUES('486','486',4,12.0,350.0,10,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('487','487',2,20.0,NULL,10,120);
+INSERT INTO meta VALUES('487','487',2,20.0,315.0,10,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('488','488',2,35.0,NULL,10,15);
+INSERT INTO meta VALUES('488','488',2,35.0,520.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('489','489',4,15.0,NULL,5,20);
+INSERT INTO meta VALUES('489','489',4,15.0,355.0,5,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('490','490',4,25.0,NULL,15,30);
+INSERT INTO meta VALUES('490','490',4,25.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('491','491',4,25.0,NULL,10,15);
+INSERT INTO meta VALUES('491','491',4,25.0,450.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('492','492',2,15.0,NULL,10,15);
+INSERT INTO meta VALUES('492','492',2,15.0,375.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('493','493',4,18.0,NULL,10,5);
+INSERT INTO meta VALUES('493','493',4,18.0,350.0,10,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('494','494',4,15.0,NULL,10,15);
+INSERT INTO meta VALUES('494','494',4,15.0,450.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('495','495',4,12.0,NULL,5,15);
+INSERT INTO meta VALUES('495','495',4,12.0,210.0,5,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('496','496',4,35.0,NULL,15,25);
+INSERT INTO meta VALUES('496','496',4,35.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('497','497',2,15.0,NULL,5,0);
+INSERT INTO meta VALUES('497','497',2,15.0,375.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('498','498',2,15.0,NULL,10,20);
+INSERT INTO meta VALUES('498','498',2,15.0,375.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('499','499',4,35.0,NULL,15,30);
+INSERT INTO meta VALUES('499','499',4,35.0,495.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('500','500',4,16.0,NULL,10,10);
+INSERT INTO meta VALUES('500','500',4,16.0,550.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('501','501',2,25.0,NULL,10,0);
+INSERT INTO meta VALUES('501','501',2,25.0,450.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('502','502',2,18.0,NULL,10,30);
+INSERT INTO meta VALUES('502','502',2,18.0,715.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('503','503',6,20.0,NULL,10,30);
+INSERT INTO meta VALUES('503','503',6,20.0,210.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('504','504',2,25.0,NULL,10,15);
+INSERT INTO meta VALUES('504','504',2,25.0,375.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('505','505',1,25.0,NULL,5,0);
+INSERT INTO meta VALUES('505','505',1,25.0,315.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('506','506',2,30.0,NULL,10,10);
+INSERT INTO meta VALUES('506','506',2,30.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('507','507',6,20.0,NULL,15,40);
+INSERT INTO meta VALUES('507','507',6,20.0,350.0,15,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('508','508',2,24.0,NULL,10,10);
+INSERT INTO meta VALUES('508','508',2,24.0,495.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('509','509',2,18.0,NULL,10,15);
+INSERT INTO meta VALUES('509','509',2,18.0,375.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('510','510',2,25.0,NULL,10,15);
+INSERT INTO meta VALUES('510','510',2,25.0,315.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('511','511',2,20.0,NULL,10,0);
+INSERT INTO meta VALUES('511','511',2,20.0,465.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('512','512',4,15.0,NULL,10,5);
+INSERT INTO meta VALUES('512','512',4,15.0,390.0,10,5);
 --> statement-breakpoint
-INSERT INTO meta VALUES('513','513',4,25.0,NULL,10,25);
+INSERT INTO meta VALUES('513','513',4,25.0,550.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('514','514',2,12.0,NULL,10,0);
+INSERT INTO meta VALUES('514','514',2,12.0,315.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('515','515',2,30.0,NULL,10,15);
+INSERT INTO meta VALUES('515','515',2,30.0,375.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('516','516',4,12.0,NULL,20,10);
+INSERT INTO meta VALUES('516','516',4,12.0,320.0,20,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('517','517',4,18.0,NULL,10,15);
+INSERT INTO meta VALUES('517','517',4,18.0,450.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('518','518',1,25.0,NULL,5,2);
+INSERT INTO meta VALUES('518','518',1,25.0,410.0,5,2);
 --> statement-breakpoint
-INSERT INTO meta VALUES('519','519',4,15.0,NULL,10,15);
+INSERT INTO meta VALUES('519','519',4,15.0,295.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('520','520',4,30.0,NULL,15,20);
+INSERT INTO meta VALUES('520','520',4,30.0,550.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('521','521',2,25.0,NULL,5,0);
+INSERT INTO meta VALUES('521','521',2,25.0,315.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('522','522',2,12.0,NULL,10,10);
+INSERT INTO meta VALUES('522','522',2,12.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('523','523',4,20.0,NULL,10,10);
+INSERT INTO meta VALUES('523','523',4,20.0,350.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('524','524',6,15.0,NULL,10,25);
+INSERT INTO meta VALUES('524','524',6,15.0,200.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('525','525',4,20.0,NULL,30,15);
+INSERT INTO meta VALUES('525','525',4,20.0,520.0,30,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('526','526',4,15.0,NULL,15,30);
+INSERT INTO meta VALUES('526','526',4,15.0,550.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('527','527',4,18.0,NULL,10,0);
+INSERT INTO meta VALUES('527','527',4,18.0,390.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('528','528',2,18.0,NULL,10,20);
+INSERT INTO meta VALUES('528','528',2,18.0,375.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('529','529',12,8.0,NULL,15,20);
+INSERT INTO meta VALUES('529','529',12,8.0,150.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('530','530',4,25.0,NULL,10,20);
+INSERT INTO meta VALUES('530','530',4,25.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('531','531',4,25.0,NULL,10,20);
+INSERT INTO meta VALUES('531','531',4,25.0,550.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('532','532',4,32.0,NULL,10,15);
+INSERT INTO meta VALUES('532','532',4,32.0,450.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('533','533',6,15.0,NULL,15,25);
+INSERT INTO meta VALUES('533','533',6,15.0,210.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('534','534',2,25.0,NULL,10,20);
+INSERT INTO meta VALUES('534','534',2,25.0,545.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('535','535',1,30.0,NULL,5,0);
+INSERT INTO meta VALUES('535','535',1,30.0,475.0,5,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('536','536',4,15.0,NULL,10,0);
+INSERT INTO meta VALUES('536','536',4,15.0,210.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('537','537',6,18.0,NULL,20,0);
+INSERT INTO meta VALUES('537','537',6,18.0,350.0,20,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('538','538',4,20.0,NULL,10,300);
+INSERT INTO meta VALUES('538','538',4,20.0,220.0,10,300);
 --> statement-breakpoint
-INSERT INTO meta VALUES('539','539',12,6.0,NULL,15,0);
+INSERT INTO meta VALUES('539','539',12,6.0,210.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('540','540',6,8.0,NULL,15,35);
+INSERT INTO meta VALUES('540','540',6,8.0,350.0,15,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('541','541',12,8.0,NULL,20,0);
+INSERT INTO meta VALUES('541','541',12,8.0,350.0,20,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('542','542',6,15.0,NULL,20,18);
+INSERT INTO meta VALUES('542','542',6,15.0,350.0,20,18);
 --> statement-breakpoint
-INSERT INTO meta VALUES('543','543',1,25.0,NULL,5,2);
+INSERT INTO meta VALUES('543','543',1,25.0,315.0,5,2);
 --> statement-breakpoint
-INSERT INTO meta VALUES('544','544',4,12.0,NULL,10,240);
+INSERT INTO meta VALUES('544','544',4,12.0,210.0,10,240);
 --> statement-breakpoint
-INSERT INTO meta VALUES('545','545',4,15.0,NULL,10,0);
+INSERT INTO meta VALUES('545','545',4,15.0,210.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('546','546',4,10.0,NULL,10,120);
+INSERT INTO meta VALUES('546','546',4,10.0,265.0,10,120);
 --> statement-breakpoint
-INSERT INTO meta VALUES('547','547',4,15.0,NULL,10,240);
+INSERT INTO meta VALUES('547','547',4,15.0,220.0,10,240);
 --> statement-breakpoint
-INSERT INTO meta VALUES('548','548',12,10.0,NULL,10,12);
+INSERT INTO meta VALUES('548','548',12,10.0,219.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('549','549',4,15.0,NULL,10,30);
+INSERT INTO meta VALUES('549','549',4,15.0,350.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('550','550',12,6.0,NULL,15,15);
+INSERT INTO meta VALUES('550','550',12,6.0,150.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('551','551',4,12.0,NULL,10,15);
+INSERT INTO meta VALUES('551','551',4,12.0,210.0,10,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('552','552',6,12.0,NULL,10,35);
+INSERT INTO meta VALUES('552','552',6,12.0,350.0,10,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('553','553',4,12.0,NULL,10,12);
+INSERT INTO meta VALUES('553','553',4,12.0,210.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('554','554',8,6.0,NULL,10,180);
+INSERT INTO meta VALUES('554','554',8,6.0,150.0,10,180);
 --> statement-breakpoint
-INSERT INTO meta VALUES('555','555',9,10.0,NULL,15,30);
+INSERT INTO meta VALUES('555','555',9,10.0,204.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('556','556',8,10.0,NULL,20,12);
+INSERT INTO meta VALUES('556','556',8,10.0,350.0,20,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('557','557',4,12.0,NULL,15,240);
+INSERT INTO meta VALUES('557','557',4,12.0,250.0,15,240);
 --> statement-breakpoint
-INSERT INTO meta VALUES('558','558',9,6.0,NULL,10,25);
+INSERT INTO meta VALUES('558','558',9,6.0,210.0,10,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('559','559',12,8.0,NULL,15,20);
+INSERT INTO meta VALUES('559','559',12,8.0,204.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('560','560',12,2.0,NULL,15,15);
+INSERT INTO meta VALUES('560','560',12,2.0,105.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('561','561',10,10.0,NULL,20,0);
+INSERT INTO meta VALUES('561','561',10,10.0,150.0,20,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('562','562',4,15.0,NULL,5,20);
+INSERT INTO meta VALUES('562','562',4,15.0,315.0,5,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('563','563',12,8.0,NULL,15,15);
+INSERT INTO meta VALUES('563','563',12,8.0,210.0,15,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('564','564',6,5.0,NULL,15,0);
+INSERT INTO meta VALUES('564','564',6,5.0,350.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('565','565',8,12.0,NULL,15,25);
+INSERT INTO meta VALUES('565','565',8,12.0,220.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('566','566',12,5.0,NULL,15,0);
+INSERT INTO meta VALUES('566','566',12,5.0,210.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('567','567',4,15.0,NULL,10,12);
+INSERT INTO meta VALUES('567','567',4,15.0,210.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('568','568',8,12.0,NULL,15,20);
+INSERT INTO meta VALUES('568','568',8,12.0,350.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('569','569',12,10.0,NULL,15,30);
+INSERT INTO meta VALUES('569','569',12,10.0,250.0,15,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('570','570',10,8.0,NULL,15,45);
+INSERT INTO meta VALUES('570','570',10,8.0,220.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('571','571',1,20.0,NULL,5,2);
+INSERT INTO meta VALUES('571','571',1,20.0,350.0,5,2);
 --> statement-breakpoint
-INSERT INTO meta VALUES('572','572',4,12.0,NULL,10,0);
+INSERT INTO meta VALUES('572','572',4,12.0,315.0,10,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('573','573',4,10.0,NULL,15,240);
+INSERT INTO meta VALUES('573','573',4,10.0,150.0,15,240);
 --> statement-breakpoint
-INSERT INTO meta VALUES('574','574',12,5.0,NULL,15,0);
+INSERT INTO meta VALUES('574','574',12,5.0,150.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('575','575',8,8.0,NULL,15,10);
+INSERT INTO meta VALUES('575','575',8,8.0,275.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('576','576',6,10.0,NULL,15,0);
+INSERT INTO meta VALUES('576','576',6,10.0,210.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('577','577',12,4.0,NULL,15,45);
+INSERT INTO meta VALUES('577','577',12,4.0,210.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('578','578',12,6.0,NULL,15,0);
+INSERT INTO meta VALUES('578','578',12,6.0,250.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('579','579',4,15.0,NULL,10,12);
+INSERT INTO meta VALUES('579','579',4,15.0,210.0,10,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('580','580',12,8.0,NULL,20,30);
+INSERT INTO meta VALUES('580','580',12,8.0,210.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('581','581',12,10.0,NULL,20,0);
+INSERT INTO meta VALUES('581','581',12,10.0,250.0,20,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('582','582',4,15.0,NULL,10,30);
+INSERT INTO meta VALUES('582','582',4,15.0,315.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('583','583',4,20.0,NULL,10,20);
+INSERT INTO meta VALUES('583','583',4,20.0,295.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('584','584',6,10.0,NULL,10,240);
+INSERT INTO meta VALUES('584','584',6,10.0,150.0,10,240);
 --> statement-breakpoint
-INSERT INTO meta VALUES('585','585',12,10.0,NULL,20,10);
+INSERT INTO meta VALUES('585','585',12,10.0,200.0,20,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('586','586',12,10.0,NULL,10,20);
+INSERT INTO meta VALUES('586','586',12,10.0,210.0,10,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('587','587',4,40.0,NULL,30,45);
+INSERT INTO meta VALUES('587','587',4,40.0,650.0,30,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('588','588',4,20.0,NULL,20,45);
+INSERT INTO meta VALUES('588','588',4,20.0,650.0,20,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('589','589',4,25.0,NULL,20,35);
+INSERT INTO meta VALUES('589','589',4,25.0,650.0,20,35);
 --> statement-breakpoint
-INSERT INTO meta VALUES('590','590',4,30.0,NULL,20,40);
+INSERT INTO meta VALUES('590','590',4,30.0,550.0,20,40);
 --> statement-breakpoint
-INSERT INTO meta VALUES('591','591',4,30.0,NULL,20,30);
+INSERT INTO meta VALUES('591','591',4,30.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('592','592',4,15.0,NULL,10,30);
+INSERT INTO meta VALUES('592','592',4,15.0,550.0,10,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('593','593',4,35.0,NULL,20,30);
+INSERT INTO meta VALUES('593','593',4,35.0,650.0,20,30);
 --> statement-breakpoint
-INSERT INTO meta VALUES('594','594',2,12.0,NULL,15,10);
+INSERT INTO meta VALUES('594','594',2,12.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('595','595',4,25.0,NULL,15,10);
+INSERT INTO meta VALUES('595','595',4,25.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('596','596',2,30.0,NULL,15,10);
+INSERT INTO meta VALUES('596','596',2,30.0,650.0,15,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('597','597',2,35.0,NULL,10,10);
+INSERT INTO meta VALUES('597','597',2,35.0,550.0,10,10);
 --> statement-breakpoint
-INSERT INTO meta VALUES('598','598',4,30.0,NULL,20,15);
+INSERT INTO meta VALUES('598','598',4,30.0,450.0,20,15);
 --> statement-breakpoint
-INSERT INTO meta VALUES('599','599',4,35.0,NULL,20,12);
+INSERT INTO meta VALUES('599','599',4,35.0,550.0,20,12);
 --> statement-breakpoint
-INSERT INTO meta VALUES('600','600',6,30.0,NULL,15,25);
+INSERT INTO meta VALUES('600','600',6,30.0,550.0,15,25);
 --> statement-breakpoint
-INSERT INTO meta VALUES('601','601',6,30.0,NULL,15,45);
+INSERT INTO meta VALUES('601','601',6,30.0,550.0,15,45);
 --> statement-breakpoint
-INSERT INTO meta VALUES('602','602',4,36.0,NULL,15,20);
+INSERT INTO meta VALUES('602','602',4,36.0,650.0,15,20);
 --> statement-breakpoint
-INSERT INTO meta VALUES('603','603',6,35.0,NULL,30,14);
+INSERT INTO meta VALUES('603','603',6,35.0,550.0,30,14);
 --> statement-breakpoint
-INSERT INTO meta VALUES('604','604',10,5.0,NULL,15,0);
+INSERT INTO meta VALUES('604','604',10,5.0,152.0,15,0);
 --> statement-breakpoint
-INSERT INTO meta VALUES('605','605',2,35.0,NULL,15,25);
+INSERT INTO meta VALUES('605','605',2,35.0,850.0,15,25);
 --> statement-breakpoint
 INSERT INTO recipes VALUES('1','easy microwave breakfast bowls','## Ingredients\n### Base\n- 1½ cups shredded potatoes (bagged or freshly grated)\n- 2 large whole eggs or equivalent egg substitute\n- ¼ cup cottage cheese\n### Vegetables\n- 2 tablespoons chopped onion\n- 2 tablespoons chopped green pepper\n### Seasoning\n- ¼ teaspoon black pepper\n- Pinch of salt\n### Optional\n- ¼ cup shredded cheese\n- Precooked lean meat (e.g., deli ham, rotisserie chicken)\n- Salsa\n- Hot sauce\n- Fresh herbs','## Instructions\n### Base Preparation\n1. In a microwave-safe bowl, add 1½ cups of shredded potatoes.\n   - If using thicker-cut potatoes, microwave for 2 minutes before proceeding.\n### Combining Ingredients\n2. Add 2 large whole eggs (or equivalent egg substitute), ¼ cup cottage cheese, chopped onion, chopped green pepper, black pepper, and salt to the bowl.\n3. Mix all ingredients thoroughly.\n### Cooking\n4. Microwave the mixture for 2-3 minutes, or until the eggs are fully cooked.\n   - Cooking time may vary depending on microwave power; monitor to prevent overcooking.\n### Optional Toppings\n5. After cooking, top with shredded cheese, precooked lean meat, salsa, hot sauce, or fresh herbs as desired.','assets/recipe-thumbnails/00abb195-2813-46c8-838a-a70946666da5.png',NULL,'created_on');
 --> statement-breakpoint

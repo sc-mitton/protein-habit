@@ -1,6 +1,6 @@
 import journal from './meta/_journal.json';
-import m0000 from './0000_magenta_thunderbolt.sql';
-import m0001 from './0001_seed_enums.sql';
+import m0000 from './0000_careless_kate_bishop.sql';
+import m0001 from './0001_seed_tag_tables.sql';
 import m0002 from './0002_db_dump.sql';
 import m0003 from './0003_fts_search.sql';
 

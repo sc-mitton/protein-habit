@@ -18,7 +18,7 @@ const openai = new OpenAI({
 });
 
 // Initialize database connection
-const parentDir = join(__dirname, "..");
+const parentDir = join(__dirname);
 const sqlite = new Database(join(parentDir, "assets/recipes.db"));
 const db = drizzle(sqlite);
 
