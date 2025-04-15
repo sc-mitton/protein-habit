@@ -1,8 +1,8 @@
 {
+  "id": "5d27a56d-1ca3-4a46-8a3f-dcf9c40b2a28",
+  "prevId": "bf46e100-95b4-4d2c-a086-cd93ad88a844",
   "version": "6",
   "dialect": "sqlite",
-  "id": "2c5687dd-2de6-40fe-968a-a150e1460b0d",
-  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "cuisines": {
       "name": "cuisines",
@@ -121,15 +121,15 @@
         "meta_recipe_id_recipes_id_fk": {
           "name": "meta_recipe_id_recipes_id_fk",
           "tableFrom": "meta",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -243,28 +243,28 @@
         "recipe_cuisine_association_recipe_id_recipes_id_fk": {
           "name": "recipe_cuisine_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_cuisine_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_cuisine_association_cuisine_cuisines_name_fk": {
           "name": "recipe_cuisine_association_cuisine_cuisines_name_fk",
           "tableFrom": "recipe_cuisine_association",
-          "tableTo": "cuisines",
           "columnsFrom": [
             "cuisine"
           ],
+          "tableTo": "cuisines",
           "columnsTo": [
             "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -294,28 +294,28 @@
         "recipe_dish_type_association_recipe_id_recipes_id_fk": {
           "name": "recipe_dish_type_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_dish_type_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_dish_type_association_dish_type_dish_types_name_fk": {
           "name": "recipe_dish_type_association_dish_type_dish_types_name_fk",
           "tableFrom": "recipe_dish_type_association",
-          "tableTo": "dish_types",
           "columnsFrom": [
             "dish_type"
           ],
+          "tableTo": "dish_types",
           "columnsTo": [
             "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -345,28 +345,28 @@
         "recipe_meal_type_association_recipe_id_recipes_id_fk": {
           "name": "recipe_meal_type_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_meal_type_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_meal_type_association_meal_type_meal_types_name_fk": {
           "name": "recipe_meal_type_association_meal_type_meal_types_name_fk",
           "tableFrom": "recipe_meal_type_association",
-          "tableTo": "meal_types",
           "columnsFrom": [
             "meal_type"
           ],
+          "tableTo": "meal_types",
           "columnsTo": [
             "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -396,28 +396,28 @@
         "recipe_protein_association_recipe_id_recipes_id_fk": {
           "name": "recipe_protein_association_recipe_id_recipes_id_fk",
           "tableFrom": "recipe_protein_association",
-          "tableTo": "recipes",
           "columnsFrom": [
             "recipe_id"
           ],
+          "tableTo": "recipes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "recipe_protein_association_protein_proteins_name_fk": {
           "name": "recipe_protein_association_protein_proteins_name_fk",
           "tableFrom": "recipe_protein_association",
-          "tableTo": "proteins",
           "columnsFrom": [
             "protein"
           ],
+          "tableTo": "proteins",
           "columnsTo": [
             "name"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -428,9 +428,9 @@
   "views": {},
   "enums": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   },
   "internal": {
     "indexes": {}

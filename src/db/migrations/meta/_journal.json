@@ -5,29 +5,36 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1744736289854,
-      "tag": "0000_careless_kate_bishop",
+      "when": 1744749602971,
+      "tag": "0000_last_darkhawk",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "6",
-      "when": 1744736292278,
-      "tag": "0001_seed_tag_tables",
+      "when": 1744749619464,
+      "tag": "0001_add_recipe_table_triggers",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "6",
-      "when": 1744736303788,
-      "tag": "0002_db_dump",
+      "when": 1744749709944,
+      "tag": "0002_seed_tag_tables",
       "breakpoints": true
     },
     {
       "idx": 3,
       "version": "6",
-      "when": 1744736311382,
-      "tag": "0003_fts_search",
+      "when": 1744749733769,
+      "tag": "0003_db_dump",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1744749908497,
+      "tag": "0004_fts_search",
       "breakpoints": true
     }
   ]

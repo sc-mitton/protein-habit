@@ -12,7 +12,8 @@ export const recipesTable = sqliteTable("recipes", {
   ingredients: text("ingredients", { mode: "text" }).notNull(),
   instructions: text("instructions", { mode: "text" }).notNull(),
   thumbnail: text("thumbnail").notNull(),
-  lastSeen: text("last_seen"),
+  seen: integer("seen"),
+  order: integer("order"),
   createdOn: text("created_on").default(sql`CURRENT_TIMESTAMP`),
 });
 

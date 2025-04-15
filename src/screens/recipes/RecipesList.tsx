@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import dayjs from "dayjs";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -10,7 +9,6 @@ import {
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { MasonryFlashList } from "@shopify/flash-list";
-import { inArray } from "drizzle-orm";
 
 import { RecipesScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
@@ -21,8 +19,8 @@ import { ProgressiveBlur } from "@components";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
-import { recipesTable } from "@db/schema/schema";
-import { useDrizzleDb } from "@db";
+import { seeRecipe, useDrizzleDb } from "@db";
+import { Recipe } from "@db/schema/types";
 
 type Props = RecipesScreenProps<"List">;
 
@@ -44,7 +42,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
     filters: { searchQuery, tags: selectedFilters },
     pageSize: 20,
   });
-  const { db } = useDrizzleDb();
+  const db = useDrizzleDb();
   // Track timeouts for each recipe
   const viewTimeouts = useRef<Record<string, NodeJS.Timeout>>({});
 
@@ -78,16 +76,12 @@ const ExploreScreen: React.FC<Props> = (props) => {
     isScrolling.current = false;
   };
 
-  const handleUpdateLastSeen = async (recipeIds: string[]) => {
+  const handleUpdateLastSeen = async (recipes: Recipe[]) => {
     // Mark recipes as seen when they've been in view for more than 1 second
-    if (recipeIds.length === 0) return;
+    if (recipes.length === 0) return;
 
     try {
-      const query = db
-        .update(recipesTable)
-        .set({ lastSeen: dayjs().toISOString() })
-        .where(inArray(recipesTable.id, recipeIds));
-      await query;
+      await seeRecipe(db, recipes);
     } catch (err) {
       console.error("Error updating lastSeen:", err);
     }
@@ -139,7 +133,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
         <RecipeCard recipe={item === null ? undefined : item} index={index} />
       )}
       onViewableItemsChanged={({ viewableItems }) => {
-        handleUpdateLastSeen(viewableItems.map((item) => item.item.id));
+        handleUpdateLastSeen(viewableItems.map((item) => item.item));
       }}
       viewabilityConfig={{
         itemVisiblePercentThreshold: 100,

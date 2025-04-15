@@ -32,7 +32,8 @@ CREATE TABLE `recipes` (
 	`ingredients` text NOT NULL,
 	`instructions` text NOT NULL,
 	`thumbnail` text NOT NULL,
-	`last_seen` text,
+	`seen` integer,
+	`order` integer,
 	`created_on` text DEFAULT CURRENT_TIMESTAMP
 );
 --> statement-breakpoint

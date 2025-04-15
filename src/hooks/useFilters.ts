@@ -10,7 +10,7 @@ import {
 } from "@db/schema/schema";
 
 export const useFilterOptions = () => {
-  const { db } = useDrizzleDb();
+  const db = useDrizzleDb();
   const [results, setResults] = useState<{ name: string }[]>([]);
 
   const fetchOptions = async () => {

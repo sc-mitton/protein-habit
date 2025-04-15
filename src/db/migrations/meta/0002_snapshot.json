@@ -1,6 +1,6 @@
 {
-  "id": "f6f074fd-ec1c-4e00-8942-1b54ab25edf8",
-  "prevId": "dfc2c07b-68b1-4e7b-981b-48102581f6bc",
+  "id": "36f2cd5f-0981-4753-a64f-28618d6c9c99",
+  "prevId": "a320a832-079b-4324-8fb0-855f58db289b",
   "version": "6",
   "dialect": "sqlite",
   "tables": {
@@ -191,9 +191,16 @@
           "notNull": true,
           "autoincrement": false
         },
-        "last_seen": {
-          "name": "last_seen",
-          "type": "text",
+        "seen": {
+          "name": "seen",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

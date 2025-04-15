@@ -11,5 +11,7 @@ export function useDrizzleDb() {
   const db = useSQLiteContext();
   const drizzleDb = drizzle(db, { schema });
 
-  return { db: drizzleDb };
+  return drizzleDb;
 }
+
+export * from "./dml";

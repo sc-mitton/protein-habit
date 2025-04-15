@@ -88,7 +88,7 @@ const TagsTabButtons = (props: Props) => {
   return (
     <Box
       style={styles.tabs}
-      borderBottomWidth={1}
+      borderBottomWidth={1.5}
       borderColor="borderColor"
       marginBottom="s"
     >

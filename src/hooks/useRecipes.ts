@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { sql, eq, and, desc, gt, inArray, or } from "drizzle-orm";
+import { sql, eq, and, desc, gt, inArray, or, asc } from "drizzle-orm";
 
 import {
   recipesTable,
@@ -21,7 +21,7 @@ interface UseRecipesOptions {
 }
 
 export const useRecipes = (options: UseRecipesOptions = {}) => {
-  const { db } = useDrizzleDb();
+  const db = useDrizzleDb();
   const cursorId = useRef<string | null>(null);
   const endOfResults = useRef(false);
   const pageSize = options.pageSize || 10;
@@ -71,13 +71,17 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
     const filtersConditions: any[] = [];
 
     // For each tag type, if there are conditions, add them as a group
-    Object.entries(tagConditions).forEach(([tagType, conditions]) => {
-      if (conditions.length > 0) {
-        // If there are multiple conditions for the same tag type, use OR
-        // For example, if we want recipes with either "Italian" OR "Mexican" cuisine
-        filtersConditions.push(or(...conditions));
-      }
-    });
+    if (searchIds.length > 0) {
+      filtersConditions.push(inArray(recipesTable.id, searchIds));
+    } else {
+      Object.entries(tagConditions).forEach(([tagType, conditions]) => {
+        if (conditions.length > 0) {
+          // If there are multiple conditions for the same tag type, use OR
+          // For example, if we want recipes with either "Italian" OR "Mexican" cuisine
+          filtersConditions.push(or(...conditions));
+        }
+      });
+    }
 
     // Add cursor condition if needed
     if (cursorId.current) {
@@ -107,15 +111,9 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
         eq(recipesTable.id, recipesToDishTypes.recipeId),
       )
       .leftJoin(metaTable, eq(recipesTable.id, metaTable.recipeId))
-      .where(
-        searchIds.length > 0
-          ? inArray(recipesTable.id, searchIds)
-          : filtersConditions.length > 0
-            ? and(...filtersConditions)
-            : undefined,
-      )
-      .orderBy(desc(recipesTable.lastSeen))
+      .where(and(...filtersConditions))
       .groupBy(recipesTable.id)
+      .orderBy(asc(recipesTable.seen), asc(recipesTable.order))
       .limit(pageSize);
 
     const mappedResults = results.map((result) => ({

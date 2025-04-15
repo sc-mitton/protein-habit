@@ -26,7 +26,7 @@ type UseSelectRecipeResult<T extends RecipeIds> = T extends RecipeId
 export function useSelectRecipe<T extends RecipeIds>(
   id: T,
 ): UseSelectRecipeResult<T> {
-  const { db } = useDrizzleDb();
+  const db = useDrizzleDb();
 
   const [recipes, setRecipes] = useState<RecipeWithAssociations[]>([]);
   const [recipe, setRecipe] = useState<RecipeWithAssociations | null>(null);
