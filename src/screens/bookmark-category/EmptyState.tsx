@@ -81,7 +81,7 @@ const EmptyState = () => {
       >
         <Text
           variant="body"
-          color="quaternaryText"
+          color="tertiaryText"
           textAlign="center"
           fontSize={15}
         >

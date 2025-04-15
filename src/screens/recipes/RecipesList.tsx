@@ -45,10 +45,16 @@ const ExploreScreen: React.FC<Props> = (props) => {
     pageSize: 20,
   });
   const { db } = useDrizzleDb();
+  // Track timeouts for each recipe
+  const viewTimeouts = useRef<Record<string, NodeJS.Timeout>>({});
 
   useEffect(() => {
     return () => {
       dispatch(showBottomBar(true));
+      // Clear all timeouts when component unmounts
+      Object.values(viewTimeouts.current).forEach((timeout) =>
+        clearTimeout(timeout),
+      );
     };
   }, []);
 
@@ -73,7 +79,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
   };
 
   const handleUpdateLastSeen = async (recipeIds: string[]) => {
-    // Mark recipes as seen when they leave the view
+    // Mark recipes as seen when they've been in view for more than 1 second
     if (recipeIds.length === 0) return;
 
     try {
@@ -132,13 +138,12 @@ const ExploreScreen: React.FC<Props> = (props) => {
       renderItem={({ item, index }) => (
         <RecipeCard recipe={item === null ? undefined : item} index={index} />
       )}
-      onViewableItemsChanged={({ changed }) => {
-        handleUpdateLastSeen(
-          changed
-            .filter((c) => c.item !== null)
-            .filter((c) => !c.isViewable)
-            .map((c) => c.item.id),
-        );
+      onViewableItemsChanged={({ viewableItems }) => {
+        handleUpdateLastSeen(viewableItems.map((item) => item.item.id));
+      }}
+      viewabilityConfig={{
+        itemVisiblePercentThreshold: 100,
+        minimumViewTime: 1500,
       }}
       onEndReached={() => {
         fetchMore();

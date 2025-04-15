@@ -202,21 +202,11 @@ const RootTabs = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
-            <SymbolView
-              name="house.fill"
-              tintColor={
+            <Ionicons
+              name="home"
+              size={Platform.OS === "ios" ? 22 : 20}
+              color={
                 focused ? theme.colors.primaryText : theme.colors.tertiaryText
-              }
-              fallback={
-                <Ionicons
-                  name="home"
-                  size={20}
-                  color={
-                    focused
-                      ? theme.colors.primaryText
-                      : theme.colors.tertiaryText
-                  }
-                />
               }
             />
           ),
