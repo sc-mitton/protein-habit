@@ -77,6 +77,7 @@ const RecipeCard = (props: Props) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showPlaceholderBox, setShowPlaceholderBox] = useState(false);
   const bookmarkAnimationRef = useRef<BookmarkButtonRef>(null);
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     if (isBookmarked) {
@@ -85,6 +86,17 @@ const RecipeCard = (props: Props) => {
       bookmarkAnimationRef.current?.playBackward();
     }
   }, [isBookmarked]);
+
+  useEffect(() => {
+    navigation.addListener("focus", (state) => setFocused(true));
+    navigation.addListener("blur", (state) => setFocused(false));
+  }, [props.recipe]);
+
+  useEffect(() => {
+    if (focused && !isBookmarked) {
+      bookmarkAnimationRef.current?.playBackward();
+    }
+  }, [focused, isBookmarked]);
 
   const handleBookmark = () => {
     if (isBookmarked && props.recipe) {
