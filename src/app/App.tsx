@@ -60,7 +60,7 @@ SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
   const dispatch = useAppDispatch();
-  // useAppIntegrity();
+  useAppIntegrity();
   useAndroidNavBarBackground();
   const colorScheme = useColorScheme();
   const navigationTheme = useNavigationTheme();

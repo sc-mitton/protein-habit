@@ -46,6 +46,7 @@ env/
 api/.env*
 __pycache__/
 .pytest_cache/
+api/db/Database.db
 
 # misc
 .envrc
