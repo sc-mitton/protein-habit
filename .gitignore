@@ -45,6 +45,7 @@ yarn-error.*
 env/
 api/.env*
 __pycache__/
+.pytest_cache/
 
 # misc
 .envrc
