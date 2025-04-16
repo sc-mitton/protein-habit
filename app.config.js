@@ -2,14 +2,14 @@ const getBundleId = () => {
   if (process.env.APP_VARIANT === "production") {
     return "com.northof60labs.proteincount";
   }
-  return "com.northof60labs.proteincount.dev";
+  return `com.northof60labs.proteincount.${process.env.APP_ENV}`;
 };
 
 const getAppName = () => {
   if (process.env.APP_VARIANT === "production") {
     return "Protein Count";
   }
-  return "Protein Count Dev";
+  return `Protein Count ${process.env.APP_ENV}`;
 };
 
 const bundleId = getBundleId();

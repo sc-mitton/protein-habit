@@ -23,12 +23,14 @@
         "APP_VARIANT": "development"
       }
     },
-    "development": {
+    "development:preview": {
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_VARIANT": "development"
-      }
+        "APP_VARIANT": "preview",
+        "APP_ENV": "preview"
+      },
+      "environment": "preview"
     },
     "preview": {
       "distribution": "internal",
