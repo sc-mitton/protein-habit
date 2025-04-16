@@ -1,4 +1,3 @@
-import os
 import base64
 import cbor2
 from datetime import datetime, timezone
@@ -19,8 +18,6 @@ from security.permissions import assertion_pass, test_only
 
 router = APIRouter()
 SECRET_KEY = get_secret("SECRET_KEY")
-
-ENV = os.getenv("ENVIRONMENT", "development")
 
 
 class AttestRequest(BaseModel):
@@ -84,7 +81,6 @@ async def attest(
             key_id=request.keyId,
             app_id=IOS_APP_ID,
             bundle_id=IOS_BUNDLE_ID,
-            environment=ENV
         )
 
         if not is_valid:

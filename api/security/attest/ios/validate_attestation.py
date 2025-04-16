@@ -18,6 +18,7 @@ def _sha256(data: bytes) -> bytes:
     return h.finalize()
 
 
+ENV = os.getenv("INTEGRITY_ENVIRONMENT", "development")
 OID_APPLE = x509.ObjectIdentifier("1.2.840.113635.100.8.2")
 
 PROD_AAGUID = 'appattest'
@@ -137,7 +138,7 @@ def _validate_counter(parsed_data: dict) -> bool:
     return True
 
 
-def _validate_environment(parsed_data: dict, environment: str) -> bool:
+def _validate_environment(parsed_data: dict) -> bool:
     """Step 6: Verify environment
     - Check aaguid field in authData:
       - aaguid should be:
@@ -148,7 +149,7 @@ def _validate_environment(parsed_data: dict, environment: str) -> bool:
     aaguid = parsed_data['authData'][37:53]
     aaguid_hex = aaguid.hex()
 
-    if environment == "DEV":
+    if ENV == "DEV":
         expected_aaguid = DEV_AAGUID_HEX
     else:
         expected_aaguid = PROD_AAGUID_HEX
