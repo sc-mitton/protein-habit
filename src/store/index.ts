@@ -91,7 +91,7 @@ export const store = configureStore({
     }).concat(apiSlice.middleware),
   devTools: false,
   enhancers: (getDefaultEnhancers) =>
-    getDefaultEnhancers.concat(devToolsEnhancer()),
+    getDefaultEnhancers().concat(devToolsEnhancer()),
 });
 
 export const persistor = persistStore(store);

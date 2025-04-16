@@ -26,8 +26,8 @@ import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
-const HEIGHT = Platform.OS === "ios" ? 100 : 80;
-const BOTTOM_POS = Platform.OS === "ios" ? 50 : 40;
+const HEIGHT = Platform.OS === "ios" ? 140 : 120;
+const BOTTOM_POS = Platform.OS === "ios" ? 70 : 60;
 
 const styles = StyleSheet.create({
   tabBar: {
