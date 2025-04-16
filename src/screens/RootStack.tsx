@@ -99,8 +99,7 @@ const RootStack = () => {
         screenOptions={{
           presentation: "transparentModal",
           headerShown: false,
-          animation:
-            Platform.OS === "ios" ? "fade_from_bottom" : "slide_from_bottom",
+          animation: Platform.OS === "ios" ? "fade" : "slide_from_bottom",
           statusBarBackgroundColor: theme.colors.modalAndroidStatusBackground,
         }}
       >

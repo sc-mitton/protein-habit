@@ -8,14 +8,13 @@ import Animated, {
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
 import { BackDrop, Box, Button, Text } from "@components";
-import theme, { Theme } from "@theme";
+import { Theme } from "@theme";
 import { useTheme } from "@shopify/restyle";
 import { RootScreenProps } from "@types";
 import List from "./List";
 import New from "./New";
 
 const BookmarkModal = (props: RootScreenProps<"BookmarkModal">) => {
-  const theme = useTheme<Theme>();
   const [firstRender, setFirstRender] = useState(true);
   const [createNew, setCreateNew] = useState(props.route.params.recipe === "");
 
