@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 import { useSQLiteContext } from "expo-sqlite";
 import { drizzle } from "drizzle-orm/expo-sqlite";
-import * as schema from "@db/schema";
+import * as schema from "./schema";
 
 // Open the database
 export const dbName = "recipes.db";
