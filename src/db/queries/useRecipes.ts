@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { sql, eq, and, desc, gt, inArray, or, asc } from "drizzle-orm";
+import { sql, eq, and, desc, gt, inArray, or, asc, SQL } from "drizzle-orm";
+import { ExpoSQLiteDatabase } from "drizzle-orm/expo-sqlite";
 
 import {
   recipesTable,
@@ -10,14 +11,61 @@ import {
   metaTable,
 } from "@db/schema/schema";
 import { useDrizzleDb } from "@db";
-import type { RecipeFts, RecipeWithMeta } from "@db/schema/types";
-
+import type { RecipeWithMeta } from "@db/schema/types";
+import * as schema from "@db/schema/schema";
 interface UseRecipesOptions {
   pageSize?: number;
   filters?: {
     searchQuery?: string;
     tags?: { [key: string]: string };
   };
+}
+
+function sanitizeFTSQuery(query: string) {
+  return query
+    .replace(/["']/g, "") // remove quotes
+    .replace(/[^a-zA-Z0-9_\s]/g, "") // remove special characters
+    .trim()
+    .toLowerCase();
+}
+
+async function getSearchIds(
+  db: ExpoSQLiteDatabase<typeof schema>,
+  queryString: string,
+  limit = 10,
+) {
+  try {
+    const results = (await db.all(
+      sql`SELECT id FROM recipes_fts WHERE title MATCH ${queryString} LIMIT ${limit};`,
+    )) as { id: string }[];
+
+    return [
+      inArray(
+        recipesTable.id,
+        results.map((result) => result.id),
+      ),
+    ];
+  } catch (error) {
+    console.error("error: ", error);
+    return [];
+  }
+}
+
+function getTagConditions(filters: UseRecipesOptions["filters"]) {
+  return Object.entries(filters?.tags || {}).map(([key, value]) => {
+    switch (key) {
+      case "cuisine":
+        return eq(recipesToCuisines.cuisine, value);
+      case "meal":
+        return eq(recipesToMealTypes.mealType, value);
+      case "protein":
+        return eq(recipesToProteins.protein, value);
+      case "dish":
+        return eq(recipesToDishTypes.dishType, value);
+      default:
+        return sql`1=1`;
+    }
+  });
 }
 
 export const useRecipes = (options: UseRecipesOptions = {}) => {
@@ -27,66 +75,18 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
   const pageSize = options.pageSize || 10;
   const [recipes, setRecipes] = useState<RecipeWithMeta[]>([]);
   const [filters, setFilters] = useState(options.filters);
+  const [searchQuery, setSearchQuery] = useState(options.filters?.searchQuery);
 
   const query = async () => {
-    let searchIds: string[] = [];
-    if (filters?.searchQuery) {
-      const results = (await db.get(sql`
-        SELECT id FROM recipes_fts
-        WHERE recipes_fts MATCH '${filters.searchQuery}'
-        limit ${10}
-      `)) as RecipeFts[];
-      searchIds = results.map((result) => result.id);
-    }
+    const whereConditions = filters?.searchQuery
+      ? await getSearchIds(db, filters.searchQuery)
+      : getTagConditions(filters);
 
-    // Create a map to store conditions for each tag type
-    const tagConditions: Record<string, any[]> = {
-      cuisine: [],
-      mealType: [],
-      protein: [],
-      dishType: [],
-    };
-
-    // Group conditions by tag type
-    if (options.filters?.tags) {
-      Object.entries(options.filters.tags).forEach(([key, value]) => {
-        switch (key) {
-          case "cuisine":
-            tagConditions.cuisine.push(eq(recipesToCuisines.cuisine, value));
-            break;
-          case "meal":
-            tagConditions.mealType.push(eq(recipesToMealTypes.mealType, value));
-            break;
-          case "protein":
-            tagConditions.protein.push(eq(recipesToProteins.protein, value));
-            break;
-          case "dish":
-            tagConditions.dishType.push(eq(recipesToDishTypes.dishType, value));
-            break;
-        }
-      });
-    }
-
-    // Combine conditions for each tag type
-    const filtersConditions: any[] = [];
-
-    // For each tag type, if there are conditions, add them as a group
-    if (searchIds.length > 0) {
-      filtersConditions.push(inArray(recipesTable.id, searchIds));
-    } else {
-      Object.entries(tagConditions).forEach(([tagType, conditions]) => {
-        if (conditions.length > 0) {
-          // If there are multiple conditions for the same tag type, use OR
-          // For example, if we want recipes with either "Italian" OR "Mexican" cuisine
-          filtersConditions.push(or(...conditions));
-        }
-      });
-    }
-
-    // Add cursor condition if needed
     if (cursorId.current) {
-      filtersConditions.push(gt(recipesTable.id, cursorId.current));
+      whereConditions.push(gt(recipesTable.id, cursorId.current));
     }
+
+    console.log("whereConditions: ", whereConditions);
 
     const results = await db
       .select({
@@ -111,7 +111,7 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
         eq(recipesTable.id, recipesToDishTypes.recipeId),
       )
       .leftJoin(metaTable, eq(recipesTable.id, metaTable.recipeId))
-      .where(and(...filtersConditions))
+      .where(and(...whereConditions))
       .groupBy(recipesTable.id)
       .orderBy(asc(recipesTable.seen), asc(recipesTable.order))
       .limit(pageSize);
@@ -149,7 +149,7 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
 
   useEffect(() => {
     fetch();
-  }, [filters]);
+  }, [filters, searchQuery]);
 
   useEffect(() => {
     // Deep compare options.filters and filters
@@ -160,7 +160,16 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
       endOfResults.current = false;
       setRecipes([]);
     }
-  }, [options.filters]);
+  }, [options.filters?.tags]);
+
+  useEffect(() => {
+    if (options.filters?.searchQuery !== searchQuery) {
+      setSearchQuery(options.filters?.searchQuery);
+      cursorId.current = null;
+      endOfResults.current = false;
+      setRecipes([]);
+    }
+  }, [options.filters?.searchQuery]);
 
   return { fetchMore: fetch, refetch: refetch, recipes };
 };

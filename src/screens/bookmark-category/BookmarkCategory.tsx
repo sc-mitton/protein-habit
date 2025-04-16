@@ -13,7 +13,7 @@ import { BlurView } from "expo-blur";
 
 import { Box, Text } from "@components";
 import { RootScreenProps } from "@types";
-import { useSelectRecipe } from "@hooks";
+import { useSelectRecipe } from "@db";
 import { capitalize } from "@utils";
 import { Theme } from "@theme";
 import ImagePickerMenu from "./ImagePickerMenu";

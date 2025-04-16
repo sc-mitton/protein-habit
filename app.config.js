@@ -84,6 +84,12 @@ export default {
     runtimeVersion: "1.0.0",
     plugins: [
       ["expo-iap"],
+      [
+        "expo-sqlite",
+        {
+          enableFTS: true,
+        },
+      ],
       ["./plugins/withNoIpadSupport.js"],
       ["./plugins/withAsyncStorageBackup.js"],
       ["./plugins/withAndroidBackup.js"],

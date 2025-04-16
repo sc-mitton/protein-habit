@@ -31,9 +31,9 @@ import {
 } from "@components";
 import { Theme } from "@theme";
 import { capitalize } from "@utils";
-import { useSelectRecipe } from "@hooks";
 import HeaderRight from "./HeaderRight";
 import CoverImage, { IMAGE_HEIGHT } from "./CoverImage";
+import { useSelectRecipe } from "@db";
 
 const styles = StyleSheet.create({
   scrollView: {

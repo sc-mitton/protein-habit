@@ -14,4 +14,4 @@ export function useDrizzleDb() {
   return drizzleDb;
 }
 
-export * from "./dml";
+export * from "./queries";

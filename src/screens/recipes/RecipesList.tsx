@@ -12,13 +12,12 @@ import { MasonryFlashList } from "@shopify/flash-list";
 
 import { RecipesScreenProps } from "@types";
 import { useAppDispatch } from "@store/hooks";
-import { useRecipes } from "@hooks";
 import { showBottomBar } from "@store/slices/uiSlice";
 import Filters from "./Filters";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
-import { seeRecipe, useDrizzleDb } from "@db";
+import { seeRecipe, useDrizzleDb, useRecipes } from "@db";
 import { Recipe } from "@db/schema/types";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -57,6 +56,10 @@ const ExploreScreen: React.FC<Props> = (props) => {
   }, []);
 
   useEffect(() => {
+    setShowFiltersHeader(true);
+  }, []);
+
+  useEffect(() => {
     if (showFiltersHeader) {
       props.navigation.setOptions({
         headerTitle: () => <TitleVariant />,
@@ -76,7 +79,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
     isScrolling.current = false;
   };
 
-  const handleUpdateLastSeen = async (recipes: Recipe[]) => {
+  const handleSeen = async (recipes: Recipe[]) => {
     // Mark recipes as seen when they've been in view for more than 1 second
     if (recipes.length === 0) return;
 
@@ -132,12 +135,19 @@ const ExploreScreen: React.FC<Props> = (props) => {
       renderItem={({ item, index }) => (
         <RecipeCard recipe={item === null ? undefined : item} index={index} />
       )}
-      onViewableItemsChanged={({ viewableItems }) => {
-        handleUpdateLastSeen(viewableItems.map((item) => item.item));
+      onViewableItemsChanged={({ changed, viewableItems }) => {
+        // Get items that are no longer visible (isViewable is false)
+        const itemsNoLongerVisible = changed
+          .filter((item) => !item.isViewable)
+          .map((item) => item.item)
+          .filter((item): item is Recipe => item !== null);
+
+        if (itemsNoLongerVisible.length > 0) {
+          handleSeen(itemsNoLongerVisible);
+        }
       }}
       viewabilityConfig={{
-        itemVisiblePercentThreshold: 100,
-        minimumViewTime: 1500,
+        minimumViewTime: 2000,
       }}
       onEndReached={() => {
         fetchMore();

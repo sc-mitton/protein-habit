@@ -1,5 +1,5 @@
 import { Box } from "./base";
-import { useSelectRecipe } from "@hooks";
+import { useSelectRecipe } from "@db";
 import { useSelector } from "react-redux";
 import { RootState } from "@store";
 import { useTheme } from "@shopify/restyle";

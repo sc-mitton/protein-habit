@@ -7,7 +7,8 @@ const fallback =
 export class RecipeThumbnail extends Component<ImageProps> {
   render() {
     const { source, ...props } = this.props;
-    const uri = source?.uri;
+    // const uri = source?.uri || fallback;
+    const uri = fallback;
     return <Image source={{ uri }} {...props} />;
   }
 }
