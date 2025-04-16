@@ -159,7 +159,14 @@ export const Tick = ({
   });
 
   return (
-    <View style={[{ width, height: tickHeight }]}>
+    <View
+      style={[
+        {
+          width,
+          height: tickHeight,
+        },
+      ]}
+    >
       <Animated.View
         style={[styles.tickLabelContainer, labelContainerAnimation]}
       >

@@ -43,6 +43,9 @@ export default {
       infoPlist: {
         CFBundleDisplayName: appName,
       },
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
       icon: {
         light: "./assets/icon.png",
         dark: "./assets/icon-dark.png",

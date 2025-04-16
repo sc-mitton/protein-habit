@@ -4,7 +4,7 @@ import type { AppIntegrityError } from "app-integrity";
 import {
   useChallengeMutation,
   useAttestMutation,
-} from "@store/slices/mobileAttestSlice";
+} from "@store/slices/appIntegritySlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const useAppIntegrity = () => {

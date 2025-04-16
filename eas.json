@@ -10,24 +10,16 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "APP_VARIANT": "production"
+        "EXPO_PUBLIC_API_URL": "EXPO_PUBLIC_API_URL",
+        "APP_ENV": "production"
       },
       "channel": "production"
-    },
-    "development:simulator": {
-      "developmentClient": true,
-      "ios": {
-        "simulator": true
-      },
-      "env": {
-        "APP_VARIANT": "development"
-      }
     },
     "development:preview": {
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_VARIANT": "preview",
+        "EXPO_PUBLIC_API_URL": "EXPO_PUBLIC_API_URL",
         "APP_ENV": "preview"
       },
       "environment": "preview"
@@ -36,10 +28,11 @@
       "distribution": "internal",
       "autoIncrement": true,
       "android": {
-        "buildType": "apk"
+        "buildType": "app-bundle"
       },
       "env": {
-        "APP_VARIANT": "preview"
+        "EXPO_PUBLIC_API_URL": "EXPO_PUBLIC_API_URL",
+        "APP_ENV": "preview"
       },
       "channel": "preview"
     }

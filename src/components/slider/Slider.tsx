@@ -1,9 +1,10 @@
 import * as Haptics from "expo-haptics";
 
 import { useState, useMemo, memo } from "react";
-import { View, FlatList, TextStyle } from "react-native";
+import { View, FlatList, TextStyle, StyleSheet } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { Tick } from "./Tick";
+import { number } from "zod";
 
 interface SliderProps {
   defaultValue: number;
@@ -29,7 +30,7 @@ export const Slider = (props: SliderProps) => {
     fontStyle = { fontSize: 18, color: "black" },
   } = props;
 
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [itemWidth, setItemWidth] = useState(0);
   const scrollProgress = useSharedValue(0);
 
   const data = useMemo(() => {
@@ -47,39 +48,34 @@ export const Slider = (props: SliderProps) => {
   return (
     <View
       onLayout={(event) => {
-        setContainerWidth(event.nativeEvent.layout.width);
+        setItemWidth(
+          Math.round(event.nativeEvent.layout.width / numberOfVisibleTicks),
+        );
       }}
     >
-      {containerWidth !== 0 && (
+      {itemWidth !== 0 && (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
+          style={{ width: itemWidth * numberOfVisibleTicks }}
           getItemLayout={(data, index) => ({
-            length: containerWidth / numberOfVisibleTicks,
-            offset:
-              (containerWidth / numberOfVisibleTicks) * index +
-              (containerWidth / 2 -
-                (containerWidth / numberOfVisibleTicks) * 0.5),
+            length: itemWidth,
             index,
+            offset: itemWidth * index,
           })}
-          initialScrollIndex={
-            (defaultValue - min) / step - Math.floor(numberOfVisibleTicks / 2)
-          }
+          initialScrollIndex={(defaultValue - min) / step}
           contentContainerStyle={[
             {
               paddingLeft:
-                containerWidth / 2 -
-                (containerWidth / numberOfVisibleTicks) * 0.5,
+                (itemWidth * numberOfVisibleTicks) / 2 - itemWidth * 0.5,
               paddingRight:
-                containerWidth / 2 -
-                (containerWidth / numberOfVisibleTicks) * 0.5,
+                (itemWidth * numberOfVisibleTicks) / 2 - itemWidth * 0.5,
             },
           ]}
           data={data}
           onMomentumScrollEnd={(e) => {
             const centerIndex = Math.round(
-              e.nativeEvent.contentOffset.x /
-                (containerWidth / numberOfVisibleTicks),
+              e.nativeEvent.contentOffset.x / itemWidth,
             );
             onChange(centerIndex + min);
           }}
@@ -94,8 +90,8 @@ export const Slider = (props: SliderProps) => {
             itemVisiblePercentThreshold: 50,
             minimumViewTime: 100,
           }}
-          snapToStart
-          snapToInterval={containerWidth / numberOfVisibleTicks}
+          snapToAlignment="start"
+          snapToInterval={itemWidth}
           maxToRenderPerBatch={numberOfVisibleTicks}
           windowSize={numberOfVisibleTicks}
           removeClippedSubviews={true}
@@ -105,7 +101,7 @@ export const Slider = (props: SliderProps) => {
               item={item}
               fontStyle={fontStyle as TextStyle}
               scrollProgress={scrollProgress}
-              width={containerWidth / numberOfVisibleTicks}
+              width={itemWidth}
               backgroundColor={tickColor}
             />
           )}
