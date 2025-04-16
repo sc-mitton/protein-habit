@@ -313,20 +313,20 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
                   />
                 }
               />
-              {recipeData.recipe?.meta.prepTime && (
+              {Number.isInteger(recipeData.recipe?.meta.prepTime) && (
                 <Text variant="paragraph" marginLeft="sm">
-                  {recipeData.recipe?.meta.prepTime} min prep
+                  {`${recipeData.recipe?.meta.prepTime} min prep`}
                 </Text>
               )}
-              {recipeData.recipe?.meta.prepTime &&
-                recipeData.recipe?.meta.cookTime && (
+              {Number.isInteger(recipeData.recipe?.meta.prepTime) &&
+                Number.isInteger(recipeData.recipe?.meta.cookTime) && (
                   <Text fontSize={12} marginHorizontal="s">
-                    •
+                    {"•"}
                   </Text>
                 )}
-              {recipeData.recipe?.meta.prepTime && (
+              {Number.isInteger(recipeData.recipe?.meta.cookTime) && (
                 <Text variant="paragraph">
-                  {recipeData.recipe?.meta.cookTime} min cook
+                  {`${recipeData.recipe?.meta.cookTime} min cook`}
                 </Text>
               )}
             </Box>
