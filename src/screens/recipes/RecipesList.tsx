@@ -37,6 +37,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
   const { selectedFilters, searchQuery } = useRecipesScreenContext();
   const [showFiltersHeader, setShowFiltersHeader] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
   const { recipes, fetchMore, refetch } = useRecipes({
     filters: { searchQuery, tags: selectedFilters },
     pageSize: 20,
@@ -131,7 +132,7 @@ const ExploreScreen: React.FC<Props> = (props) => {
         paddingTop: 16,
       }}
       contentInsetAdjustmentBehavior="automatic"
-      data={recipes.length > 0 ? recipes : Array(10).fill(null)}
+      data={recipes}
       renderItem={({ item, index }) => (
         <RecipeCard recipe={item === null ? undefined : item} index={index} />
       )}

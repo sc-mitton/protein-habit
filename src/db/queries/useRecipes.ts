@@ -21,14 +21,6 @@ interface UseRecipesOptions {
   };
 }
 
-function sanitizeFTSQuery(query: string) {
-  return query
-    .replace(/["']/g, "") // remove quotes
-    .replace(/[^a-zA-Z0-9_\s]/g, "") // remove special characters
-    .trim()
-    .toLowerCase();
-}
-
 async function getSearchIds(
   db: ExpoSQLiteDatabase<typeof schema>,
   queryString: string,
@@ -78,15 +70,13 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
   const [searchQuery, setSearchQuery] = useState(options.filters?.searchQuery);
 
   const query = async () => {
-    const whereConditions = filters?.searchQuery
-      ? await getSearchIds(db, filters.searchQuery)
+    const whereConditions = searchQuery
+      ? await getSearchIds(db, searchQuery)
       : getTagConditions(filters);
 
     if (cursorId.current) {
       whereConditions.push(gt(recipesTable.id, cursorId.current));
     }
-
-    console.log("whereConditions: ", whereConditions);
 
     const results = await db
       .select({
@@ -161,6 +151,12 @@ export const useRecipes = (options: UseRecipesOptions = {}) => {
       setRecipes([]);
     }
   }, [options.filters?.tags]);
+
+  useEffect(() => {
+    if (!searchQuery) {
+      refetch();
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     if (options.filters?.searchQuery !== searchQuery) {

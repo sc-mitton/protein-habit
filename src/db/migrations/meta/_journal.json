@@ -5,35 +5,35 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1744762947863,
-      "tag": "0000_wild_sentinels",
+      "when": 1744763476335,
+      "tag": "0000_dapper_loa",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "6",
-      "when": 1744762959172,
+      "when": 1744763494201,
       "tag": "0001_add_recipe_table_triggers",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "6",
-      "when": 1744762968557,
+      "when": 1744763502004,
       "tag": "0002_seed_tag_tables",
       "breakpoints": true
     },
     {
       "idx": 3,
       "version": "6",
-      "when": 1744762974753,
+      "when": 1744763506844,
       "tag": "0003_db_dump",
       "breakpoints": true
     },
     {
       "idx": 4,
       "version": "6",
-      "when": 1744762983435,
+      "when": 1744763512498,
       "tag": "0004_fts_search",
       "breakpoints": true
     }

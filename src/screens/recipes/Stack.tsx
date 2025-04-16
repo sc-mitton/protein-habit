@@ -65,8 +65,10 @@ const RecipesStack = (props: BottomTabsScreenProps<"Recipes">) => {
           headerTitleAlign: "left",
           headerSearchBarOptions: {
             onChangeText: (text) => {
-              setSelectedFilters({});
               setSearchQuery(text.nativeEvent.text);
+            },
+            onCancelButtonPress: () => {
+              setSearchQuery("");
             },
             placeholder: "Search",
             hideWhenScrolling: true,
