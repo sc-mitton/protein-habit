@@ -2,6 +2,7 @@ import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosError } from "axios";
 import AppIntegrity, { getAppIntegrity } from "app-integrity";
+import Constants from "expo-constants";
 
 const tagTypes = ["ProteinSearch"];
 
@@ -61,7 +62,7 @@ const axiosBaseQuery =
 
 const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: axiosBaseQuery({ baseUrl: process.env.EXPO_PUBLIC_API_URL }),
+  baseQuery: axiosBaseQuery({ baseUrl: Constants.expoConfig?.extra?.apiUrl }),
   endpoints: (builder) => ({}),
   tagTypes,
 });

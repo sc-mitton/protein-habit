@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.27.0",
+    "@expo/config-plugins": "^10.0.2",
+    "@expo/metro-config": "^0.20.14",
     "@gorhom/bottom-sheet": "^5",
     "@headlessui/react": "^2.2.1",
     "@hookform/resolvers": "^5.0.1",

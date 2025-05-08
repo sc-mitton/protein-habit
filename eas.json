@@ -10,7 +10,6 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "EXPO_PUBLIC_API_URL",
         "APP_ENV": "production",
         "APP_VARIANT": "production",
         "NODE_ENV": "production"

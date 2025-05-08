@@ -21,7 +21,7 @@ const proteinSearchApiSlice = apiSlice.injectEndpoints({
       string
     >({
       query: (search) => ({
-        url: `protein`,
+        url: "/protein",
         method: "POST",
         body: { text: search },
       }),
