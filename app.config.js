@@ -1,15 +1,15 @@
 const getBundleId = () => {
   if (process.env.APP_VARIANT === "production") {
-    return "com.northof60labs.proteincount";
+    return "com.northof60labs.proteinhabit";
   }
-  return "com.northof60labs.proteincount.dev";
+  return `com.northof60labs.proteinhabit.${process.env.APP_ENV}`;
 };
 
 const getAppName = () => {
   if (process.env.APP_VARIANT === "production") {
-    return "Protein Count";
+    return "Protein Habit";
   }
-  return "Protein Count Dev";
+  return `Protein Habit ${process.env.APP_ENV}`;
 };
 
 const bundleId = getBundleId();
@@ -18,13 +18,13 @@ const appName = getAppName();
 export default {
   expo: {
     name: appName,
-    slug: "protein-count",
-    scheme: "protein-count",
+    slug: "protein-habit",
+    scheme: "protein-habit",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "automatic",
-    newArchEnabled: true,
+    newArchEnabled: false,
     androidStatusBar: {
       translucent: true,
     },
@@ -34,7 +34,7 @@ export default {
     },
     splash: {
       image: "./assets/splash-icon.png",
-      resizeMode: "contain",
+      contentFit: "contain",
       backgroundColor: "#ffffff",
     },
     ios: {
@@ -43,6 +43,9 @@ export default {
       infoPlist: {
         CFBundleDisplayName: appName,
       },
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
       icon: {
         light: "./assets/icon.png",
         dark: "./assets/icon-dark.png",
@@ -50,14 +53,11 @@ export default {
       },
       splash: {
         image: "./assets/splash-ios-light.png",
-        resizeMode: "contain",
+        contentFit: "contain",
         dark: {
           image: "./assets/splash-ios-dark.png",
           backgroundColor: "#111113",
         },
-      },
-      runtimeVersion: {
-        policy: "appVersion",
       },
     },
     android: {
@@ -67,9 +67,9 @@ export default {
       },
       splash: {
         image: "./assets/splash-icon.png",
-        resizeMode: "contain",
+        contentFit: "contain",
       },
-      package: "com.northof60labs.proteincount",
+      package: "com.northof60labs.proteinhabit",
       allowBackup: true,
     },
     web: {
@@ -77,21 +77,42 @@ export default {
     },
     owner: "northof60labs",
     updates: {
-      url: "https://u.expo.dev/6df3f0fe-e7b4-45b7-b721-3139de64dd31",
+      url: "https://u.expo.dev/baeb6fad-cd86-4bb9-b233-a9315e60eb68",
     },
     extra: {
       eas: {
-        projectId: "6df3f0fe-e7b4-45b7-b721-3139de64dd31",
+        projectId: "baeb6fad-cd86-4bb9-b233-a9315e60eb68",
+      },
+      rcats: {
+        apiKey: "appl_ojwoHcZMWhzMUgwCtpuFgwRhHvP",
       },
     },
-    runtimeVersion: {
-      policy: "appVersion",
-    },
+    runtimeVersion: "1.0.0",
     plugins: [
-      ["expo-iap"],
+      [
+        "expo-sqlite",
+        {
+          enableFTS: true,
+        },
+      ],
       ["./plugins/withNoIpadSupport.js"],
       ["./plugins/withAsyncStorageBackup.js"],
       ["./plugins/withAndroidBackup.js"],
+      [
+        "expo-image-picker",
+        {
+          photosPermission:
+            "The app allows you to pick images from your photo library.",
+        },
+      ],
+      [
+        "expo-secure-store",
+        {
+          configureAndroidBackup: true,
+          faceIDPermission:
+            "Allow $(PRODUCT_NAME) to access your Face ID biometric data.",
+        },
+      ],
     ],
   },
 };

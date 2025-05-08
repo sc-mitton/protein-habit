@@ -10,7 +10,6 @@ interface UserState {
   age?: number;
   gender?: "male" | "female";
   inceptionDate: string;
-  purchaseStatus: null | "base" | "premium";
 }
 
 export const initialState: UserState = {
@@ -20,7 +19,6 @@ export const initialState: UserState = {
     unit: "lbs",
   },
   inceptionDate: new Date().toISOString(),
-  purchaseStatus: null,
 };
 
 const userSlice = createSlice({
@@ -36,17 +34,10 @@ const userSlice = createSlice({
     setWeightUnit: (state, action: PayloadAction<"kg" | "lbs">) => {
       state.weight.unit = action.payload;
     },
-    setPurchaseStatus: (
-      state,
-      action: PayloadAction<UserState["purchaseStatus"]>,
-    ) => {
-      state.purchaseStatus = action.payload;
-    },
   },
 });
 
-export const { setName, setWeight, setWeightUnit, setPurchaseStatus } =
-  userSlice.actions;
+export const { setName, setWeight, setWeightUnit } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectUserInception = (state: RootState) => {
@@ -54,6 +45,3 @@ export const selectUserInception = (state: RootState) => {
 };
 
 export const selectUserInfo = (state: RootState) => state.user;
-
-export const selectUserPurchaseStatus = (state: RootState) =>
-  state.user.purchaseStatus;

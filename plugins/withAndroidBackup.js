@@ -41,7 +41,13 @@ const withAndroidBackup = (config) => {
   <cloud-backup>
     <include domain="sharedpref" path="."/>
     <exclude domain="sharedpref" path="device.xml"/>
+    <exclude domain="sharedpref" path="SecureStore"/>
   </cloud-backup>
+  <device-transfer>
+    <include domain="sharedpref" path="."/>
+    <exclude domain="sharedpref" path="device.xml"/>
+    <exclude domain="sharedpref" path="SecureStore"/>
+  </device-transfer>
 </data-extraction-rules>`;
 
       // Ensure the directory exists

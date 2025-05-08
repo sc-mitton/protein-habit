@@ -2,7 +2,7 @@ import { AccentOption } from "@constants/accents";
 import { TouchableOpacity, StyleSheet, Appearance } from "react-native";
 import { Box } from "./base/Box";
 
-import { Text } from ".";
+import { Text } from "./base/Text";
 
 const styles = StyleSheet.create({
   tag: {

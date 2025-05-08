@@ -1,0 +1,8 @@
+import os
+
+EXPO_ENVIRONMENT = os.getenv("EXPO_ENVIRONMENT")
+BUNDLE_ID_PREFIX = "." + EXPO_ENVIRONMENT if EXPO_ENVIRONMENT != "production" else ""
+
+IOS_TEAM_ID = "J694G989HW"
+IOS_BUNDLE_ID = "com.northof60labs.proteinhabit" + BUNDLE_ID_PREFIX
+IOS_APP_ID = IOS_TEAM_ID + "." + IOS_BUNDLE_ID

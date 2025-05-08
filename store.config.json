@@ -4,15 +4,14 @@
     "categories": ["LIFESTYLE", "HEALTH_AND_FITNESS"],
     "info": {
       "en-US": {
-        "title": "Protein Count",
+        "title": "Protein Habit",
         "subtitle": "Daily protein tracker",
-        "description": "Keep track of your protein intake with the Protein Count app",
+        "description": "Keep track of your protein",
         "privacyPolicyUrl": "https://gist.github.com/sc-mitton/c0b5e78411f8bfdba6448d4f03a5e666",
         "keywords": [
+          "protein habit",
           "protein",
           "protein tracker",
-          "protein count",
-          "protein counter",
           "macros",
           "macro tracker",
           "macro count"

@@ -43,23 +43,21 @@ const proteinSlice = createSlice({
     addEntry: (state, action: PayloadAction<ProteinEntryPayload>) => {
       // Find the index of the entries list
       // There may be no entries list for the day, so we need to insert one in that case
-      let entriesIndex = 0;
-      for (let i = state.entries.length - 1; i >= 0; i--) {
-        if (
-          dayjs(state.entries[i][0]).isSame(dayjs(action.payload.day), "day")
-        ) {
-          entriesIndex = i;
-          break;
-        } else if (
-          dayjs(state.entries[i][0]).isBefore(dayjs(action.payload.day), "day")
-        ) {
-          entriesIndex = i + 1;
-          state.entries.splice(i + 1, 0, [
+      let entriesIndex = state.entries.findIndex(([day]) => {
+        if (dayjs(day).isSame(dayjs(action.payload.day), "day")) {
+          return true;
+        } else if (dayjs(day).isBefore(dayjs(action.payload.day), "day")) {
+          state.entries.splice(entriesIndex + 1, 0, [
             dayjs(action.payload.day).format(dayFormat),
             [],
           ]);
-          break;
+          return true;
         }
+      });
+
+      if (entriesIndex === -1) {
+        state.entries.push([dayjs(action.payload.day).format(dayFormat), []]);
+        entriesIndex = state.entries.length - 1;
       }
 
       state.entries[entriesIndex][1].push({

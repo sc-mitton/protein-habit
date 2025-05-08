@@ -1,0 +1,12 @@
+{
+  "name": "app-integrity",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "dependencies": {
+    "expo-secure-store": "~12.8.1"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}

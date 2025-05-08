@@ -9,8 +9,10 @@ bun.lockb
 dist/
 web-build/
 expo-env.d.ts
-ios
-android
+/ios
+/android
+**/android/build
+.gradle/
 
 # Native
 *.orig.*
@@ -19,6 +21,9 @@ android
 *.p12
 *.key
 *.mobileprovision
+*.apk
+*.aab
+*.ipa
 
 # Metro
 .metro-health-check*
@@ -40,6 +45,14 @@ yarn-error.*
 
 # python
 .venv
-env
-__pycache__
-.env*
+env/
+api/.env*
+__pycache__/
+.pytest_cache/
+api/db/Database.db
+
+# misc
+.envrc
+api_keys.txt
+scripts/.env
+note.txt

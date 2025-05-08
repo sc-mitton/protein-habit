@@ -3,7 +3,6 @@ import { dayFormat, timeFormat } from "@constants/formats";
 
 import {
   selectTotalProteinForDay,
-  selectMonthlyDailyAverage,
   selectDailyAvg,
   selectStreak,
   selectDailyTargetResults,

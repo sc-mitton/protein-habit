@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { ViewProps, View } from "react-native";
-import { position, useTheme } from "@shopify/restyle";
+import { position } from "@shopify/restyle";
 
 import {
   useRestyle,

@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Test API",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/.venv/bin/uvicorn", // path to pytest executable
+      "args": ["main:app", "--reload"],
+      "cwd": "${workspaceFolder}/api",
+
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/api"
+      },
+      "envFile": "${workspaceFolder}/api/.env.development",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Python: pytest",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/.venv/bin/pytest", // path to pytest executable
+      "args": ["-s", "-k", "test_attest_success"],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/api"
+      },
+      "envFile": "${workspaceFolder}/api/.env.development",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 import { useTheme } from "@shopify/restyle";
 import Animated, {
@@ -9,7 +9,7 @@ import Animated, {
   withSequence,
 } from "react-native-reanimated";
 import { Box, Text } from "./base";
-import checkMark from "@lotties/checkmark.json";
+import { checkmark } from "@assets/lotties";
 import { useAppSelector } from "@store/hooks";
 import { selectAccent } from "@store/slices/uiSlice";
 
@@ -90,7 +90,7 @@ export function Checkbox(props: CheckboxProps) {
           >
             <LottieView
               ref={animation}
-              source={checkMark}
+              source={checkmark}
               autoPlay={false}
               speed={3}
               loop={false}

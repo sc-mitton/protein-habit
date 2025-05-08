@@ -1,3 +1,4 @@
+import { forwardRef, useState } from "react";
 import {
   TextInput as RNTextInput,
   TextInputProps,
@@ -5,10 +6,10 @@ import {
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import { Theme } from "@theme";
-import { Box } from ".";
 import { createBox } from "@shopify/restyle";
-import { forwardRef, useState } from "react";
-import { BoxProps } from "./Box";
+
+import type { BoxProps } from "./Box";
+import { Box } from "./Box";
 import OutsidePressHandler from "react-native-outside-press";
 
 const InputBox = createBox<Theme>();

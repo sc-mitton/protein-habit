@@ -1,0 +1,69 @@
+import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
+import axios from "axios";
+import type { AxiosRequestConfig, AxiosError } from "axios";
+import AppIntegrity, { getAppIntegrity } from "app-integrity";
+
+const tagTypes = ["ProteinSearch"];
+
+const axiosBaseQuery =
+  (
+    { baseUrl }: { baseUrl: string } = { baseUrl: "" },
+  ): BaseQueryFn<
+    {
+      url: string;
+      method?: AxiosRequestConfig["method"];
+      data?: AxiosRequestConfig["data"];
+      params?: AxiosRequestConfig["params"];
+      headers?: AxiosRequestConfig["headers"];
+    },
+    unknown,
+    unknown
+  > =>
+  async ({ url, headers, data, ...rest }) => {
+    const { challenge, keyId, token } = await getAppIntegrity();
+    const clientData = { ...data, challenge };
+    let assertion = "";
+    if (challenge && keyId) {
+      assertion = await AppIntegrity.asyncGenerateAssertion(
+        JSON.stringify(clientData),
+        keyId,
+      );
+    }
+
+    const { body, ...moreRest } = rest as any;
+
+    try {
+      const result = await axios({
+        url: baseUrl + url,
+        headers: {
+          ...headers,
+          ...(challenge && { "x-challenge": challenge }),
+          ...(keyId && { "x-key-id": keyId }),
+          ...(assertion && { "x-assertion": assertion }),
+          ...(token && { "x-token": token }),
+          "Content-Type": "application/json",
+        },
+        data: body,
+        ...moreRest,
+      });
+      return { data: result.data };
+    } catch (axiosError) {
+      console.error("Axios error:", axiosError);
+      const err = axiosError as AxiosError;
+      return {
+        error: {
+          status: err.response?.status,
+          data: err.response?.data || err.message,
+        },
+      };
+    }
+  };
+
+const apiSlice = createApi({
+  reducerPath: "api",
+  baseQuery: axiosBaseQuery({ baseUrl: process.env.EXPO_PUBLIC_API_URL }),
+  endpoints: (builder) => ({}),
+  tagTypes,
+});
+
+export default apiSlice;

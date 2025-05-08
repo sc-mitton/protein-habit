@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "Start Expo Development Server",
+      "detail": "expo start --dev-client"
+    },
+    {
+      "label": "Docker: Start Services",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["up", "-d"],
+      "problemMatcher": [],
+      "detail": "Start Docker development environment"
+    },
+    {
+      "label": "Backend: Start",
+      "type": "shell",
+      "command": "/bin/zsh",
+      "args": ["${workspaceFolder}/api/devstart.sh"],
+      "problemMatcher": [],
+      "detail": "Start FastAPI development server",
+      "options": {
+        "cwd": "${workspaceFolder}/api"
+      },
+      "dependsOn": ["Docker: Start Services"],
+      "isBackground": false,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Docker: Stop Services",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["down"],
+      "problemMatcher": [],
+      "detail": "Stop and remove Docker containers"
+    },
+    {
+      "label": "FastAPI: stop",
+      "type": "shell",
+      "command": "lsof -ti:8000 | xargs kill -9",
+      "problemMatcher": [],
+      "detail": "Stop FastAPI development server",
+      "options": {
+        "cwd": "${workspaceFolder}/api"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Backend: Teardown All",
+      "type": "shell",
+      "detail": "Stop all backend services",
+      "dependsOrder": "sequence",
+      "dependsOn": ["FastAPI: stop", "Docker: Stop Services"],
+      "problemMatcher": []
+    }
+  ]
+}

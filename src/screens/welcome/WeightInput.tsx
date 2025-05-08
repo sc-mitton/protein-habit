@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Image, useColorScheme, Platform } from "react-native";
 
-import logo from "../../../assets/icon.png";
+import logo from "@assets/icon.png";
 import { Box, Text, Button, TextInput } from "@components";
 import { useAppDispatch } from "@store/hooks";
 import {
@@ -11,9 +11,10 @@ import {
 import { setWeight } from "@store/slices/userSlice";
 import { Slider } from "@components";
 import { useTheme } from "@shopify/restyle";
-import type { HomeScreenProps } from "@types";
+import type { RootScreenProps } from "@types";
+import Logo from "./Logo";
 
-const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
+const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
   const [weight, setWeightValue] = useState<number>();
   const [weightUnit, setWeightUnit] = useState<"lbs" | "kg">("lbs");
   const dispatch = useAppDispatch();
@@ -26,37 +27,18 @@ const WeightInput = ({ navigation }: HomeScreenProps<"WeightInput">) => {
       dispatch(
         setDailyTarget(getRecommendedTarget(Number(weight), weightUnit)),
       );
-      navigation.replace("Main");
+      navigation.replace("BottomTabs", {
+        screen: "Home",
+        params: { screen: "Main" },
+      });
     }
   };
 
   return (
-    <Box flex={1} backgroundColor="secondaryBackground" padding="l">
+    <Box flex={1} backgroundColor="mainBackground" padding="l">
       <Box flex={1} justifyContent="center">
-        <Box
-          alignItems="center"
-          paddingBottom="xl"
-          shadowColor="defaultShadow"
-          shadowOffset={{ width: 0, height: 1 }}
-          shadowOpacity={0.35}
-          shadowRadius={3}
-          elevation={5}
-        >
-          {scheme === "dark" ? (
-            <Image
-              source={logo}
-              style={{ width: 64, height: 64, borderRadius: 16 }}
-              resizeMode="contain"
-            />
-          ) : (
-            <Image
-              source={logo}
-              style={{ width: 64, height: 64, borderRadius: 16 }}
-              resizeMode="contain"
-            />
-          )}
-        </Box>
-        <Box>
+        <Logo />
+        <Box gap="s" marginBottom="l" marginTop="s">
           <Text variant="header" marginBottom="s">
             What's your weight?
           </Text>

@@ -3,16 +3,25 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
+    "module": "ESNext",
     "paths": {
       "@components": ["src/components"],
+      "@hooks": ["src/hooks"],
       "@store/*": ["src/store/*"],
+      "@store": ["src/store"],
       "@theme": ["src/theme/index.ts"],
+      "@theme/*": ["src/theme/*"],
       "@types": ["src/types"],
       "@constants/*": ["src/constants/*"],
       "@styles/*": ["src/styles/*"],
-      "@lotties/*": ["src/lotties/*"],
       "@assets/*": ["assets/*"],
-      "@utils/*": ["src/utils/*"]
-    }
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils"],
+      "@db/*": ["src/db/*"],
+      "@db": ["src/db"],
+      "@screens/*": ["src/screens/*"],
+      "@src/*": ["src/*"]
+    },
+    "types": ["bun-types"]
   }
 }
