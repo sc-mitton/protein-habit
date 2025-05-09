@@ -11,9 +11,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, Request, Header
 import cbor2
 import redis
-# import httpx
-# import os
-# from sqlalchemy import text
+from typing import Annotated
 
 from db.comp_food_database import get_db
 from fastapi_types import AttestRequest, SearchRequest
@@ -31,11 +29,10 @@ SECRET_KEY = get_secret("SECRET_KEY")
 
 
 @router.post("/protein")
-async def protein(request: SearchRequest, db: Session = Depends(get_db),
-                  deps=Depends(is_valid_mobile)):
+async def protein(request: SearchRequest,
+                  is_valid_mobile: Annotated[bool, Depends(is_valid_mobile)],
+                  db: Session = Depends(get_db)):
     try:
-        print('debugging')
-        print("request", request.text)
         results = chain.run(request.text, db)
         return {"results": results}
     except Exception as e:

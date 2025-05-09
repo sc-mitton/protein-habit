@@ -14,9 +14,6 @@ COPY Pipfile* ./
 # Install dependencies
 RUN pipenv install --deploy --system
 
-# Copy the API directory contents
-COPY api/ ./
-
 # Expose the port
 EXPOSE 8000
 

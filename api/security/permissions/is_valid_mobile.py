@@ -1,16 +1,17 @@
-from fastapi import Depends, Header, HTTPException, Body
+from fastapi import Depends, Header, HTTPException, Request
 from security.attest.ios import validate_assertion
 from security.attest.android import validate_token
 from appconf import IOS_APP_ID
 from redis import Redis
 from cache import get_redis
+from typing import Optional
 
 
 async def is_valid_mobile(
-    x_key_id: str = Header(None),
-    x_challenge: str = Header(None),
-    x_assertion: str = Header(None),
-    client_data: dict = Body(default={}),
+    request: Request,
+    x_key_id: Optional[str] = Header(None),
+    x_challenge: Optional[str] = Header(None),
+    x_assertion: Optional[str] = Header(None),
     redis_client: Redis = Depends(get_redis),
 ) -> bool:
     '''
@@ -18,6 +19,8 @@ async def is_valid_mobile(
     For ios, the x_key, x_challenge, and x_assertion headers are required.
     For android, the x_token header is required.
     '''
+
+    client_data = {} if request.body is None else request.body
 
     # Validate the assertion
     assertion_valid = False
