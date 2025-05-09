@@ -52,7 +52,7 @@ async def challenge(
     if x_key_id:
         redis_client.set(f"{KEY_CHALLENGE_PREFIX}{x_key_id}", new_challenge)
 
-    redis_client.set(challenge_id, new_challenge)
+    redis_client.set(f"{CHALLENGE_PREFIX}{challenge_id}", new_challenge)
 
     return f"{challenge_id}:{new_challenge}"
 
