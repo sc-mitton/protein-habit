@@ -20,9 +20,10 @@ const axiosBaseQuery =
     unknown
   > =>
   async ({ url, headers, data, ...rest }) => {
+    const { body, ...moreRest } = rest as any;
     const { challenge, keyId, token } = await getAppIntegrity();
     const challengeValue = challenge!.split(":")[1];
-    const clientData = { ...data, challenge: challengeValue };
+    const clientData = { ...body, challenge: challengeValue };
     let assertion = "";
     if (challenge && keyId) {
       assertion = await AppIntegrity.asyncGenerateAssertion(
@@ -30,8 +31,6 @@ const axiosBaseQuery =
         keyId,
       );
     }
-
-    const { body, ...moreRest } = rest as any;
 
     try {
       const result = await axios({
