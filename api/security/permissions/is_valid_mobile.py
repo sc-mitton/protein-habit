@@ -5,6 +5,7 @@ from appconf import IOS_APP_ID
 from redis import Redis
 from cache import get_redis
 from typing import Optional
+import json
 
 
 async def is_valid_mobile(
@@ -21,7 +22,10 @@ async def is_valid_mobile(
     '''
 
     body = await request.body()
-    client_data = {} if body is None else body
+    try:
+        client_data = json.loads(body) if body else {}
+    except json.JSONDecodeError:
+        client_data = {}
 
     # Validate the assertion
     assertion_valid = False
