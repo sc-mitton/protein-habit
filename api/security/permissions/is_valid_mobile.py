@@ -21,7 +21,9 @@ async def is_valid_mobile(
 
     # Validate the assertion
     assertion_valid = False
-    client_data['challenge'] = x_challenge
+    if not x_challenge:
+        raise HTTPException(status_code=401, detail="Invalid challenge")
+    client_data['challenge'] = x_challenge.split(':')[1]
 
     # ios case
     if x_key_id:
