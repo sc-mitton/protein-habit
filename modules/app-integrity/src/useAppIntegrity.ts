@@ -3,10 +3,8 @@ import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
 import AppIntegrity from "./AppIntegrityModule";
-import type {
-  AppIntegrityError,
-  AppIntegrityKeyResult,
-} from "./AppIntegrity.types";
+import type { AppIntegrityError } from "./AppIntegrity.types";
+import { getAppIntegrity } from "./getAppIntegrity";
 
 interface UseAppIntegrityOptions {
   challengeUrl: string;
@@ -55,19 +53,10 @@ export const useAppIntegrity = (options: UseAppIntegrityOptions) => {
   );
 
   const handleIOSAttestation = useCallback(async () => {
-    const existingKeyId = await SecureStore.getItemAsync("keyId");
-    const savedChallenge = await SecureStore.getItemAsync("challenge");
-    if (existingKeyId && savedChallenge) return;
-
     // 1. Get challenge
     const challengeResponse = await getChallenge();
     // 2. Generate key (ios only)
-    let keyResult: AppIntegrityKeyResult | AppIntegrityError | undefined;
-    if (!existingKeyId) {
-      keyResult = await AppIntegrity.asyncGenerateKey();
-    } else {
-      keyResult = { keyId: existingKeyId };
-    }
+    const keyResult = await AppIntegrity.asyncGenerateKey();
 
     // Error check
     if (!keyResult) {
@@ -115,15 +104,34 @@ export const useAppIntegrity = (options: UseAppIntegrityOptions) => {
     await SecureStore.setItemAsync("challenge", challenge);
   }, [getChallenge]);
 
-  useEffect(() => {
+  const handleIOS = useCallback(async () => {
+    const { challenge, keyId } = await getAppIntegrity();
+
+    // If missing credentials or assertion fails, run attestation
     try {
-      if (Platform.OS === "ios") {
-        handleIOSAttestation();
-      } else {
-        handleAndroidInit();
-      }
-    } catch (error) {
-      console.error("Error during attestation:", error);
+      if (!challenge || !keyId) throw new Error("Missing credentials");
+      const challengeValue = challenge.split(":")[1];
+      await AppIntegrity.asyncGenerateAssertion(
+        JSON.stringify({ challenge: challengeValue }),
+        keyId,
+      );
+    } catch {
+      await handleIOSAttestation();
+    }
+  }, [handleIOSAttestation]);
+
+  const handleAndroid = useCallback(async () => {
+    const { token } = await getAppIntegrity();
+    if (!token) {
+      await handleAndroidInit();
     }
   }, [handleIOSAttestation, handleAndroidInit]);
+
+  useEffect(() => {
+    if (Platform.OS === "ios") {
+      handleIOS();
+    } else {
+      handleAndroid();
+    }
+  }, []);
 };

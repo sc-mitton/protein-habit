@@ -21,7 +21,8 @@ const axiosBaseQuery =
   > =>
   async ({ url, headers, data, ...rest }) => {
     const { challenge, keyId, token } = await getAppIntegrity();
-    const clientData = { ...data, challenge };
+    const challengeValue = challenge!.split(":")[1];
+    const clientData = { ...data, challenge: challengeValue };
     let assertion = "";
     if (challenge && keyId) {
       assertion = await AppIntegrity.asyncGenerateAssertion(
@@ -37,7 +38,7 @@ const axiosBaseQuery =
         url: baseUrl + url,
         headers: {
           ...headers,
-          ...(challenge && { "x-challenge": challenge }),
+          ...(challengeValue && { "x-challenge": challenge }),
           ...(keyId && { "x-key-id": keyId }),
           ...(assertion && { "x-assertion": assertion }),
           ...(token && { "x-token": token }),

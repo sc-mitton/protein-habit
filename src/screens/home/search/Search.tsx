@@ -26,7 +26,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import { SymbolView } from "expo-symbols";
-import AppIntegrity, { getAppIntegrity } from "app-integrity";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import dayjs from "dayjs";
@@ -97,7 +96,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
   const [value, setValue] = useState("");
   const { height, progress } = useReanimatedKeyboardAnimation();
   const measuredKeyboardHeight = useSharedValue(60);
-  const [getProteinSearch, { data, isLoading, isError }] =
+  const [getProteinSearch, { data, isLoading, isError, error }] =
     useSearchProteinMutation();
   const [searchListResults, setSearchListResults] = useState<
     ProteinSearchResults["results"]
@@ -139,19 +138,15 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
 
   useEffect(() => {
     if (isError) {
-      Alert.alert(
-        "😵‍💫\nNo results found",
-        `Maybe try rephrasing your search?}`,
-        [
-          {
-            text: "OK",
-            onPress: () => {
-              setValue("");
-              searchField.current?.focus();
-            },
+      Alert.alert("😵‍💫\nNo results found", `Maybe try rephrasing your search?`, [
+        {
+          text: "OK",
+          onPress: () => {
+            setValue("");
+            searchField.current?.focus();
           },
-        ],
-      );
+        },
+      ]);
     }
   }, [isError]);
 
