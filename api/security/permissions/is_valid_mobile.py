@@ -20,7 +20,8 @@ async def is_valid_mobile(
     For android, the x_token header is required.
     '''
 
-    client_data = {} if request.body is None else request.body
+    body = await request.body()
+    client_data = {} if body is None else body
 
     # Validate the assertion
     assertion_valid = False
