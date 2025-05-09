@@ -3,7 +3,6 @@ import axios from "axios";
 import type { AxiosRequestConfig, AxiosError } from "axios";
 import AppIntegrity, { getAppIntegrity } from "app-integrity";
 import Constants from "expo-constants";
-
 const tagTypes = ["ProteinSearch"];
 
 const axiosBaseQuery =
@@ -21,16 +20,15 @@ const axiosBaseQuery =
     unknown
   > =>
   async ({ url, headers, data, ...rest }) => {
-    // const { challenge, keyId, token } = await getAppIntegrity();
-    // const clientData = { ...data, challenge };
-    const clientData = { ...data };
+    const { challenge, keyId, token } = await getAppIntegrity();
+    const clientData = { ...data, challenge };
     let assertion = "";
-    // if (challenge && keyId) {
-    //   assertion = await AppIntegrity.asyncGenerateAssertion(
-    //     JSON.stringify(clientData),
-    //     keyId,
-    //   );
-    // }
+    if (challenge && keyId) {
+      assertion = await AppIntegrity.asyncGenerateAssertion(
+        JSON.stringify(clientData),
+        keyId,
+      );
+    }
 
     const { body, ...moreRest } = rest as any;
 
@@ -39,10 +37,10 @@ const axiosBaseQuery =
         url: baseUrl + url,
         headers: {
           ...headers,
-          // ...(challenge && { "x-challenge": challenge }),
-          // ...(keyId && { "x-key-id": keyId }),
-          // ...(assertion && { "x-assertion": assertion }),
-          // ...(token && { "x-token": token }),
+          ...(challenge && { "x-challenge": challenge }),
+          ...(keyId && { "x-key-id": keyId }),
+          ...(assertion && { "x-assertion": assertion }),
+          ...(token && { "x-token": token }),
           "Content-Type": "application/json",
         },
         data: body,

@@ -10,7 +10,6 @@ import * as WebBrowser from "expo-web-browser";
 import { LinearGradient } from "expo-linear-gradient";
 import { SymbolView } from "expo-symbols";
 import { Check } from "geist-native-icons";
-import Constants from "expo-constants";
 
 import { RootScreenProps } from "@types";
 import {

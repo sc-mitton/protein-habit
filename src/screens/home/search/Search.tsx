@@ -26,6 +26,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useReanimatedKeyboardAnimation } from "react-native-keyboard-controller";
 import { SymbolView } from "expo-symbols";
+import AppIntegrity, { getAppIntegrity } from "app-integrity";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import dayjs from "dayjs";
@@ -138,15 +139,19 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
 
   useEffect(() => {
     if (isError) {
-      Alert.alert("😵‍💫\nNo results found", `Maybe try rephrasing your search?`, [
-        {
-          text: "OK",
-          onPress: () => {
-            setValue("");
-            searchField.current?.focus();
+      Alert.alert(
+        "😵‍💫\nNo results found",
+        `Maybe try rephrasing your search?}`,
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              setValue("");
+              searchField.current?.focus();
+            },
           },
-        },
-      ]);
+        ],
+      );
     }
   }, [isError]);
 

@@ -1,6 +1,6 @@
-import ExpoModulesCore
-import DeviceCheck
 import CryptoKit
+import DeviceCheck
+import ExpoModulesCore
 
 enum AppAttestSuccessResult {
     case assertion(data: Data)
@@ -10,7 +10,9 @@ enum AppAttestSuccessResult {
 let appAttestService = DeviceCheck.DCAppAttestService.shared
 
 public class AppIntegrityModule: Module {
-    private func appAttestCompletion<T>(result: T, error: Error?, continuation: CheckedContinuation<AppAttestSuccessResult, Never>) {
+    private func appAttestCompletion<T>(
+        result: T, error: Error?, continuation: CheckedContinuation<AppAttestSuccessResult, Never>
+    ) {
         if let error = error {
             continuation.resume(returning: .error(error))
             return
@@ -19,7 +21,11 @@ public class AppIntegrityModule: Module {
         if let data = result as? Data {
             continuation.resume(returning: .assertion(data: data))
         } else {
-            continuation.resume(returning: .error(NSError(domain: "AppIntegrity", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid result type"])))
+            continuation.resume(
+                returning: .error(
+                    NSError(
+                        domain: "AppIntegrity", code: -1,
+                        userInfo: [NSLocalizedDescriptionKey: "Invalid result type"])))
         }
     }
 
@@ -34,28 +40,31 @@ public class AppIntegrityModule: Module {
         AsyncFunction("asyncGenerateKey") { (promise: Promise) in
             // Check if App AppIntegrity is supported
             guard appAttestService.isSupported else {
-                promise.reject(Exception(
-                    name: "APP_INTEGRITY_NOT_SUPPORTED",
-                    description: "App AppIntegrity is not supported on this device"
-                ))
+                promise.reject(
+                    Exception(
+                        name: "APP_INTEGRITY_NOT_SUPPORTED",
+                        description: "App AppIntegrity is not supported on this device"
+                    ))
                 return
             }
 
             // Generate a key
             appAttestService.generateKey { keyId, error in
                 if let error = error {
-                    promise.reject(Exception(
-                        name: "KEY_GENERATION_ERROR",
-                        description: error.localizedDescription
-                    ))
+                    promise.reject(
+                        Exception(
+                            name: "KEY_GENERATION_ERROR",
+                            description: error.localizedDescription
+                        ))
                     return
                 }
 
                 guard let keyId = keyId else {
-                    promise.reject(Exception(
-                        name: "KEY_GENERATION_ERROR",
-                        description: "Failed to generate key"
-                    ))
+                    promise.reject(
+                        Exception(
+                            name: "KEY_GENERATION_ERROR",
+                            description: "Failed to generate key"
+                        ))
                     return
                 }
 
@@ -69,10 +78,11 @@ public class AppIntegrityModule: Module {
         AsyncFunction("asyncAttestKey") { (keyId: String, challenge: String, promise: Promise) in
             // Check if App AppIntegrity is supported
             guard appAttestService.isSupported else {
-                promise.reject(Exception(
-                    name: "APP_INTEGRITY_NOT_SUPPORTED",
-                    description: "App AppIntegrity is not supported on this device"
-                ))
+                promise.reject(
+                    Exception(
+                        name: "APP_INTEGRITY_NOT_SUPPORTED",
+                        description: "App AppIntegrity is not supported on this device"
+                    ))
                 return
             }
 
@@ -80,18 +90,20 @@ public class AppIntegrityModule: Module {
             let hash = Data(SHA256.hash(data: Data(challenge.utf8)))
             appAttestService.attestKey(keyId, clientDataHash: hash) { attestation, error in
                 if let error = error {
-                    promise.reject(Exception(
-                        name: "APP_INTEGRITY_ERROR",
-                        description: error.localizedDescription
-                    ))
+                    promise.reject(
+                        Exception(
+                            name: "APP_INTEGRITY_ERROR",
+                            description: error.localizedDescription
+                        ))
                     return
                 }
 
                 guard let attestation = attestation else {
-                    promise.reject(Exception(
-                        name: "APP_INTEGRITY_ERROR",
-                        description: "Failed to generate attestation"
-                    ))
+                    promise.reject(
+                        Exception(
+                            name: "APP_INTEGRITY_ERROR",
+                            description: "Failed to generate attestation"
+                        ))
                     return
                 }
 
@@ -102,13 +114,15 @@ public class AppIntegrityModule: Module {
             }
         }
 
-        AsyncFunction("asyncShowIntegrity") { (requestJSON: String, keyId: String, promise: Promise) in
+        AsyncFunction("asyncGenerateAssertion") {
+            (requestJSON: String, keyId: String, promise: Promise) in
             // Check if App Attest is supported
             guard appAttestService.isSupported else {
-                promise.reject(Exception(
-                    name: "APP_INTEGRITY_NOT_SUPPORTED",
-                    description: "App AppIntegrity is not supported on this device"
-                ))
+                promise.reject(
+                    Exception(
+                        name: "APP_INTEGRITY_NOT_SUPPORTED",
+                        description: "App AppIntegrity is not supported on this device"
+                    ))
                 return
             }
 
@@ -116,18 +130,20 @@ public class AppIntegrityModule: Module {
 
             appAttestService.generateAssertion(keyId, clientDataHash: hash) { assertion, error in
                 if let error = error {
-                    promise.reject(Exception(
-                        name: "APP_INTEGRITY_ERROR",
-                        description: error.localizedDescription
-                    ))
+                    promise.reject(
+                        Exception(
+                            name: "APP_INTEGRITY_ERROR",
+                            description: error.localizedDescription
+                        ))
                     return
                 }
 
                 guard let assertion = assertion else {
-                    promise.reject(Exception(
-                        name: "APP_INTEGRITY_ERROR",
-                        description: "Failed to generate assertion"
-                    ))
+                    promise.reject(
+                        Exception(
+                            name: "APP_INTEGRITY_ERROR",
+                            description: "Failed to generate assertion"
+                        ))
                     return
                 }
 
