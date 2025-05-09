@@ -116,7 +116,6 @@ export const useAppIntegrity = (options: UseAppIntegrityOptions) => {
   }, [getChallenge]);
 
   useEffect(() => {
-    // if (process.env.NODE_ENV === "development") return;
     try {
       if (Platform.OS === "ios") {
         handleIOSAttestation();

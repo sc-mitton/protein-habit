@@ -21,15 +21,16 @@ const axiosBaseQuery =
     unknown
   > =>
   async ({ url, headers, data, ...rest }) => {
-    const { challenge, keyId, token } = await getAppIntegrity();
-    const clientData = { ...data, challenge };
+    // const { challenge, keyId, token } = await getAppIntegrity();
+    // const clientData = { ...data, challenge };
+    const clientData = { ...data };
     let assertion = "";
-    if (challenge && keyId) {
-      assertion = await AppIntegrity.asyncGenerateAssertion(
-        JSON.stringify(clientData),
-        keyId,
-      );
-    }
+    // if (challenge && keyId) {
+    //   assertion = await AppIntegrity.asyncGenerateAssertion(
+    //     JSON.stringify(clientData),
+    //     keyId,
+    //   );
+    // }
 
     const { body, ...moreRest } = rest as any;
 
@@ -38,10 +39,10 @@ const axiosBaseQuery =
         url: baseUrl + url,
         headers: {
           ...headers,
-          ...(challenge && { "x-challenge": challenge }),
-          ...(keyId && { "x-key-id": keyId }),
-          ...(assertion && { "x-assertion": assertion }),
-          ...(token && { "x-token": token }),
+          // ...(challenge && { "x-challenge": challenge }),
+          // ...(keyId && { "x-key-id": keyId }),
+          // ...(assertion && { "x-assertion": assertion }),
+          // ...(token && { "x-token": token }),
           "Content-Type": "application/json",
         },
         data: body,

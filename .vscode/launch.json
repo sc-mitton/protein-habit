@@ -21,7 +21,7 @@
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/.venv/bin/pytest", // path to pytest executable
-      "args": ["-s", "-k", "test_attest_success"],
+      "args": ["-s", "-k", "test_request_assertion_success"],
       "env": {
         "PYTHONPATH": "${workspaceFolder}/api"
       },

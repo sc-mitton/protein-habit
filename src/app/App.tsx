@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { StatusBar, StyleSheet } from "react-native";
+import { StatusBar } from "react-native";
 import { useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -9,8 +9,7 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated";
-import { LinearGradient } from "expo-linear-gradient";
-import { useTheme as useRestyleTheme } from "@shopify/restyle";
+import Constants from "expo-constants";
 
 import { Box } from "@components";
 import RootStack from "../screens/RootStack";
@@ -20,7 +19,6 @@ import { useAppIntegrity } from "app-integrity";
 import Providers from "./Providers";
 import { useAppDispatch } from "@store/hooks";
 import { navigationRef } from "./RootNavigation";
-import { Theme } from "@theme";
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -48,8 +46,8 @@ SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
   useAppIntegrity({
-    challengeUrl: `${process.env.EXPO_PUBLIC_API_URL}/challenge`,
-    attestUrl: `${process.env.EXPO_PUBLIC_API_URL}/attest`,
+    challengeUrl: `${Constants.expoConfig?.extra?.apiUrl}/challenge`,
+    attestUrl: `${Constants.expoConfig?.extra?.apiUrl}/attest`,
   });
   useAndroidNavBarBackground();
 
@@ -57,7 +55,6 @@ function MainApp() {
 
   const colorScheme = useColorScheme();
   const navigationTheme = useNavigationTheme();
-  const theme = useRestyleTheme<Theme>();
 
   const [fontsLoaded] = useFonts({
     "Inter-Light": require("@assets/fonts/Inter_18pt-Light.ttf"),

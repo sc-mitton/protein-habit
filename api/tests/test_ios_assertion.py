@@ -87,3 +87,6 @@ def test_request_assertion_failure():
         }
     )
     assert response.status_code == 401
+
+    response = client.post(f"/{VERSION}/assertion-test")
+    assert response.status_code == 401

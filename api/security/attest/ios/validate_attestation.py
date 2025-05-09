@@ -98,6 +98,7 @@ def _validate_nonce(parsed_data: dict, challenge: str) -> bool:
     # before hashing that entire thing. The example given by apple might lead you
     # not to do this, but in practice we need this.
     hashed_challenge = _sha256(challenge.encode())
+    # hashed_challenge = challenge.encode()
     client_data_hash = parsed_data['authData']
     expected_nonce = _sha256(client_data_hash + hashed_challenge)
 

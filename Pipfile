@@ -20,7 +20,6 @@ asn1crypto = "*"
 pytest = "*"
 python-jose = "*"
 fastapi-pagination = "*"
-psycopg2 = "*"
 redis = "*"
 
 [dev-packages]

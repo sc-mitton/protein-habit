@@ -3,7 +3,6 @@ import { Platform, ScrollView, StyleSheet, Animated } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
 import { useTheme } from "@shopify/restyle";
-import Constants from "expo-constants";
 
 import { Box, Text } from "@components";
 import { HomeScreenProps } from "@types";

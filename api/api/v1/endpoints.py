@@ -11,9 +11,9 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, Request, Header
 import cbor2
 import redis
-import httpx
-import os
-from sqlalchemy import text
+# import httpx
+# import os
+# from sqlalchemy import text
 
 from db.comp_food_database import get_db
 from fastapi_types import AttestRequest, SearchRequest
@@ -32,7 +32,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 
 @router.post("/protein")
 async def protein(request: SearchRequest, db: Session = Depends(get_db),
-                  deps=[Depends(is_valid_mobile)]):
+                  deps=Depends(is_valid_mobile)):
     try:
         results = chain.run(request.text, db)
         return {"results": results}
@@ -111,9 +111,9 @@ async def attest(
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.post("/assertion-test", dependencies=[Depends(test_only),
-                                              Depends(is_valid_mobile)])
-async def assertion_test(request: Request):
+@router.post("/assertion-test")
+async def assertion_test(request: Request, is_valid_mobile=Depends(is_valid_mobile),
+                         is_test_only=Depends(test_only)):
     return {"status": "ok"}
 
 
@@ -132,52 +132,52 @@ async def health():
     return {"status": "ok"}
 
 
-@router.post("/imagine/webhook")
-async def imagine_webhook(request: Request, db: Session = Depends(get_db)):
-    try:
-        data = await request.json()
+# @router.post("/imagine/webhook")
+# async def imagine_webhook(request: Request, db: Session = Depends(get_db)):
+#     try:
+#         data = await request.json()
 
-        # Extract relevant information from the webhook payload
-        status = data.get("status")
-        if status != "done":
-            return {"status": "ignored", "message": "Image generation not complete"}
+#         # Extract relevant information from the webhook payload
+#         status = data.get("status")
+#         if status != "done":
+#             return {"status": "ignored", "message": "Image generation not complete"}
 
-        result = data.get("result", {})
-        image_url = result.get("url")
-        filename = result.get("filename")
+#         result = data.get("result", {})
+#         image_url = result.get("url")
+#         filename = result.get("filename")
 
-        if not image_url or not filename:
-            raise HTTPException(
-                status_code=400, detail="Missing required image data")
+#         if not image_url or not filename:
+#             raise HTTPException(
+#                 status_code=400, detail="Missing required image data")
 
-        # Download the image
-        async with httpx.AsyncClient() as client:
-            response = await client.get(image_url)
-            if response.status_code != 200:
-                raise HTTPException(
-                    status_code=500, detail="Failed to download image")
+#         # Download the image
+#         async with httpx.AsyncClient() as client:
+#             response = await client.get(image_url)
+#             if response.status_code != 200:
+#                 raise HTTPException(
+#                     status_code=500, detail="Failed to download image")
 
-            # Save the image to disk
-            thumbnails_dir = "./thumbnails"
-            os.makedirs(thumbnails_dir, exist_ok=True)
-            file_path = os.path.join(thumbnails_dir, filename)
+#             # Save the image to disk
+#             thumbnails_dir = "./thumbnails"
+#             os.makedirs(thumbnails_dir, exist_ok=True)
+#             file_path = os.path.join(thumbnails_dir, filename)
 
-            with open(file_path, "wb") as f:
-                f.write(response.content)
+#             with open(file_path, "wb") as f:
+#                 f.write(response.content)
 
-            # Update the database with the new thumbnail filename
-            db.execute(
-                text(
-                    "UPDATE recipes "
-                    "SET thumbnail = :filename "
-                    "WHERE thumbnail LIKE '%default%' "
-                    "LIMIT 1"
-                ),
-                {"filename": filename}
-            )
-            db.commit()
+#             # Update the database with the new thumbnail filename
+#             db.execute(
+#                 text(
+#                     "UPDATE recipes "
+#                     "SET thumbnail = :filename "
+#                     "WHERE thumbnail LIKE '%default%' "
+#                     "LIMIT 1"
+#                 ),
+#                 {"filename": filename}
+#             )
+#             db.commit()
 
-        return {"status": "success", "filename": filename}
+#         return {"status": "success", "filename": filename}
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))

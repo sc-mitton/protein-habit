@@ -109,7 +109,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
     if (value.length === 0) {
       props.navigation.goBack();
     } else {
-      // getProteinSearch(value);
+      getProteinSearch(value);
     }
   };
 
@@ -138,7 +138,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
 
   useEffect(() => {
     if (isError) {
-      Alert.alert("😵‍💫\nNo results found", "Maybe try rephrasing your search?", [
+      Alert.alert("😵‍💫\nNo results found", `Maybe try rephrasing your search?`, [
         {
           text: "OK",
           onPress: () => {
