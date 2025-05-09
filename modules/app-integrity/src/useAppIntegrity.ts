@@ -14,20 +14,24 @@ interface UseAppIntegrityOptions {
 export const useAppIntegrity = (options: UseAppIntegrityOptions) => {
   const { challengeUrl, attestUrl } = options;
 
-  const getChallenge = useCallback(async (): Promise<string> => {
-    const response = await fetch(challengeUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const getChallenge = useCallback(
+    async (keyId?: string): Promise<string> => {
+      const response = await fetch(challengeUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(keyId && { "x-key-id": keyId }),
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error(`Failed to get challenge: ${response.statusText}`);
-    }
+      if (!response.ok) {
+        throw new Error(`Failed to get challenge: ${response.statusText}`);
+      }
 
-    return response.text();
-  }, [challengeUrl]);
+      return response.text();
+    },
+    [challengeUrl],
+  );
 
   const attest = useCallback(
     async (data: {
@@ -91,7 +95,7 @@ export const useAppIntegrity = (options: UseAppIntegrityOptions) => {
     });
 
     // 5. Get new challenge for creating future assertions and store it
-    const newChallenge = await getChallenge();
+    const newChallenge = await getChallenge(keyResult.keyId);
     await SecureStore.setItemAsync("challenge", newChallenge);
   }, [getChallenge, attest]);
 

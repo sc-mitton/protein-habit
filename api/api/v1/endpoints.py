@@ -50,10 +50,8 @@ async def challenge(
 
     # If key id provided, update challenge for this key id
     if x_key_id:
-        print('setting key challenge')
         redis_client.set(f"{KEY_CHALLENGE_PREFIX}{x_key_id}", new_challenge)
     else:
-        print('setting challenge')
         redis_client.set(f"{CHALLENGE_PREFIX}{challenge_id}", new_challenge)
 
     return f"{challenge_id}:{new_challenge}"

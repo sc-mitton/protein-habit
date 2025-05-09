@@ -72,6 +72,12 @@ def validate_assertion(
         # Print results of each validation check
         print("Validation check results:")
         print(public_key, assertion_count, counter, last_challenge)
+        print(
+            f"Nonce verification: {_verify_nonce(assertion, client_data, public_key)}")
+        print(f"RP ID verification: {_verify_rp_id(assertion, f'{app_id}')}")
+        print(f"Counter check: {assertion_count > counter}")
+        print(
+            f"Challenge verification: {client_data['challenge'] == last_challenge}")
 
         checks = [
             _verify_nonce(assertion, client_data, public_key),
