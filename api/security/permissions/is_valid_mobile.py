@@ -31,8 +31,7 @@ async def is_valid_mobile(
         "key_id",
         x_key_id,
         "assertion",
-        x_assertion,
-        "client_data",
+        x_assertion
     )
     # ios case
     if x_key_id:
