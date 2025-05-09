@@ -80,7 +80,6 @@ def validate_assertion(
 
         redis_client.set(f"{KEY_COUNTER_PREFIX}{key_id}", f'{assertion_count}')
 
-        print('passed', passed)
         return passed
 
     except Exception:

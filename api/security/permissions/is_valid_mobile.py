@@ -42,3 +42,5 @@ async def is_valid_mobile(
 
     if not assertion_valid:
         raise HTTPException(status_code=401, detail="Invalid assertion")
+
+    return True

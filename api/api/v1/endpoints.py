@@ -34,6 +34,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 async def protein(request: SearchRequest, db: Session = Depends(get_db),
                   deps=Depends(is_valid_mobile)):
     try:
+        print("request", request.text)
         results = chain.run(request.text, db)
         return {"results": results}
     except Exception as e:
