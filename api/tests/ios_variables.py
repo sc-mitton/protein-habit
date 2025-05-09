@@ -32,8 +32,9 @@ counter = bytes([0x00, 0x00, 0x00, 0x01])  # Counter value 1
 authenticator_data = rp_id_hash + counter
 
 # Create client data
-client_data = {"challenge": f"{TEST_CHALLENGE_ID}:{TEST_CHALLENGE_VALUE}"}
-client_data_hash = hashlib.sha256(json.dumps(client_data).encode()).digest()
+client_data = {"challenge": TEST_CHALLENGE_VALUE}
+client_data_hash = hashlib.sha256(json.dumps(
+    client_data, separators=(',', ':')).encode()).digest()
 
 # Create nonce for signing
 nonce = hashlib.sha256((authenticator_data + client_data_hash)).digest()

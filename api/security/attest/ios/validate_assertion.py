@@ -73,7 +73,7 @@ def validate_assertion(
             _verify_nonce(assertion, client_data, public_key),
             _verify_rp_id(assertion, f"{app_id}"),
             assertion_count > counter,
-            client_data['challenge'].split(':')[1] == last_challenge
+            client_data['challenge'] == last_challenge
         ]
 
         passed = all(checks)
