@@ -27,8 +27,8 @@ export const useAppIntegrity = (options: UseAppIntegrityOptions) => {
       if (!response.ok) {
         throw new Error(`Failed to get challenge: ${response.statusText}`);
       }
-
-      return response.text();
+      const body = await response.json();
+      return body;
     },
     [challengeUrl],
   );
