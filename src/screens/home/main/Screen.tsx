@@ -139,7 +139,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
         onScrollEndDrag={(e) => {
           if (Platform.OS === "android") {
             const currentOffset = e.nativeEvent.contentOffset.y;
-            const threshold = topSectionSize / 2;
+            const threshold = 32;
 
             // If we're scrolling down from the top
             if (currentOffset > 0 && currentOffset < topSectionSize) {
