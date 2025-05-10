@@ -48,6 +48,7 @@ const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 const Header = ({
   setTopSectionSize,
+  scrollY,
 }: {
   scrollY: Animated.Value;
   setTopSectionSize: (size: number) => void;
@@ -55,9 +56,16 @@ const Header = ({
   const theme = useTheme<Theme>();
   const { name } = useAppSelector(selectUserInfo);
 
+  const headerZIndex = scrollY.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
+  });
+
   return (
-    <Box
+    <AnimatedBox
       top={theme.spacing.statusBar + 16}
+      zIndex={Platform.OS === "android" ? headerZIndex : 0}
       width={"100%"}
       position="absolute"
       onLayout={(event) => {
@@ -77,7 +85,7 @@ const Header = ({
         </Box>
       </Box>
       <DailyTotal />
-    </Box>
+    </AnimatedBox>
   );
 };
 
@@ -129,7 +137,37 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
           { useNativeDriver: false },
         )}
         onScrollEndDrag={(e) => {
-          setTopSlop(-topSectionSize + e.nativeEvent.contentOffset.y);
+          if (Platform.OS === "android") {
+            const currentOffset = e.nativeEvent.contentOffset.y;
+            const threshold = topSectionSize / 2;
+
+            // If we're scrolling down from the top
+            if (currentOffset > 0 && currentOffset < topSectionSize) {
+              // If we're more than halfway down, snap to bottom
+              if (currentOffset >= threshold) {
+                scrollRef.current?.scrollTo({
+                  y: topSectionSize,
+                  animated: true,
+                });
+              } else {
+                // If we're less than halfway, snap back to top
+                scrollRef.current?.scrollTo({ y: 0, animated: true });
+              }
+            }
+            // If we're scrolling up from the bottom
+            else if (currentOffset > topSectionSize) {
+              // If we're more than halfway up, snap to top
+              if (currentOffset <= topSectionSize + threshold) {
+                scrollRef.current?.scrollTo({ y: 0, animated: true });
+              } else {
+                // If we're less than halfway up, snap back to bottom
+                scrollRef.current?.scrollTo({
+                  y: topSectionSize,
+                  animated: true,
+                });
+              }
+            }
+          }
         }}
         hitSlop={{ top: topSlop }}
       >

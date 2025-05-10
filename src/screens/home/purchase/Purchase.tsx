@@ -1,6 +1,6 @@
 import { useTheme } from "@shopify/restyle";
 import { useState, useEffect } from "react";
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, Modal } from "react-native";
 import Purchases, {
   PurchasesOffering,
   PurchasesPackage,
@@ -34,6 +34,18 @@ import {
 import { baseEntitlement } from "@constants/iaps";
 import LottieView from "lottie-react-native";
 import { loadingV4 } from "@assets/lotties";
+
+const styles = StyleSheet.create({
+  sheet: {
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 1,
+    shadowRadius: 24,
+    elevation: 12,
+  },
+  sheetContainer: {
+    zIndex: 12000,
+  },
+});
 
 const AnimatedBox = Animated.createAnimatedComponent(Box);
 
@@ -431,13 +443,13 @@ export default function (props: RootScreenProps<"PurchaseModal">) {
       backgroundStyle={{
         backgroundColor: theme.colors.modalBackground,
       }}
-      containerStyle={{
-        shadowColor: theme.colors.defaultShadow,
-        shadowOffset: { width: 0, height: 12 },
-        shadowOpacity: 1,
-        shadowRadius: 24,
-        elevation: 12,
-      }}
+      style={styles.sheetContainer}
+      containerStyle={[
+        {
+          shadowColor: theme.colors.defaultShadow,
+        },
+        styles.sheet,
+      ]}
       handleIndicatorStyle={{
         backgroundColor: theme.colors.tertiaryText,
       }}

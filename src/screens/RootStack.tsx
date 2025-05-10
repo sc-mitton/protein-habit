@@ -49,7 +49,10 @@ export const useSubscriptionCheck = () => {
   useEffect(() => {
     const hasProAccess = entitlement === proEntitlement;
     const route = currentRoute?.name;
-    if (route && PROTECTED_ROUTES.includes(route) && !hasProAccess) {
+    if (route && PROTECTED_ROUTES.includes(route) && true) {
+      if (route.toLowerCase().includes("modal")) {
+        navigation.goBack();
+      }
       navigation.navigate("PurchaseModal", { proFeatureAccess: true });
     }
   }, [currentRoute, routes]);

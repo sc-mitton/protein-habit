@@ -60,7 +60,14 @@ const Entry = (props: RootScreenProps<"EntryModal">) => {
   };
 
   return (
-    <Box flex={1} backgroundColor="secondaryBackground">
+    <Box
+      flex={1}
+      backgroundColor="secondaryBackground"
+      marginTop={Platform.select({
+        ios: "none",
+        android: "l",
+      })}
+    >
       {Platform.OS === "ios" && (
         <StatusBar
           style={"light"}

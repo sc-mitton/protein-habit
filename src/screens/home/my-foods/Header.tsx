@@ -298,7 +298,6 @@ const Actions = () => {
             ) : (
               <TextInput
                 value={searchString}
-                backgroundColor="primaryButton"
                 onChangeText={setSearchString}
                 placeholder="Search"
                 style={styles.searchInput}
