@@ -9,8 +9,8 @@ bun.lockb
 dist/
 web-build/
 expo-env.d.ts
-./ios
-./android
+ios
+android
 **/android/build
 .gradle/
 

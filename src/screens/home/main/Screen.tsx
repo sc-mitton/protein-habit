@@ -17,6 +17,7 @@ import { useAppSelector } from "@store/hooks";
 const styles = StyleSheet.create({
   scroll: {
     flexGrow: 1,
+    paddingTop: Platform.OS === "ios" ? 0 : 48,
   },
   back: {
     position: "absolute",
@@ -64,7 +65,7 @@ const Header = ({
       }}
     >
       <Box
-        paddingTop="statusBar"
+        paddingTop={Platform.OS === "ios" ? "statusBar" : "none"}
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: Platform.OS === "ios" ? 100 : 80,
+    height: Platform.OS === "ios" ? 100 : 110,
     zIndex: 110,
   },
 });
@@ -202,9 +202,10 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
       paddingHorizontal="l"
       backgroundColor="matchBlurBackground"
       onLayout={onLayout(title.toLowerCase())}
+      zIndex={100}
     >
       <Box
-        borderBottomWidth={1}
+        borderBottomWidth={1.5}
         borderBottomColor="borderColor"
         paddingBottom="m"
       >
@@ -282,7 +283,11 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
               )}
             </Box>
           </Box>
-          <Box backgroundColor="matchBlurBackground" paddingTop="xs">
+          <Box
+            backgroundColor="matchBlurBackground"
+            paddingTop="xs"
+            marginTop="ns"
+          >
             <LinearGradientEdges height={60} />
             <ScrollView
               horizontal
@@ -353,7 +358,11 @@ const DetailScreen = (props: RootScreenProps<"RecipeDetail">) => {
             </Box>
           </Box>
           {renderSectionHeader("Ingredients")}
-          <Box paddingHorizontal="l" backgroundColor="matchBlurBackground">
+          <Box
+            paddingHorizontal="l"
+            backgroundColor="matchBlurBackground"
+            marginTop="nxs"
+          >
             <Markdown>
               {recipeData.recipe?.ingredients.replace(/\\n/g, "\n")}
             </Markdown>

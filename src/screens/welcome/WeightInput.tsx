@@ -59,7 +59,6 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
             />
           ) : (
             <TextInput
-              backgroundColor="mainBackground"
               keyboardType="numeric"
               value={weight?.toString()}
               onChangeText={(text) => setWeightValue(Number(text))}

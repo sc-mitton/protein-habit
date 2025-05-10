@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo, useCallback } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import Reanimated, {
   useAnimatedStyle,
   useSharedValue,
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: OFFSET_LEFT,
     gap: TAB_GAP,
+    paddingTop: Platform.OS === "ios" ? 0 : 36,
   },
 });
 

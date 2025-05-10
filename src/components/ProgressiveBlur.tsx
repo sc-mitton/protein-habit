@@ -1,4 +1,10 @@
-import { View, StyleSheet, useColorScheme, ViewStyle } from "react-native";
+import {
+  View,
+  StyleSheet,
+  useColorScheme,
+  ViewStyle,
+  Platform,
+} from "react-native";
 import { easeGradient } from "react-native-easing-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
@@ -63,6 +69,7 @@ export const ProgressiveBlur = ({
         >
           <BlurView
             intensity={100}
+            experimentalBlurMethod={"dimezisBlurView"}
             tint={scheme == "dark" ? "dark" : "light"}
             style={[StyleSheet.absoluteFill]}
           />
