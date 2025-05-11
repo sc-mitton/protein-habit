@@ -78,7 +78,7 @@ const RootStack = () => {
     headerTintColor: theme.colors.primaryText,
     headerBackButtonDisplayMode: "default",
     headerStyle: {
-      backgroundColor: theme.colors.mainBackground,
+      backgroundColor: "transparent",
     },
     headerShadowVisible: false,
     headerTitleStyle: {

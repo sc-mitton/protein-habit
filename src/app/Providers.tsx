@@ -15,6 +15,7 @@ import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import Purchases from "react-native-purchases";
 import Constants from "expo-constants";
+import { PortalProvider } from "@gorhom/portal";
 
 import lightTheme, { darkTheme } from "@theme";
 import { store, persistor } from "@store";
@@ -51,25 +52,27 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       options={{ enableChangeListener: true }}
     >
       <DatabaseProvider>
-        <Provider store={store}>
-          <KeyboardProvider>
-            <ThemeProvider theme={restyledTheme}>
-              <PaperProvider>
-                <EventProvider>
-                  <BottomSheetModalProvider>
-                    <SafeAreaProvider>
-                      <GestureHandlerRootView>
-                        <PersistGate loading={null} persistor={persistor}>
-                          {children}
-                        </PersistGate>
-                      </GestureHandlerRootView>
-                    </SafeAreaProvider>
-                  </BottomSheetModalProvider>
-                </EventProvider>
-              </PaperProvider>
-            </ThemeProvider>
-          </KeyboardProvider>
-        </Provider>
+        <GestureHandlerRootView>
+          <Provider store={store}>
+            <KeyboardProvider>
+              <ThemeProvider theme={restyledTheme}>
+                <PaperProvider>
+                  <EventProvider>
+                    <BottomSheetModalProvider>
+                      <PortalProvider>
+                        <SafeAreaProvider>
+                          <PersistGate loading={null} persistor={persistor}>
+                            {children}
+                          </PersistGate>
+                        </SafeAreaProvider>
+                      </PortalProvider>
+                    </BottomSheetModalProvider>
+                  </EventProvider>
+                </PaperProvider>
+              </ThemeProvider>
+            </KeyboardProvider>
+          </Provider>
+        </GestureHandlerRootView>
       </DatabaseProvider>
     </SQLiteProvider>
   );

@@ -1,16 +1,17 @@
 import { useEffect, useState, useRef } from "react";
-import { View, Modal as NativeModal } from "react-native";
+import { View } from "react-native";
 import dayjs from "dayjs";
-import { ChevronsRight, ChevronsLeft } from "geist-native-icons";
+import { ChevronsRight } from "geist-native-icons";
 import { useAppSelector } from "@store/hooks";
 import PagerView from "react-native-pager-view";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useTheme } from "@shopify/restyle";
+import { Portal } from "@gorhom/portal";
 
 import { selectUserInception } from "@store/slices/userSlice";
 import { selectAccent } from "@store/slices/uiSlice";
 import styles from "./styles";
-import { Text, Box } from "../base";
+import { Text } from "../base";
 import { Button } from "../base/Button";
 import { Icon } from "../Icon";
 import { BackDrop } from "@components";
@@ -60,13 +61,10 @@ export function MonthPicker({ value, onChange, visible, setVisible }: Props) {
     setOptions(newOptions);
   }, [inception]);
 
+  if (!visible) return null;
+
   return (
-    <NativeModal
-      visible={visible}
-      transparent={true}
-      animationType="fade"
-      statusBarTranslucent
-    >
+    <Portal>
       <BottomSheet
         onClose={() => setVisible(false)}
         enablePanDownToClose
@@ -161,6 +159,6 @@ export function MonthPicker({ value, onChange, visible, setVisible }: Props) {
           </View>
         </BottomSheetView>
       </BottomSheet>
-    </NativeModal>
+    </Portal>
   );
 }

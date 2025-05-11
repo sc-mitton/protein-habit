@@ -4,14 +4,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
 import { useTheme } from "@shopify/restyle";
 
-import { Box, Text } from "@components";
-import { HomeScreenProps } from "@types";
+import { BackDrop, Box, Text } from "@components";
+import { BottomTabsScreenProps } from "@types";
 import { HomeMainProvider, useTabs } from "./tabsContext";
 import Tabs from "./Tabs";
 import DailyTotal from "./DailyTotal";
 import TabButtons from "./TabButtons";
 import { selectUserInfo } from "@store/slices/userSlice";
-import { Theme } from "@theme";
+import theme, { Theme } from "@theme";
 
 import { useAppSelector } from "@store/hooks";
 const styles = StyleSheet.create({
@@ -89,7 +89,7 @@ const Header = ({
   );
 };
 
-const HomeMain = (props: HomeScreenProps<"Main">) => {
+const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
   const theme = useTheme<Theme>();
   const { selectedTab } = useTabs();
   const scrollRef = useRef<ScrollView>(null);
@@ -199,7 +199,7 @@ const HomeMain = (props: HomeScreenProps<"Main">) => {
   );
 };
 
-export default function HomeMainScreen(props: HomeScreenProps<"Main">) {
+export default function HomeMainScreen(props: BottomTabsScreenProps<"Home">) {
   return (
     <HomeMainProvider>
       <HomeMain {...props} />

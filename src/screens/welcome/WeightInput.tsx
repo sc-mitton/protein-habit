@@ -27,10 +27,7 @@ const WeightInput = ({ navigation }: RootScreenProps<"WeightInput">) => {
       dispatch(
         setDailyTarget(getRecommendedTarget(Number(weight), weightUnit)),
       );
-      navigation.replace("BottomTabs", {
-        screen: "Home",
-        params: { screen: "Main" },
-      });
+      navigation.replace("BottomTabs", { screen: "Home" });
     }
   };
 

@@ -8,10 +8,6 @@ import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { BookmarkCategory } from "@store/slices/bookmarksSlice";
 
-export type HomeStackParamList = {
-  Main: undefined;
-};
-
 export type ProfileStackParamList = {
   ProfileNavList: undefined;
   AppearanceModal: undefined;
@@ -24,7 +20,7 @@ export type RecipesStackParamList = {
 };
 
 export type BottomTabsParamList = {
-  Home: NavigatorScreenParams<HomeStackParamList>;
+  Home: undefined;
   Recipes: NavigatorScreenParams<RecipesStackParamList>;
   Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
@@ -54,15 +50,6 @@ export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<BottomTabsParamList, T>,
     RootScreenProps<keyof RootStackParamList>
-  >;
-
-export type HomeScreenProps<T extends keyof HomeStackParamList> =
-  CompositeScreenProps<
-    NativeStackScreenProps<HomeStackParamList, T>,
-    CompositeScreenProps<
-      BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
-      RootScreenProps<keyof RootStackParamList>
-    >
   >;
 
 export type RecipesScreenProps<T extends keyof RecipesStackParamList> =

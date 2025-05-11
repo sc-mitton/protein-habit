@@ -91,7 +91,7 @@ const EmptyState = () => {
           onPress={() =>
             navigation.navigate("BottomTabs", {
               screen: "Recipes",
-              params: { screen: "List" },
+              params: { screen: "RecipesList" },
             })
           }
           paddingHorizontal="m"

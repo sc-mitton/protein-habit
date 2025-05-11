@@ -428,15 +428,8 @@ export default function (props: RootScreenProps<"PurchaseModal">) {
       onClose={() =>
         props.navigation.navigate(
           "BottomTabs",
-          {
-            screen: "Home",
-            params: {
-              screen: "Main",
-            },
-          },
-          {
-            pop: true,
-          },
+          { screen: "Home" },
+          { pop: true },
         )
       }
       enablePanDownToClose

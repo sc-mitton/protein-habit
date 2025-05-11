@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@shopify/restyle";
-import { Platform, StyleSheet } from "react-native";
+import { AppState, Platform, StyleSheet } from "react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { SymbolView } from "expo-symbols";
 import { LinearGradient } from "expo-linear-gradient";
@@ -16,13 +16,14 @@ import Animated, {
 } from "react-native-reanimated";
 import { useNavigation, useNavigationState } from "@react-navigation/native";
 
-import Stack from "./home/Stack";
+import HomeMainScreen from "./home/main/Screen";
 import RecipesScreen from "./recipes/Stack";
 import ProfileStack from "./profile/Stack";
 import { Box } from "@components";
 import { BottomTabsParamList } from "@types";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { selectHideBottomBar, showBottomBar } from "@store/slices/uiSlice";
+import dayjs from "dayjs";
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
@@ -187,6 +188,25 @@ const CustomTabBar = ({
 
 const RootTabs = () => {
   const theme = useTheme();
+  const [currentDay, setCurrentDay] = useState(dayjs());
+  useEffect(() => {
+    const appStateListener = AppState.addEventListener(
+      "change",
+      (nextAppState) => {
+        if (nextAppState === "active") {
+          const newDay = dayjs();
+          if (newDay.isAfter(currentDay, "day")) {
+            // Day has changed, fire event
+            setCurrentDay(newDay);
+          }
+        }
+      },
+    );
+
+    return () => {
+      appStateListener.remove();
+    };
+  }, [currentDay]);
 
   return (
     <Tab.Navigator
@@ -212,7 +232,7 @@ const RootTabs = () => {
           ),
         }}
         name="Home"
-        component={Stack}
+        component={HomeMainScreen}
       />
       <Tab.Screen
         options={{
