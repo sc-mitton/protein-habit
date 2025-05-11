@@ -93,9 +93,6 @@ export default {
       eas: {
         projectId: "baeb6fad-cd86-4bb9-b233-a9315e60eb68",
       },
-      rcats: {
-        apiKey: "appl_ojwoHcZMWhzMUgwCtpuFgwRhHvP",
-      },
       apiUrl: getApiUrl(),
     },
     runtimeVersion: "1.0.0",

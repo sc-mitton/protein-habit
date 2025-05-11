@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { useColorScheme, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider } from "@shopify/restyle";
 import { Provider } from "react-redux";
@@ -14,7 +14,6 @@ import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import Purchases from "react-native-purchases";
-import Constants from "expo-constants";
 import { PortalProvider } from "@gorhom/portal";
 
 import lightTheme, { darkTheme } from "@theme";
@@ -42,7 +41,10 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     Purchases.configure({
-      apiKey: Constants.expoConfig?.extra?.rcats?.apiKey,
+      apiKey:
+        Platform.OS === "android"
+          ? "goog_NDrSpVKSsFOPfzlxpFaJUkAhDCt"
+          : "appl_ojwoHcZMWhzMUgwCtpuFgwRhHvP",
     });
   }, []);
 

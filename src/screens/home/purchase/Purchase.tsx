@@ -1,6 +1,6 @@
 import { useTheme } from "@shopify/restyle";
 import { useState, useEffect } from "react";
-import { StyleSheet, Alert, Modal } from "react-native";
+import { StyleSheet, Alert, Text as RNText } from "react-native";
 import Purchases, {
   PurchasesOffering,
   PurchasesPackage,
@@ -306,7 +306,7 @@ function Purchase(props: RootScreenProps<"PurchaseModal">) {
                         {metaData?.titleStrings?.[p.identifier]}
                       </Text>
                     </Box>
-                    <Text fontSize={18}>
+                    <Text fontSize={18} lineHeight={24} paddingTop="xs">
                       {period === "P1M"
                         ? p.product.pricePerMonthString
                         : p.product.pricePerYearString}{" "}
