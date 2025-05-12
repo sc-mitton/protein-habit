@@ -8,7 +8,6 @@ import { Box, Text, Button } from "@components";
 import { ProfileScreenProps } from "@types";
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
-import { selectAccent } from "@store/slices/uiSlice";
 import { Alert } from "react-native";
 
 const styles = StyleSheet.create({
@@ -19,7 +18,6 @@ const styles = StyleSheet.create({
 });
 
 const ProfileNavList = (props: ProfileScreenProps<"ProfileNavList">) => {
-  const accent = useAppSelector(selectAccent);
   const { name } = useAppSelector(selectUserInfo);
   const theme = useTheme();
 
@@ -27,7 +25,8 @@ const ProfileNavList = (props: ProfileScreenProps<"ProfileNavList">) => {
     <Box backgroundColor="mainBackground" padding="m" style={styles.container}>
       <Box alignItems="center" gap="s">
         <Box
-          backgroundColor={accent}
+          accent
+          backgroundColor={"primaryButton"}
           width={48}
           height={48}
           borderRadius="full"
