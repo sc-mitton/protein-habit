@@ -32,7 +32,7 @@ export function MonthPicker({ value, onChange, visible, setVisible }: Props) {
   const pagerRef = useRef<PagerView>(null);
   const [pagerIndex, setPagerIndex] = useState(0);
   const [options, setOptions] = useState<Record<string, number[][]>[]>();
-  const [month, setMonth] = useState(dayjs(value).month());
+  const [month, setMonth] = useState(dayjs(value).month() + 1);
   const [year, setYear] = useState(dayjs(value).year());
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export function MonthPicker({ value, onChange, visible, setVisible }: Props) {
                                 <Button
                                   key={`month-${y}-${r * 4 + c + 2}`}
                                   backgroundColor={
-                                    m === month + 1 && parseInt(y) === year
+                                    m === month && parseInt(y) === year
                                       ? accentColor || "blue"
                                       : "transparent"
                                   }
@@ -115,7 +115,7 @@ export function MonthPicker({ value, onChange, visible, setVisible }: Props) {
                                 >
                                   <Text
                                     color={
-                                      m === month + 1 && parseInt(y) === year
+                                      m === month && parseInt(y) === year
                                         ? "white"
                                         : m === -1
                                           ? "tertiaryText"

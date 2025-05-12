@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Edit3 } from "geist-native-icons";
-import { TextInput as RNTextInput } from "react-native";
+import { TextInput as RNTextInput, Platform, StyleSheet } from "react-native";
 
-import { StyleSheet } from "react-native";
 import { TextInput, Button, Icon, Box } from "@components";
 import { View } from "react-native";
 
@@ -59,7 +58,13 @@ const DescriptionInput = ({ value, onChange }: Props) => {
           style={styles.textInput}
           borderLess
           backgroundColor="transparent"
-          placeholder={focused ? "" : "Bagel & Cream Cheese "}
+          placeholder={
+            focused
+              ? ""
+              : Platform.OS === "ios"
+                ? "Bagel & Cream Cheese "
+                : "Bagel & Cream Cheese   "
+          }
           value={description}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
