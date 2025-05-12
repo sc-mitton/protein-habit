@@ -1,4 +1,5 @@
 import SlotNumbers from "react-native-slot-numbers";
+import { Platform, Text as RNText } from "react-native";
 import ReAnimated, { LinearTransition } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -11,7 +12,6 @@ import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { dayFormat } from "@constants/formats";
 import { selectFont } from "@store/slices/uiSlice";
 import PlusMenu from "./PlusMenu";
-
 const DailyTotal = ({
   fontSize = "large",
 }: {
@@ -31,17 +31,28 @@ const DailyTotal = ({
       gap={fontSize === "small" ? "l" : "xl"}
     >
       <Box flexDirection="row" alignItems={"baseline"} gap="s">
-        <SlotNumbers
-          spring
-          animateIntermediateValues
-          value={Number(totalProteinForDay.toString().replace(".", ""))}
-          precision={totalProteinForDay.toString().split(".")[1]?.length || 0}
-          fontStyle={[
-            styles[`${fontSize}SlotNumbersStyle`],
-            { color: theme.colors.primaryText },
-            fontStyles[font],
-          ]}
-        />
+        {Platform.OS === "ios" ? (
+          <SlotNumbers
+            spring
+            value={Number(totalProteinForDay.toString().replace(".", ""))}
+            precision={totalProteinForDay.toString().split(".")[1]?.length || 0}
+            fontStyle={[
+              styles[`${fontSize}SlotNumbersStyle`],
+              { color: theme.colors.primaryText },
+              fontStyles[font],
+            ]}
+          />
+        ) : (
+          <RNText
+            style={[
+              fontStyles[font],
+              styles[`${fontSize}SlotNumbersStyle`],
+              { color: theme.colors.primaryText },
+            ]}
+          >
+            {totalProteinForDay}
+          </RNText>
+        )}
         <Text
           variant="bold"
           marginTop="xs"
