@@ -5,6 +5,7 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  View,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -54,7 +55,13 @@ const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 const SectionHeader = ({ title }: { title: string }) => (
   <Box>
-    <Box padding="s" paddingTop="l" backgroundColor="mainBackground">
+    <Box
+      padding="s"
+      paddingTop="l"
+      backgroundColor="mainBackground"
+      paddingHorizontal="m"
+      marginHorizontal="nm"
+    >
       <Text color="tertiaryText">{title}</Text>
     </Box>
     <Box height={26}>
@@ -67,9 +74,10 @@ const SectionHeader = ({ title }: { title: string }) => (
       />
       <Box
         backgroundColor="mainBackground"
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, { transform: [{ translateX: -16 }] }]}
         height="50%"
         top={0}
+        width="150%"
         zIndex={0}
       />
     </Box>

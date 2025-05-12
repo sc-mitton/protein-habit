@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   largeSlotNumbersStyle: {
     fontSize: Platform.OS === "ios" ? 82 : 84,
     lineHeight: Platform.OS === "ios" ? 86 : 88,
-    fontFamily: "Inter-Bold",
   },
   smallSlotNumbersStyle: {
     fontSize: 28,
