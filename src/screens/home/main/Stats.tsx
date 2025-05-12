@@ -1,11 +1,5 @@
-import { memo, useEffect, useState } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { memo, useEffect } from "react";
+import { Alert, TouchableOpacity } from "react-native";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
 import { SymbolView } from "expo-symbols";
@@ -13,9 +7,8 @@ import { Zap } from "geist-native-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useTheme } from "@shopify/restyle";
-import { LinearGradient } from "expo-linear-gradient";
 
-import { Box, Text, Tip, Icon, ProgressPie } from "@components";
+import { Box, Text, Icon, ProgressPie } from "@components";
 import {
   selectDailyProteinTarget,
   selectTotalProteinForDay,
@@ -30,25 +23,6 @@ import {
 
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { dayFormat } from "@constants/formats";
-import Calendar from "./Calendar";
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "android" ? 120 : 124,
-    marginTop: Platform.OS === "android" ? -80 : -84,
-    paddingBottom: 54,
-  },
-  gradient: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 48,
-    zIndex: 1,
-    borderTopEndRadius: 28,
-    borderTopStartRadius: 28,
-  },
-});
 
 const Stats = () => {
   const navigation = useNavigation<any>();
@@ -84,192 +58,160 @@ const Stats = () => {
   }, [remainingProtein, navigation, dispatch, hasShownSuccessModal]);
 
   return (
-    <Box justifyContent="flex-start" width={Dimensions.get("window").width}>
-      <LinearGradient
-        colors={[theme.colors.transparentRGB, theme.colors.secondaryBackground]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 0, y: 0 }}
-        style={styles.gradient}
-      />
-      <Box style={styles.container}>
-        <Box>
+    <Box
+      justifyContent="flex-start"
+      variant="homeTabSection"
+      borderBottomLeftRadius="l"
+      borderBottomRightRadius="l"
+      marginTop="nm"
+      paddingBottom="m"
+    >
+      <Box flexDirection="row" gap="xxxl" marginBottom="xl">
+        <Box gap="s" flex={1}>
           <Box
-            paddingHorizontal="l"
-            flexDirection="row"
-            gap="xxxl"
-            marginBottom="xl"
+            flexDirection={"row"}
+            gap="s"
+            paddingBottom="s"
+            alignItems={"center"}
+            borderColor="seperator"
+            borderBottomWidth={1.5}
           >
-            <Box gap="s" flex={1}>
-              <Box
-                flexDirection={"row"}
-                gap="s"
-                paddingBottom="s"
-                alignItems={"center"}
-                borderColor="seperator"
-                borderBottomWidth={1.5}
-              >
-                <Box flexDirection="row" gap="s" alignItems="center">
-                  <Ionicons
-                    name="flag"
-                    size={18}
-                    color={
-                      accent ? theme.colors[accent] : theme.colors.secondaryText
-                    }
-                  />
-                  <Text
-                    variant="miniHeader"
-                    accent={true}
-                    color="secondaryText"
-                  >
-                    Daily Goal
-                  </Text>
-                </Box>
-              </Box>
-              <Box flexDirection="row" gap="xxs" marginLeft="xs">
-                <Text fontSize={18}>{dailyTarget}</Text>
-                <Text fontSize={18}>g</Text>
-              </Box>
-            </Box>
-            <Box gap="s" flex={1}>
-              <Box
-                flexDirection={"row"}
-                gap="s"
-                paddingBottom="s"
-                alignItems={"center"}
-                borderColor="seperator"
-                borderBottomWidth={1.5}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    Alert.alert(
-                      "Remaining",
-                      "How much protein you have left to reach your goal for the day.",
-                    )
-                  }
-                >
-                  <Box flexDirection="row" gap="s" alignItems="center">
-                    <ProgressPie
-                      progress={(dailyTarget - remainingProtein) / dailyTarget}
-                    />
-                    <Text
-                      color="secondaryText"
-                      variant="miniHeader"
-                      accent={true}
-                    >
-                      Remaining
-                    </Text>
-                  </Box>
-                </TouchableOpacity>
-              </Box>
-              <Box flexDirection="row" gap="xxs" marginLeft="xs">
-                <Text fontSize={18}>{remainingProtein}</Text>
-                <Text fontSize={18}>g</Text>
-              </Box>
+            <Box flexDirection="row" gap="s" alignItems="center">
+              <Ionicons
+                name="flag"
+                size={18}
+                color={
+                  accent ? theme.colors[accent] : theme.colors.secondaryText
+                }
+              />
+              <Text variant="miniHeader" accent={true} color="secondaryText">
+                Daily Goal
+              </Text>
             </Box>
           </Box>
+          <Box flexDirection="row" gap="xxs" marginLeft="xs">
+            <Text fontSize={18}>{dailyTarget}</Text>
+            <Text fontSize={18}>g</Text>
+          </Box>
+        </Box>
+        <Box gap="s" flex={1}>
           <Box
-            paddingHorizontal="l"
-            flexDirection="row"
-            gap="xxxl"
-            marginBottom="s"
+            flexDirection={"row"}
+            gap="s"
+            paddingBottom="s"
+            alignItems={"center"}
+            borderColor="seperator"
+            borderBottomWidth={1.5}
           >
-            <Box paddingBottom="s" gap="s" flex={1}>
-              <Box
-                flexDirection={"row"}
-                gap="s"
-                paddingBottom="s"
-                alignItems={"center"}
-                borderColor="seperator"
-                borderBottomWidth={1.5}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    Alert.alert(
-                      "Daily Average",
-                      "Average protein per day this week.",
-                    )
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert(
+                  "Remaining",
+                  "How much protein you have left to reach your goal for the day.",
+                )
+              }
+            >
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <ProgressPie
+                  progress={(dailyTarget - remainingProtein) / dailyTarget}
+                />
+                <Text color="secondaryText" variant="miniHeader" accent={true}>
+                  Remaining
+                </Text>
+              </Box>
+            </TouchableOpacity>
+          </Box>
+          <Box flexDirection="row" gap="xxs" marginLeft="xs">
+            <Text fontSize={18}>{remainingProtein}</Text>
+            <Text fontSize={18}>g</Text>
+          </Box>
+        </Box>
+      </Box>
+      <Box flexDirection="row" gap="xxxl">
+        <Box paddingBottom="s" gap="s" flex={1}>
+          <Box
+            flexDirection={"row"}
+            gap="s"
+            paddingBottom="s"
+            alignItems={"center"}
+            borderColor="seperator"
+            borderBottomWidth={1.5}
+          >
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert(
+                  "Daily Average",
+                  "Average protein per day this week.",
+                )
+              }
+            >
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <SymbolView
+                  name="chart.bar.xaxis"
+                  tintColor={
+                    accent ? theme.colors[accent] : theme.colors.secondaryText
                   }
-                >
-                  <Box flexDirection="row" gap="s" alignItems="center">
-                    <SymbolView
-                      name="chart.bar.xaxis"
-                      tintColor={
+                  size={20}
+                  fallback={
+                    <Entypo
+                      name="bar-graph"
+                      size={18}
+                      color={
                         accent
                           ? theme.colors[accent]
                           : theme.colors.secondaryText
                       }
-                      size={20}
-                      fallback={
-                        <Entypo
-                          name="bar-graph"
-                          size={18}
-                          color={
-                            accent
-                              ? theme.colors[accent]
-                              : theme.colors.secondaryText
-                          }
-                        />
-                      }
                     />
-                    <Text
-                      color="secondaryText"
-                      variant="miniHeader"
-                      accent={true}
-                    >
-                      Daily Average
-                    </Text>
-                  </Box>
-                </TouchableOpacity>
-              </Box>
-              <Box flexDirection="row" gap="xxs" marginLeft="xs">
-                <Text fontSize={18}>{weeklyAvg}</Text>
-                <Text fontSize={18}>g</Text>
-              </Box>
-            </Box>
-            <Box paddingBottom="s" gap="s" flex={1}>
-              <Box
-                flexDirection={"row"}
-                gap="s"
-                paddingBottom="s"
-                alignItems={"center"}
-                borderColor="seperator"
-                borderBottomWidth={1.5}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    Alert.alert(
-                      "Streak",
-                      "The number of consecutive days you've reached your daily goal.",
-                    )
                   }
-                >
-                  <Box flexDirection="row" gap="s" alignItems="center">
-                    <Icon
-                      icon={Zap}
-                      accent={true}
-                      size={18}
-                      color="secondaryText"
-                      borderColor="secondaryText"
-                    />
-                    <Text
-                      color="secondaryText"
-                      variant="miniHeader"
-                      accent={true}
-                    >
-                      Streak
-                    </Text>
-                  </Box>
-                </TouchableOpacity>
-              </Box>
-              <Box flexDirection="row" gap="xs" marginLeft="xs">
-                <Text fontSize={18}>
-                  {`${streak} day${streak === 1 ? "" : "s"}`}
+                />
+                <Text color="secondaryText" variant="miniHeader" accent={true}>
+                  Daily Average
                 </Text>
               </Box>
-            </Box>
+            </TouchableOpacity>
+          </Box>
+          <Box flexDirection="row" gap="xxs" marginLeft="xs">
+            <Text fontSize={18}>{weeklyAvg}</Text>
+            <Text fontSize={18}>g</Text>
           </Box>
         </Box>
-        <Calendar />
+        <Box paddingBottom="s" gap="s" flex={1}>
+          <Box
+            flexDirection={"row"}
+            gap="s"
+            paddingBottom="s"
+            alignItems={"center"}
+            borderColor="seperator"
+            borderBottomWidth={1.5}
+          >
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert(
+                  "Streak",
+                  "The number of consecutive days you've reached your daily goal.",
+                )
+              }
+            >
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <Icon
+                  icon={Zap}
+                  accent={true}
+                  size={18}
+                  color="secondaryText"
+                  borderColor="secondaryText"
+                />
+                <Text color="secondaryText" variant="miniHeader" accent={true}>
+                  Streak
+                </Text>
+              </Box>
+            </TouchableOpacity>
+          </Box>
+          <Box flexDirection="row" gap="xs" marginLeft="xs">
+            <Text fontSize={18}>
+              {`${streak} day${streak === 1 ? "" : "s"}`}
+            </Text>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

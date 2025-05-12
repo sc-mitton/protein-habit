@@ -1,11 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Animated, {
   LinearTransition,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { ZeroConfig } from "geist-native-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
@@ -17,7 +16,7 @@ import { selectDaysEntries } from "@store/slices/proteinSelectors";
 import { dayFormat, dayTimeFormat } from "@constants/formats";
 import { removeEntry } from "@store/slices/proteinSlice";
 import { RootStackParamList } from "@types";
-import { useTabs } from "./tabsContext";
+
 const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 12,
@@ -34,9 +33,8 @@ const Days = ({
   setDay: (day: string) => void;
 }) => {
   const pillX = useSharedValue(0);
-  const daysHorizontalMargin = 8;
-  const pillWidth =
-    (Dimensions.get("window").width - daysHorizontalMargin * 2) / 7;
+  const [containerWidth, setContainerWidth] = useState(0);
+  const pillWidth = containerWidth / 7;
 
   const pillStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: pillX.value }],
@@ -50,18 +48,22 @@ const Days = ({
 
   useEffect(() => {
     const index = dayjs(day).diff(dayjs().startOf("week"), "day");
-    pillX.value = withTiming((index + 0.5) * pillWidth);
-  }, [day]);
+    if (pillX.value === 0) {
+      pillX.value = (index + 0.5) * pillWidth;
+    } else {
+      pillX.value = withTiming((index + 0.5) * pillWidth);
+    }
+  }, [day, containerWidth]);
 
   return (
     <Box
       flexDirection="row"
       justifyContent="space-evenly"
       alignItems="center"
-      marginVertical="s"
       zIndex={100}
-      style={{
-        marginHorizontal: daysHorizontalMargin,
+      style={{ marginTop: 1 }}
+      onLayout={(event) => {
+        setContainerWidth(event.nativeEvent.layout.width);
       }}
     >
       <Animated.View style={pillStyle}>
@@ -72,7 +74,7 @@ const Days = ({
           borderColor="primaryButton"
           borderWidth={1.5}
           position="absolute"
-          borderRadius="l"
+          borderRadius="m"
         />
       </Animated.View>
       {Array.from({ length: 7 }).map((_, index) => {
@@ -83,7 +85,6 @@ const Days = ({
           <Button
             key={`entrie-days-day-${index}`}
             width={pillWidth}
-            paddingVertical="sm"
             paddingHorizontal="none"
             alignItems="center"
             justifyContent="center"
@@ -129,105 +130,110 @@ const Entries = () => {
   const daysEntries = useAppSelector((state) =>
     selectDaysEntries(state, dayjs(day).format(dayTimeFormat)),
   );
-  const { lockPagerScroll } = useTabs();
 
   return (
-    <Fragment>
+    <Box
+      justifyContent="flex-start"
+      variant="homeTabSection"
+      borderBottomLeftRadius="l"
+      borderBottomRightRadius="l"
+      padding="s"
+      paddingHorizontal="m"
+      paddingBottom="m"
+      marginTop="nm"
+      minHeight={200}
+    >
       <Days day={day} setDay={setDay} />
-      {daysEntries && daysEntries?.length > 0 ? (
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {daysEntries.map((entry, entryIndex) => (
-            <Animated.View layout={LinearTransition} key={entry.id}>
-              {entryIndex !== 0 && (
-                <Box
-                  height={1.5}
-                  backgroundColor="borderColor"
-                  marginHorizontal="s"
-                />
-              )}
-              <SwipeOptions
-                onOpen={() => {
-                  lockPagerScroll.current = true;
-                }}
-                onClose={() => {
-                  lockPagerScroll.current = false;
-                }}
-                onDelete={() => {
-                  dispatch(
-                    removeEntry({
-                      day: dayjs().format(dayFormat),
-                      id: entry.id,
-                    }),
-                  );
-                }}
-                onEdit={() => {
-                  if (entry.food) {
-                    navigation.navigate("MyFoodsModal", { entry });
-                  } else {
-                    navigation.navigate("EntryModal", { entry });
-                  }
-                }}
-              >
-                <Box
-                  flexDirection="row"
-                  padding="m"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  gap="m"
-                  backgroundColor="secondaryBackground"
-                >
-                  <Box minWidth={36}>
-                    <Text>{entry.grams}g</Text>
-                  </Box>
-                  <Box
-                    flex={1}
-                    flexDirection="row"
-                    alignItems="center"
-                    justifyContent="flex-start"
-                    marginHorizontal="xs"
-                    gap="s"
-                  >
-                    <Text
-                      color={
-                        entry.name || entry.description
-                          ? "primaryText"
-                          : "quaternaryText"
-                      }
-                    >
-                      {entry.name || entry.description || "Untitled"}
-                    </Text>
-                  </Box>
-                  <Text color="secondaryText">
-                    {dayjs()
-                      .hour(parseInt(entry.time.split(":")[0]))
-                      .minute(parseInt(entry.time.split(":")[1]))
-                      .format("h:mm A")}
-                  </Text>
-                </Box>
-              </SwipeOptions>
-            </Animated.View>
-          ))}
-        </ScrollView>
-      ) : (
+      {(!daysEntries || daysEntries?.length <= 0) && (
         <Box
+          position="absolute"
+          top="50%"
+          left="50%"
           justifyContent="center"
           alignItems="center"
-          style={StyleSheet.absoluteFill}
-          gap="m"
-          marginTop="nl"
         >
-          <Text color="tertiaryText" marginTop="nl">
-            No entries
-          </Text>
-          <Icon
-            color="tertiaryText"
-            icon={ZeroConfig}
-            size={20}
-            strokeWidth={2}
-          />
+          <Box
+            position="absolute"
+            gap="sm"
+            alignItems="center"
+            justifyContent="center"
+            style={{ transform: [{ translateY: "50%" }] }}
+          >
+            <Text color="quaternaryText" marginTop="nl" fontSize={15}>
+              No entries
+            </Text>
+          </Box>
         </Box>
       )}
-    </Fragment>
+      <Box marginTop="s">
+        {daysEntries?.map((entry, entryIndex) => (
+          <Animated.View layout={LinearTransition} key={entry.id}>
+            {entryIndex !== 0 && (
+              <Box
+                height={1.5}
+                backgroundColor="borderColor"
+                marginHorizontal="s"
+              />
+            )}
+            <SwipeOptions
+              onDelete={() => {
+                dispatch(
+                  removeEntry({
+                    day: dayjs().format(dayFormat),
+                    id: entry.id,
+                  }),
+                );
+              }}
+              onEdit={() => {
+                if (entry.food) {
+                  navigation.navigate("MyFoodsModal", { entry });
+                } else {
+                  navigation.navigate("EntryModal", { entry });
+                }
+              }}
+            >
+              <Box
+                flexDirection="row"
+                paddingVertical="m"
+                paddingHorizontal="s"
+                justifyContent="space-between"
+                alignItems="center"
+                gap="m"
+                backgroundColor="secondaryBackground"
+              >
+                <Box minWidth={36}>
+                  <Text>{entry.grams}g</Text>
+                </Box>
+                <Box
+                  flex={1}
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="flex-start"
+                  marginHorizontal="xs"
+                  gap="s"
+                >
+                  <Text
+                    color={
+                      entry.name || entry.description
+                        ? "primaryText"
+                        : "quaternaryText"
+                    }
+                  >
+                    {entry.name || entry.description || "Untitled"}
+                  </Text>
+                </Box>
+                <Text>
+                  {dayjs()
+                    .hour(parseInt(entry.time.split(":")[0]))
+                    .minute(parseInt(entry.time.split(":")[1]))
+                    .format("h:mm A")}
+                </Text>
+              </Box>
+            </SwipeOptions>
+          </Animated.View>
+        ))}
+      </Box>
+    </Box>
   );
 };
 

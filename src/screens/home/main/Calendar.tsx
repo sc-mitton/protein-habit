@@ -21,11 +21,6 @@ import { dayFormat } from "@constants/formats";
 import { generateCalendarData } from "./helpers";
 import { selectAccent } from "@store/slices/uiSlice";
 import CalendarCell from "./CalendarCell";
-import { useTabs } from "./tabsContext";
-const CALENDAR_WIDTH = Dimensions.get("window").width;
-// the window width minus the calendar width
-const CALENDAR_NEGATIVE_SPACE = Dimensions.get("window").width - CALENDAR_WIDTH;
-const CALENDAR_PADDING = 12;
 
 const Month = (item: any) => {
   const userInception = useAppSelector(selectUserInception);
@@ -50,62 +45,59 @@ const Month = (item: any) => {
   }, [dailyTargetResults]);
 
   return (
-    <Box style={[styles.scrollContainer]}>
-      <Box style={styles.monthContainer} key={item[0]}>
-        <Box style={styles.row}>
-          {Array.from({ length: 7 }).map((_, columnIndex) => {
-            return (
-              <Box style={styles.cell} key={`header-${columnIndex}`}>
-                <Text fontSize={10} variant="bold">
-                  {dayjs().day(columnIndex).format("dd")[0]}
-                </Text>
-              </Box>
-            );
-          })}
-        </Box>
-        {item.item?.[1]?.map((days: number[], rowIndex: number) => {
+    <Box style={styles.monthContainer} key={item[0]}>
+      <Box style={styles.row}>
+        {Array.from({ length: 7 }).map((_, columnIndex) => {
           return (
-            <View
-              style={[styles.row, { zIndex: rowIndex }]}
-              key={`row-${rowIndex}`}
-            >
-              {days.map((day, columnIndex) => {
-                const isBookend = Math.abs(rowIndex - Math.floor(day / 7)) > 1;
-
-                const dayInJS = dayjs(item[0], "MMM DD, YYYY").date(day);
-
-                const targetMet =
-                  dayInJS.isAfter(
-                    dayjs(userInception).subtract(1, "day"),
-                    "day",
-                  ) && dayInJS.isBefore(dayjs().add(1, "day"), "day")
-                    ? mappedDailyTargetResults[
-                        dayInJS.format(dayFormat)
-                      ]?.[2] || false
-                    : null;
-
-                const targetResult =
-                  mappedDailyTargetResults[dayInJS.format(dayFormat)];
-                const tipLabel = targetResult
-                  ? `Total: ${targetResult[1]}g  \nTarget: ${targetResult[3]}g`
-                  : undefined;
-
-                return (
-                  <CalendarCell
-                    key={`row-${rowIndex}-${columnIndex}`}
-                    dayInJS={dayInJS}
-                    columnIndex={columnIndex}
-                    rowIndex={rowIndex}
-                    isBookend={isBookend}
-                    targetMet={targetMet}
-                    tipLabel={tipLabel}
-                  />
-                );
-              })}
-            </View>
+            <Box style={styles.cell} key={`header-${columnIndex}`}>
+              <Text fontSize={10} variant="bold">
+                {dayjs().day(columnIndex).format("dd")[0]}
+              </Text>
+            </Box>
           );
         })}
       </Box>
+      {item.item?.[1]?.map((days: number[], rowIndex: number) => {
+        return (
+          <View
+            style={[styles.row, { zIndex: rowIndex }]}
+            key={`row-${rowIndex}`}
+          >
+            {days.map((day, columnIndex) => {
+              const isBookend = Math.abs(rowIndex - Math.floor(day / 7)) > 1;
+
+              const dayInJS = dayjs(item[0], "MMM DD, YYYY").date(day);
+
+              const targetMet =
+                dayInJS.isAfter(
+                  dayjs(userInception).subtract(1, "day"),
+                  "day",
+                ) && dayInJS.isBefore(dayjs().add(1, "day"), "day")
+                  ? mappedDailyTargetResults[dayInJS.format(dayFormat)]?.[2] ||
+                    false
+                  : null;
+
+              const targetResult =
+                mappedDailyTargetResults[dayInJS.format(dayFormat)];
+              const tipLabel = targetResult
+                ? `Total: ${targetResult[1]}g  \nTarget: ${targetResult[3]}g`
+                : undefined;
+
+              return (
+                <CalendarCell
+                  key={`row-${rowIndex}-${columnIndex}`}
+                  dayInJS={dayInJS}
+                  columnIndex={columnIndex}
+                  rowIndex={rowIndex}
+                  isBookend={isBookend}
+                  targetMet={targetMet}
+                  tipLabel={tipLabel}
+                />
+              );
+            })}
+          </View>
+        );
+      })}
     </Box>
   );
 };
@@ -130,29 +122,23 @@ const Calendar = () => {
       calendarRef.current?.scrollToEnd({ animated: false });
     }, 0);
   }, [calendarData]);
-  const { lockPagerScroll } = useTabs();
-
-  useEffect(() => {
-    lockPagerScroll.current = monthPickerVisible;
-  }, [monthPickerVisible]);
 
   return (
     <Box
+      variant="homeTabSection"
+      borderRadius="l"
+      paddingBottom="m"
       justifyContent="center"
       alignItems="center"
       zIndex={100}
-      marginTop="xl"
-      width={"100%"}
-      height={380}
+      style={styles.container}
     >
-      <Box width="100%" paddingHorizontal="xs">
+      <Box width="100%">
         <Box
           flexDirection="row"
           alignItems="center"
           justifyContent="space-between"
           gap="s"
-          marginTop="xl"
-          paddingHorizontal="l"
         >
           <TouchableOpacity
             activeOpacity={0.5}
@@ -210,27 +196,11 @@ const Calendar = () => {
 };
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    marginTop: 16,
-    justifyContent: "flex-start",
-    flexDirection: "column",
-    height: "100%",
-  },
-  lastScrollContainer: {
-    paddingRight: CALENDAR_NEGATIVE_SPACE / 2,
-  },
-  firstScrollContainer: {
-    paddingLeft: CALENDAR_NEGATIVE_SPACE / 2,
-  },
   monthContainer: {
-    width: CALENDAR_WIDTH,
     paddingTop: 16,
-    paddingHorizontal: CALENDAR_PADDING,
   },
   row: {
     flexDirection: "row",
-    marginLeft: 12,
-    marginRight: 12,
   },
   cell: {
     width: `${100 / 7}%`,
@@ -238,6 +208,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingHorizontal: Platform.OS === "ios" ? 3 : 4,
     paddingBottom: Platform.OS === "ios" ? 3 : 4,
+  },
+  container: {
+    marginBottom: 120,
   },
 });
 

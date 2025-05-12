@@ -12,7 +12,11 @@ import { dayFormat } from "@constants/formats";
 import { selectFont } from "@store/slices/uiSlice";
 import PlusMenu from "./PlusMenu";
 
-const DailyTotal = () => {
+const DailyTotal = ({
+  fontSize = "large",
+}: {
+  fontSize?: "small" | "large";
+}) => {
   const theme = useTheme();
   const font = useAppSelector(selectFont);
   const totalProteinForDay = useAppSelector((state) =>
@@ -21,13 +25,10 @@ const DailyTotal = () => {
 
   return (
     <Box
-      paddingHorizontal="m"
-      marginTop="l"
-      marginBottom="xl"
+      paddingHorizontal={fontSize === "small" ? "none" : "ml"}
       flexDirection="row"
       alignItems="center"
-      gap="xl"
-      justifyContent="flex-start"
+      gap={fontSize === "small" ? "l" : "xl"}
     >
       <Box flexDirection="row" alignItems={"baseline"} gap="s">
         <SlotNumbers
@@ -36,7 +37,7 @@ const DailyTotal = () => {
           value={Number(totalProteinForDay.toString().replace(".", ""))}
           precision={totalProteinForDay.toString().split(".")[1]?.length || 0}
           fontStyle={[
-            styles.bigSlotNumbersStyle,
+            styles[`${fontSize}SlotNumbersStyle`],
             { color: theme.colors.primaryText },
             fontStyles[font],
           ]}
@@ -45,15 +46,17 @@ const DailyTotal = () => {
           variant="bold"
           marginTop="xs"
           marginLeft="ns"
-          fontSize={24}
-          lineHeight={28}
+          fontSize={fontSize === "small" ? 16 : 24}
+          lineHeight={fontSize === "small" ? 16 : 28}
           style={fontStyles[font]}
         >
           g
         </Text>
       </Box>
       <ReAnimated.View layout={LinearTransition} style={styles.buttons}>
-        <PlusMenu />
+        <Box marginTop={fontSize === "small" ? "none" : "nm"}>
+          <PlusMenu />
+        </Box>
       </ReAnimated.View>
     </Box>
   );

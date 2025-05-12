@@ -72,14 +72,6 @@ const ExploreScreen: React.FC<Props> = (props) => {
     }
   }, [showFiltersHeader]);
 
-  const handleScrollBeginDrag = () => {
-    isScrolling.current = true;
-  };
-
-  const handleScrollEndDrag = () => {
-    isScrolling.current = false;
-  };
-
   const handleSeen = async (recipes: Recipe[]) => {
     // Mark recipes as seen when they've been in view for more than 1 second
     if (recipes.length === 0) return;
@@ -89,6 +81,14 @@ const ExploreScreen: React.FC<Props> = (props) => {
     } catch (err) {
       console.error("Error updating lastSeen:", err);
     }
+  };
+
+  const handleScrollBeginDrag = () => {
+    isScrolling.current = true;
+  };
+
+  const handleScrollEndDrag = () => {
+    isScrolling.current = false;
   };
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {

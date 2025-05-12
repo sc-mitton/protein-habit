@@ -64,7 +64,8 @@ export const SwipeOptions = ({
   };
 
   const gesture = Gesture.Pan()
-
+    .activeOffsetX([-10, 10])
+    .failOffsetY([-10, 10])
     .onUpdate((event) => {
       const x = Math.min(
         0,

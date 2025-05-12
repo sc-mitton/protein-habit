@@ -124,6 +124,15 @@ const lightTheme = createTheme({
       gap: "xs",
     },
     defaults: {},
+    homeTabSection: {
+      backgroundColor: "secondaryBackground",
+      shadowColor: "defaultShadow",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 3,
+      elevation: 5,
+      padding: "l",
+    },
   },
   borderRadii: {
     none: 0,

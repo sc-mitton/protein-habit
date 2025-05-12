@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Platform, TouchableOpacity } from "react-native";
+import { Platform, TouchableOpacity, StyleSheet } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import * as DropdownMenu from "zeego/dropdown-menu";
 import {
@@ -25,13 +25,16 @@ const PlusMenu = () => {
         <Box marginBottom="nm">
           <DropdownMenu.Root>
             <DropdownMenu.Trigger style={{ marginBottom: 10 }}>
-              <Box
-                backgroundColor="primaryButton"
-                borderRadius="l"
-                padding="xs"
-                alignItems="center"
-                justifyContent="center"
-              >
+              <Box padding="xs">
+                <Box
+                  backgroundColor="primaryText"
+                  borderRadius="l"
+                  padding="xs"
+                  alignItems="center"
+                  justifyContent="center"
+                  style={StyleSheet.absoluteFill}
+                  opacity={0.1}
+                />
                 <Icon
                   icon={Plus}
                   size={16}
