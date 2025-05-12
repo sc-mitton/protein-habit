@@ -66,7 +66,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
         />
         <Box flexDirection="row" alignItems="baseline">
           <SlotNumbers
-            value={dailyProteinTarget}
+            value={displayVal}
             animateIntermediateValues
             animationDuration={300}
             easing={"in-out"}
