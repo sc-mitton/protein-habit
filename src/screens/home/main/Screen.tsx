@@ -144,12 +144,19 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           style={[styles.gradient, StyleSheet.absoluteFill]}
         />
         <LinearGradient
-          colors={[theme.colors.tertiaryText, theme.colors.quaternaryText]}
+          colors={[
+            accentColor
+              ? theme.colors[`${accentColor}GradientStart`]
+              : theme.colors.tertiaryText,
+            accentColor
+              ? theme.colors[`${accentColor}GradientEnd`]
+              : theme.colors.quaternaryText,
+          ]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={[
             styles.image,
-            { opacity: colorScheme === "dark" ? 0.3 : 0.7 },
+            { opacity: colorScheme === "dark" ? 0.3 : 0.5 },
           ]}
         />
       </AnimatedBox>
@@ -229,7 +236,7 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
         <SectionHeader title="Entries" />
         <Entries />
         <Box padding="s" paddingTop="l" backgroundColor="mainBackground">
-          <Text color="tertiaryText">Calendar</Text>
+          <Text color="tertiaryText">History</Text>
         </Box>
         <Calendar />
       </Animated.ScrollView>
