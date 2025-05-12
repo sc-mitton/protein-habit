@@ -103,6 +103,17 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
   >([]);
   const searchField = useRef<TextInput>(null);
 
+  useEffect(() => {
+    // Add a small delay to ensure the component is fully mounted
+    if (Platform.OS === "android") {
+      const timer = setTimeout(() => {
+        searchField.current?.focus();
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const handleGoPress = (
     e: NativeSyntheticEvent<TextInputSubmitEditingEventData>,
   ) => {
@@ -233,7 +244,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
             autoCorrect={true}
             onSubmitEditing={handleGoPress}
             selectionColor={accent && theme.colors[accent]}
-            autoFocus
+            autoFocus={Platform.OS !== "android"}
             ref={searchField}
             style={[
               styles.input,

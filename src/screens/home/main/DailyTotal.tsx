@@ -12,6 +12,7 @@ import { selectTotalProteinForDay } from "@store/slices/proteinSelectors";
 import { dayFormat } from "@constants/formats";
 import { selectFont } from "@store/slices/uiSlice";
 import PlusMenu from "./PlusMenu";
+
 const DailyTotal = ({
   fontSize = "large",
 }: {
@@ -65,8 +66,10 @@ const DailyTotal = ({
         </Text>
       </Box>
       <ReAnimated.View layout={LinearTransition} style={styles.buttons}>
-        <Box marginTop={fontSize === "small" ? "none" : "nm"}>
-          <PlusMenu />
+        <Box marginTop={fontSize === "small" ? "nxs" : "none"}>
+          <Box marginTop={fontSize === "small" ? "nxs" : "nm"}>
+            <PlusMenu />
+          </Box>
         </Box>
       </ReAnimated.View>
     </Box>
