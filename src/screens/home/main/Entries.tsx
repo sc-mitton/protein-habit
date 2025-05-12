@@ -145,24 +145,10 @@ const Entries = () => {
     >
       <Days day={day} setDay={setDay} />
       {(!daysEntries || daysEntries?.length <= 0) && (
-        <Box
-          position="absolute"
-          top="50%"
-          left="50%"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Box
-            position="absolute"
-            gap="sm"
-            alignItems="center"
-            justifyContent="center"
-            style={{ transform: [{ translateY: "50%" }] }}
-          >
-            <Text color="quaternaryText" marginTop="nl" fontSize={15}>
-              No entries
-            </Text>
-          </Box>
+        <Box flex={1} alignItems="center" justifyContent="center">
+          <Text color="quaternaryText" marginTop="nl" fontSize={15}>
+            No entries
+          </Text>
         </Box>
       )}
       <Box marginTop="s">
