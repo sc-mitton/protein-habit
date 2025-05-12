@@ -28,6 +28,9 @@ import Entry from "./home/entry/Entry";
 import NewTag from "./home/new-tag/NewTag";
 import MyFoods from "./home/my-foods/MyFoods";
 import AddFood from "./home/add-food/AddFood";
+import AppearanceScreen from "./profile/appearance/Appearance";
+import EditDailyGoalScreen from "./profile/edit-daily-goal/EditDailyGoal";
+import PersonalInfoScreen from "./profile/personal-info/PersonalInfo";
 
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo, selectUserInception } from "@store/slices/userSlice";
@@ -46,23 +49,23 @@ export const useSubscriptionCheck = () => {
   const currentRoute = getCurrentRoute();
   const routes = useNavigationState((state) => state?.routes || []);
   const inceptionDate = useAppSelector(selectUserInception);
-  useEffect(() => {
-    const hasProAccess = entitlement === proEntitlement;
-    const route = currentRoute?.name;
-    if (route && PROTECTED_ROUTES.includes(route) && !hasProAccess) {
-      if (route.toLowerCase().includes("modal")) {
-        navigation.goBack();
-      }
-      navigation.navigate("PurchaseModal", { proFeatureAccess: true });
-    }
-  }, [currentRoute, routes]);
-  useEffect(() => {
-    const hadAppForMoreThan1Day =
-      dayjs().diff(dayjs(inceptionDate), "day") > 100;
-    if (hadAppForMoreThan1Day && entitlement === "") {
-      navigation.navigate("PurchaseModal");
-    }
-  }, [entitlement]);
+  // useEffect(() => {
+  //   const hasProAccess = entitlement === proEntitlement;
+  //   const route = currentRoute?.name;
+  //   if (route && PROTECTED_ROUTES.includes(route) && !hasProAccess) {
+  //     if (route.toLowerCase().includes("modal")) {
+  //       navigation.goBack();
+  //     }
+  //     navigation.navigate("PurchaseModal", { proFeatureAccess: true });
+  //   }
+  // }, [currentRoute, routes]);
+  // useEffect(() => {
+  //   const hadAppForMoreThan1Day =
+  //     dayjs().diff(dayjs(inceptionDate), "day") > 100;
+  //   if (hadAppForMoreThan1Day && entitlement === "") {
+  //     navigation.navigate("PurchaseModal");
+  //   }
+  // }, [entitlement]);
 };
 
 const RootStack = () => {
@@ -120,6 +123,7 @@ const RootStack = () => {
         />
         <Stack.Screen name="MyFoodsModal" component={MyFoods} />
         <Stack.Screen name="AddFoodModal" component={AddFood} />
+        <Stack.Screen name="PersonalInfoModal" component={PersonalInfoScreen} />
       </Stack.Group>
 
       {/* Transparent Modals */}
@@ -145,6 +149,11 @@ const RootStack = () => {
         <Stack.Screen name="SuccessModal" component={SuccessModal} />
         <Stack.Screen name="PurchaseModal" component={Purchase} />
         <Stack.Screen name="BookmarkModal" component={BookmarkModal} />
+        <Stack.Screen name="AppearanceModal" component={AppearanceScreen} />
+        <Stack.Screen
+          name="EditDailyGoalModal"
+          component={EditDailyGoalScreen}
+        />
       </Stack.Group>
 
       <Stack.Group

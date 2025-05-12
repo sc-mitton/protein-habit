@@ -2,13 +2,13 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Foundation from "@expo/vector-icons/Foundation";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useTheme } from "@shopify/restyle";
+import { Alert, StyleSheet, TouchableHighlight } from "react-native";
 import { SymbolView } from "expo-symbols";
-import { StyleSheet, TouchableHighlight } from "react-native";
-import { Box, Text, Button } from "@components";
-import { ProfileScreenProps } from "@types";
+
+import { Box, Text } from "@components";
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
-import { Alert } from "react-native";
+import { BottomTabsScreenProps } from "@types";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProfileNavList = (props: ProfileScreenProps<"ProfileNavList">) => {
+const ProfileNavList = (props: BottomTabsScreenProps<"Profile">) => {
   const { name } = useAppSelector(selectUserInfo);
   const theme = useTheme();
 

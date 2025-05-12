@@ -8,13 +8,6 @@ import { ProteinEntry } from "@store/slices/proteinSlice";
 import { Food } from "@store/slices/foodsSlice";
 import { BookmarkCategory } from "@store/slices/bookmarksSlice";
 
-export type ProfileStackParamList = {
-  ProfileNavList: undefined;
-  AppearanceModal: undefined;
-  PersonalInfoModal: undefined;
-  EditDailyGoalModal: undefined;
-};
-
 export type RecipesStackParamList = {
   RecipesList: undefined;
 };
@@ -22,7 +15,7 @@ export type RecipesStackParamList = {
 export type BottomTabsParamList = {
   Home: undefined;
   Recipes: NavigatorScreenParams<RecipesStackParamList>;
-  Profile: NavigatorScreenParams<ProfileStackParamList>;
+  Profile: undefined;
 };
 
 export type RootStackParamList = {
@@ -41,6 +34,9 @@ export type RootStackParamList = {
   AddFoodModal: undefined | { food: Food };
   NewTagModal: undefined;
   BookmarkModal: { recipe: string };
+  AppearanceModal: undefined;
+  PersonalInfoModal: undefined;
+  EditDailyGoalModal: undefined;
 };
 
 export type RootScreenProps<T extends keyof RootStackParamList> =
@@ -55,15 +51,6 @@ export type BottomTabsScreenProps<T extends keyof BottomTabsParamList> =
 export type RecipesScreenProps<T extends keyof RecipesStackParamList> =
   CompositeScreenProps<
     NativeStackScreenProps<RecipesStackParamList, T>,
-    CompositeScreenProps<
-      BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
-      RootScreenProps<keyof RootStackParamList>
-    >
-  >;
-
-export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
-  CompositeScreenProps<
-    NativeStackScreenProps<ProfileStackParamList, T>,
     CompositeScreenProps<
       BottomTabScreenProps<BottomTabsParamList, keyof BottomTabsParamList>,
       RootScreenProps<keyof RootStackParamList>

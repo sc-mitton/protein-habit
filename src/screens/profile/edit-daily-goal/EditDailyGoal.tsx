@@ -19,7 +19,7 @@ import {
   setDailyTarget,
   getRecommendedTarget,
 } from "@store/slices/proteinSlice";
-import { ProfileScreenProps } from "@types";
+import { RootScreenProps } from "@types";
 
 import { BackDrop } from "@components";
 import { selectUserInfo } from "@store/slices/userSlice";
@@ -29,7 +29,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
   const dailyProteinTarget = useAppSelector(selectDailyProteinTarget);
   const selectedFont = useAppSelector(selectFont);
   const dispatch = useAppDispatch();
-  const [displayVal, setDisplayVal] = useState(dailyProteinTarget);
+  const [displayVal, setDisplayVal] = useState(0);
 
   useEffect(() => {
     setDisplayVal(dailyProteinTarget);
@@ -121,7 +121,7 @@ const Value = ({ onSave }: { onSave: () => void }) => {
   );
 };
 
-const EditDailyGoal = (props: ProfileScreenProps<"EditDailyGoalModal">) => {
+const EditDailyGoal = (props: RootScreenProps<"EditDailyGoalModal">) => {
   const theme = useTheme();
   const userInfo = useAppSelector(selectUserInfo);
   const dispatch = useAppDispatch();

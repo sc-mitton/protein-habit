@@ -18,7 +18,7 @@ import { useNavigation, useNavigationState } from "@react-navigation/native";
 
 import HomeMainScreen from "./home/main/Screen";
 import RecipesScreen from "./recipes/Stack";
-import ProfileStack from "./profile/Stack";
+import Profile from "./profile/ProfileNavList";
 import { Box } from "@components";
 import { BottomTabsParamList } from "@types";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
@@ -285,7 +285,7 @@ const RootTabs = () => {
           ),
         }}
         name="Profile"
-        component={ProfileStack}
+        component={Profile}
       />
     </Tab.Navigator>
   );
