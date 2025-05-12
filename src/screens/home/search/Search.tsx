@@ -200,6 +200,11 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
     Keyboard.addListener("keyboardDidShow", (e) => {
       measuredKeyboardHeight.value = e.endCoordinates.height;
     });
+    Keyboard.addListener("keyboardDidHide", (e) => {
+      if (Platform.OS === "android" && value.length === 0) {
+        props.navigation.goBack();
+      }
+    });
   }, []);
 
   return (
