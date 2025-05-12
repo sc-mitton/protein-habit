@@ -5,7 +5,6 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  useColorScheme,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -81,7 +80,6 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
   const { name } = useAppSelector(selectUserInfo);
   const accentColor = useAppSelector(selectAccent);
   const theme = useTheme<Theme>();
-  const colorScheme = useColorScheme();
 
   const [topSectionSize, setTopSectionSize] = useState(0);
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -154,10 +152,7 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           ]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={[
-            styles.image,
-            { opacity: colorScheme === "dark" ? 0.3 : 0.5 },
-          ]}
+          style={[styles.image, { opacity: 0.3 }]}
         />
       </AnimatedBox>
       <Box paddingTop={"l"}>
