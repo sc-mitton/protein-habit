@@ -17,9 +17,11 @@ import Filters from "./Filters";
 import { useRecipesScreenContext } from "./Context";
 import TitleVariant from "./TitleVariant";
 import RecipeCard from "./RecipeCard";
+import { Box } from "@components";
 import { seeRecipe, useDrizzleDb, useRecipes } from "@db";
 import { Recipe } from "@db/schema/types";
 import { LinearGradient } from "expo-linear-gradient";
+import EmptyState from "@screens/bookmark-category/EmptyState";
 
 type Props = RecipesScreenProps<"RecipesList">;
 
@@ -54,10 +56,6 @@ const ExploreScreen: React.FC<Props> = (props) => {
         clearTimeout(timeout),
       );
     };
-  }, []);
-
-  useEffect(() => {
-    setShowFiltersHeader(true);
   }, []);
 
   useEffect(() => {
@@ -136,6 +134,9 @@ const ExploreScreen: React.FC<Props> = (props) => {
       renderItem={({ item, index }) => (
         <RecipeCard recipe={item === null ? undefined : item} index={index} />
       )}
+      ListEmptyComponent={
+        <EmptyState message="No recipes found" noButton={true} />
+      }
       onViewableItemsChanged={({ changed, viewableItems }) => {
         // Get items that are no longer visible (isViewable is false)
         const itemsNoLongerVisible = changed
@@ -189,15 +190,15 @@ const BottomGradient = () => {
 
 export default function (props: Props) {
   return Platform.OS === "ios" ? (
-    <View style={styles.containerIOS}>
+    <Box style={styles.containerIOS}>
       <ExploreScreen {...props} />
       <BottomGradient />
-    </View>
+    </Box>
   ) : (
-    <View style={styles.containerAndroid}>
+    <Box style={styles.containerAndroid} backgroundColor="secondaryBackground">
       <ExploreScreen {...props} />
       <BottomGradient />
-    </View>
+    </Box>
   );
 }
 

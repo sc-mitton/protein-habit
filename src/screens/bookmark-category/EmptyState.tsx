@@ -49,7 +49,13 @@ const boxVariant = {
   justifyContent: "center",
 } as const;
 
-const EmptyState = () => {
+const EmptyState = ({
+  message,
+  noButton,
+}: {
+  message?: string;
+  noButton?: boolean;
+}) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
@@ -85,7 +91,7 @@ const EmptyState = () => {
           textAlign="center"
           fontSize={15}
         >
-          You haven't saved any recipes yet to this category.
+          {message || "You haven't saved any recipes yet to this category."}
         </Text>
         <Button
           onPress={() =>
@@ -97,17 +103,9 @@ const EmptyState = () => {
           paddingHorizontal="m"
           alignItems="center"
           gap="s"
-        >
-          <Text
-            accent
-            variant="body"
-            color="tertiaryText"
-            fontSize={15}
-            textAlign="center"
-          >
-            Add Recipes
-          </Text>
-        </Button>
+          disabled={noButton}
+          label={noButton ? " " : "Add Recipes"}
+        />
       </Box>
     </Box>
   );
