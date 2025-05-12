@@ -101,7 +101,7 @@ const Entry = (props: RootScreenProps<"EntryModal">) => {
               }
             >
               <Text variant="header" paddingLeft="xs">
-                My Foods
+                {props.route.params?.entry ? "Update" : "Add Protein"}
               </Text>
             </Button>
           )}
