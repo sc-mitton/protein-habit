@@ -23,7 +23,7 @@ const Menu = ({
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const navigation = useNavigation<any>();
-  const { setSelectedFoods, scrolling } = useMyFoods();
+  const { setSelectedFoods } = useMyFoods();
 
   return (
     <View>
@@ -82,9 +82,9 @@ const Menu = ({
         <PaperMenu
           anchor={
             <Button
-              onLongPress={() => {
+              onPress={() => {
                 Haptics.selectionAsync();
-                setIsOpen(!isOpen);
+                setIsOpen(true);
               }}
             >
               {children}
@@ -95,24 +95,22 @@ const Menu = ({
           anchorPosition="top"
           contentStyle={{
             borderRadius: 12,
-            transform: [{ translateY: -48 }, { translateX: 4 }],
             backgroundColor: theme.colors.cardBackground,
           }}
         >
           <PaperMenu.Item
+            title="Add Food"
+            onPress={() => {
+              setSelectedFoods((prev) => [...prev, { food, amount: 1 }]);
+              setIsOpen(false);
+            }}
+          />
+          <PaperMenu.Item
             title="Edit"
-            leadingIcon={() => <FontAwesome6 name="pencil" size={24} />}
             onPress={() => navigation.navigate("AddFood", { food })}
           />
           <PaperMenu.Item
             title="Delete"
-            leadingIcon={() => (
-              <FontAwesome6
-                name="trash-alt"
-                size={24}
-                color={theme.colors.error}
-              />
-            )}
             onPress={() => {
               dispatch(removeFood(food.id));
             }}
@@ -132,7 +130,6 @@ const FoodItem = ({ food }: { food: Food }) => {
         shadowOpacity={0.1}
         shadowOffset={{ width: 0, height: 2 }}
         shadowRadius={2}
-        elevation={5}
         borderRadius="l"
       >
         <Box
@@ -145,7 +142,6 @@ const FoodItem = ({ food }: { food: Food }) => {
           shadowOffset={{ width: 0, height: 2 }}
           shadowOpacity={0.1}
           shadowRadius={8}
-          elevation={12}
           flexDirection="row"
           alignItems="center"
           justifyContent="space-between"
