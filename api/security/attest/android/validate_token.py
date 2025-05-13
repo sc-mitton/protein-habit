@@ -15,6 +15,7 @@ def validate_token(
     token: str,
     challenge: str
 ) -> bool:
+
     try:
         # Decode the decryption key from base64
         decryption_key_bytes = base64.b64decode(
@@ -44,5 +45,6 @@ def validate_token(
         # Check if the challenge matches
         return payload.get("challenge") == challenge
 
-    except Exception:
+    except Exception as e:
+        print(e)
         return False
