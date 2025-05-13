@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@types";
 import { useTheme } from "@shopify/restyle";
-import { useColorScheme, Platform } from "react-native";
+import { useColorScheme, Platform, StatusBar } from "react-native";
 import { proEntitlement } from "@constants/iaps";
 import { SymbolView } from "expo-symbols";
 import { Plus } from "geist-native-icons";
@@ -108,8 +108,6 @@ const RootStack = () => {
           animation:
             Platform.OS === "ios" ? "fade_from_bottom" : "slide_from_bottom",
           headerShadowVisible: false,
-          statusBarTranslucent: true,
-          statusBarBackgroundColor: theme.colors.mainBackground,
           ...(Platform.OS === "android" && androidHeaderOptions),
         }}
       >
