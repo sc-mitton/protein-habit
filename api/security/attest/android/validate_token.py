@@ -28,8 +28,7 @@ def validate_token(
         # Decrypt the JWE token using the decryption key
         decrypted_token = jwe.decrypt(
             token,
-            decryption_key_bytes,
-            algorithms=[ALGORITHMS.A256GCM]
+            decryption_key_bytes
         )
 
         # Verify the JWS signature using the verification key
