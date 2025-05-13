@@ -17,6 +17,7 @@ def validate_token(
 ) -> bool:
 
     try:
+        print(token, challenge)
         # Decode the decryption key from base64
         decryption_key_bytes = base64.b64decode(
             GOOGLE_PLAY_INTEGRITY_DECRYPTION_KEY)
