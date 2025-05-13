@@ -13,6 +13,7 @@ async def is_valid_mobile(
     x_key_id: Optional[str] = Header(None),
     x_challenge: Optional[str] = Header(None),
     x_assertion: Optional[str] = Header(None),
+    x_token: Optional[str] = Header(None),
     redis_client: Redis = Depends(get_redis),
 ) -> bool:
     '''
@@ -42,9 +43,9 @@ async def is_valid_mobile(
             assertion=x_assertion,
             client_data=client_data
         )
-    elif x_assertion:
+    elif x_token:
         assertion_valid = validate_token(
-            token=x_assertion,
+            token=x_token,
             challenge=x_challenge
         )
 
