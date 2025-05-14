@@ -5,13 +5,13 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { ScrollView } from "react-native-gesture-handler";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
+import _ from "lodash";
 
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { Box, Text, Icon, Button, SwipeOptions } from "@components";
+import { Box, Text, Button, SwipeOptions } from "@components";
 import { selectDaysEntries } from "@store/slices/proteinSelectors";
 import { dayFormat, dayTimeFormat } from "@constants/formats";
 import { removeEntry } from "@store/slices/proteinSlice";
@@ -205,7 +205,10 @@ const Entries = () => {
                         : "quaternaryText"
                     }
                   >
-                    {entry.name || entry.description || "Untitled"}
+                    {_.truncate(entry.name || entry.description || "Untitled", {
+                      length: 20,
+                      omission: "...",
+                    })}
                   </Text>
                 </Box>
                 <Text>
