@@ -102,17 +102,17 @@ export const SwipeOptions = ({
   }, [isOpenState]);
 
   const handleDelete = () => {
-    runOnJS(closeSwipe)();
     if (onDelete) {
       runOnJS(onDelete)();
     }
+    runOnJS(closeSwipe)();
   };
 
   const handleEdit = () => {
-    runOnJS(closeSwipe)();
     if (onEdit) {
       runOnJS(onEdit)();
     }
+    runOnJS(closeSwipe)();
   };
 
   return (

@@ -195,8 +195,8 @@ const Entries = () => {
                   flexDirection="row"
                   alignItems="center"
                   justifyContent="flex-start"
-                  marginHorizontal="xs"
-                  gap="s"
+                  marginLeft="xs"
+                  gap="xs"
                 >
                   <Text
                     color={
@@ -206,7 +206,7 @@ const Entries = () => {
                     }
                   >
                     {_.truncate(entry.name || entry.description || "Untitled", {
-                      length: 20,
+                      length: 23,
                       omission: "...",
                     })}
                   </Text>
