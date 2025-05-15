@@ -163,12 +163,7 @@ const Entries = () => {
             )}
             <SwipeOptions
               onDelete={() => {
-                dispatch(
-                  removeEntry({
-                    day: dayjs().format(dayFormat),
-                    id: entry.id,
-                  }),
-                );
+                dispatch(removeEntry({ id: entry.id }));
               }}
               onEdit={() => {
                 if (entry.food) {

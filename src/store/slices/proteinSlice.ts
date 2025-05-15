@@ -75,17 +75,14 @@ const proteinSlice = createSlice({
             : undefined,
       });
     },
-    removeEntry: (
-      state,
-      action: PayloadAction<{ day: string; id: string }>,
-    ) => {
-      const dayIndex = state.entries.findIndex(([day]) =>
-        dayjs(day).isSame(action.payload.day),
-      );
-      if (dayIndex !== -1) {
-        state.entries[dayIndex][1] = state.entries[dayIndex][1].filter(
-          (entry) => entry.id !== action.payload.id,
+    removeEntry: (state, action: PayloadAction<{ id: string }>) => {
+      for (const [day, entries] of state.entries) {
+        const entryIndex = entries.findIndex(
+          (entry) => entry.id === action.payload.id,
         );
+        if (entryIndex !== -1) {
+          entries.splice(entryIndex, 1);
+        }
       }
     },
     updateEntry: (state, action: PayloadAction<ProteinEntry>) => {
