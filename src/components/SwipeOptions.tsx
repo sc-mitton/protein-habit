@@ -105,14 +105,18 @@ export const SwipeOptions = ({
     if (onDelete) {
       runOnJS(onDelete)();
     }
-    runOnJS(closeSwipe)();
+    setTimeout(() => {
+      runOnJS(closeSwipe)();
+    }, 100);
   };
 
   const handleEdit = () => {
     if (onEdit) {
       runOnJS(onEdit)();
     }
-    runOnJS(closeSwipe)();
+    setTimeout(() => {
+      runOnJS(closeSwipe)();
+    }, 100);
   };
 
   return (
