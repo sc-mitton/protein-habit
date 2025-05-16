@@ -62,7 +62,7 @@ def test_request_assertion_success():
     Test that calling an endpoint that requires assertion passes
     when a valid assertion is provided
     '''
-    challenge = f"{TEST_CHALLENGE_ID}:{TEST_CHALLENGE_VALUE}"
+    challenge = f"{TEST_CHALLENGE_ID}.{TEST_CHALLENGE_VALUE}"
 
     response = client.post(
         f"/{VERSION}/assertion-test",

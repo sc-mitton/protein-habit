@@ -32,7 +32,7 @@ async def is_valid_mobile(
     assertion_valid = False
     if not x_challenge:
         raise HTTPException(status_code=401, detail="Invalid challenge")
-    client_data['challenge'] = x_challenge.split(':')[1]
+    client_data['challenge'] = '.'.join(x_challenge.split('.')[1:])
 
     # ios case
     if x_key_id:
@@ -45,8 +45,9 @@ async def is_valid_mobile(
         )
     elif x_token:
         assertion_valid = validate_token(
+            redis_client=redis_client,
             token=x_token,
-            challenge=x_challenge
+            challenge=x_challenge,
         )
 
     if not assertion_valid:

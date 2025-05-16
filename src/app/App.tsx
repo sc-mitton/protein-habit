@@ -15,7 +15,7 @@ import { Box } from "@components";
 import RootStack from "../screens/RootStack";
 import { showBottomBar } from "@store/slices/uiSlice";
 import { useNavigationTheme, useAndroidNavBarBackground } from "@hooks";
-import { useAppIntegrity } from "app-integrity";
+import { appIntegrityInit } from "app-integrity";
 import Providers from "./Providers";
 import { useAppDispatch } from "@store/hooks";
 import { navigationRef } from "./RootNavigation";
@@ -23,6 +23,11 @@ import { navigationRef } from "./RootNavigation";
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
   strict: false,
+});
+
+appIntegrityInit({
+  challengeUrl: `${Constants.expoConfig?.extra?.apiUrl}/challenge`,
+  attestUrl: `${Constants.expoConfig?.extra?.apiUrl}/attest`,
 });
 
 export const linking = {
@@ -45,10 +50,6 @@ export const linking = {
 SplashScreen.preventAutoHideAsync();
 
 function MainApp() {
-  useAppIntegrity({
-    challengeUrl: `${Constants.expoConfig?.extra?.apiUrl}/challenge`,
-    attestUrl: `${Constants.expoConfig?.extra?.apiUrl}/attest`,
-  });
   useAndroidNavBarBackground();
 
   const dispatch = useAppDispatch();

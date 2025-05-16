@@ -1,8 +1,8 @@
 import os
-import uuid
 import secrets
 import string
 import redis
+import random
 
 from utils.get_secret import get_secret
 
@@ -15,6 +15,7 @@ CHALLENGE_PREFIX = "challenge:"
 KEY_CHALLENGE_PREFIX = "key_challenge:"
 KEY_COUNTER_PREFIX = "key_counter:"
 KEY_PUBLIC_KEY_PREFIX = "key_public_key:"
+CHALLENGE_COUNTER_BIT_LENGTH = 8
 
 
 def get_redis():
@@ -26,9 +27,16 @@ def get_redis():
         redis_client.close()
 
 
+def get_random_str(length: int) -> str:
+    """Get a random string of a given length"""
+    return ''.join(secrets.choice(
+        string.ascii_letters + string.digits) for _ in range(length))
+
+
 def generate_challenge() -> tuple[str, str]:
     """Create a new challenge"""
-    id = str(uuid.uuid4())
-    challenge = ''.join(secrets.choice(
-        string.ascii_letters + string.digits) for _ in range(32))
-    return id, challenge
+    id = get_random_str(16)
+    challenge = get_random_str(32)
+    counter = random.randint(10**(CHALLENGE_COUNTER_BIT_LENGTH - 1),
+                             (10**CHALLENGE_COUNTER_BIT_LENGTH) - 1)
+    return f"{id}.{challenge}.{counter}"

@@ -18,9 +18,9 @@ cryptography = "*"
 cbor2 = "*"
 asn1crypto = "*"
 pytest = "*"
-python-jose = "*"
 fastapi-pagination = "*"
 redis = "*"
+jwcrypto = "*"
 
 [dev-packages]
 ipykernel = "*"

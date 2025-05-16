@@ -21,7 +21,7 @@ from cache import (
     CHALLENGE_PREFIX,
     KEY_CHALLENGE_PREFIX,
     KEY_PUBLIC_KEY_PREFIX,
-    KEY_COUNTER_PREFIX
+    KEY_COUNTER_PREFIX,
 )
 
 router = APIRouter()
@@ -45,15 +45,17 @@ async def challenge(
     x_key_id: str = Header(None)
 ):
 
-    challenge_id, new_challenge = generate_challenge()
+    challenge = generate_challenge()
+    id, value, counter = challenge.split('.')
 
     # If key id provided, update challenge for this key id
     if x_key_id:
-        redis_client.set(f"{KEY_CHALLENGE_PREFIX}{x_key_id}", new_challenge)
+        redis_client.set(f"{KEY_CHALLENGE_PREFIX}{x_key_id}",
+                         f"{value}.{counter}")
     else:
-        redis_client.set(f"{CHALLENGE_PREFIX}{challenge_id}", new_challenge)
+        redis_client.set(f"{CHALLENGE_PREFIX}{id}", f"{value}.{counter}")
 
-    return f"{challenge_id}:{new_challenge}"
+    return challenge
 
 
 @router.post("/attest")
@@ -103,7 +105,7 @@ async def attest(
 
         # Delete challenge provided in request (front end will request a new one)
         redis_client.delete(
-            f"{CHALLENGE_PREFIX}{request.challenge.split(':')[0]}")
+            f"{CHALLENGE_PREFIX}{request.challenge.split('.')[0]}")
 
         return {"status": "ok", "keyId": request.keyId}
     except Exception as e:
