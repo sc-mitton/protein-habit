@@ -21,7 +21,6 @@ import lightTheme, { darkTheme } from "@theme";
 import { store, persistor } from "@store";
 import { dbName, sqliteDb } from "@db";
 import migrations from "@db/migrations/migrations";
-import { AppIntegrityProvider } from "app-integrity";
 
 const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
   useDrizzleStudio(sqliteDb);
@@ -51,39 +50,34 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AppIntegrityProvider
-      challengeUrl={`${Constants.expoConfig?.extra?.apiUrl}/challenge`}
-      attestUrl={`${Constants.expoConfig?.extra?.apiUrl}/attest`}
+    <SQLiteProvider
+      databaseName={dbName}
+      options={{ enableChangeListener: true }}
     >
-      <SQLiteProvider
-        databaseName={dbName}
-        options={{ enableChangeListener: true }}
-      >
-        <DatabaseProvider>
-          <GestureHandlerRootView>
-            <Provider store={store}>
-              <KeyboardProvider>
-                <ThemeProvider theme={restyledTheme}>
-                  <PaperProvider>
-                    <EventProvider>
-                      <BottomSheetModalProvider>
-                        <PortalProvider>
-                          <SafeAreaProvider>
-                            <PersistGate loading={null} persistor={persistor}>
-                              {children}
-                            </PersistGate>
-                          </SafeAreaProvider>
-                        </PortalProvider>
-                      </BottomSheetModalProvider>
-                    </EventProvider>
-                  </PaperProvider>
-                </ThemeProvider>
-              </KeyboardProvider>
-            </Provider>
-          </GestureHandlerRootView>
-        </DatabaseProvider>
-      </SQLiteProvider>
-    </AppIntegrityProvider>
+      <DatabaseProvider>
+        <GestureHandlerRootView>
+          <Provider store={store}>
+            <KeyboardProvider>
+              <ThemeProvider theme={restyledTheme}>
+                <PaperProvider>
+                  <EventProvider>
+                    <BottomSheetModalProvider>
+                      <PortalProvider>
+                        <SafeAreaProvider>
+                          <PersistGate loading={null} persistor={persistor}>
+                            {children}
+                          </PersistGate>
+                        </SafeAreaProvider>
+                      </PortalProvider>
+                    </BottomSheetModalProvider>
+                  </EventProvider>
+                </PaperProvider>
+              </ThemeProvider>
+            </KeyboardProvider>
+          </Provider>
+        </GestureHandlerRootView>
+      </DatabaseProvider>
+    </SQLiteProvider>
   );
 };
 
