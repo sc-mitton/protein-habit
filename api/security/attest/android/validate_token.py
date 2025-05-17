@@ -23,6 +23,7 @@ def add_padding(b64_str):
 
 
 def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str):
+    print('challenge: ', challenge)
     challenge_id = challenge.split('.')[0]
     challenge_value = challenge.split('.')[1:]
 
