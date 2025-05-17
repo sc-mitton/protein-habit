@@ -109,5 +109,6 @@ def validate_token(redis_client: Redis, token: str, challenge: str) -> bool:
 
         return True
 
-    except Exception:
+    except Exception as e:
+        print(f"Error in validate_token: {e}")
         return False
