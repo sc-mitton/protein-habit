@@ -186,43 +186,6 @@ def validate_attestation(
 ) -> bool:
     """Main validation method that orchestrates all validation steps"""
 
-    print("Validation inputs:")
-    print(f"  key_id: {key_id}")
-    print(f"  app_id: {app_id}")
-    print(f"  challenge: {challenge}")
-    print("\nValidation results:")
-    try:
-        print(
-            f"  certificate chain: {_validate_certificate_chain(attestation)}")
-    except Exception as e:
-        print(f"  certificate chain: {e}")
-    try:
-        print(f"  nonce: {_validate_nonce(attestation, challenge)}")
-    except Exception as e:
-        print(f"  nonce: {e}")
-    try:
-        print(f"  rp_id: {_validate_rp_id(attestation, app_id)}")
-    except Exception as e:
-        print(f"  rp_id: {e}")
-    try:
-        print(
-            f"  key consistency: {_validate_key_consistency(attestation, key_id)}")
-    except Exception as e:
-        print(f"  key consistency: {e}")
-    try:
-        print(f"  environment: {_validate_environment(attestation)}")
-    except Exception as e:
-        print(f"  environment: {e}")
-    try:
-        print(f"  counter: {_validate_counter(attestation)}")
-    except Exception as e:
-        print(f"  counter: {e}")
-    try:
-        print(
-            f"  credential id: {_validate_auth_data_credential_id(attestation, key_id)}")
-    except Exception as e:
-        print(f"  credential id: {e}")
-
     try:
         validation_steps = [
             lambda: _validate_certificate_chain(attestation),
