@@ -22,6 +22,12 @@ async def is_valid_mobile(
     For android, the x_token header is required.
     '''
 
+    print("Headers:")
+    print(f"  x_key_id: {x_key_id}")
+    print(f"  x_challenge: {x_challenge}")
+    print(f"  x_assertion: {x_assertion}")
+    print(f"  x_token: {x_token}")
+
     body = await request.body()
     try:
         client_data = json.loads(body) if body else {}
