@@ -33,8 +33,15 @@ def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str)
     stored_challenge = redis_client.get(f"{CHALLENGE_PREFIX}{challenge_id}")
     stored_challenge_counter = stored_challenge.split('.')[1]
 
+    print('stored_challenge: ', stored_challenge)
+    print('challenge_value: ', challenge_value)
+    print('request_challenge_value: ', request_challenge_value)
+
     if not stored_challenge == challenge_value == request_challenge_value:
         raise Exception("Invalid challenge")
+
+    print('stored_challenge_counter: ', stored_challenge_counter)
+    print('request_challenge_counter: ', request_challenge_counter)
 
     if not int(request_challenge_counter) > int(stored_challenge_counter):
         raise Exception("Invalid challenge")
