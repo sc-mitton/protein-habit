@@ -69,6 +69,33 @@ def validate_assertion(
         assertion_count = int.from_bytes(assertion['authenticatorData']
                                          [32:], 'big')
 
+        # Log validation inputs and check results
+        print("Validation inputs:")
+        print(f"  key_id: {key_id}")
+        print(f"  app_id: {app_id}")
+        print(f"  client_data: {client_data}")
+        print(f"  assertion count: {assertion_count}")
+        print(f"  stored counter: {counter}")
+        print(f"  last challenge: {last_challenge}")
+        print("\nCheck results:")
+        try:
+            print(
+                f"  nonce verification: {_verify_nonce(assertion, client_data, public_key)}")
+        except Exception as e:
+            print(f"  nonce verification: {e}")
+        try:
+            print(
+                f"  rp_id verification: {_verify_rp_id(assertion, f'{app_id}')}")
+        except Exception as e:
+            print(f"  rp_id verification: {e}")
+        try:
+            print(f"  counter check: {assertion_count > counter}")
+        except Exception as e:
+            print(f"  counter check: {e}")
+
+        print(
+            f"  challenge check: {client_data['challenge'] == last_challenge}")
+
         checks = [
             _verify_nonce(assertion, client_data, public_key),
             _verify_rp_id(assertion, f"{app_id}"),
