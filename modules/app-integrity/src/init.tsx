@@ -7,15 +7,18 @@ import type { AppIntegrityError } from "./AppIntegrity.types";
 interface Props {
   challengeUrl: string;
   attestUrl: string;
+  refresh?: boolean;
 }
 
 let globalChallengeUrl: string;
 let globalAttestUrl: string;
 
 export const appIntegrityInit = async (props: Props) => {
-  const { challengeUrl, attestUrl } = props;
+  const { challengeUrl, attestUrl, refresh = false } = props;
   globalChallengeUrl = challengeUrl;
   globalAttestUrl = attestUrl;
+  const challenge = await SecureStore.getItemAsync("challenge");
+  const keyId = await SecureStore.getItemAsync("keyId");
 
   const getChallenge = async (keyId?: string): Promise<string> => {
     const response = await fetch(challengeUrl, {
@@ -101,9 +104,14 @@ export const appIntegrityInit = async (props: Props) => {
     await SecureStore.setItemAsync("challenge", challenge);
   };
 
-  if (Platform.OS === "ios") {
+  const shouldInit =
+    Platform.OS === "ios"
+      ? refresh || !challenge || !keyId
+      : refresh || !challenge;
+
+  if (Platform.OS === "ios" && shouldInit) {
     await handleIOSInit();
-  } else {
+  } else if (shouldInit) {
     await handleAndroidInit();
   }
 };

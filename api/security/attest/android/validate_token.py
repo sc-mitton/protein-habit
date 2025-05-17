@@ -27,16 +27,11 @@ def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str)
     challenge_value = challenge.split('.')[1:]
 
     request_challenge = decoded_token['requestDetails']['nonce']
-    print('request_challenge: ', request_challenge)
-    request_challenge_parts = request_challenge.split('.')
-    request_challenge_value = '.'.join(request_challenge_parts[0])
-    request_challenge_counter = request_challenge_parts[1]
+    request_challenge_value = request_challenge[:-CHALLENGE_COUNTER_BIT_LENGTH]
+    request_challenge_counter = request_challenge[-CHALLENGE_COUNTER_BIT_LENGTH:]
 
     stored_challenge = redis_client.get(f"{CHALLENGE_PREFIX}{challenge_id}")
-
-    stored_challenge_counter = stored_challenge[-CHALLENGE_COUNTER_BIT_LENGTH:]
-    stored_challenge = stored_challenge[:-CHALLENGE_COUNTER_BIT_LENGTH] + \
-        '.' + stored_challenge_counter[-CHALLENGE_COUNTER_BIT_LENGTH:]
+    stored_challenge_counter = stored_challenge.split('.')[1]
 
     if not stored_challenge == challenge_value == request_challenge_value:
         raise Exception("Invalid challenge")
@@ -113,6 +108,5 @@ def validate_token(redis_client: Redis, token: str, challenge: str) -> bool:
 
         return True
 
-    except Exception as e:
-        print(f"Error in validate_token: {e}")
+    except Exception:
         return False
