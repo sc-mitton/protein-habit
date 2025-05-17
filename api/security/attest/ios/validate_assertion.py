@@ -109,5 +109,6 @@ def validate_assertion(
 
         return passed
 
-    except Exception:
+    except Exception as e:
+        print(f"Error in validate_assertion: {e}")
         return False
