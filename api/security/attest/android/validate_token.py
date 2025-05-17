@@ -7,7 +7,7 @@ import jwt
 from cryptography.hazmat.primitives import serialization
 from utils.get_secret import get_secret
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from cache.store import CHALLENGE_PREFIX
+from cache.store import CHALLENGE_PREFIX, CHALLENGE_COUNTER_BIT_LENGTH
 
 # Load the Base64-encoded keys from your secret manager
 GOOGLE_PLAY_INTEGRITY_DECRYPTION_KEY = get_secret(
@@ -23,7 +23,6 @@ def add_padding(b64_str):
 
 
 def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str):
-    print('challenge: ', challenge)
     challenge_id = challenge.split('.')[0]
     challenge_value = challenge.split('.')[1:]
 
@@ -31,6 +30,7 @@ def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str)
     request_challenge_parts = request_challenge.split('.')
     request_challenge_value = '.'.join(request_challenge_parts[0])
     request_challenge_counter = request_challenge_parts[1]
+    print('request_challenge: ', request_challenge)
 
     stored_challenge = redis_client.get(f"{CHALLENGE_PREFIX}{challenge_id}")
     stored_challenge_counter = stored_challenge.split('.')[1]
