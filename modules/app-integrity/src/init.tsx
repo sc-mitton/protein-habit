@@ -139,10 +139,12 @@ export const getAppIntegrity = async (
 
       // Increment challenge counter (only necessary on android)
       const challengeParts = challenge.split(".");
+      const challengeCounter = challengeParts[challengeParts.length - 1];
+      const incrementedChallengeCounter = parseInt(challengeCounter) + 1;
       const newChallenge =
-        challengeParts.slice(0, challengeParts.length - 1).join(".") +
+        challengeParts.slice(0, -1).join(".") +
         "." +
-        (Math.floor(Math.random() * (100 - 10 + 1)) + 10).toString();
+        incrementedChallengeCounter;
       await SecureStore.setItemAsync("challenge", newChallenge);
       challenge = newChallenge;
     }
