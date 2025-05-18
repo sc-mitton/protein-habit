@@ -24,7 +24,7 @@ def add_padding(b64_str):
 
 def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str):
     challenge_id = challenge.split('.')[0]
-    challenge_root_value = '.'.join(challenge.split('.')[1])
+    challenge_root_value = challenge.split('.')[1]
 
     request_challenge = decoded_token['requestDetails']['nonce']
     request_challenge_counter = request_challenge[-CHALLENGE_COUNTER_BIT_LENGTH:]
@@ -36,9 +36,6 @@ def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str)
     stored_challenge = redis_client.get(f"{CHALLENGE_PREFIX}{challenge_id}")
     stored_challenge_root_value = stored_challenge.split('.')[0]
     stored_challenge_counter = stored_challenge.split('.')[1]
-
-    print(challenge, stored_challenge_root_value, challenge_root_value,
-          request_challenge_root_value)
 
     if not stored_challenge_root_value == challenge_root_value == \
             request_challenge_root_value:
