@@ -55,6 +55,7 @@ async def challenge(
     else:
         redis_client.set(f"{CHALLENGE_PREFIX}{id}", f"{value}.{counter}")
 
+    print('challenge: ', challenge)
     return challenge
 
 
