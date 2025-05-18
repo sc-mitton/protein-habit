@@ -37,8 +37,12 @@ def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str)
     stored_challenge_root_value = stored_challenge.split('.')[0]
     stored_challenge_counter = stored_challenge.split('.')[1]
 
-    print(challenge, stored_challenge_root_value, challenge_root_value,
-          request_challenge_root_value)
+    print(challenge,
+          request_challenge,
+          stored_challenge_root_value,
+          challenge_root_value,
+          request_challenge_root_value
+          )
 
     if not stored_challenge_root_value == challenge_root_value == \
             request_challenge_root_value:
