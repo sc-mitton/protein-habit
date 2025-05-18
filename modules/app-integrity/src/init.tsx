@@ -128,7 +128,7 @@ export const getAppIntegrity = async (
   }
 
   try {
-    const challenge = await SecureStore.getItemAsync("challenge");
+    let challenge = await SecureStore.getItemAsync("challenge");
     const keyId = await SecureStore.getItemAsync("keyId");
     let token = await SecureStore.getItemAsync("token");
 
@@ -144,6 +144,7 @@ export const getAppIntegrity = async (
         "." +
         (parseInt(challengeParts[challengeParts.length - 1]) + 1).toString();
       await SecureStore.setItemAsync("challenge", newChallenge);
+      challenge = newChallenge;
     }
 
     return {
