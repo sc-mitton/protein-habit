@@ -132,7 +132,7 @@ export const getAppIntegrity = async (
     const keyId = await SecureStore.getItemAsync("keyId");
     let token = await SecureStore.getItemAsync("token");
 
-    if (!token && Platform.OS === "android" && challenge) {
+    if (Platform.OS === "android" && challenge) {
       const challengeValue = challenge!.split(".").slice(1).join(".");
       token = await AppIntegrity.asyncGenerateToken(challengeValue);
       await SecureStore.setItemAsync("token", token);
