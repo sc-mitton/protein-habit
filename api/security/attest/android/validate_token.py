@@ -41,6 +41,9 @@ def validate_challenge(redis_client: Redis, decoded_token: dict, challenge: str)
             request_challenge_root_value:
         raise Exception("Invalid challenge")
 
+    print(f"request_challenge_counter: {request_challenge_counter}")
+    print(f"stored_challenge_counter: {stored_challenge_counter}")
+
     if not int(request_challenge_counter) > int(stored_challenge_counter):
         raise Exception("Invalid challenge counter")
 
