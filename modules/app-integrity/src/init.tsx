@@ -142,7 +142,7 @@ export const getAppIntegrity = async (
       const newChallenge =
         challengeParts.slice(0, challengeParts.length - 1).join(".") +
         "." +
-        (parseInt(challengeParts[challengeParts.length - 1]) + 1).toString();
+        (Math.floor(Math.random() * (100 - 10 + 1)) + 10).toString();
       await SecureStore.setItemAsync("challenge", newChallenge);
       challenge = newChallenge;
     }

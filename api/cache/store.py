@@ -15,7 +15,7 @@ CHALLENGE_PREFIX = "challenge:"
 KEY_CHALLENGE_PREFIX = "key_challenge:"
 KEY_COUNTER_PREFIX = "key_counter:"
 KEY_PUBLIC_KEY_PREFIX = "key_public_key:"
-CHALLENGE_COUNTER_BIT_LENGTH = 8
+CHALLENGE_COUNTER_BIT_LENGTH = 16
 
 
 def get_redis():
