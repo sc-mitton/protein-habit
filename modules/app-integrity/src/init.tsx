@@ -133,7 +133,8 @@ export const getAppIntegrity = async (
     let token = await SecureStore.getItemAsync("token");
 
     if (!token && Platform.OS === "android" && challenge) {
-      token = await AppIntegrity.asyncGenerateToken(challenge);
+      const challengeValue = challenge!.split(".").slice(1).join(".");
+      token = await AppIntegrity.asyncGenerateToken(challengeValue);
       await SecureStore.setItemAsync("token", token);
 
       // Increment challenge counter (only necessary on android)
