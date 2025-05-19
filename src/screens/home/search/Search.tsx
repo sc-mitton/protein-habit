@@ -147,6 +147,12 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
     setSearchListResults(searchListResults.filter((_, i) => i !== index));
   };
 
+  const handleBlur = () => {
+    if (Platform.OS === "android" && value.length === 0) {
+      props.navigation.goBack();
+    }
+  };
+
   useEffect(() => {
     if (isError) {
       Alert.alert("😵‍💫\nNo results found", `Maybe try rephrasing your search?`, [
@@ -166,7 +172,10 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
       height:
         progress.value > 0
           ? 60
-          : withDelay(200, withTiming(1.25 * measuredKeyboardHeight.value)),
+          : withDelay(
+              Platform.OS === "android" ? 0 : 200,
+              withTiming(1.25 * measuredKeyboardHeight.value),
+            ),
       opacity:
         progress.value > 0
           ? 1
@@ -177,7 +186,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
             progress.value > 0
               ? height.value - 16
               : withDelay(
-                  500,
+                  Platform.OS === "android" ? 0 : 500,
                   withTiming(-0.75 * measuredKeyboardHeight.value),
                 ),
         },
@@ -199,11 +208,6 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", (e) => {
       measuredKeyboardHeight.value = e.endCoordinates.height;
-    });
-    Keyboard.addListener("keyboardDidHide", (e) => {
-      if (Platform.OS === "android" && value.length === 0) {
-        props.navigation.goBack();
-      }
     });
   }, []);
 
@@ -256,6 +260,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
               { color: theme.colors.primaryText },
               value.length <= 0 && styles.placeholderInnput,
             ]}
+            onBlur={handleBlur}
           />
           {isLoading && (
             <Animated.View
