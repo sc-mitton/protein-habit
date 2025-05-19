@@ -21,15 +21,29 @@ const axiosBaseQuery =
   > =>
   async ({ url, headers, data, ...rest }) => {
     const { body, ...moreRest } = rest as any;
-    const { challenge, keyId, token } = await getAppIntegrity();
-    const challengeValue = challenge!.split(".").slice(1).join(".");
-    const clientData = { ...body, challenge: challengeValue };
-    let assertion = "";
-    if (challenge && keyId) {
-      assertion = await AppIntegrity.asyncGenerateAssertion(
-        JSON.stringify(clientData),
-        keyId,
-      );
+    const integrityHeaders: Record<string, string | null> = {};
+
+    if (process.env.NODE_ENV !== "development") {
+      const integrity = await getAppIntegrity();
+
+      const challenge = integrity.challenge;
+      const keyId = integrity.keyId;
+      const token = integrity.token;
+
+      const challengeValue = challenge!.split(".").slice(1).join(".");
+      const clientData = { ...body, challenge: challengeValue };
+      let assertion = "";
+      if (challenge && keyId) {
+        assertion = await AppIntegrity.asyncGenerateAssertion(
+          JSON.stringify(clientData),
+          keyId,
+        );
+      }
+
+      integrityHeaders["x-challenge"] = challenge;
+      integrityHeaders["x-key-id"] = keyId;
+      integrityHeaders["x-assertion"] = assertion;
+      integrityHeaders["x-token"] = token;
     }
 
     try {
@@ -37,10 +51,7 @@ const axiosBaseQuery =
         url: baseUrl + url,
         headers: {
           ...headers,
-          ...(challenge && { "x-challenge": challenge }),
-          ...(keyId && { "x-key-id": keyId }),
-          ...(assertion && { "x-assertion": assertion }),
-          ...(token && { "x-token": token }),
+          ...integrityHeaders,
           "Content-Type": "application/json",
         },
         data: body,

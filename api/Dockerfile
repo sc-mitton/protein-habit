@@ -18,4 +18,4 @@ RUN pipenv install --deploy --system
 EXPOSE 8000
 
 # Start the application with hot reload
-CMD ["uvicorn", "main:app", "--reload"]
+CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]

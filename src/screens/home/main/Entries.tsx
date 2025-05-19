@@ -201,7 +201,7 @@ const Entries = () => {
                     }
                   >
                     {_.truncate(entry.name || entry.description || "Untitled", {
-                      length: 23,
+                      length: 21,
                       omission: "...",
                     })}
                   </Text>
