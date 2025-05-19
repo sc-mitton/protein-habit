@@ -131,14 +131,9 @@ export const getAppIntegrity = async (
     let challenge = await SecureStore.getItemAsync("challenge");
     const keyId = await SecureStore.getItemAsync("keyId");
     let token = await SecureStore.getItemAsync("token");
-
-    if (Platform.OS === "android" && challenge) {
-      const challengeValue = challenge!.split(".").slice(1).join(".");
-      token = await AppIntegrity.asyncGenerateToken(challengeValue);
-      await SecureStore.setItemAsync("token", token);
-
+    if (Platform.OS === "android") {
       // Increment challenge counter (only necessary on android)
-      const challengeParts = challenge.split(".");
+      const challengeParts = challenge!.split(".");
       const challengeCounter = challengeParts[challengeParts.length - 1];
       const incrementedChallengeCounter = parseInt(challengeCounter) + 1;
       const newChallenge =
@@ -147,6 +142,10 @@ export const getAppIntegrity = async (
         incrementedChallengeCounter;
       await SecureStore.setItemAsync("challenge", newChallenge);
       challenge = newChallenge;
+      const challengeValue = challenge!.split(".").slice(1).join(".");
+
+      token = await AppIntegrity.asyncGenerateToken(challengeValue);
+      await SecureStore.setItemAsync("token", token);
     }
 
     return {

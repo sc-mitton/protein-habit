@@ -16,7 +16,6 @@ import { BottomTabsScreenProps } from "@types";
 import DailyTotal from "./DailyTotal";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { Theme } from "@theme";
-
 import { showBottomBar } from "@store/slices/uiSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { selectAccent } from "@store/slices/uiSlice";
