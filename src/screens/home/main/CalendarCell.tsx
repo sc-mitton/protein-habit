@@ -69,12 +69,13 @@ const CalendarCell = ({
             size={10}
             strokeWidth={3.5}
             color={
-              targetMet && !isBookend ? "primaryText" : "transparent"
-              // : targetMet === false &&
-              //     !isBookend &&
-              //     dayInJS.isBefore(dayjs(), "day")
-              //   ? "primaryText"
-              //   : "transparent"
+              targetMet && !isBookend
+                ? "primaryText"
+                : targetMet === false &&
+                    !isBookend &&
+                    dayInJS.isBefore(dayjs(), "day")
+                  ? "primaryText"
+                  : "transparent"
             }
           />
         </Box>
