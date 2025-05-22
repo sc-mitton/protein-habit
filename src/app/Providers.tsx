@@ -13,9 +13,10 @@ import { SQLiteProvider } from "expo-sqlite";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { drizzle } from "drizzle-orm/expo-sqlite";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import { PostHogProvider } from "posthog-react-native";
 import Purchases from "react-native-purchases";
-import Constants from "expo-constants";
 import { PortalProvider } from "@gorhom/portal";
+import Constants from "expo-constants";
 
 import lightTheme, { darkTheme } from "@theme";
 import { store, persistor } from "@store";
@@ -36,6 +37,20 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+const PostHogWrapper = ({ children }: { children: React.ReactNode }) => {
+  const isProduction = process.env.APP_ENV === "production";
+
+  if (!isProduction) {
+    return <>{children}</>;
+  }
+
+  return (
+    <PostHogProvider apiKey={"phc_VdqDv0f8YyIOeO9hk1OULIV37DW8Qlw9zotQuaURmVB"}>
+      {children}
+    </PostHogProvider>
+  );
+};
+
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const colorScheme = useColorScheme();
   const restyledTheme = colorScheme === "dark" ? darkTheme : lightTheme;
@@ -50,34 +65,36 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <SQLiteProvider
-      databaseName={dbName}
-      options={{ enableChangeListener: true }}
-    >
-      <DatabaseProvider>
-        <GestureHandlerRootView>
-          <Provider store={store}>
-            <KeyboardProvider>
-              <ThemeProvider theme={restyledTheme}>
-                <PaperProvider>
-                  <EventProvider>
-                    <BottomSheetModalProvider>
-                      <PortalProvider>
-                        <SafeAreaProvider>
-                          <PersistGate loading={null} persistor={persistor}>
-                            {children}
-                          </PersistGate>
-                        </SafeAreaProvider>
-                      </PortalProvider>
-                    </BottomSheetModalProvider>
-                  </EventProvider>
-                </PaperProvider>
-              </ThemeProvider>
-            </KeyboardProvider>
-          </Provider>
-        </GestureHandlerRootView>
-      </DatabaseProvider>
-    </SQLiteProvider>
+    <PostHogWrapper>
+      <SQLiteProvider
+        databaseName={dbName}
+        options={{ enableChangeListener: true }}
+      >
+        <DatabaseProvider>
+          <GestureHandlerRootView>
+            <Provider store={store}>
+              <KeyboardProvider>
+                <ThemeProvider theme={restyledTheme}>
+                  <PaperProvider>
+                    <EventProvider>
+                      <BottomSheetModalProvider>
+                        <PortalProvider>
+                          <SafeAreaProvider>
+                            <PersistGate loading={null} persistor={persistor}>
+                              {children}
+                            </PersistGate>
+                          </SafeAreaProvider>
+                        </PortalProvider>
+                      </BottomSheetModalProvider>
+                    </EventProvider>
+                  </PaperProvider>
+                </ThemeProvider>
+              </KeyboardProvider>
+            </Provider>
+          </GestureHandlerRootView>
+        </DatabaseProvider>
+      </SQLiteProvider>
+    </PostHogWrapper>
   );
 };
 

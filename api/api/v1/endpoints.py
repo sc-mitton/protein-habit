@@ -1,7 +1,6 @@
 from security.permissions import is_valid_mobile, test_only
 from appconf import IOS_APP_ID
 from security.attest.ios import validate_attestation
-from utils.get_secret import get_secret
 from rags.protein_amount import chain
 import base64
 from cryptography import x509
@@ -25,7 +24,6 @@ from cache import (
 )
 
 router = APIRouter()
-SECRET_KEY = get_secret("SECRET_KEY")
 
 
 @router.post("/protein")

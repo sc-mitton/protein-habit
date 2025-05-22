@@ -4,7 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "python.defaultInterpreterPath": "./back/env/bin/python",
   "python.linting.enabled": true,
   "flake8.args": ["--config=./api/.flake8"],
   "[typescript]": {

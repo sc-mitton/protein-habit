@@ -12,7 +12,8 @@
       "env": {
         "APP_ENV": "production",
         "APP_VARIANT": "production",
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "EXPO_PUBLIC_API_URL": "https://api.proteinhabit.northof60labs.com/v1"
       },
       "channel": "production"
     },
@@ -35,7 +36,8 @@
       "env": {
         "APP_ENV": "preview",
         "APP_VARIANT": "preview",
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "EXPO_PUBLIC_API_URL": "https://uat.api.proteinhabit.northof60labs.com/v1"
       },
       "channel": "preview"
     }

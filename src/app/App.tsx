@@ -9,7 +9,6 @@ import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from "react-native-reanimated";
-import Constants from "expo-constants";
 
 import { Box } from "@components";
 import RootStack from "../screens/RootStack";
@@ -26,8 +25,8 @@ configureReanimatedLogger({
 });
 
 appIntegrityInit({
-  challengeUrl: `${Constants.expoConfig?.extra?.apiUrl}/challenge`,
-  attestUrl: `${Constants.expoConfig?.extra?.apiUrl}/attest`,
+  challengeUrl: `${process.env.EXPO_PUBLIC_API_URL}/challenge`,
+  attestUrl: `${process.env.EXPO_PUBLIC_API_URL}/attest`,
 });
 
 export const linking = {

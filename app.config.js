@@ -12,16 +12,6 @@ const getAppName = () => {
   return `Protein Habit ${process.env.APP_ENV}`;
 };
 
-const getApiUrl = () => {
-  if (process.env.APP_VARIANT === "production") {
-    return "https://protein-habit.onrender.com/v1";
-  } else if (process.env.APP_VARIANT === "preview") {
-    return "https://protein-habit-uat.onrender.com/v1";
-  } else {
-    return "http://localhost:8000/v1";
-  }
-};
-
 const bundleId = getBundleId();
 const appName = getAppName();
 
@@ -93,7 +83,6 @@ export default {
       eas: {
         projectId: "baeb6fad-cd86-4bb9-b233-a9315e60eb68",
       },
-      apiUrl: getApiUrl(),
     },
     runtimeVersion: "1.0.0",
     plugins: [
