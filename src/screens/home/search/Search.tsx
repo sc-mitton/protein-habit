@@ -29,6 +29,7 @@ import { SymbolView } from "expo-symbols";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import dayjs from "dayjs";
+import { appIntegrityInit } from "app-integrity";
 
 import {
   BackDrop,
@@ -98,6 +99,7 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
   const measuredKeyboardHeight = useSharedValue(60);
   const [getProteinSearch, { data, isLoading, isError, error }] =
     useSearchProteinMutation();
+  const [hasRetriedInit, setHasRetriedInit] = useState(false);
   const [searchListResults, setSearchListResults] = useState<
     ProteinSearchResults["results"]
   >([]);
@@ -155,15 +157,30 @@ const Search = (props: RootScreenProps<"SearchModal">) => {
 
   useEffect(() => {
     if (isError) {
-      Alert.alert("😵‍💫\nNo results found", `Maybe try rephrasing your search?`, [
-        {
-          text: "OK",
-          onPress: () => {
-            setValue("");
-            searchField.current?.focus();
-          },
-        },
-      ]);
+      if (!hasRetriedInit) {
+        setHasRetriedInit(true);
+        appIntegrityInit({
+          challengeUrl: `${process.env.EXPO_PUBLIC_API_URL}/challenge`,
+          attestUrl: `${process.env.EXPO_PUBLIC_API_URL}/attest`,
+          refresh: true,
+        });
+        setValue("");
+        searchField.current?.focus();
+      } else {
+        Alert.alert(
+          "😵‍💫\nNo results found",
+          "Looks like we're having trouble connecting to the server. Please try again later, or contact support.",
+          [
+            {
+              text: "OK",
+              onPress: () => {
+                setValue("");
+                searchField.current?.focus();
+              },
+            },
+          ],
+        );
+      }
     }
   }, [isError]);
 
