@@ -81,7 +81,7 @@ const Actions = () => {
   });
 
   return (
-    <Box marginBottom="s">
+    <Box marginBottom="s" zIndex={10}>
       {Platform.OS === "ios" && (
         <Box justifyContent="center" alignItems="center" marginTop="sm">
           <Box
