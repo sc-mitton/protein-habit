@@ -3,7 +3,6 @@ import { View, Platform, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Menu as PaperMenu } from "react-native-paper";
 import { useTheme } from "@shopify/restyle";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import * as ZMenu from "zeego/context-menu";
 import * as Haptics from "expo-haptics";
 

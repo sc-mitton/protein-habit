@@ -11,7 +11,9 @@ import FoodList from "./FoodList";
 import { MyFoodsProvider, useMyFoods } from "./context";
 import Header from "./Header";
 import SelectedFoods from "./SelectedFoods";
+import Animated, { LinearTransition } from "react-native-reanimated";
 
+const AnimatedBox = Animated.createAnimatedComponent(Box);
 const MyFoods = (props: RootScreenProps<"MyFoodsModal">) => {
   const foods = useAppSelector(selectFoods);
 
@@ -48,7 +50,7 @@ const MyFoods = (props: RootScreenProps<"MyFoodsModal">) => {
         />
       )}
       <Header />
-      <Box flex={1} flexGrow={1}>
+      <AnimatedBox flex={1} flexGrow={1} layout={LinearTransition}>
         {!props.route.params?.entry && (
           <Box
             height={
@@ -64,7 +66,7 @@ const MyFoods = (props: RootScreenProps<"MyFoodsModal">) => {
           </Box>
         )}
         <SelectedFoods {...props} />
-      </Box>
+      </AnimatedBox>
     </Box>
   );
 };

@@ -215,13 +215,7 @@ const Actions = () => {
           </Box>
         </Animated.View>
       )}
-      <Animated.View
-        layout={LinearTransition.springify()
-          .mass(0.5)
-          .damping(15)
-          .stiffness(100)}
-        style={styles.inputContainer}
-      >
+      <Animated.View layout={LinearTransition} style={styles.inputContainer}>
         <Box
           flexDirection="row"
           alignItems="center"
