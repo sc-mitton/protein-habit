@@ -49,7 +49,7 @@ const lightTheme = createTheme({
     selectedSecondary: "#007fff",
     success: "#119b51",
     unselected: "transparent",
-    seperator: palette.gray250,
+    seperator: palette.gray200,
     overlay: "rgba(0, 0, 0, 0.5)",
     radioCardSelected: palette.gray700,
     radioCardUnselected: palette.gray800,
@@ -367,7 +367,12 @@ export const darkTheme: Theme = {
     borderColor: palette.gray850,
     lightBorderColor: palette.gray800,
     borderColorBold: palette.gray700,
-    seperator: palette.gray850,
+    seperator: convertHex2Hsl(palette.gray850)
+      .replace(
+        /(\d+)%,\s\d\)/,
+        (match) => `${Math.max(0, parseInt(match) + 2)}%, 1)`,
+      )
+      .toString(),
     overlay: "rgba(0, 0, 0, 0.9)",
     radioCardSelected: palette.gray200,
     radioCardUnselected: palette.gray100,

@@ -7,23 +7,14 @@ import Animated, {
 } from "react-native-reanimated";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
-import { StyleSheet } from "react-native";
 import _ from "lodash";
 
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Box, Text, Button, SwipeOptions } from "@components";
 import { selectDaysEntries } from "@store/slices/proteinSelectors";
-import { dayFormat, dayTimeFormat } from "@constants/formats";
+import { dayTimeFormat } from "@constants/formats";
 import { removeEntry } from "@store/slices/proteinSlice";
 import { RootStackParamList } from "@types";
-
-const styles = StyleSheet.create({
-  scrollContent: {
-    paddingBottom: 12,
-    paddingHorizontal: 9,
-    zIndex: 100,
-  },
-});
 
 const Days = ({
   day,
@@ -44,6 +35,7 @@ const Days = ({
     justifyContent: "center",
     alignItems: "center",
     width: pillWidth,
+    opacity: 0.07,
   }));
 
   useEffect(() => {
@@ -71,7 +63,7 @@ const Days = ({
           width={pillWidth - 12}
           style={{ transform: [{ translateX: -pillWidth / 2 }] }}
           height={58}
-          borderColor="primaryButton"
+          borderColor="primaryText"
           borderWidth={1.5}
           position="absolute"
           borderRadius="m"
