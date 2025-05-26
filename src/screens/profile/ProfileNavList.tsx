@@ -4,8 +4,9 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useTheme } from "@shopify/restyle";
 import { Alert, StyleSheet, TouchableHighlight } from "react-native";
 import { SymbolView } from "expo-symbols";
+import * as WebBrowser from "expo-web-browser";
 
-import { Box, Text } from "@components";
+import { Box, Text, Button } from "@components";
 import { useAppSelector } from "@store/hooks";
 import { selectUserInfo } from "@store/slices/userSlice";
 import { BottomTabsScreenProps } from "@types";
@@ -171,7 +172,7 @@ const ProfileNavList = (props: BottomTabsScreenProps<"Profile">) => {
             onPress={() =>
               Alert.alert(
                 "Help",
-                "If you need help, please reach out to us at contact@northof60labs.com",
+                "If you need help, please reach out to us at contact@northof60labs.com.",
               )
             }
           >
@@ -205,6 +206,39 @@ const ProfileNavList = (props: BottomTabsScreenProps<"Profile">) => {
             </Box>
           </TouchableHighlight>
         </Box>
+      </Box>
+      <Box
+        flexDirection="row"
+        gap="s"
+        alignItems="center"
+        marginTop="l"
+        justifyContent="center"
+      >
+        <Button
+          textColor="tertiaryText"
+          fontSize={13}
+          label="Terms"
+          padding="none"
+          onPress={() => {
+            WebBrowser.openBrowserAsync(
+              "https://northof60labs.com/proteinhabit/terms",
+            );
+          }}
+        />
+        <Text color="tertiaryText" fontSize={10}>
+          &bull;
+        </Text>
+        <Button
+          textColor="tertiaryText"
+          fontSize={13}
+          padding="none"
+          label="Privacy"
+          onPress={() => {
+            WebBrowser.openBrowserAsync(
+              "https://northof60labs.com/proteinhabit/privacy",
+            );
+          }}
+        />
       </Box>
     </Box>
   );
