@@ -5,7 +5,6 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  View,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -215,33 +214,59 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           </Box>
         </AnimatedBox>
       </Box>
-      <Animated.ScrollView
-        style={[
-          styles.scroll,
-          {
-            zIndex: scrollY.interpolate({
-              inputRange: [0, 1],
-              outputRange: [-1, 0],
+      <Box>
+        <AnimatedBox
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          zIndex={1}
+          height={32}
+          pointerEvents="none"
+          style={{
+            opacity: scrollY.interpolate({
+              inputRange: [0, 100],
+              outputRange: [0, 1],
               extrapolate: "clamp",
             }),
-          },
-        ]}
-        stickyHeaderIndices={[0, 2, 4]}
-        showsVerticalScrollIndicator={false}
-        onScrollBeginDrag={handleScrollBeginDrag}
-        onScrollEndDrag={handleScrollEndDrag}
-        onScroll={handleScroll}
-        contentContainerStyle={{ paddingTop: topSectionSize - 12 }}
-      >
-        <SectionHeader title="Summary" />
-        <Stats />
-        <SectionHeader title="Entries" />
-        <Entries />
-        <Box padding="s" paddingTop="l" backgroundColor="mainBackground">
-          <Text color="tertiaryText">History</Text>
-        </Box>
-        <Calendar />
-      </Animated.ScrollView>
+          }}
+        >
+          <LinearGradient
+            colors={[theme.colors.mainBackground, theme.colors.transparentRGB]}
+            style={StyleSheet.absoluteFill}
+          />
+        </AnimatedBox>
+        <Animated.ScrollView
+          style={[
+            styles.scroll,
+            {
+              zIndex: scrollY.interpolate({
+                inputRange: [0, 1],
+                outputRange: [-1, 0],
+                extrapolate: "clamp",
+              }),
+            },
+          ]}
+          stickyHeaderIndices={[0, 2, 4]}
+          showsVerticalScrollIndicator={false}
+          onScrollBeginDrag={handleScrollBeginDrag}
+          onScrollEndDrag={handleScrollEndDrag}
+          onScroll={handleScroll}
+          contentContainerStyle={{
+            paddingTop: topSectionSize - 12,
+            paddingBottom: 24,
+          }}
+        >
+          <SectionHeader title="Summary" />
+          <Stats />
+          <SectionHeader title="Entries" />
+          <Entries />
+          <Box padding="s" paddingTop="l" backgroundColor="mainBackground">
+            <Text color="tertiaryText">History</Text>
+          </Box>
+          <Calendar />
+        </Animated.ScrollView>
+      </Box>
     </Box>
   );
 };

@@ -63,18 +63,16 @@ const Stats = () => {
       variant="homeTabSection"
       borderBottomLeftRadius="l"
       borderBottomRightRadius="l"
-      marginTop="nm"
+      marginTop="nml"
       paddingBottom="m"
     >
-      <Box flexDirection="row" gap="xxxl" marginBottom="xl">
+      <Box flexDirection="row" gap="xxxl" marginBottom="xxl">
         <Box gap="s" flex={1}>
           <Box
             flexDirection={"row"}
             gap="s"
             paddingBottom="s"
             alignItems={"center"}
-            borderColor="seperator"
-            borderBottomWidth={1.5}
           >
             <Box flexDirection="row" gap="s" alignItems="center">
               <Ionicons
@@ -89,9 +87,9 @@ const Stats = () => {
               </Text>
             </Box>
           </Box>
-          <Box flexDirection="row" gap="xxs" marginLeft="xs">
-            <Text>{dailyTarget}</Text>
-            <Text>g</Text>
+          <Box flexDirection="row" gap="xxs" marginLeft="xxs">
+            <Text variant="header">{dailyTarget}</Text>
+            <Text variant="header">g</Text>
           </Box>
         </Box>
         <Box gap="s" flex={1}>
@@ -100,8 +98,6 @@ const Stats = () => {
             gap="s"
             paddingBottom="s"
             alignItems={"center"}
-            borderColor="seperator"
-            borderBottomWidth={1.5}
           >
             <TouchableOpacity
               onPress={() =>
@@ -121,9 +117,9 @@ const Stats = () => {
               </Box>
             </TouchableOpacity>
           </Box>
-          <Box flexDirection="row" gap="xxs" marginLeft="xs">
-            <Text>{remainingProtein}</Text>
-            <Text>g</Text>
+          <Box flexDirection="row" gap="xxs" marginLeft="xxs">
+            <Text variant="header">{remainingProtein}</Text>
+            <Text variant="header">g</Text>
           </Box>
         </Box>
       </Box>
@@ -134,8 +130,6 @@ const Stats = () => {
             gap="s"
             paddingBottom="s"
             alignItems={"center"}
-            borderColor="seperator"
-            borderBottomWidth={1.5}
           >
             <TouchableOpacity
               onPress={() =>
@@ -170,9 +164,9 @@ const Stats = () => {
               </Box>
             </TouchableOpacity>
           </Box>
-          <Box flexDirection="row" gap="xxs" marginLeft="xs">
-            <Text>{weeklyAvg}</Text>
-            <Text>g</Text>
+          <Box flexDirection="row" gap="xxs" marginLeft="xxs">
+            <Text variant="header">{weeklyAvg}</Text>
+            <Text variant="header">g</Text>
           </Box>
         </Box>
         <Box paddingBottom="s" gap="s" flex={1}>
@@ -181,8 +175,6 @@ const Stats = () => {
             gap="s"
             paddingBottom="s"
             alignItems={"center"}
-            borderColor="seperator"
-            borderBottomWidth={1.5}
           >
             <TouchableOpacity
               onPress={() =>
@@ -206,8 +198,8 @@ const Stats = () => {
               </Box>
             </TouchableOpacity>
           </Box>
-          <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text>{`${streak} day${streak === 1 ? "" : "s"}`}</Text>
+          <Box flexDirection="row" gap="xs" marginLeft="xxs">
+            <Text variant="header">{`${streak} day${streak === 1 ? "" : "s"}`}</Text>
           </Box>
         </Box>
       </Box>

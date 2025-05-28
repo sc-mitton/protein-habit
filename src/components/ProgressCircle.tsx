@@ -35,7 +35,7 @@ export const ProgressPie: React.FC<ProgressPieProps> = ({
       <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         {/* Progress Circle (the actual progress section) */}
         <Circle
-          stroke={accent ? theme.colors[accent] : theme.colors.primaryText}
+          stroke={accent ? theme.colors[accent] : theme.colors.secondaryText}
           fill="none"
           cx={size / 2}
           cy={size / 2}
