@@ -5,6 +5,7 @@ import {
   Animated,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  ScrollView,
 } from "react-native";
 import { useTheme } from "@shopify/restyle";
 import dayjs from "dayjs";
@@ -214,7 +215,17 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           </Box>
         </AnimatedBox>
       </Box>
-      <Box>
+      <AnimatedBox
+        style={[
+          {
+            zIndex: scrollY.interpolate({
+              inputRange: [0, 1],
+              outputRange: [-1, 0],
+              extrapolate: "clamp",
+            }),
+          },
+        ]}
+      >
         <AnimatedBox
           position="absolute"
           top={0}
@@ -236,17 +247,8 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
             style={StyleSheet.absoluteFill}
           />
         </AnimatedBox>
-        <Animated.ScrollView
-          style={[
-            styles.scroll,
-            {
-              zIndex: scrollY.interpolate({
-                inputRange: [0, 1],
-                outputRange: [-1, 0],
-                extrapolate: "clamp",
-              }),
-            },
-          ]}
+        <ScrollView
+          style={styles.scroll}
           stickyHeaderIndices={[0, 2, 4]}
           showsVerticalScrollIndicator={false}
           onScrollBeginDrag={handleScrollBeginDrag}
@@ -265,8 +267,8 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
             <Text color="tertiaryText">History</Text>
           </Box>
           <Calendar />
-        </Animated.ScrollView>
-      </Box>
+        </ScrollView>
+      </AnimatedBox>
     </Box>
   );
 };
