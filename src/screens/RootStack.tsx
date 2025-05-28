@@ -49,23 +49,23 @@ export const useSubscriptionCheck = () => {
   const currentRoute = getCurrentRoute();
   const routes = useNavigationState((state) => state?.routes || []);
   const inceptionDate = useAppSelector(selectUserInception);
-  useEffect(() => {
-    const hasProAccess = entitlement === proEntitlement;
-    const route = currentRoute?.name;
-    if (route && PROTECTED_ROUTES.includes(route) && !hasProAccess) {
-      if (route.toLowerCase().includes("modal")) {
-        navigation.goBack();
-      }
-      navigation.navigate("PurchaseModal", { proFeatureAccess: true });
-    }
-  }, [currentRoute, routes]);
-  useEffect(() => {
-    const hadAppForMoreThan1Day =
-      dayjs().diff(dayjs(inceptionDate), "day") > 100;
-    if (hadAppForMoreThan1Day && entitlement === "") {
-      navigation.navigate("PurchaseModal");
-    }
-  }, [entitlement]);
+  // useEffect(() => {
+  //   const hasProAccess = entitlement === proEntitlement;
+  //   const route = currentRoute?.name;
+  //   if (route && PROTECTED_ROUTES.includes(route) && !hasProAccess) {
+  //     if (route.toLowerCase().includes("modal")) {
+  //       navigation.goBack();
+  //     }
+  //     navigation.navigate("PurchaseModal", { proFeatureAccess: true });
+  //   }
+  // }, [currentRoute, routes]);
+  // useEffect(() => {
+  //   const hadAppForMoreThan1Day =
+  //     dayjs().diff(dayjs(inceptionDate), "day") > 100;
+  //   if (hadAppForMoreThan1Day && entitlement === "") {
+  //     navigation.navigate("PurchaseModal");
+  //   }
+  // }, [entitlement]);
 };
 
 const RootStack = () => {

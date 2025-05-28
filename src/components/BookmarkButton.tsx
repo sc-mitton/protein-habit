@@ -9,14 +9,12 @@ import LottieView from "lottie-react-native";
 import { StyleSheet } from "react-native";
 import Reanimated, { FadeIn } from "react-native-reanimated";
 import { useTheme } from "@shopify/restyle";
-import { BlurView } from "expo-blur";
 
 import { Theme } from "@theme";
 import { bookmark } from "@assets/lotties";
 import { BumpButton } from "./BumpButton";
 import { useAppSelector } from "@store/hooks";
 import { selectAccent } from "@store/slices/uiSlice";
-import { Box } from "./base/Box";
 
 interface Props {
   bookmarked: boolean;
@@ -36,7 +34,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    opacity: 0.2,
+    opacity: 0.7,
+    zIndex: -1,
   },
   lottie: {},
   back: {
@@ -56,6 +55,9 @@ export const BookmarkButton = forwardRef<BookmarkButtonRef, Props>(
     const accent = useAppSelector(selectAccent);
     const primaryColor =
       useAccent && accent ? theme.colors[`${accent}`] : theme.colors.white;
+    const accentColor = accent
+      ? theme.colors[`${accent}Text`]
+      : theme.colors.white;
 
     // Expose imperative API methods
     useImperativeHandle(ref, () => ({
@@ -104,7 +106,7 @@ export const BookmarkButton = forwardRef<BookmarkButtonRef, Props>(
               },
               {
                 keypath: "bookmark fill",
-                color: primaryColor,
+                color: accentColor,
               },
             ]}
             style={[styles.lottie, { width: size, height: size }]}
