@@ -27,7 +27,8 @@ const lightTheme = createTheme({
   colors: {
     modalBackground: palette.gray50,
     mainBackground: palette.gray150,
-    matchBlurBackground: Platform.OS === "ios" ? palette.gray75 : palette.gray0,
+    matchBlurBackground:
+      Platform.OS === "ios" ? palette.gray100 : palette.gray0,
     secondaryBackground: palette.gray0,
     foodItemBackground: palette.gray50,
     cardBackground: palette.gray50,
@@ -358,7 +359,7 @@ export const darkTheme: Theme = {
     matchBlurBackground: convertHex2Hsl(palette.gray900)
       .replace(
         /(\d+)%,\s\d\)/,
-        (match) => `${Math.max(0, parseInt(match) - 2)}%, 1)`,
+        (match) => `${Math.max(0, parseInt(match) - 4)}%, 1)`,
       )
       .toString(),
     transparentRGB: "rgba(34, 33, 32, 0)",

@@ -205,6 +205,7 @@ async function processDish(dish: Dish) {
             protein_per_serving: { type: "number" },
             prep_time: { type: "number" },
             cook_time: { type: "number" },
+            calories_per_serving: { type: "number" },
           },
           required: [
             "name",
@@ -212,6 +213,7 @@ async function processDish(dish: Dish) {
             "instructions",
             "number_of_servings",
             "protein_per_serving",
+            "calories_per_serving",
             "prep_time",
             "cook_time",
           ],

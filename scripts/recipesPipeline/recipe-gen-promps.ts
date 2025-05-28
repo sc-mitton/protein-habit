@@ -25,7 +25,7 @@ ${ingredients ?? ""}
 const create = ({ dish }: { dish: string }) => {
   return `
 ${overview}
-Product a recipe for the following dish: ${dish}
+Produce a recipe for the following dish: ${dish}
 `;
 };
 
