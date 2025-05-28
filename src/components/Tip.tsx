@@ -1,7 +1,11 @@
 import { useState } from "react";
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Insets } from "react-native";
-import Animated, { FadeInUp, FadeOut } from "react-native-reanimated";
+import Animated, {
+  FadeInDown,
+  FadeInUp,
+  FadeOut,
+} from "react-native-reanimated";
 import OutsidePressHandler from "react-native-outside-press";
 
 import { Text } from "./base/Text";
@@ -66,7 +70,7 @@ export const TipContainer = ({
   offset?: number;
 }) => (
   <Animated.View
-    entering={FadeInUp}
+    entering={FadeInDown}
     exiting={FadeOut.duration(300)}
     style={[styles.aboveTipContainer]}
   >
