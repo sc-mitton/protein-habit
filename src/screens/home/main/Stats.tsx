@@ -90,8 +90,8 @@ const Stats = () => {
             </Box>
           </Box>
           <Box flexDirection="row" gap="xxs" marginLeft="xs">
-            <Text fontSize={18}>{dailyTarget}</Text>
-            <Text fontSize={18}>g</Text>
+            <Text>{dailyTarget}</Text>
+            <Text>g</Text>
           </Box>
         </Box>
         <Box gap="s" flex={1}>
@@ -122,8 +122,8 @@ const Stats = () => {
             </TouchableOpacity>
           </Box>
           <Box flexDirection="row" gap="xxs" marginLeft="xs">
-            <Text fontSize={18}>{remainingProtein}</Text>
-            <Text fontSize={18}>g</Text>
+            <Text>{remainingProtein}</Text>
+            <Text>g</Text>
           </Box>
         </Box>
       </Box>
@@ -171,8 +171,8 @@ const Stats = () => {
             </TouchableOpacity>
           </Box>
           <Box flexDirection="row" gap="xxs" marginLeft="xs">
-            <Text fontSize={18}>{weeklyAvg}</Text>
-            <Text fontSize={18}>g</Text>
+            <Text>{weeklyAvg}</Text>
+            <Text>g</Text>
           </Box>
         </Box>
         <Box paddingBottom="s" gap="s" flex={1}>
@@ -207,9 +207,7 @@ const Stats = () => {
             </TouchableOpacity>
           </Box>
           <Box flexDirection="row" gap="xs" marginLeft="xs">
-            <Text fontSize={18}>
-              {`${streak} day${streak === 1 ? "" : "s"}`}
-            </Text>
+            <Text>{`${streak} day${streak === 1 ? "" : "s"}`}</Text>
           </Box>
         </Box>
       </Box>

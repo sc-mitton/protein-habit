@@ -289,6 +289,12 @@ const lightTheme = createTheme({
       lineHeight: Platform.OS === "android" ? 24 : 24,
       color: "primaryText",
     },
+    body2: {
+      fontFamily: "Inter-Regular",
+      fontSize: Platform.OS === "android" ? 16 : 15,
+      lineHeight: Platform.OS === "android" ? 20 : 20,
+      color: "primaryText",
+    },
     paragraph: {
       fontFamily: "Inter-Regular",
       fontSize: Platform.OS === "android" ? 16 : 15,

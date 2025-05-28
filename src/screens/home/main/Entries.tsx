@@ -175,7 +175,7 @@ const Entries = () => {
                 backgroundColor="secondaryBackground"
               >
                 <Box minWidth={36}>
-                  <Text>{entry.grams}g</Text>
+                  <Text variant="body2">{entry.grams}g</Text>
                 </Box>
                 <Box
                   flex={1}
@@ -186,6 +186,7 @@ const Entries = () => {
                   gap="xs"
                 >
                   <Text
+                    variant="body2"
                     color={
                       entry.name || entry.description
                         ? "primaryText"
@@ -198,7 +199,7 @@ const Entries = () => {
                     })}
                   </Text>
                 </Box>
-                <Text>
+                <Text variant="body2">
                   {dayjs()
                     .hour(parseInt(entry.time.split(":")[0]))
                     .minute(parseInt(entry.time.split(":")[1]))
