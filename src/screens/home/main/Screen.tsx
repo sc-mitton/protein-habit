@@ -89,23 +89,36 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
   const theme = useTheme<Theme>();
 
   const [topSectionSize, setTopSectionSize] = useState(0);
+  const [isScrolledToTop, setIsScrolledToTop] = useState(true);
   const scrollY = useRef(new Animated.Value(0)).current;
   const dispatch = useAppDispatch();
   const isScrolling = useRef(false);
   const lastOffsetY = useRef(0);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const handleScrollBeginDrag = () => {
     isScrolling.current = true;
   };
 
-  const handleScrollEndDrag = () => {
+  const handleScrollEndDrag = (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+  ) => {
     isScrolling.current = false;
+
+    if (event.nativeEvent.contentOffset.y < 100) {
+      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+      setIsScrolledToTop(true);
+    }
   };
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentOffsetY = event.nativeEvent.contentOffset.y;
     const diff = currentOffsetY - lastOffsetY.current;
     scrollY.setValue(currentOffsetY);
+
+    if (currentOffsetY > 100) {
+      setIsScrolledToTop(false);
+    }
 
     if (isScrolling.current) {
       const direction = diff > 0 ? "down" : "up";
@@ -170,11 +183,12 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           alignItems="center"
           paddingHorizontal="l"
         >
-          <Box>
+          <Box flex={1}>
             <Text variant="bold">Welcome, {name}</Text>
             <Text color="tertiaryText">{dayjs().format("MMM D, YYYY")}</Text>
           </Box>
           <AnimatedBox
+            pointerEvents={isScrolledToTop ? "none" : "auto"}
             style={{
               opacity: scrollY.interpolate({
                 inputRange: [0, 100],
@@ -248,6 +262,7 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           />
         </AnimatedBox>
         <ScrollView
+          ref={scrollViewRef}
           style={styles.scroll}
           stickyHeaderIndices={[0, 2, 4]}
           showsVerticalScrollIndicator={false}
