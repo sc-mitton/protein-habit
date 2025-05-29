@@ -49,6 +49,11 @@ export const useSubscriptionCheck = () => {
   const currentRoute = getCurrentRoute();
   const routes = useNavigationState((state) => state?.routes || []);
   const inceptionDate = useAppSelector(selectUserInception);
+
+  if (process.env.EXPO_PUBLIC_APP_ENV === "development") {
+    return;
+  }
+
   useEffect(() => {
     const hasProAccess = entitlement === proEntitlement;
     const route = currentRoute?.name;

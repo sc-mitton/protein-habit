@@ -38,7 +38,7 @@ const DatabaseProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 const PostHogWrapper = ({ children }: { children: React.ReactNode }) => {
-  const isProduction = process.env.APP_ENV === "production";
+  const isProduction = process.env.EXPO_PUBLIC_APP_ENV === "production";
 
   if (!isProduction) {
     return <>{children}</>;

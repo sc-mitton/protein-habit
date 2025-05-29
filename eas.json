@@ -10,8 +10,8 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "APP_ENV": "production",
-        "APP_VARIANT": "production",
+        "EXPO_PUBLIC_APP_ENV": "production",
+        "EXPO_PUBLIC_APP_VARIANT": "production",
         "NODE_ENV": "production",
         "EXPO_PUBLIC_API_URL": "https://proteinhabit-api.northof60labs.com/v1"
       },
@@ -21,8 +21,8 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_ENV": "preview",
-        "APP_VARIANT": "preview",
+        "EXPO_PUBLIC_APP_ENV": "preview",
+        "EXPO_PUBLIC_APP_VARIANT": "preview",
         "NODE_ENV": "development"
       },
       "environment": "preview"
@@ -34,8 +34,8 @@
         "buildType": "app-bundle"
       },
       "env": {
-        "APP_ENV": "preview",
-        "APP_VARIANT": "preview",
+        "EXPO_PUBLIC_APP_ENV": "preview",
+        "EXPO_PUBLIC_APP_VARIANT": "preview",
         "NODE_ENV": "production",
         "EXPO_PUBLIC_API_URL": "https://uat.api.proteinhabit.northof60labs.com/v1"
       },

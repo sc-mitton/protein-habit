@@ -1,15 +1,15 @@
 const getBundleId = () => {
-  if (process.env.APP_VARIANT === "production") {
+  if (process.env.EXPO_PUBLIC_APP_VARIANT === "production") {
     return "com.northof60labs.proteinhabit";
   }
-  return `com.northof60labs.proteinhabit.${process.env.APP_ENV}`;
+  return `com.northof60labs.proteinhabit.${process.env.EXPO_PUBLIC_APP_ENV}`;
 };
 
 const getAppName = () => {
-  if (process.env.APP_VARIANT === "production") {
+  if (process.env.EXPO_PUBLIC_APP_VARIANT === "production") {
     return "Protein Habit";
   }
-  return `Protein Habit ${process.env.APP_ENV}`;
+  return `Protein Habit ${process.env.EXPO_PUBLIC_APP_ENV}`;
 };
 
 const bundleId = getBundleId();

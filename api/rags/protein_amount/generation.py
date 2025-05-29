@@ -28,10 +28,19 @@ generation_prompt = PromptTemplate.from_template(
         - Always include the `protein_unit` (e.g., "grams", "oz").
         - Ensure that the JSON format is valid and correctly structured.
         - Unless otherwise specified, assume the amounts in the nutrition data are in grams.
-        - Adjust the protein amount from the nutrition data based on the ratio of the serving size of the nutriotion data
+        - Adjust the protein amount from the nutrition data based on the ratio of the serving size of the nutrition data
          and the amount of the food item in the original user input.
         - Shorten the food names if necessary to make them concise.
         - The conversion from grams to ounces is 1oz = 28.35g
+        - When multiple food items together form a common dish or menu item, combine them into a single item using the
+          standard name for that dish.
+        - When combining items into a dish, sum their protein amounts to get the total protein for the complete dish.
+        - Always round protein amounts to the nearest whole number.
+
+        **Examples:**
+        - If you see "Spaghetti", "Tomato", "Ground Beef", "Parmesan", combine into "Spaghetti Bolognese"
+        - If you see "Rice", "Chicken", "Vegetables", "Soy Sauce", combine into "Chicken Fried Rice"
+        - If you see "Tortilla", "Beef", "Lettuce", "Cheese", "Salsa", combine into "Beef Taco"
 
         NutritionData:
         {{data}}
