@@ -392,7 +392,7 @@ export const darkTheme: Theme = {
     sectionShadow:
       Platform.OS === "android" ? palette.gray1100 : palette.gray1000,
     buttonShadow: palette.gray700,
-    primaryButton: palette.gray850,
+    primaryButton: palette.gray800,
     segmentedTab: palette.gray850,
     segmentedTabControl: convertHex2Hsl(palette.gray900)
       .replace(
