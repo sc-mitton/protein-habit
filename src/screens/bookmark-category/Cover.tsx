@@ -58,7 +58,12 @@ const CategoryPicture = ({
             recyclingKey={coverPhoto}
           />
         ) : (
-          <Box style={styles.coverPhoto} backgroundColor="matchBlurBackground">
+          <Box
+            style={styles.coverPhoto}
+            backgroundColor={
+              scheme === "dark" ? "secondaryBackground" : "matchBlurBackground"
+            }
+          >
             <Box
               style={styles.coverPhoto}
               position="absolute"

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 import _ from "lodash";
 
 import { Box, Text, RecipeThumbnail } from "@components";
@@ -48,6 +48,7 @@ const ListItem = ({
   index: number;
 }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const scheme = useColorScheme();
 
   const handleRecipePress = (recipeId: string) => {
     navigation.navigate("RecipeDetail", { recipe: recipeId });
@@ -71,7 +72,7 @@ const ListItem = ({
       {index !== 0 && (
         <Box
           backgroundColor="borderColor"
-          height={1.5}
+          height={scheme === "dark" ? 1.5 : 2}
           position="absolute"
           left={THUMBNAIL_SIZE + 24}
           right={16}
@@ -86,8 +87,10 @@ const ListItem = ({
           <Box
             width={THUMBNAIL_SIZE}
             height={THUMBNAIL_SIZE}
-            borderRadius="m"
+            borderRadius="l"
             overflow="hidden"
+            borderWidth={2}
+            borderColor={scheme === "dark" ? "quaternaryText" : "tertiaryText"}
           >
             <RecipeThumbnail
               source={{ uri: item.thumbnail }}
