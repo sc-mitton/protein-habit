@@ -27,7 +27,7 @@ const ProfileNavList = (props: BottomTabsScreenProps<"Profile">) => {
       <Box alignItems="center" gap="s">
         <Box
           accent
-          backgroundColor={"primaryButton"}
+          backgroundColor={"tertiaryText"}
           width={48}
           height={48}
           borderRadius="full"

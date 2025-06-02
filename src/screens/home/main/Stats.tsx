@@ -1,5 +1,10 @@
 import { memo, useEffect } from "react";
-import { Alert, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+} from "react-native";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "expo-image";
@@ -36,17 +41,23 @@ const styles = StyleSheet.create({
 const TintImage = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const accent = useAppSelector(selectAccent);
+  const scheme = useColorScheme();
 
-  const firstColor = accent ? theme.colors[accent] : theme.colors.primaryText;
+  const firstColor = lightenColor(
+    scheme === "dark" ? 5 : 20,
+    theme.colors[accent],
+  );
+  const secondColor = lightenColor(
+    scheme === "dark" ? -50 : -10,
+    theme.colors[accent],
+  );
 
-  const secondColor = accent
-    ? lightenColor(theme.colors[accent], 30)
-    : lightenColor(theme.colors.secondaryText, 10);
-
-  return (
-    <DuoTone firstColor={firstColor} secondColor={secondColor}>
+  return accent ? (
+    <DuoTone firstColor={`#${firstColor}`} secondColor={`#${secondColor}`}>
       {children}
     </DuoTone>
+  ) : (
+    <Box opacity={0.7}>{children}</Box>
   );
 };
 
