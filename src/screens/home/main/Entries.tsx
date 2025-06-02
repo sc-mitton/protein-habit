@@ -95,14 +95,14 @@ const Days = ({
           >
             <Box flexDirection="column" alignItems="center">
               <Text
-                variant="bold"
+                variant="body"
                 color={disabled ? "quaternaryText" : "secondaryText"}
               >
                 {dayjs().startOf("week").add(index, "day").format("D")}
               </Text>
               <Text
+                variant="body"
                 accent={!disabled}
-                fontSize={14}
                 color={disabled ? "quaternaryText" : "primaryText"}
               >
                 {dayjs().startOf("week").add(index, "day").format("dd")}
@@ -138,7 +138,7 @@ const Entries = () => {
       <Days day={day} setDay={setDay} />
       {(!daysEntries || daysEntries?.length <= 0) && (
         <Box flex={1} alignItems="center" justifyContent="center">
-          <Text color="quaternaryText" marginTop="nl" fontSize={15}>
+          <Text color="quaternaryText" marginTop="nl">
             No entries
           </Text>
         </Box>

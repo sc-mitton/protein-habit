@@ -40,12 +40,14 @@ const CalendarCell = ({
     <Box
       key={`cell-${dayInJS.format(dayFormat)}-${columnIndex}-${rowIndex}`}
       style={[styles.cell, { zIndex: isOpen ? 100 : 0 }]}
-      borderColor="borderColor"
-      borderTopWidth={1.5}
     >
       <Box
         style={[StyleSheet.absoluteFill]}
         opacity={0.3}
+        borderTopLeftRadius={columnIndex === 0 ? "sm" : "none"}
+        borderTopRightRadius={columnIndex === 6 ? "sm" : "none"}
+        borderBottomRightRadius={columnIndex === 6 ? "sm" : "none"}
+        borderBottomLeftRadius={columnIndex === 0 ? "sm" : "none"}
         backgroundColor={rowIndex % 2 == 0 ? "primaryButton" : "transparent"}
       />
       <Tip

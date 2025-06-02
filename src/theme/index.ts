@@ -43,7 +43,7 @@ const lightTheme = createTheme({
     lightBorderColor: palette.gray300,
     borderColorBold: palette.gray400,
     transparent: "transparent",
-    transparentRGB: "rgba(256, 256, 256 , 0)",
+    transparentRGB: "rgba(254, 254, 254 , 0)",
     error: "#ef4343",
     errorSecondary: "#ef4343",
     selected: "#007fff",

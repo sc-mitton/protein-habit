@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 
 export const ProgressPie: React.FC<ProgressPieProps> = ({
   progress,
-  size = 20,
+  size = 24,
 }) => {
   const theme = useTheme();
   const accent = useAppSelector(selectAccent);

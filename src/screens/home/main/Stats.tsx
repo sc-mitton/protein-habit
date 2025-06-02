@@ -82,7 +82,7 @@ const Stats = () => {
                   accent ? theme.colors[accent] : theme.colors.secondaryText
                 }
               />
-              <Text variant="miniHeader" accent={true} color="secondaryText">
+              <Text variant="body" accent={true} color="secondaryText">
                 Daily Goal
               </Text>
             </Box>
@@ -107,11 +107,16 @@ const Stats = () => {
                 )
               }
             >
-              <Box flexDirection="row" gap="s" alignItems="center">
+              <Box
+                flexDirection="row"
+                gap="s"
+                alignItems="center"
+                marginLeft="nxs"
+              >
                 <ProgressPie
                   progress={(dailyTarget - remainingProtein) / dailyTarget}
                 />
-                <Text color="secondaryText" variant="miniHeader" accent={true}>
+                <Text color="secondaryText" variant="body" accent={true}>
                   Remaining
                 </Text>
               </Box>
@@ -158,8 +163,8 @@ const Stats = () => {
                     />
                   }
                 />
-                <Text color="secondaryText" variant="miniHeader" accent={true}>
-                  Daily Average
+                <Text color="secondaryText" accent={true}>
+                  Daily Avg.
                 </Text>
               </Box>
             </TouchableOpacity>
@@ -192,7 +197,7 @@ const Stats = () => {
                   color="secondaryText"
                   borderColor="secondaryText"
                 />
-                <Text color="secondaryText" variant="miniHeader" accent={true}>
+                <Text color="secondaryText" variant="body" accent={true}>
                   Streak
                 </Text>
               </Box>

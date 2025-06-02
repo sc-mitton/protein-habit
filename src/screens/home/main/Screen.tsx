@@ -250,7 +250,7 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           pointerEvents="none"
           style={{
             opacity: scrollY.interpolate({
-              inputRange: [100, 200],
+              inputRange: [50, 150],
               outputRange: [0, 1],
               extrapolate: "clamp",
             }),
@@ -279,7 +279,9 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           <SectionHeader title="Entries" />
           <Entries />
           <Box padding="s" paddingTop="l" backgroundColor="mainBackground">
-            <Text color="tertiaryText">History</Text>
+            <Text variant="body" color="tertiaryText">
+              History
+            </Text>
           </Box>
           <Calendar />
         </ScrollView>
