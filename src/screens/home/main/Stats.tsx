@@ -1,14 +1,13 @@
 import { memo, useEffect } from "react";
-import { Alert, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import dayjs from "dayjs";
 import { useNavigation } from "@react-navigation/native";
-import { SymbolView } from "expo-symbols";
-import { Zap } from "geist-native-icons";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import Entypo from "@expo/vector-icons/Entypo";
+import { Image } from "expo-image";
 import { useTheme } from "@shopify/restyle";
+import { DuoTone } from "react-native-color-matrix-image-filters";
+import { lightenColor } from "@utils";
 
-import { Box, Text, Icon, ProgressPie } from "@components";
+import { Box, Text } from "@components";
 import {
   selectDailyProteinTarget,
   selectTotalProteinForDay,
@@ -20,9 +19,36 @@ import {
   setHasShownSuccessModal,
   selectAccent,
 } from "@store/slices/uiSlice";
-
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { dayFormat } from "@constants/formats";
+import flag from "@assets/3dicons/flag.png";
+import pie from "@assets/3dicons/pie.png";
+import bolt from "@assets/3dicons/bolt.png";
+import bar from "@assets/3dicons/bar.png";
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 20,
+    height: 20,
+  },
+});
+
+const TintImage = ({ children }: { children: React.ReactNode }) => {
+  const theme = useTheme();
+  const accent = useAppSelector(selectAccent);
+
+  const firstColor = accent ? theme.colors[accent] : theme.colors.primaryText;
+
+  const secondColor = accent
+    ? lightenColor(theme.colors[accent], 30)
+    : lightenColor(theme.colors.secondaryText, 10);
+
+  return (
+    <DuoTone firstColor={firstColor} secondColor={secondColor}>
+      {children}
+    </DuoTone>
+  );
+};
 
 const Stats = () => {
   const navigation = useNavigation<any>();
@@ -35,10 +61,7 @@ const Stats = () => {
   const totalProteinForDay = useAppSelector((state) =>
     selectTotalProteinForDay(state, dayjs().format("YYYY-MM-DD")),
   );
-  const accent = useAppSelector(selectAccent);
   const streak = useAppSelector(selectStreak);
-
-  const theme = useTheme();
   const remainingProtein = Math.max(dailyTarget - totalProteinForDay, 0);
 
   useEffect(() => {
@@ -66,22 +89,18 @@ const Stats = () => {
       marginTop="nml"
       paddingBottom="m"
     >
-      <Box flexDirection="row" gap="xxxl" marginBottom="xxl">
-        <Box gap="s" flex={1}>
+      <Box flexDirection="row" gap="xxxl" marginBottom="xl">
+        <Box flex={1}>
           <Box
             flexDirection={"row"}
             gap="s"
             paddingBottom="s"
             alignItems={"center"}
           >
-            <Box flexDirection="row" gap="s" alignItems="center">
-              <Ionicons
-                name="flag"
-                size={18}
-                color={
-                  accent ? theme.colors[accent] : theme.colors.secondaryText
-                }
-              />
+            <Box flexDirection="row" gap="xs" alignItems="center">
+              <TintImage>
+                <Image source={flag} style={styles.icon} />
+              </TintImage>
               <Text variant="body" accent={true} color="secondaryText">
                 Daily Goal
               </Text>
@@ -92,7 +111,7 @@ const Stats = () => {
             <Text variant="header">g</Text>
           </Box>
         </Box>
-        <Box gap="s" flex={1}>
+        <Box flex={1}>
           <Box
             flexDirection={"row"}
             gap="s"
@@ -107,15 +126,10 @@ const Stats = () => {
                 )
               }
             >
-              <Box
-                flexDirection="row"
-                gap="s"
-                alignItems="center"
-                marginLeft="nxs"
-              >
-                <ProgressPie
-                  progress={(dailyTarget - remainingProtein) / dailyTarget}
-                />
+              <Box flexDirection="row" gap="s" alignItems="center">
+                <TintImage>
+                  <Image source={pie} style={styles.icon} />
+                </TintImage>
                 <Text color="secondaryText" variant="body" accent={true}>
                   Remaining
                 </Text>
@@ -129,7 +143,7 @@ const Stats = () => {
         </Box>
       </Box>
       <Box flexDirection="row" gap="xxxl">
-        <Box paddingBottom="s" gap="s" flex={1}>
+        <Box paddingBottom="s" flex={1}>
           <Box
             flexDirection={"row"}
             gap="s"
@@ -145,24 +159,9 @@ const Stats = () => {
               }
             >
               <Box flexDirection="row" gap="s" alignItems="center">
-                <SymbolView
-                  name="chart.bar.xaxis"
-                  tintColor={
-                    accent ? theme.colors[accent] : theme.colors.secondaryText
-                  }
-                  size={20}
-                  fallback={
-                    <Entypo
-                      name="bar-graph"
-                      size={18}
-                      color={
-                        accent
-                          ? theme.colors[accent]
-                          : theme.colors.secondaryText
-                      }
-                    />
-                  }
-                />
+                <TintImage>
+                  <Image source={bar} style={styles.icon} />
+                </TintImage>
                 <Text color="secondaryText" accent={true}>
                   Daily Avg.
                 </Text>
@@ -174,7 +173,7 @@ const Stats = () => {
             <Text variant="header">g</Text>
           </Box>
         </Box>
-        <Box paddingBottom="s" gap="s" flex={1}>
+        <Box paddingBottom="s" flex={1}>
           <Box
             flexDirection={"row"}
             gap="s"
@@ -190,13 +189,9 @@ const Stats = () => {
               }
             >
               <Box flexDirection="row" gap="s" alignItems="center">
-                <Icon
-                  icon={Zap}
-                  accent={true}
-                  size={18}
-                  color="secondaryText"
-                  borderColor="secondaryText"
-                />
+                <TintImage>
+                  <Image source={bolt} style={styles.icon} />
+                </TintImage>
                 <Text color="secondaryText" variant="body" accent={true}>
                   Streak
                 </Text>
