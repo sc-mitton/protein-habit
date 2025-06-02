@@ -131,7 +131,7 @@ const CustomTabBar = ({
               theme.colors.secondaryBackground,
             ]}
             start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 0.8 }}
+            end={{ x: 0, y: 0.5 }}
             style={styles.gradient}
           />
         </Animated.View>
