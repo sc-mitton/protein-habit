@@ -57,7 +57,7 @@ const lightTheme = createTheme({
     primaryButton: palette.gray200,
     segmentedTab: palette.gray200,
     segmentedTabControl: palette.gray50,
-    inputBackground: palette.gray0,
+    inputBackground: palette.gray50,
     defaultShadow:
       Platform.OS === "android" ? palette.gray500 : palette.gray500,
     foodItemShadow:

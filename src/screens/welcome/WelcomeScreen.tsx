@@ -41,7 +41,6 @@ const WelcomeScreen = ({ navigation }: RootScreenProps<"Welcome">) => {
       </Box>
       <KeyboardAvoidingView>
         <TextInput
-          backgroundColor="borderColor"
           value={inputName}
           onChangeText={setInputName}
           onSubmitEditing={handleSubmit}

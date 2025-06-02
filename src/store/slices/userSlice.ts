@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { RootState } from "..";
 
 interface UserState {
+  id: string;
   name: string;
   weight: {
     value: number;
@@ -13,6 +15,7 @@ interface UserState {
 }
 
 export const initialState: UserState = {
+  id: Math.random().toString(36).substring(2, 15),
   name: "",
   weight: {
     value: 0,

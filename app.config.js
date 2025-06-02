@@ -83,8 +83,9 @@ export default {
       eas: {
         projectId: "baeb6fad-cd86-4bb9-b233-a9315e60eb68",
       },
+      posthogKey: "phc_VdqDv0f8YyIOeO9hk1OULIV37DW8Qlw9zotQuaURmVB",
     },
-    runtimeVersion: "1.0.0",
+    runtimeVersion: "1.0.2",
     plugins: [
       [
         "expo-sqlite",

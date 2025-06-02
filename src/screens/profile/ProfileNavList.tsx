@@ -221,7 +221,7 @@ const ProfileNavList = (props: BottomTabsScreenProps<"Profile">) => {
           padding="none"
           onPress={() => {
             WebBrowser.openBrowserAsync(
-              "https://northof60labs.com/proteinhabit/terms",
+              "https://www.northof60labs.com/proteinhabit/terms",
             );
           }}
         />
@@ -235,7 +235,7 @@ const ProfileNavList = (props: BottomTabsScreenProps<"Profile">) => {
           label="Privacy"
           onPress={() => {
             WebBrowser.openBrowserAsync(
-              "https://northof60labs.com/proteinhabit/privacy",
+              "https://www.northof60labs.com/proteinhabit/privacy",
             );
           }}
         />

@@ -38,11 +38,17 @@ const migrations = {
       user: { ...state.user, entitlement: "" },
     };
   },
+  40: (state: RootState) => {
+    return {
+      ...state,
+      user: { ...state.user, id: Math.random().toString(36).substring(2, 15) },
+    };
+  },
 } as any;
 
 const persistConfig = {
   key: "root",
-  version: 39,
+  version: 40,
   storage: AsyncStorage,
   migrate: createMigrate(migrations),
   blacklist: [],

@@ -250,7 +250,7 @@ const HomeMain = (props: BottomTabsScreenProps<"Home">) => {
           pointerEvents="none"
           style={{
             opacity: scrollY.interpolate({
-              inputRange: [0, 100],
+              inputRange: [100, 200],
               outputRange: [0, 1],
               extrapolate: "clamp",
             }),
